@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKit", "ZenKit\ZenKit.csproj", "{AAF21486-6A98-42DD-AAAC-6894DA76A76F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKitTest", "ZenKitTest\ZenKitTest.csproj", "{21900B0F-7454-46DB-912C-AA6B94FA333C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAF21486-6A98-42DD-AAAC-6894DA76A76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAF21486-6A98-42DD-AAAC-6894DA76A76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAF21486-6A98-42DD-AAAC-6894DA76A76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAF21486-6A98-42DD-AAAC-6894DA76A76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21900B0F-7454-46DB-912C-AA6B94FA333C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21900B0F-7454-46DB-912C-AA6B94FA333C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21900B0F-7454-46DB-912C-AA6B94FA333C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21900B0F-7454-46DB-912C-AA6B94FA333C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

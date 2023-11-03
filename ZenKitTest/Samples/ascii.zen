@@ -1,0 +1,35 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 01.01.2001 00:00:00
+user luis
+END
+objects 23
+END
+
+[root_obj % 21237 1]
+	someField0=string:a basic string
+	someField00=bool:1
+
+	[skipped % 0 3]
+		skippedField=string:skipped
+	[]
+
+	someField1=int:672
+	someField2=float:12.12421
+	someField3=int:255
+	someField4=int:32621
+	someField5=enum:6
+	someField6=bool:1
+	someField7=color:1 2 3 255
+	someField8=vec3:50 100.123 -150
+	someField9=rawFloat:111.11 -12.99
+	someField10=rawFloat:12 34 56 78 89 0
+	someField11=raw:d8a47e3f00000000e584d23d000000000000803f00000000e584d2bd00000000d8a47e3f
+	someField12=raw:f242a710
+
+	[child_obj test:class:name 7323 2]
+	[]
+[]

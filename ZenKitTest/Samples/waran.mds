@@ -1,0 +1,56 @@
+Model("TestModel") {
+	meshAndTree("TestModelMesh.asc" 	DONT_USE_MESH)
+	registerMesh("AnotherTestModelMesh1.asc")
+	registerMesh("AnotherTestModelMesh2.asc")
+
+	// A comment.
+
+	aniEnum {
+		ani("aniName1" 111 "aniNext1" 4.2 0.5 MI "aniModel1" F 221 -331 FPS:25 CVS:0.2
+
+		ani("aniName2" 112 "aniNext2" 9.0 0 M. "aniModel2" R 222 332) {
+			*eventTag(0 "DEF_DROP_TORCH" ATTACH)
+			*eventTag(1 "DEF_WINDOW" "1 2 3 4 5")
+			*eventTag("DEF_CREATE_ITEM" "eventSlot" "eventItem")
+
+			*eventSFX(3 "sfxName1" EMPTY_SLOT)
+			*eventSFX(4 "sfxName2" R:67.4)
+			*eventSFX(4 "sfxName3" R:98.1 EMTPY_SLOT)
+			*eventSFXGrnd(5 "sfxGrndName")
+
+			*eventPFX(6 "pfxName1" "pfxPosition1" ATTACH)
+			*eventPFX(7 991 "pfxName2" "pfxPosition2")
+			*eventPFX(9 991 "pfxName3" "pfxPosition3" "ATTACH")
+			*eventPFXStop(8 992)
+
+			*eventMMStartAni(9 "mmAni1")
+			*eventMMStartAni(10 "mmAni2" "mmNode")
+
+			*eventCamTremor(11 881 882 883 884)
+		}
+
+		// Another comment.
+		/ Maybe even more :>
+
+		aniBlend(  ("blendName1" "blendNext1")
+		aniBlend("blendName2" 113 "blendNext2")
+
+		aniBlend("blendName3" "blendNext3" 223.1 333.1) {
+			*eventSFX(4 "sfxName2" R:67.4)
+		}
+
+		aniAlias("aliasName1" 114 "aliasNext1" 100.1 200.2 RE "aliasAlias1")
+		aniAlias("aliasName2" 115 "aliasNext2" 101.1 201.2 .F "aliasAlias2" R)
+
+		aniComb("combName1" 116 "combNext1" 102.1 202.2 M "combModel1" 226) {
+			*eventTag(0 "DEF_DROP_TORCH" ATTACH)
+		}
+
+		aniComb("combName2" 117 "combNext2" 103.1 203.2 I. "combModel2" 227)
+
+		AniDisable("disable1")
+		aniDisable("disable2")
+
+		modelTag("DEF_HIT_LIMB" "tag1")
+		modelTag("DEF_HIT_LIMB" "tag2")
+	}

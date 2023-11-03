@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>ZenKit</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Runtimes\android-x64\"/>
+        <Folder Include="Runtimes\osx-x64\"/>
+        <Folder Include="Runtimes\win-x64\"/>
+        <None Update="Runtimes\**" CopyToOutputDirectory="PreserveNewest"/>
+    </ItemGroup>
+
+</Project>
