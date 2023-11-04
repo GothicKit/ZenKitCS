@@ -9,10 +9,48 @@ internal static class Marshalling
 	{
 		return Marshal.PtrToStringUTF8(ptr);
 	}
+
+	public static T[] MarshalAsArray<T>(this IntPtr ptr, ulong size)
+	{
+		if (ptr == IntPtr.Zero) return Array.Empty<T>();
+
+		var array = new T[size];
+		switch (array)
+		{
+			case byte[] _:
+			case sbyte[] _:
+				Marshal.Copy(ptr, (byte[])(object)array, 0, (int)size);
+				break;
+			case short[] _:
+			case ushort[] _:
+				Marshal.Copy(ptr, (short[])(object)array, 0, (int)size);
+				break;
+			case int[] _:
+			case uint[] _:
+				Marshal.Copy(ptr, (int[])(object)array, 0, (int)size);
+				break;
+			case long[] _:
+			case ulong[] _:
+				Marshal.Copy(ptr, (long[])(object)array, 0, (int)size);
+				break;
+			case float[] _:
+				Marshal.Copy(ptr, (float[])(object)array, 0, (int)size);
+				break;
+			case double[] _:
+				Marshal.Copy(ptr, (double[])(object)array, 0, (int)size);
+				break;
+			default:
+				throw new ArgumentException($"{array.GetType()}[] is not supported yet");
+		}
+
+		return array;
+	}
 }
 
 internal static class Native
 {
+	public delegate bool ZkAnimationSampleEnumerator(UIntPtr ctx, IntPtr sample);
+
 	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -203,6 +241,83 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern void ZkFont_enumerateGlyphs(UIntPtr slf, ZkFontGlyphEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelAnimation_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelAnimation_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelAnimation_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelAnimation_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelAnimation_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelAnimation_getNext(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U4)]
+	public static extern uint ZkModelAnimation_getLayer(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U4)]
+	public static extern uint ZkModelAnimation_getFrameCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U4)]
+	public static extern uint ZkModelAnimation_getNodeCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkModelAnimation_getFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkModelAnimation_getFpsSource(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AxisAlignedBoundingBox ZkModelAnimation_getBbox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U4)]
+	public static extern uint ZkModelAnimation_getChecksum(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelAnimation_getSourcePath(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkDate ZkModelAnimation_getSourceDate(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelAnimation_getSourceScript(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U8)]
+	public static extern ulong ZkModelAnimation_getSampleCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AnimationSample ZkModelAnimation_getSample(UIntPtr slf, [MarshalAs(UnmanagedType.U8)] ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelAnimation_enumerateSamples(UIntPtr slf, ZkAnimationSampleEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelAnimation_getNodeIndices(UIntPtr slf, out ulong size);
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct ZkDate
+	{
+		[MarshalAs(UnmanagedType.U4)] public uint year;
+		[MarshalAs(UnmanagedType.U2)] public ushort month;
+		[MarshalAs(UnmanagedType.U2)] public ushort day;
+		[MarshalAs(UnmanagedType.U2)] public ushort hour;
+		[MarshalAs(UnmanagedType.U2)] public ushort minute;
+		[MarshalAs(UnmanagedType.U2)] public ushort second;
+	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkReadExt
