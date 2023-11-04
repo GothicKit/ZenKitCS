@@ -49,14 +49,7 @@ public class ModelAnimation
 	public string SourcePath => Native.ZkModelAnimation_getSourcePath(_handle).MarshalAsString() ??
 	                            throw new Exception("Failed to load model animation source path");
 
-	public DateTime SourceDate
-	{
-		get
-		{
-			var date = Native.ZkModelAnimation_getSourceDate(_handle);
-			return new DateTime((int)date.year, date.month, date.day, date.hour, date.minute, date.second);
-		}
-	}
+	public DateTime SourceDate => Native.ZkModelAnimation_getSourceDate(_handle).AsDateTime();
 
 	public string SourceScript => Native.ZkModelAnimation_getSourceScript(_handle).MarshalAsString() ??
 	                              throw new Exception("Failed to load model animation source script");

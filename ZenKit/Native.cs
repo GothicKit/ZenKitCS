@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -58,6 +59,9 @@ internal static class Native
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void ZkLogger(UIntPtr ctx, LogLevel lvl, string name, string message);
+
+
+	public delegate bool ZkModelHierarchyNodeEnumerator(UIntPtr ctx, IntPtr node);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate bool ZkVfsNodeEnumerator(UIntPtr ctx, UIntPtr node);
@@ -308,6 +312,67 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern IntPtr ZkModelAnimation_getNodeIndices(UIntPtr slf, out ulong size);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelHierarchy_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelHierarchy_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelHierarchy_loadVfs(UIntPtr buf, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelHierarchy_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelHierarchy_getNodeCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ModelHierarchyNode ZkModelHierarchy_getNode(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern AxisAlignedBoundingBox ZkModelHierarchy_getBbox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AxisAlignedBoundingBox ZkModelHierarchy_getCollisionBbox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkModelHierarchy_getRootTranslation(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkModelHierarchy_getChecksum(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkDate ZkModelHierarchy_getSourceDate(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelHierarchy_getSourcePath(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelHierarchy_enumerateNodes(UIntPtr slf, ZkModelHierarchyNodeEnumerator cb,
+		UIntPtr ctx);
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct ZkMat4x4
+	{
+		public float m00,
+			m01,
+			m02,
+			m03,
+			m10,
+			m11,
+			m12,
+			m13,
+			m20,
+			m21,
+			m22,
+			m23,
+			m30,
+			m31,
+			m32,
+			m33;
+	}
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkDate
 	{
@@ -317,6 +382,11 @@ internal static class Native
 		[MarshalAs(UnmanagedType.U2)] public ushort hour;
 		[MarshalAs(UnmanagedType.U2)] public ushort minute;
 		[MarshalAs(UnmanagedType.U2)] public ushort second;
+
+		public DateTime AsDateTime()
+		{
+			return new DateTime((int)year, month, day, hour, minute, second);
+		}
 	}
 
 	[StructLayout(LayoutKind.Sequential)]
