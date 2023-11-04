@@ -16,6 +16,9 @@ internal static class Native
 	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+	public delegate bool ZkFontGlyphEnumerator(UIntPtr ctx, IntPtr glyph);
+
+	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void ZkLogger(UIntPtr ctx, LogLevel lvl, string name, string message);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -171,6 +174,35 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern IntPtr ZkCutsceneMessage_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkFont_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkFont_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkFont_loadVfs(UIntPtr buf, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkFont_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkFont_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U4)]
+	public static extern uint ZkFont_getHeight(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U8)]
+	public static extern ulong ZkFont_getGlyphCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern FontGlyph ZkFont_getGlyph(UIntPtr slf, [MarshalAs(UnmanagedType.U8)] ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkFont_enumerateGlyphs(UIntPtr slf, ZkFontGlyphEnumerator cb, UIntPtr ctx);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkReadExt

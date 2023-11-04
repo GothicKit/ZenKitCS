@@ -1,18 +1,19 @@
-using System.Reflection.Metadata;
-
 namespace ZenKit;
 
 public class CutsceneMessage
 {
 	private readonly UIntPtr _handle;
 
-	internal CutsceneMessage(UIntPtr handle) => _handle = handle;
+	internal CutsceneMessage(UIntPtr handle)
+	{
+		_handle = handle;
+	}
 
 	public uint Type => Native.ZkCutsceneMessage_getType(_handle);
 
 	public string Text => Native.ZkCutsceneMessage_getText(_handle).MarshalAsString() ??
 	                      throw new Exception("Failed to get cutscene message text");
-	
+
 	public string Name => Native.ZkCutsceneMessage_getName(_handle).MarshalAsString() ??
 	                      throw new Exception("Failed to get cutscene message name");
 }
@@ -21,7 +22,10 @@ public class CutsceneBlock
 {
 	private readonly UIntPtr _handle;
 
-	internal CutsceneBlock(UIntPtr handle) => _handle = handle;
+	internal CutsceneBlock(UIntPtr handle)
+	{
+		_handle = handle;
+	}
 
 	public string Name => Native.ZkCutsceneBlock_getName(_handle).MarshalAsString() ??
 	                      throw new Exception("Failed to get cutscene block name");
@@ -41,7 +45,7 @@ public class CutsceneBlock
 public class CutsceneLibrary
 {
 	private readonly UIntPtr _handle;
-	
+
 	public CutsceneLibrary(string path)
 	{
 		_handle = Native.ZkCutsceneLibrary_loadPath(path);
@@ -60,14 +64,12 @@ public class CutsceneLibrary
 		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
 	}
 
-	~CutsceneLibrary() => Native.ZkCutsceneLibrary_del(_handle);
-
 	public List<CutsceneBlock> Blocks
 	{
 		get
 		{
 			var blocks = new List<CutsceneBlock>();
-			
+
 			Native.ZkCutsceneLibrary_enumerateBlocks(_handle, (_, block) =>
 			{
 				blocks.Add(new CutsceneBlock(block));
@@ -76,6 +78,11 @@ public class CutsceneLibrary
 
 			return blocks;
 		}
+	}
+
+	~CutsceneLibrary()
+	{
+		Native.ZkCutsceneLibrary_del(_handle);
 	}
 
 	public CutsceneBlock? GetBlock(string name)
