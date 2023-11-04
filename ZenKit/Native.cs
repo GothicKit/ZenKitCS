@@ -13,6 +13,8 @@ internal static class Marshalling
 
 internal static class Native
 {
+	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
+
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void ZkLogger(UIntPtr ctx, LogLevel lvl, string name, string message);
 
@@ -135,6 +137,40 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern void ZkVfsNode_enumerateChildren(UIntPtr slf, ZkVfsNodeEnumerator callback, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneLibrary_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneLibrary_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneLibrary_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkCutsceneLibrary_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneLibrary_getBlock(UIntPtr slf, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkCutsceneLibrary_enumerateBlocks(UIntPtr slf, ZkCutsceneBlockEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkCutsceneBlock_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneBlock_getMessage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	[return: MarshalAs(UnmanagedType.U4)]
+	public static extern uint ZkCutsceneMessage_getType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkCutsceneMessage_getText(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkCutsceneMessage_getName(UIntPtr slf);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkReadExt
