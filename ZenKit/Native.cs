@@ -85,6 +85,8 @@ internal static class Native
 
 	public delegate bool ZkSubMeshEnumerator(UIntPtr ctx, UIntPtr subMesh);
 
+	public delegate bool ZkTextureMipmapEnumerator(UIntPtr ctx, ulong level, IntPtr data, ulong size);
+
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate bool ZkVfsNodeEnumerator(UIntPtr ctx, UIntPtr node);
 
@@ -630,11 +632,75 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern UIntPtr ZkModel_getMesh(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTexture_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTexture_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTexture_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTexture_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern TextureFormat ZkTexture_getFormat(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getWidth(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getHeight(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getWidthMipmap(UIntPtr slf, ulong level);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getHeightMipmap(UIntPtr slf, ulong level);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getWidthRef(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getHeightRef(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getMipmapCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkTexture_getAverageColor(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTexture_getPalette(UIntPtr slf, out ulong size);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTexture_getMipmapRaw(UIntPtr slf, ulong level, out ulong size);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkTexture_getMipmapRgba(UIntPtr slf, ulong level, byte[] buf, ulong size);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTexture_enumerateRawMipmaps(UIntPtr slf, ZkTextureMipmapEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTexture_enumerateRgbaMipmaps(UIntPtr slf, ZkTextureMipmapEnumerator cb, UIntPtr ctx);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
 	{
 		public byte R, G, B, A;
+
+		public Color ToColor()
+		{
+			return Color.FromArgb(A, R, G, B);
+		}
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct ZkColorArgb
+	{
+		public byte A, R, G, B;
 
 		public Color ToColor()
 		{
