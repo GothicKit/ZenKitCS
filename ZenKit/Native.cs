@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -37,11 +38,18 @@ internal static class Marshalling
 			case float[] _:
 				Marshal.Copy(ptr, (float[])(object)array, 0, (int)size);
 				break;
-			case double[] _:
-				Marshal.Copy(ptr, (double[])(object)array, 0, (int)size);
-				break;
 			default:
-				throw new ArgumentException($"{array.GetType()}[] is not supported yet");
+				var sizeofT = Marshal.SizeOf<T>();
+
+				for (var i = 0; i < (int)size; ++i)
+				{
+					var val = Marshal.PtrToStructure<T>(new IntPtr(ptr.ToInt64() + sizeofT * i));
+					if (val == null) throw new ArgumentException("PtrToStructure is null?");
+
+					array[i] = val;
+				}
+
+				break;
 		}
 
 		return array;
@@ -60,8 +68,15 @@ internal static class Native
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void ZkLogger(UIntPtr ctx, LogLevel lvl, string name, string message);
 
+	public delegate bool ZkMaterialEnumerator(UIntPtr ctx, UIntPtr material);
+
 
 	public delegate bool ZkModelHierarchyNodeEnumerator(UIntPtr ctx, IntPtr node);
+
+	public delegate bool ZkOrientedBoundingBoxEnumerator(UIntPtr ctx, UIntPtr box);
+
+
+	public delegate bool ZkSubMeshEnumerator(UIntPtr ctx, UIntPtr subMesh);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate bool ZkVfsNodeEnumerator(UIntPtr ctx, UIntPtr node);
@@ -351,6 +366,198 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern void ZkModelHierarchy_enumerateNodes(UIntPtr slf, ZkModelHierarchyNodeEnumerator cb,
 		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkOrientedBoundingBox_getCenter(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkOrientedBoundingBox_getAxis(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkOrientedBoundingBox_getHalfWidth(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkOrientedBoundingBox_getChildCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkOrientedBoundingBox_getChild(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkOrientedBoundingBox_enumerateChildren(UIntPtr slf, ZkOrientedBoundingBoxEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern AxisAlignedBoundingBox ZkOrientedBoundingBox_toAabb(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMaterial_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMaterial_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMaterial_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMaterial_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern MaterialGroup ZkMaterial_getGroup(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkColor ZkMaterial_getColor(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMaterial_getSmoothAngle(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMaterial_getTexture(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector2 ZkMaterial_getTextureScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMaterial_getTextureAnimationFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AnimationMapping ZkMaterial_getTextureAnimationMapping(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector2 ZkMaterial_getTextureAnimationMappingDirection(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMaterial_getDisableCollision(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMaterial_getDisableLightmap(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMaterial_getDontCollapse(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMaterial_getDetailObject(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMaterial_getDetailObjectScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMaterial_getForceOccluder(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMaterial_getEnvironmentMapping(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMaterial_getEnvironmentMappingStrength(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern WaveMode ZkMaterial_getWaveMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern WaveSpeed ZkMaterial_getWaveSpeed(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMaterial_getWaveAmplitude(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMaterial_getWaveGridSize(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMaterial_getIgnoreSun(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AlphaFunction ZkMaterial_getAlphaFunction(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector2 ZkMaterial_getDefaultMapping(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMultiResolutionMesh_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMultiResolutionMesh_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMultiResolutionMesh_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMultiResolutionMesh_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMultiResolutionMesh_getPositions(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMultiResolutionMesh_getNormals(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkMultiResolutionMesh_getSubMeshCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMultiResolutionMesh_getSubMesh(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void
+		ZkMultiResolutionMesh_enumerateSubMeshes(UIntPtr slf, ZkSubMeshEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkMultiResolutionMesh_getMaterialCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMultiResolutionMesh_getMaterial(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMultiResolutionMesh_enumerateMaterials(UIntPtr slf, ZkMaterialEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMultiResolutionMesh_getAlphaTest(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AxisAlignedBoundingBox ZkMultiResolutionMesh_getBbox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMultiResolutionMesh_getOrientedBbox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkSubMesh_getMaterial(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getTriangles(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getWedges(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getColors(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getTrianglePlaneIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getTrianglePlanes(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getTriangleEdges(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getEdges(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getEdgeScores(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSubMesh_getWedgeMap(UIntPtr slf, out ulong count);
+
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct ZkColor
+	{
+		public byte R, G, B, A;
+
+		public Color ToColor()
+		{
+			return Color.FromArgb(A, R, G, B);
+		}
+	}
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkMat4x4
