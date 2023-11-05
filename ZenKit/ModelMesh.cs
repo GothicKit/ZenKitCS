@@ -2,6 +2,7 @@ namespace ZenKit;
 
 public class ModelMesh
 {
+	private readonly bool _delete = true;
 	private readonly UIntPtr _handle;
 
 	public ModelMesh(string path)
@@ -20,6 +21,12 @@ public class ModelMesh
 	{
 		_handle = Native.ZkModelMesh_loadVfs(vfs.Handle, name);
 		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load model mesh");
+	}
+
+	public ModelMesh(UIntPtr handle)
+	{
+		_handle = handle;
+		_delete = false;
 	}
 
 	public ulong MeshCount => Native.ZkModelMesh_getMeshCount(_handle);
@@ -65,7 +72,7 @@ public class ModelMesh
 
 	~ModelMesh()
 	{
-		Native.ZkModelMesh_del(_handle);
+		if (_delete) Native.ZkModelMesh_del(_handle);
 	}
 
 	public SoftSkinMesh GetMesh(ulong i)

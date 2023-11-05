@@ -35,6 +35,7 @@ public struct ModelHierarchyNode
 
 public class ModelHierarchy
 {
+	private readonly bool _delete = true;
 	private readonly UIntPtr _handle;
 
 	public ModelHierarchy(string path)
@@ -53,6 +54,12 @@ public class ModelHierarchy
 	{
 		_handle = Native.ZkModelHierarchy_loadVfs(vfs.Handle, name);
 		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load model hierarchy");
+	}
+
+	public ModelHierarchy(UIntPtr handle)
+	{
+		_handle = handle;
+		_delete = false;
 	}
 
 	public ulong NodeCount => Native.ZkModelHierarchy_getNodeCount(_handle);
@@ -83,7 +90,7 @@ public class ModelHierarchy
 
 	~ModelHierarchy()
 	{
-		Native.ZkModelHierarchy_del(_handle);
+		if (_delete) Native.ZkModelHierarchy_del(_handle);
 	}
 
 	public ModelHierarchyNode GetNode(ulong i)

@@ -612,6 +612,24 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern uint ZkModelMesh_getChecksum(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModel_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModel_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModel_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModel_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModel_getHierarchy(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModel_getMesh(UIntPtr slf);
+
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
