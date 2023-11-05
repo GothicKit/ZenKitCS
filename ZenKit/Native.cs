@@ -60,6 +60,8 @@ internal static class Native
 {
 	public delegate bool ZkAnimationSampleEnumerator(UIntPtr ctx, IntPtr sample);
 
+	public delegate bool ZkAttachmentEnumerator(UIntPtr ctx, IntPtr name, UIntPtr mesh);
+
 	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -74,6 +76,11 @@ internal static class Native
 	public delegate bool ZkModelHierarchyNodeEnumerator(UIntPtr ctx, IntPtr node);
 
 	public delegate bool ZkOrientedBoundingBoxEnumerator(UIntPtr ctx, UIntPtr box);
+
+	public delegate bool ZkSoftSkinMeshEnumerator(UIntPtr ctx, UIntPtr mesh);
+
+
+	public delegate bool ZkSoftSkinWeightEnumerator(UIntPtr ctx, IntPtr entry, ulong count);
 
 
 	public delegate bool ZkSubMeshEnumerator(UIntPtr ctx, UIntPtr subMesh);
@@ -546,6 +553,64 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern IntPtr ZkSubMesh_getWedgeMap(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkSoftSkinMesh_getNodeCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkSoftSkinMesh_getMesh(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkSoftSkinMesh_getBbox(UIntPtr slf, ulong node);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkSoftSkinMesh_enumerateBoundingBoxes(UIntPtr slf, ZkOrientedBoundingBoxEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSoftSkinMesh_getWeights(UIntPtr slf, ulong node, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkSoftSkinMesh_enumerateWeights(UIntPtr slf, ZkSoftSkinWeightEnumerator cb, UIntPtr node);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSoftSkinMesh_getWedgeNormals(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSoftSkinMesh_getNodes(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelMesh_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelMesh_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelMesh_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelMesh_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelMesh_getMeshCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelMesh_getMesh(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelMesh_enumerateMeshes(UIntPtr slf, ZkSoftSkinMeshEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelMesh_getAttachmentCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelMesh_getAttachment(UIntPtr slf, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelMesh_enumerateAttachments(UIntPtr slf, ZkAttachmentEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkModelMesh_getChecksum(UIntPtr slf);
 
 
 	[StructLayout(LayoutKind.Sequential)]

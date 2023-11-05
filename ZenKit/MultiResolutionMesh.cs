@@ -69,6 +69,7 @@ public class MultiResolutionSubMesh
 
 public class MultiResolutionMesh
 {
+	private readonly bool _delete = true;
 	private readonly UIntPtr _handle;
 
 	public MultiResolutionMesh(Read buf)
@@ -87,6 +88,12 @@ public class MultiResolutionMesh
 	{
 		_handle = Native.ZkMultiResolutionMesh_loadVfs(vfs.Handle, name);
 		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load multi resolution mesh");
+	}
+
+	internal MultiResolutionMesh(UIntPtr handle)
+	{
+		_handle = handle;
+		_delete = false;
 	}
 
 	public Vector3[] Positions =>
@@ -138,7 +145,7 @@ public class MultiResolutionMesh
 
 	~MultiResolutionMesh()
 	{
-		Native.ZkMultiResolutionMesh_del(_handle);
+		if (_delete) Native.ZkMultiResolutionMesh_del(_handle);
 	}
 
 	public MultiResolutionSubMesh? GetSubMesh(ulong i)
