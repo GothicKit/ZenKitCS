@@ -59,6 +59,7 @@ public class Polygon
 
 public class Mesh
 {
+	private readonly bool _delete = true;
 	private readonly UIntPtr _handle;
 
 
@@ -78,6 +79,12 @@ public class Mesh
 	{
 		_handle = Native.ZkMesh_loadVfs(vfs.Handle, name);
 		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load mesh");
+	}
+
+	internal Mesh(UIntPtr handle)
+	{
+		_handle = handle;
+		_delete = false;
 	}
 
 	public DateTime SourceDate => Native.ZkMesh_getSourceDate(_handle).AsDateTime();
@@ -146,7 +153,7 @@ public class Mesh
 
 	~Mesh()
 	{
-		Native.ZkMesh_del(_handle);
+		if (_delete) Native.ZkMesh_del(_handle);
 	}
 
 	public Material GetMaterial(ulong i)

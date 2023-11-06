@@ -71,6 +71,8 @@ internal static class Native
 
 	public delegate bool ZkAttachmentEnumerator(UIntPtr ctx, IntPtr name, UIntPtr mesh);
 
+	public delegate bool ZkBspSectorEnumerator(UIntPtr ctx, UIntPtr sector);
+
 	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
 
 	public delegate bool ZkEventCameraTremorEnumerator(UIntPtr ctx, UIntPtr evt);
@@ -122,6 +124,10 @@ internal static class Native
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate bool ZkVfsNodeEnumerator(UIntPtr ctx, UIntPtr node);
+
+	public delegate bool ZkVirtualObjectEnumerator(UIntPtr ctx, UIntPtr vob);
+
+	public delegate bool ZkWayPointEnumerator(UIntPtr ctx, UIntPtr point);
 
 	private const string DLLNAME = "zenkit";
 
@@ -1244,6 +1250,105 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern AnimationDirection ZkAnimationAlias_getDirection(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern BspTreeType ZkBspTree_getType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspTree_getPolygonIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspTree_getLeafPolygonIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspTree_getPortalPolygonIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspTree_getLightPoints(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspTree_getLeafNodeIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspTree_getNodes(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkBspTree_getSectorCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkBspTree_getSector(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkBspTree_enumerateSectors(UIntPtr slf, ZkBspSectorEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspSector_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspSector_getNodeIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkBspSector_getPortalPolygonIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkWayNet_getEdges(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkWayNet_getPointCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWayNet_getPoint(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkWayNet_enumeratePoints(UIntPtr slf, ZkWayPointEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkWayPoint_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkWayPoint_getWaterDepth(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkWayPoint_getUnderWater(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkWayPoint_getPosition(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkWayPoint_getDirection(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkWayPoint_getFreePoint(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWorld_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWorld_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWorld_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkWorld_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWorld_getMesh(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWorld_getBspTree(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWorld_getWayNet(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkWorld_getRootObjectCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkWorld_getRootObject(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkWorld_enumerateRootObjects(UIntPtr slf, ZkVirtualObjectEnumerator cb, UIntPtr ctx);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
