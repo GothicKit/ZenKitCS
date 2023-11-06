@@ -7,5 +7,6 @@
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.TestMultiResolutionMesh&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.TestModelMesh&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.TestTexture&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.TestMorphMesh&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -75,6 +75,10 @@ internal static class Native
 
 	public delegate bool ZkModelHierarchyNodeEnumerator(UIntPtr ctx, IntPtr node);
 
+	public delegate bool ZkMorphAnimationEnumerator(UIntPtr ctx, UIntPtr anim);
+
+	public delegate bool ZkMorphSourceEnumerator(UIntPtr ctx, UIntPtr src);
+
 	public delegate bool ZkOrientedBoundingBoxEnumerator(UIntPtr ctx, UIntPtr box);
 
 	public delegate bool ZkSoftSkinMeshEnumerator(UIntPtr ctx, UIntPtr mesh);
@@ -686,6 +690,82 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern void ZkTexture_enumerateRgbaMipmaps(UIntPtr slf, ZkTextureMipmapEnumerator cb, UIntPtr ctx);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMorphMesh_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMorphMesh_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMorphMesh_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMorphMesh_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphMesh_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMorphMesh_getMesh(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphMesh_getMorphPositions(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkMorphMesh_getAnimationCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMorphMesh_getAnimation(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMorphMesh_enumerateAnimations(UIntPtr slf, ZkMorphAnimationEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkMorphMesh_getSourceCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMorphMesh_getSource(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMorphMesh_enumerateSources(UIntPtr slf, ZkMorphSourceEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphAnimation_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkMorphAnimation_getLayer(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMorphAnimation_getBlendIn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMorphAnimation_getBlendOut(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMorphAnimation_getDuration(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMorphAnimation_getSpeed(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern byte ZkMorphAnimation_getFlags(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkMorphAnimation_getFrameCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphAnimation_getVertices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphAnimation_getSamples(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphSource_getFileName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkDate ZkMorphSource_getFileDate(UIntPtr slf);
+
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
 	{
@@ -729,7 +809,7 @@ internal static class Native
 			m33;
 	}
 
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential, Size = 16)]
 	public struct ZkDate
 	{
 		[MarshalAs(UnmanagedType.U4)] public uint year;
