@@ -67,6 +67,8 @@ internal static class Native
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate bool ZkFontGlyphEnumerator(UIntPtr ctx, IntPtr glyph);
 
+	public delegate bool ZkLightMapEnumerator(UIntPtr ctx, UIntPtr lightMap);
+
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate void ZkLogger(UIntPtr ctx, LogLevel lvl, string name, string message);
 
@@ -80,6 +82,8 @@ internal static class Native
 	public delegate bool ZkMorphSourceEnumerator(UIntPtr ctx, UIntPtr src);
 
 	public delegate bool ZkOrientedBoundingBoxEnumerator(UIntPtr ctx, UIntPtr box);
+
+	public delegate bool ZkPolygonEnumerator(UIntPtr ctx, UIntPtr polygon);
 
 	public delegate bool ZkSoftSkinMeshEnumerator(UIntPtr ctx, UIntPtr mesh);
 
@@ -764,6 +768,114 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern ZkDate ZkMorphSource_getFileDate(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMesh_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMesh_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMesh_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMesh_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkDate ZkMesh_getSourceDate(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMesh_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AxisAlignedBoundingBox ZkMesh_getBoundingBox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMesh_getOrientedBoundingBox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkMesh_getMaterialCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMesh_getMaterial(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMesh_enumerateMaterials(UIntPtr slf, ZkMaterialEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMesh_getPositions(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMesh_getVertices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkMesh_getLightMapCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMesh_getLightMap(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMesh_enumerateLightMaps(UIntPtr slf, ZkLightMapEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkMesh_getPolygonCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMesh_getPolygon(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMesh_enumeratePolygons(UIntPtr slf, ZkPolygonEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkLightMap_getImage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkLightMap_getOrigin(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkLightMap_getNormal(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkPolygon_getMaterialIndex(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkPolygon_getLightMapIndex(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkPolygon_getPositionIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkPolygon_getPolygonIndices(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getIsPortal(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getIsOccluder(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getIsSector(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getShouldRelight(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getIsOutdoor(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getIsGhostOccluder(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getIsDynamicallyLit(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkPolygon_getIsLod(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern byte ZkPolygon_getNormalAxis(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ushort ZkPolygon_getSectorIndex(UIntPtr slf);
 
 
 	[StructLayout(LayoutKind.Sequential)]

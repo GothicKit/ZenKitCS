@@ -23,6 +23,7 @@ public enum TextureFormat
 
 public class Texture
 {
+	private readonly bool _delete = true;
 	private readonly UIntPtr _handle;
 
 	public Texture(string path)
@@ -41,6 +42,12 @@ public class Texture
 	{
 		_handle = Native.ZkTexture_loadVfs(vfs.Handle, name);
 		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
+	}
+
+	internal Texture(UIntPtr handle)
+	{
+		_handle = handle;
+		_delete = false;
 	}
 
 	public TextureFormat Format => Native.ZkTexture_getFormat(_handle);
@@ -110,7 +117,7 @@ public class Texture
 
 	~Texture()
 	{
-		Native.ZkTexture_del(_handle);
+		if (_delete) Native.ZkTexture_del(_handle);
 	}
 
 	public byte[] GetMipmapRaw(ulong level)
