@@ -58,11 +58,34 @@ internal static class Marshalling
 
 internal static class Native
 {
+	public delegate bool ZkAnimationAliasEnumerator(UIntPtr ctx, UIntPtr v);
+
+	public delegate bool ZkAnimationBlendEnumerator(UIntPtr ctx, UIntPtr v);
+
+
+	public delegate bool ZkAnimationCombineEnumerator(UIntPtr ctx, UIntPtr v);
+
+	public delegate bool ZkAnimationEnumerator(UIntPtr ctx, UIntPtr v);
+
 	public delegate bool ZkAnimationSampleEnumerator(UIntPtr ctx, IntPtr sample);
 
 	public delegate bool ZkAttachmentEnumerator(UIntPtr ctx, IntPtr name, UIntPtr mesh);
 
 	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
+
+	public delegate bool ZkEventCameraTremorEnumerator(UIntPtr ctx, UIntPtr evt);
+
+	public delegate bool ZkEventMorphAnimationEnumerator(UIntPtr ctx, UIntPtr evt);
+
+	public delegate bool ZkEventParticleEffectStopEnumerator(UIntPtr ctx, UIntPtr evt);
+
+	public delegate bool ZkEventParticlEffectEnumerator(UIntPtr ctx, UIntPtr evt);
+
+	public delegate bool ZkEventSoundEffectEnumerator(UIntPtr ctx, UIntPtr evt);
+
+	public delegate bool ZkEventSoundEffectGroundEnumerator(UIntPtr ctx, UIntPtr evt);
+
+	public delegate bool ZkEventTagEnumerator(UIntPtr ctx, UIntPtr evt);
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate bool ZkFontGlyphEnumerator(UIntPtr ctx, IntPtr glyph);
@@ -89,6 +112,8 @@ internal static class Native
 
 
 	public delegate bool ZkSoftSkinWeightEnumerator(UIntPtr ctx, IntPtr entry, ulong count);
+
+	public delegate bool ZkStringEnumerator(UIntPtr ctx, IntPtr v);
 
 
 	public delegate bool ZkSubMeshEnumerator(UIntPtr ctx, UIntPtr subMesh);
@@ -877,6 +902,348 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern ushort ZkPolygon_getSectorIndex(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelScript_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelScript_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelScript_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelScript_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelScript_getSkeletonName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkModelScript_getSkeletonMeshDisabled(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelScript_getMeshCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelScript_getDisabledAnimationsCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelScript_getAnimationCombineCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelScript_getAnimationBlendCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelScript_getAnimationAliasCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelScript_getModelTagCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkModelScript_getAnimationCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelScript_getDisabledAnimation(UIntPtr slf, long i);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelScript_getMesh(UIntPtr slf, long i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelScript_getAnimationCombine(UIntPtr slf, long i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelScript_getAnimationBlend(UIntPtr slf, long i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelScript_getAnimationAlias(UIntPtr slf, long i);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkModelScript_getModelTag(UIntPtr slf, long i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkModelScript_getAnimation(UIntPtr slf, long i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelScript_enumerateAnimationCombines(UIntPtr slf, ZkAnimationCombineEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelScript_enumerateMeshes(UIntPtr slf, ZkStringEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void
+		ZkModelScript_enumerateDisabledAnimations(UIntPtr slf, ZkStringEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelScript_enumerateAnimationBlends(UIntPtr slf, ZkAnimationBlendEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelScript_enumerateAnimationAliases(UIntPtr slf, ZkAnimationAliasEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelScript_enumerateModelTags(UIntPtr slf, ZkStringEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkModelScript_enumerateAnimations(UIntPtr slf, ZkAnimationEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimation_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkAnimation_getLayer(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimation_getNext(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimation_getBlendIn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimation_getBlendOut(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkAnimation_getFlags(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimation_getModel(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AnimationDirection ZkAnimation_getDirection(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkAnimation_getFirstFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkAnimation_getLastFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimation_getFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimation_getSpeed(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimation_getCollisionVolumeScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkAnimation_getEventTagCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkAnimation_getParticleEffectCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkAnimation_getParticleEffectStopCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkAnimation_getSoundEffectCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkAnimation_getSoundEffectGroundCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkAnimation_getMorphAnimationCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkAnimation_getCameraTremorCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimation_getEventTag(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimation_getParticleEffect(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimation_getParticleEffectStop(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimation_getSoundEffect(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimation_getSoundEffectGround(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimation_getMorphAnimation(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimation_getCameraTremor(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimation_enumerateEventTags(UIntPtr slf, ZkEventTagEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimation_enumerateParticleEffects(UIntPtr slf, ZkEventParticlEffectEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimation_enumerateParticleEffectStops(UIntPtr slf,
+		ZkEventParticleEffectStopEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimation_enumerateSoundEffects(UIntPtr slf, ZkEventSoundEffectEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimation_enumerateSoundEffectGrounds(UIntPtr slf,
+		ZkEventSoundEffectGroundEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimation_enumerateMorphAnimations(UIntPtr slf, ZkEventMorphAnimationEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimation_enumerateCameraTremors(UIntPtr slf, ZkEventCameraTremorEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventTag_getFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern EventType ZkEventTag_getType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkEventTag_getSlot(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkEventTag_getItem(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkEventTag_getFrames(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern FightMode ZkEventTag_getFightMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkEventTag_getIsAttached(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventParticleEffect_getFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventParticleEffect_getIndex(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkEventParticleEffect_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkEventParticleEffect_getPosition(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkEventParticleEffect_getIsAttached(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventParticleEffectStop_getFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventParticleEffectStop_getIndex(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventCameraTremor_getFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventCameraTremor_getField1(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventCameraTremor_getField2(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventCameraTremor_getField3(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventCameraTremor_getField4(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventSoundEffect_getFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkEventSoundEffect_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkEventSoundEffect_getRange(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkEventSoundEffect_getEmptySlot(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkEventSoundEffectGround_getFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkEventSoundEffectGround_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkEventSoundEffectGround_getRange(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkEventSoundEffectGround_getEmptySlot(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkMorphAnimation_getFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphAnimation_getAnimation(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMorphAnimation_getNode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationCombine_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkAnimationCombine_getLayer(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationCombine_getNext(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimationCombine_getBlendIn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimationCombine_getBlendOut(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkAnimationCombine_getFlags(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationCombine_getModel(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkAnimationCombine_getLastFrame(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationBlend_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationBlend_getNext(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimationBlend_getBlendIn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimationBlend_getBlendOut(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationAlias_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkAnimationAlias_getLayer(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationAlias_getNext(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimationAlias_getBlendIn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkAnimationAlias_getBlendOut(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkAnimationAlias_getFlags(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkAnimationAlias_getAlias(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AnimationDirection ZkAnimationAlias_getDirection(UIntPtr slf);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
