@@ -5,14 +5,14 @@ namespace ZenKit.Vobs;
 public enum CameraTrajectory
 {
 	World = 0,
-	Object = 1,
+	Object = 1
 }
 
 public enum CameraLoopType
 {
 	None = 0,
 	Restart = 1,
-	PingPong = 2,
+	PingPong = 2
 }
 
 public enum CameraLerpType
@@ -20,7 +20,7 @@ public enum CameraLerpType
 	Undefined = 0,
 	Path = 1,
 	PathIgnoreRoll = 2,
-	PathRotationSamples = 3,
+	PathRotationSamples = 3
 }
 
 public enum CameraMotion
@@ -31,16 +31,12 @@ public enum CameraMotion
 	Step = 3,
 	Slow = 4,
 	Fast = 5,
-	Custom = 6,
+	Custom = 6
 }
 
 public class CameraTrajectoryFrame : VirtualObject
 {
 	internal CameraTrajectoryFrame(UIntPtr handle, bool delete) : base(handle, delete)
-	{
-	}
-
-	protected override void Delete()
 	{
 	}
 
@@ -57,6 +53,10 @@ public class CameraTrajectoryFrame : VirtualObject
 	public float TimeScale => Native.ZkCameraTrajectoryFrame_getTimeScale(Handle);
 	public bool TimeFixed => Native.ZkCameraTrajectoryFrame_getTimeFixed(Handle);
 	public Matrix4x4 OriginalPose => Native.ZkCameraTrajectoryFrame_getOriginalPose(Handle).ToCSharp();
+
+	protected override void Delete()
+	{
+	}
 }
 
 public class Camera : VirtualObject
@@ -73,11 +73,6 @@ public class Camera : VirtualObject
 
 	internal Camera(UIntPtr handle, bool delete) : base(handle, delete)
 	{
-	}
-
-	protected override void Delete()
-	{
-		Native.ZkCutsceneCamera_del(Handle);
 	}
 
 	public CameraTrajectory TrajectoryFOR => Native.ZkCutsceneCamera_getTrajectoryFOR(Handle);
@@ -115,6 +110,11 @@ public class Camera : VirtualObject
 
 			return frames;
 		}
+	}
+
+	protected override void Delete()
+	{
+		Native.ZkCutsceneCamera_del(Handle);
 	}
 
 	public CameraTrajectoryFrame Frame(ulong i)

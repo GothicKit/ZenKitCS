@@ -74,6 +74,8 @@ internal static class Native
 
 	public delegate bool ZkBspSectorEnumerator(UIntPtr ctx, UIntPtr sector);
 
+	public delegate bool ZkCameraTrajectoryFrameEnumerator(UIntPtr ctx, UIntPtr frame);
+
 	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
 
 	public delegate bool ZkEventCameraTremorEnumerator(UIntPtr ctx, UIntPtr evt);
@@ -907,7 +909,7 @@ internal static class Native
 	public static extern byte ZkPolygon_getNormalAxis(UIntPtr slf);
 
 	[DllImport(DLLNAME)]
-	public static extern ushort ZkPolygon_getSectorIndex(UIntPtr slf);
+	public static extern short ZkPolygon_getSectorIndex(UIntPtr slf);
 
 	[DllImport(DLLNAME)]
 	public static extern UIntPtr ZkModelScript_load(UIntPtr buf);
@@ -1458,8 +1460,6 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern bool ZkDecal_getIgnoreDaylight(UIntPtr slf);
-
-	public delegate bool ZkCameraTrajectoryFrameEnumerator(UIntPtr ctx, UIntPtr frame);
 
 	[DllImport(DLLNAME)]
 	public static extern UIntPtr ZkCutsceneCamera_load(UIntPtr buf, GameVersion version);

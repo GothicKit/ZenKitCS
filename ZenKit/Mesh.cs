@@ -54,7 +54,7 @@ public class Polygon
 	public bool IsDynamicallyLit => Native.ZkPolygon_getIsDynamicallyLit(_handle);
 	public bool IsLod => Native.ZkPolygon_getIsLod(_handle);
 	public byte NormalAxis => Native.ZkPolygon_getNormalAxis(_handle);
-	public ushort SectorIndex => Native.ZkPolygon_getSectorIndex(_handle);
+	public short SectorIndex => Native.ZkPolygon_getSectorIndex(_handle);
 }
 
 public class Mesh
