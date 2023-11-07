@@ -227,6 +227,8 @@ public class VirtualObject
 			VirtualObjectType.oCMobWheel => new InteractiveObject(ptr, false),
 			VirtualObjectType.oCMobBed => new InteractiveObject(ptr, false),
 			VirtualObjectType.oCMOB => new MovableObject(ptr, false),
+			VirtualObjectType.zCVobSound => new Sound(ptr, false),
+			VirtualObjectType.zCVobSoundDaytime => new SoundDaytime(ptr, false),
 			_ => new VirtualObject(ptr, false)
 		};
 	}

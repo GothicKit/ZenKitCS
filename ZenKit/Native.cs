@@ -1990,6 +1990,67 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern IntPtr ZkDoor_getPickString(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkSound_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkSound_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkSound_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkSound_getVolume(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern SoundMode ZkSound_getMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkSound_getRandomDelay(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkSound_getRandomDelayVar(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkSound_getInitiallyPlaying(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkSound_getAmbient3d(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkSound_getObstruction(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkSound_getConeAngle(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern SoundTriggerVolumeType ZkSound_getVolumeType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkSound_getRadius(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSound_getSoundName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkSoundDaytime_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkSoundDaytime_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkSoundDaytime_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkSoundDaytime_getStartTime(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkSoundDaytime_getEndTime(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkSoundDaytime_getSoundNameDaytime(UIntPtr slf);
+
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
 	{
