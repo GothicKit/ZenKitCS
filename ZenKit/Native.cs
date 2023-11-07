@@ -1681,6 +1681,193 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern bool ZkLight_getCanMove(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimate_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkAnimate_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkAnimate_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkAnimate_getStartOn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkItem_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkItem_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkItem_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkItem_getInstance(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkLensFlare_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkLensFlare_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkLensFlare_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLensFlare_getEffect(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkParticleEffectController_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkParticleEffectController_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkParticleEffectController_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkParticleEffectController_getEffectName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkParticleEffectController_getKillWhenDone(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkParticleEffectController_getInitiallyRunning(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMessageFilter_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMessageFilter_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMessageFilter_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMessageFilter_getTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern MessageFilterAction ZkMessageFilter_getOnTrigger(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern MessageFilterAction ZkMessageFilter_getOnUntrigger(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCodeMaster_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCodeMaster_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkCodeMaster_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkCodeMaster_getTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCodeMaster_getOrdered(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCodeMaster_getFirstFalseIsFailure(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkCodeMaster_getFailureTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCodeMaster_getUntriggeredCancels(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkCodeMaster_getSlaveCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkCodeMaster_getSlave(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkCodeMaster_enumerateSlaves(UIntPtr slf, ZkStringEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMoverController_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMoverController_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMoverController_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMoverController_getTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern MoverMessageType ZkMoverController_getMessage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkMoverController_getKey(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTouchDamage_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTouchDamage_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTouchDamage_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkTouchDamage_getDamage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsBarrier(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsBlunt(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsEdge(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsFire(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsFly(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsMagic(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsPoint(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTouchDamage_getIsFall(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkTouchDamage_getRepeatDelaySeconds(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkTouchDamage_getVolumeScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern TouchCollisionType ZkTouchDamage_getCollisionType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkEarthquake_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkEarthquake_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkEarthquake_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkEarthquake_getRadius(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkEarthquake_getDuration(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkEarthquake_getAmplitude(UIntPtr slf);
+
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
 	{

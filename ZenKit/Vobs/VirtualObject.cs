@@ -209,6 +209,15 @@ public class VirtualObject
 		{
 			VirtualObjectType.zCCSCamera => new CutsceneCamera(ptr, false),
 			VirtualObjectType.zCVobLight => new Light(ptr, false),
+			VirtualObjectType.zCVobAnimate => new Animate(ptr, false),
+			VirtualObjectType.zCCodeMaster => new CodeMaster(ptr, false),
+			VirtualObjectType.zCEarthquake => new Earthquake(ptr, false),
+			VirtualObjectType.oCItem => new Item(ptr, false),
+			VirtualObjectType.zCVobLensFlare => new LensFlare(ptr, false),
+			VirtualObjectType.zCMessageFilter => new MessageFilter(ptr, false),
+			VirtualObjectType.zCMoverController => new MoverController(ptr, false),
+			VirtualObjectType.zCPFXController => new ParticleEffectController(ptr, false),
+			VirtualObjectType.oCTouchDamage => new TouchDamage(ptr, false),
 			_ => new VirtualObject(ptr, false)
 		};
 	}
