@@ -2,6 +2,7 @@ using System.Drawing;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using ZenKit.Vobs;
 
 namespace ZenKit;
 
@@ -1350,6 +1351,115 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern void ZkWorld_enumerateRootObjects(UIntPtr slf, ZkVirtualObjectEnumerator cb, UIntPtr ctx);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkVirtualObject_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkVirtualObject_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkVirtualObject_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern VirtualObjectType ZkVirtualObject_getType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkVirtualObject_getId(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AxisAlignedBoundingBox ZkVirtualObject_getBbox(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector3 ZkVirtualObject_getPosition(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkMat3x3 ZkVirtualObject_getRotation(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkVirtualObject_getShowVisual(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern SpriteAlignment ZkVirtualObject_getSpriteCameraFacingMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkVirtualObject_getCdStatic(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkVirtualObject_getCdDynamic(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkVirtualObject_getVobStatic(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ShadowType ZkVirtualObject_getDynamicShadows(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkVirtualObject_getPhysicsEnabled(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AnimationType ZkVirtualObject_getAnimMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkVirtualObject_getBias(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkVirtualObject_getAmbient(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkVirtualObject_getAnimStrength(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkVirtualObject_getFarClipScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkVirtualObject_getPresetName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkVirtualObject_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkVirtualObject_getVisualName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern VisualType ZkVirtualObject_getVisualType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkVirtualObject_getVisualDecal(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkVirtualObject_getChildCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkVirtualObject_getChild(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkVirtualObject_enumerateChildren(UIntPtr slf, ZkVirtualObjectEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkDecal_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector2 ZkDecal_getDimension(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern Vector2 ZkDecal_getOffset(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDecal_getTwoSided(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern AlphaFunction ZkDecal_getAlphaFunc(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkDecal_getTextureAnimFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern byte ZkDecal_getAlphaWeight(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDecal_getIgnoreDaylight(UIntPtr slf);
+
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
 	{
@@ -1369,6 +1479,44 @@ internal static class Native
 		public Color ToColor()
 		{
 			return Color.FromArgb(A, R, G, B);
+		}
+	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct ZkMat3x3
+	{
+		public float m00,
+			m01,
+			m02,
+			m10,
+			m11,
+			m12,
+			m20,
+			m21,
+			m22;
+
+		public Quaternion ToQuaternion()
+		{
+			// TODO(lmichaelis): Make this faster.
+			var mat = new Matrix4x4(
+				m00,
+				m10,
+				m20,
+				0,
+				m01,
+				m11,
+				m21,
+				0,
+				m02,
+				m12,
+				m22,
+				0,
+				0,
+				0,
+				0,
+				1
+			);
+			return Quaternion.CreateFromRotationMatrix(mat);
 		}
 	}
 
