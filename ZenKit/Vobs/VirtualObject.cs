@@ -208,7 +208,7 @@ public class VirtualObject
 		switch (Native.ZkVirtualObject_getType(ptr))
 		{
 			case VirtualObjectType.zCCSCamera:
-				return new Camera(ptr, false);
+				return new CutsceneCamera(ptr, false);
 			default:
 				return new VirtualObject(ptr, false);
 		}

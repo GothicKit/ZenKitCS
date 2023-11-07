@@ -59,19 +59,19 @@ public class CameraTrajectoryFrame : VirtualObject
 	}
 }
 
-public class Camera : VirtualObject
+public class CutsceneCamera : VirtualObject
 {
-	public Camera(Read buf, GameVersion version) : base(Native.ZkCutsceneCamera_load(buf.Handle, version), true)
+	public CutsceneCamera(Read buf, GameVersion version) : base(Native.ZkCutsceneCamera_load(buf.Handle, version), true)
 	{
 		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");
 	}
 
-	public Camera(string path, GameVersion version) : base(Native.ZkCutsceneCamera_loadPath(path, version), true)
+	public CutsceneCamera(string path, GameVersion version) : base(Native.ZkCutsceneCamera_loadPath(path, version), true)
 	{
 		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");
 	}
 
-	internal Camera(UIntPtr handle, bool delete) : base(handle, delete)
+	internal CutsceneCamera(UIntPtr handle, bool delete) : base(handle, delete)
 	{
 	}
 

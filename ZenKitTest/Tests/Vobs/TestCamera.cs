@@ -17,7 +17,7 @@ public class TestCamera
 	[Test]
 	public void TestLoadG2()
 	{
-		var vob = new Camera("./Samples/G2/VOb/zCCSCamera.zen", GameVersion.Gothic2);
+		var vob = new CutsceneCamera("./Samples/G2/VOb/zCCSCamera.zen", GameVersion.Gothic2);
 
 		Assert.That(vob.Type, Is.EqualTo(VirtualObjectType.zCCSCamera));
 		Assert.That(vob.TrajectoryFOR, Is.EqualTo(CameraTrajectory.World));
