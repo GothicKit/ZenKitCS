@@ -1459,6 +1459,114 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern bool ZkDecal_getIgnoreDaylight(UIntPtr slf);
 
+	public delegate bool ZkCameraTrajectoryFrameEnumerator(UIntPtr ctx, UIntPtr frame);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneCamera_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneCamera_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkCutsceneCamera_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraTrajectory ZkCutsceneCamera_getTrajectoryFOR(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraTrajectory ZkCutsceneCamera_getTargetTrajectoryFOR(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraLoopType ZkCutsceneCamera_getLoopMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraLerpType ZkCutsceneCamera_getLerpMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCutsceneCamera_getIgnoreFORVobRotation(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCutsceneCamera_getIgnoreFORVobRotationTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCutsceneCamera_getAdapt(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCutsceneCamera_getEaseFirst(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCutsceneCamera_getEaseLast(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCutsceneCamera_getTotalDuration(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkCutsceneCamera_getAutoFocusVob(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCutsceneCamera_getAutoPlayerMovable(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCutsceneCamera_getAutoUntriggerLast(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCutsceneCamera_getAutoUntriggerLastDelay(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkCutsceneCamera_getPositionCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkCutsceneCamera_getTargetCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkCutsceneCamera_getFrameCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkCutsceneCamera_getFrame(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkCutsceneCamera_enumerateFrames(UIntPtr slf, ZkCameraTrajectoryFrameEnumerator cb,
+		UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCameraTrajectoryFrame_getTime(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCameraTrajectoryFrame_getRollAngle(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCameraTrajectoryFrame_getFovScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionTypeFov(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionTypeRoll(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionTypeTimeScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCameraTrajectoryFrame_getTension(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCameraTrajectoryFrame_getCamBias(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCameraTrajectoryFrame_getContinuity(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkCameraTrajectoryFrame_getTimeScale(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkCameraTrajectoryFrame_getTimeFixed(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkMat4x4 ZkCameraTrajectoryFrame_getOriginalPose(UIntPtr slf);
+
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
@@ -1539,6 +1647,28 @@ internal static class Native
 			m31,
 			m32,
 			m33;
+
+		public Matrix4x4 ToCSharp()
+		{
+			return new Matrix4x4(
+				m00,
+				m10,
+				m20,
+				m30,
+				m01,
+				m11,
+				m21,
+				m31,
+				m02,
+				m12,
+				m22,
+				m32,
+				m03,
+				m13,
+				m23,
+				m33
+			);
+		}
 	}
 
 	[StructLayout(LayoutKind.Sequential, Size = 16)]

@@ -12,25 +12,7 @@ public struct ModelHierarchyNode
 
 	public string Name => _name.MarshalAsString() ?? throw new Exception("Failed to load model hierarchy node name");
 
-	public Matrix4x4 Transform =>
-		new(
-			_transform.m00,
-			_transform.m10,
-			_transform.m20,
-			_transform.m30,
-			_transform.m01,
-			_transform.m11,
-			_transform.m21,
-			_transform.m31,
-			_transform.m02,
-			_transform.m12,
-			_transform.m22,
-			_transform.m32,
-			_transform.m03,
-			_transform.m13,
-			_transform.m23,
-			_transform.m33
-		);
+	public Matrix4x4 Transform => _transform.ToCSharp();
 }
 
 public class ModelHierarchy
