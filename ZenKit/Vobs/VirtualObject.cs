@@ -218,6 +218,15 @@ public class VirtualObject
 			VirtualObjectType.zCMoverController => new MoverController(ptr, false),
 			VirtualObjectType.zCPFXController => new ParticleEffectController(ptr, false),
 			VirtualObjectType.oCTouchDamage => new TouchDamage(ptr, false),
+			VirtualObjectType.oCMobContainer => new Container(ptr, false),
+			VirtualObjectType.oCMobDoor => new Door(ptr, false),
+			VirtualObjectType.oCMobFire => new Fire(ptr, false),
+			VirtualObjectType.oCMobInter => new InteractiveObject(ptr, false),
+			VirtualObjectType.oCMobLadder => new InteractiveObject(ptr, false),
+			VirtualObjectType.oCMobSwitch => new InteractiveObject(ptr, false),
+			VirtualObjectType.oCMobWheel => new InteractiveObject(ptr, false),
+			VirtualObjectType.oCMobBed => new InteractiveObject(ptr, false),
+			VirtualObjectType.oCMOB => new MovableObject(ptr, false),
 			_ => new VirtualObject(ptr, false)
 		};
 	}

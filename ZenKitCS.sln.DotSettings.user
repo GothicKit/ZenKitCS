@@ -22,5 +22,11 @@
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestMessageFilter&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestParticleEffectController&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTouchDamage&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestContainer&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestDoor&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestFire&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestInteractiveObject.TestLoad&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestInteractiveObject&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestMovableObject&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

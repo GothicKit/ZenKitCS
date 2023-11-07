@@ -1867,6 +1867,128 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern Vector3 ZkEarthquake_getAmplitude(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMovableObject_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMovableObject_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMovableObject_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMovableObject_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkMovableObject_getHp(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkMovableObject_getDamage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMovableObject_getMovable(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMovableObject_getTakable(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMovableObject_getFocusOverride(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern SoundMaterialType ZkMovableObject_getMaterial(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMovableObject_getVisualDestroyed(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMovableObject_getOwner(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMovableObject_getOwnerGuild(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMovableObject_getDestroyed(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkInteractiveObject_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkInteractiveObject_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkInteractiveObject_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkInteractiveObject_getState(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkInteractiveObject_getTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkInteractiveObject_getItem(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkInteractiveObject_getConditionFunction(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkInteractiveObject_getOnStateChangeFunction(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkInteractiveObject_getRewind(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkFire_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkFire_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkFire_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkFire_getSlot(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkFire_getVobTree(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkContainer_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkContainer_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkContainer_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkContainer_getIsLocked(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkContainer_getKey(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkContainer_getPickString(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkContainer_getContents(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDoor_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDoor_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkDoor_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDoor_getIsLocked(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkDoor_getKey(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkDoor_getPickString(UIntPtr slf);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
