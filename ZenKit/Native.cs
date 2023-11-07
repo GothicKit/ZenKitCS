@@ -1567,6 +1567,119 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern ZkMat4x4 ZkCameraTrajectoryFrame_getOriginalPose(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkLightPreset_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkLightPreset_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkLightPreset_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkLight_load(UIntPtr slf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkLight_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkLight_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLightPreset_getPreset(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern LightType ZkLightPreset_getLightType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLightPreset_getRange(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkColor ZkLightPreset_getColor(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLightPreset_getConeAngle(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLightPreset_getIsStatic(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern LightQuality ZkLightPreset_getQuality(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLightPreset_getLensflareFx(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLightPreset_getOn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLightPreset_getRangeAnimationScale(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLightPreset_getRangeAnimationFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLightPreset_getRangeAnimationSmooth(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLightPreset_getColorAnimationList(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLightPreset_getColorAnimationFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLightPreset_getColorAnimationSmooth(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLightPreset_getCanMove(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLight_getPreset(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern LightType ZkLight_getLightType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLight_getRange(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkColor ZkLight_getColor(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLight_getConeAngle(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLight_getIsStatic(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern LightQuality ZkLight_getQuality(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLight_getLensflareFx(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLight_getOn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLight_getRangeAnimationScale(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLight_getRangeAnimationFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLight_getRangeAnimationSmooth(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkLight_getColorAnimationList(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkLight_getColorAnimationFps(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLight_getColorAnimationSmooth(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkLight_getCanMove(UIntPtr slf);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor

@@ -13,5 +13,6 @@
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestVirtualObject&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestCamera.TesdLoadG2&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestCamera&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestLight&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

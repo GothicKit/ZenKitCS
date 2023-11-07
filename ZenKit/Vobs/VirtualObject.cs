@@ -205,12 +205,11 @@ public class VirtualObject
 
 	public static VirtualObject FromNative(UIntPtr ptr)
 	{
-		switch (Native.ZkVirtualObject_getType(ptr))
+		return Native.ZkVirtualObject_getType(ptr) switch
 		{
-			case VirtualObjectType.zCCSCamera:
-				return new CutsceneCamera(ptr, false);
-			default:
-				return new VirtualObject(ptr, false);
-		}
+			VirtualObjectType.zCCSCamera => new CutsceneCamera(ptr, false),
+			VirtualObjectType.zCVobLight => new Light(ptr, false),
+			_ => new VirtualObject(ptr, false)
+		};
 	}
 }
