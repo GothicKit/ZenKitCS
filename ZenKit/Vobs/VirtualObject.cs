@@ -229,6 +229,14 @@ public class VirtualObject
 			VirtualObjectType.oCMOB => new MovableObject(ptr, false),
 			VirtualObjectType.zCVobSound => new Sound(ptr, false),
 			VirtualObjectType.zCVobSoundDaytime => new SoundDaytime(ptr, false),
+			VirtualObjectType.zCTrigger => new Trigger(ptr, false),
+			VirtualObjectType.oCCSTrigger => new Trigger(ptr, false),
+			VirtualObjectType.zCTriggerList => new TriggerList(ptr, false),
+			VirtualObjectType.oCTriggerScript => new TriggerScript(ptr, false),
+			VirtualObjectType.zCMover => new Mover(ptr, false),
+			VirtualObjectType.oCTriggerChangeLevel => new TriggerChangeLevel(ptr, false),
+			VirtualObjectType.zCTriggerWorldStart => new TriggerWorldStart(ptr, false),
+			VirtualObjectType.zCTriggerUntouch => new TriggerUntouch(ptr, false),
 			_ => new VirtualObject(ptr, false)
 		};
 	}

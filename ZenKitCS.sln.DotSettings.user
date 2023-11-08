@@ -29,5 +29,13 @@
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestInteractiveObject&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestMovableObject&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestSound&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestMover&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTrigger&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTriggerChangeLevel&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTriggerList.TestLoad&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTriggerList&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTriggerScript&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTriggerUntouch&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::21900B0F-7454-46DB-912C-AA6B94FA333C::net7.0::ZenKitTest.Tests.Vobs.TestTriggerWorldStart&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

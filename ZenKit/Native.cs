@@ -125,6 +125,8 @@ internal static class Native
 
 	public delegate bool ZkTextureMipmapEnumerator(UIntPtr ctx, ulong level, IntPtr data, ulong size);
 
+	public delegate bool ZkTriggerListTargetEnumerator(UIntPtr ctx, UIntPtr target);
+
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	public delegate bool ZkVfsNodeEnumerator(UIntPtr ctx, UIntPtr node);
 
@@ -2049,6 +2051,184 @@ internal static class Native
 
 	[DllImport(DLLNAME)]
 	public static extern IntPtr ZkSoundDaytime_getSoundNameDaytime(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTrigger_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTrigger_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTrigger_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTrigger_getTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern byte ZkTrigger_getFlags(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern byte ZkTrigger_getFilterFlags(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTrigger_getVobTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkTrigger_getMaxActivationCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkTrigger_getRetriggerDelaySeconds(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkTrigger_getDamageThreshold(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkTrigger_getFireDelaySeconds(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMover_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkMover_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkMover_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern MoverBehavior ZkMover_getBehavior(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMover_getTouchBlockerDamage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMover_getStayOpenTimeSeconds(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMover_getIsLocked(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMover_getAutoLink(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkMover_getAutoRotate(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkMover_getSpeed(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern MoverLerpType ZkMover_getLerpType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern MoverSpeedType ZkMover_getSpeedType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getKeyframes(UIntPtr slf, out ulong count);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxOpenStart(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxOpenEnd(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxTransitioning(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxCloseStart(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxCloseEnd(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxLock(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxUnlock(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkMover_getSfxUseLocked(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerList_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerList_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTriggerList_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern TriggerBatchMode ZkTriggerList_getMode(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ulong ZkTriggerList_getTargetCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerList_getTarget(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern void
+		ZkTriggerList_enumerateTargets(UIntPtr slf, ZkTriggerListTargetEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTriggerListTarget_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkTriggerListTarget_getDelaySeconds(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerScript_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerScript_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTriggerScript_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTriggerScript_getFunction(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerChangeLevel_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerChangeLevel_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTriggerChangeLevel_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTriggerChangeLevel_getLevelName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTriggerChangeLevel_getStartVob(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerWorldStart_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerWorldStart_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTriggerWorldStart_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTriggerWorldStart_getTarget(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkTriggerWorldStart_getFireOnce(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerUntouch_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkTriggerUntouch_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkTriggerUntouch_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkTriggerUntouch_getTarget(UIntPtr slf);
 
 
 	[StructLayout(LayoutKind.Sequential)]
