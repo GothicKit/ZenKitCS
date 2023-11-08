@@ -4,13 +4,13 @@ public enum SoundMode
 {
 	Loop = 0,
 	Once = 1,
-	Random = 2,
+	Random = 2
 }
 
 public enum SoundTriggerVolumeType
 {
 	Spherical = 0,
-	Ellipsoidal = 1,
+	Ellipsoidal = 1
 }
 
 public class Sound : VirtualObject

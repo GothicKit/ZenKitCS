@@ -7,7 +7,7 @@ public enum SoundMaterialType
 	Metal = 2,
 	Leather = 3,
 	Clay = 4,
-	Glass = 5,
+	Glass = 5
 }
 
 public class MovableObject : VirtualObject
@@ -25,7 +25,7 @@ public class MovableObject : VirtualObject
 	internal MovableObject(UIntPtr handle, bool delete) : base(handle, delete)
 	{
 	}
-	
+
 	public string FocusName => Native.ZkMovableObject_getName(Handle).MarshalAsString() ?? string.Empty;
 	public int Hp => Native.ZkMovableObject_getHp(Handle);
 	public int Damage => Native.ZkMovableObject_getDamage(Handle);
@@ -33,7 +33,10 @@ public class MovableObject : VirtualObject
 	public bool Takable => Native.ZkMovableObject_getTakable(Handle);
 	public bool FocusOverride => Native.ZkMovableObject_getFocusOverride(Handle);
 	public SoundMaterialType Material => Native.ZkMovableObject_getMaterial(Handle);
-	public string VisualDestroyed => Native.ZkMovableObject_getVisualDestroyed(Handle).MarshalAsString() ?? string.Empty;
+
+	public string VisualDestroyed =>
+		Native.ZkMovableObject_getVisualDestroyed(Handle).MarshalAsString() ?? string.Empty;
+
 	public string Owner => Native.ZkMovableObject_getOwner(Handle).MarshalAsString() ?? string.Empty;
 	public string OwnerGuild => Native.ZkMovableObject_getOwnerGuild(Handle).MarshalAsString() ?? string.Empty;
 	public bool Destroyed => Native.ZkMovableObject_getDestroyed(Handle);

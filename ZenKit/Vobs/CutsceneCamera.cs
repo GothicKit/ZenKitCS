@@ -66,7 +66,8 @@ public class CutsceneCamera : VirtualObject
 		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");
 	}
 
-	public CutsceneCamera(string path, GameVersion version) : base(Native.ZkCutsceneCamera_loadPath(path, version), true)
+	public CutsceneCamera(string path, GameVersion version) : base(Native.ZkCutsceneCamera_loadPath(path, version),
+		true)
 	{
 		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");
 	}

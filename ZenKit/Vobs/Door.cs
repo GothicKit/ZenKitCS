@@ -19,7 +19,7 @@ public class Door : InteractiveObject
 	public bool IsLocked => Native.ZkDoor_getIsLocked(Handle);
 	public string Key => Native.ZkDoor_getKey(Handle).MarshalAsString() ?? string.Empty;
 	public string PickString => Native.ZkDoor_getPickString(Handle).MarshalAsString() ?? string.Empty;
-	
+
 	protected override void Delete()
 	{
 		Native.ZkDoor_del(Handle);

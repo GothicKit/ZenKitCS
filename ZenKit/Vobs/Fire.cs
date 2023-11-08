@@ -15,7 +15,7 @@ public class Fire : InteractiveObject
 	internal Fire(UIntPtr handle, bool delete) : base(handle, delete)
 	{
 	}
-	
+
 	public string Slot => Native.ZkFire_getSlot(Handle).MarshalAsString() ?? string.Empty;
 	public string VobTree => Native.ZkFire_getVobTree(Handle).MarshalAsString() ?? string.Empty;
 

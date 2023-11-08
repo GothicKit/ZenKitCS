@@ -15,7 +15,7 @@ public class Container : InteractiveObject
 	internal Container(UIntPtr handle, bool delete) : base(handle, delete)
 	{
 	}
-	
+
 	public bool IsLocked => Native.ZkContainer_getIsLocked(Handle);
 	public string Key => Native.ZkContainer_getKey(Handle).MarshalAsString() ?? string.Empty;
 	public string PickString => Native.ZkContainer_getPickString(Handle).MarshalAsString() ?? string.Empty;

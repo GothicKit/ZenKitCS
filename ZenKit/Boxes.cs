@@ -21,6 +21,7 @@ public class OrientedBoundingBox
 
 	public Vector3 Center => Native.ZkOrientedBoundingBox_getCenter(_handle);
 
+	// TODO(lmichaelis): Replace with Tuple
 	public Vector3[] Axes => new[]
 	{
 		Native.ZkOrientedBoundingBox_getAxis(_handle, 0),
