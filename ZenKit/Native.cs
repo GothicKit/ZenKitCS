@@ -78,6 +78,8 @@ internal static class Native
 
 	public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
 
+	public delegate bool ZkDaedalusSymbolEnumerator(UIntPtr ctx, UIntPtr symbol);
+
 	public delegate bool ZkEventCameraTremorEnumerator(UIntPtr ctx, UIntPtr evt);
 
 	public delegate bool ZkEventMorphAnimationEnumerator(UIntPtr ctx, UIntPtr evt);
@@ -2296,6 +2298,97 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern bool ZkZoneFog_getOverrideColor(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDaedalusScript_load(UIntPtr buf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDaedalusScript_loadPath(string path);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDaedalusScript_loadVfs(UIntPtr vfs, string name);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkDaedalusScript_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkDaedalusScript_getSymbolCount(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern void
+		ZkDaedalusScript_enumerateSymbols(UIntPtr slf, ZkDaedalusSymbolEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkDaedalusScript_enumerateInstanceSymbols(UIntPtr slf, string className,
+		ZkDaedalusSymbolEnumerator cb, UIntPtr ctx);
+
+	[DllImport(DLLNAME)]
+	public static extern DaedalusInstruction ZkDaedalusScript_getInstruction(UIntPtr slf, ulong address);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDaedalusScript_getSymbolByIndex(UIntPtr slf, uint i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDaedalusScript_getSymbolByAddress(UIntPtr slf, ulong i);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkDaedalusScript_getSymbolByName(UIntPtr slf, string i);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkDaedalusSymbol_getString(UIntPtr slf, ushort index, UIntPtr context);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkDaedalusSymbol_getFloat(UIntPtr slf, ushort index, UIntPtr context);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkDaedalusSymbol_getInt(UIntPtr slf, ushort index, UIntPtr context);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkDaedalusSymbol_setString(UIntPtr slf, string value, ushort index, UIntPtr context);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkDaedalusSymbol_setFloat(UIntPtr slf, float value, ushort index, UIntPtr context);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkDaedalusSymbol_setInt(UIntPtr slf, int value, ushort index, UIntPtr context);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDaedalusSymbol_getIsConst(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDaedalusSymbol_getIsMember(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDaedalusSymbol_getIsExternal(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDaedalusSymbol_getIsMerged(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDaedalusSymbol_getIsGenerated(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkDaedalusSymbol_getHasReturn(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern IntPtr ZkDaedalusSymbol_getName(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkDaedalusSymbol_getAddress(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkDaedalusSymbol_getParent(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkDaedalusSymbol_getSize(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern DaedalusDataType ZkDaedalusSymbol_getType(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern uint ZkDaedalusSymbol_getIndex(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern DaedalusDataType ZkDaedalusSymbol_getReturnType(UIntPtr slf);
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
