@@ -237,6 +237,12 @@ public class VirtualObject
 			VirtualObjectType.oCTriggerChangeLevel => new TriggerChangeLevel(ptr, false),
 			VirtualObjectType.zCTriggerWorldStart => new TriggerWorldStart(ptr, false),
 			VirtualObjectType.zCTriggerUntouch => new TriggerUntouch(ptr, false),
+			VirtualObjectType.oCZoneMusic => new ZoneMusic(ptr, false),
+			VirtualObjectType.oCZoneMusicDefault => new ZoneMusic(ptr, false),
+			VirtualObjectType.zCZoneZFog => new ZoneFog(ptr, false),
+			VirtualObjectType.zCZoneZFogDefault => new ZoneFog(ptr, false),
+			VirtualObjectType.zCZoneVobFarPlane => new ZoneFarPlane(ptr, false),
+			VirtualObjectType.zCZoneVobFarPlaneDefault => new ZoneFarPlane(ptr, false),
 			_ => new VirtualObject(ptr, false)
 		};
 	}

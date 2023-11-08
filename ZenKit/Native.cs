@@ -2230,6 +2230,72 @@ internal static class Native
 	[DllImport(DLLNAME)]
 	public static extern IntPtr ZkTriggerUntouch_getTarget(UIntPtr slf);
 
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkZoneMusic_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkZoneMusic_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkZoneMusic_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkZoneMusic_getIsEnabled(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern int ZkZoneMusic_getPriority(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkZoneMusic_getIsEllipsoid(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkZoneMusic_getReverb(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkZoneMusic_getVolume(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkZoneMusic_getIsLoop(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkZoneFarPlane_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkZoneFarPlane_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkZoneFarPlane_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkZoneFarPlane_getVobFarPlaneZ(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkZoneFarPlane_getInnerRangePercentage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkZoneFog_load(UIntPtr buf, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern UIntPtr ZkZoneFog_loadPath(string path, GameVersion version);
+
+	[DllImport(DLLNAME)]
+	public static extern void ZkZoneFog_del(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkZoneFog_getRangeCenter(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern float ZkZoneFog_getInnerRangePercentage(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern ZkColor ZkZoneFog_getColor(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkZoneFog_getFadeOutSky(UIntPtr slf);
+
+	[DllImport(DLLNAME)]
+	public static extern bool ZkZoneFog_getOverrideColor(UIntPtr slf);
+
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct ZkColor
