@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKit", "ZenKit\ZenKit.csproj", "{AAF21486-6A98-42DD-AAAC-6894DA76A76F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKitTest", "ZenKitTest\ZenKitTest.csproj", "{21900B0F-7454-46DB-912C-AA6B94FA333C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKit.Test", "ZenKit.Test\ZenKit.Test.csproj", "{21900B0F-7454-46DB-912C-AA6B94FA333C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKitExamples", "ZenKitExamples\ZenKitExamples.csproj", "{C7849268-7E94-4D95-B0FF-9C11C8550EFD}"
 EndProject

@@ -5,7 +5,8 @@
   &lt;Assembly Path="/home/luis/Downloads/mongodb.libmongocrypt.1.8.0/lib/netstandard2.1/MongoDB.Libmongocrypt.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0a25a063_002D0ae4_002D4edf_002Dbb05_002D6d84b7482d57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestVfs" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/mnt/projects/GothicKit/ZenKitCS/ZenKitCS/ZenKitTest" Presentation="&amp;lt;ZenKitTest&amp;gt;" /&gt;
+  &lt;Project Location="/mnt/projects/GothicKit/ZenKitCS/ZenKitCS/ZenKit.Test" Presentation="&amp;lt;ZenKit.Test&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
+	
 	
 	</wpf:ResourceDictionary>
