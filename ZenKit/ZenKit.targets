@@ -1,19 +1,15 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
-        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-x64\native\zenkitcapi.dll">
-            <Link>zenkitcapi.dll</Link>
+        <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\zenkitcapi.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\linux-x64\native\libzenkitcapi.so">
-            <Link>libzenkitcapi.so</Link>
+        <None Include="$(MSBuildThisFileDirectory)..\runtimes\linux-x64\native\libzenkitcapi.so">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\android-arm64\native\libzenkitcapi.so">
-            <Link>libzenkitcapi.so</Link>
+        <None Include="$(MSBuildThisFileDirectory)..\runtimes\android-arm64\native\libzenkitcapi.so">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\osx-x64\native\libzenkitcapi.dylib">
-            <Link>libzenkitcapi.dylib</Link>
+        <None Include="$(MSBuildThisFileDirectory)..\runtimes\osx-x64\native\libzenkitcapi.dylib">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
