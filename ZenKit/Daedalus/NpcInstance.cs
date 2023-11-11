@@ -20,7 +20,7 @@ namespace ZenKit.Daedalus
 		G2OcMain = 4,
 		G2BlAmbient = 5,
 		G2TalAmbient = 6,
-		G2BlMain = 7,
+		G2BlMain = 7
 	}
 
 	public enum NpcNameSlot
@@ -29,7 +29,7 @@ namespace ZenKit.Daedalus
 		Slot1 = 1,
 		Slot2 = 2,
 		Slot3 = 3,
-		Slot4 = 4,
+		Slot4 = 4
 	}
 
 	public enum NpcMissionSlot
@@ -38,7 +38,7 @@ namespace ZenKit.Daedalus
 		Slot1 = 1,
 		Slot2 = 2,
 		Slot3 = 3,
-		Slot4 = 4,
+		Slot4 = 4
 	}
 
 	public enum NpcAttribute
@@ -50,7 +50,7 @@ namespace ZenKit.Daedalus
 		Strength = 4,
 		Dexterity = 5,
 		RegenerateHp = 6,
-		RegenerateMana = 7,
+		RegenerateMana = 7
 	}
 
 	public enum DamageType
@@ -62,7 +62,7 @@ namespace ZenKit.Daedalus
 		Fly = 4,
 		Magic = 5,
 		Point = 6,
-		Fall = 7,
+		Fall = 7
 	}
 
 	public enum NpcTalent
@@ -71,7 +71,7 @@ namespace ZenKit.Daedalus
 		OneHanded = 1,
 		TwoHanded = 2,
 		Bow = 3,
-		Crossbow = 4,
+		Crossbow = 4
 	}
 
 	public class NpcInstance : DaedalusInstance

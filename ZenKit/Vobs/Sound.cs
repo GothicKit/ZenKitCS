@@ -56,7 +56,8 @@ namespace ZenKit.Vobs
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load SoundDaytime vob");
 		}
 
-		public SoundDaytime(string path, GameVersion version) : base(Native.ZkSoundDaytime_loadPath(path, version), true)
+		public SoundDaytime(string path, GameVersion version) : base(Native.ZkSoundDaytime_loadPath(path, version),
+			true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load SoundDaytime vob");
 		}

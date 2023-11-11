@@ -21,7 +21,7 @@ namespace ZenKit.Daedalus
 		StandUp = 18,
 		Wait = 19,
 		WaitLonger = 23,
-		WaitExt = 24,
+		WaitExt = 24
 	}
 
 	public class FightAiInstance : DaedalusInstance
@@ -34,6 +34,5 @@ namespace ZenKit.Daedalus
 		{
 			return Native.ZkFightAiInstance_getMove(Handle, i);
 		}
-	
 	}
 }

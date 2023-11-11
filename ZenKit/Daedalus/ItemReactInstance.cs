@@ -7,7 +7,7 @@ namespace ZenKit.Daedalus
 		public ItemReactInstance(UIntPtr handle) : base(handle)
 		{
 		}
-	
+
 		public int Npc => Native.ZkItemReactInstance_getNpc(Handle);
 		public int TradeItem => Native.ZkItemReactInstance_getTradeItem(Handle);
 		public int TradeAmount => Native.ZkItemReactInstance_getTradeAmount(Handle);

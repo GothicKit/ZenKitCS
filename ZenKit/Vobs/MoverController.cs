@@ -18,7 +18,8 @@ namespace ZenKit.Vobs
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mover controller vob");
 		}
 
-		public MoverController(string path, GameVersion version) : base(Native.ZkMoverController_loadPath(path, version),
+		public MoverController(string path, GameVersion version) : base(
+			Native.ZkMoverController_loadPath(path, version),
 			true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mover controller vob");

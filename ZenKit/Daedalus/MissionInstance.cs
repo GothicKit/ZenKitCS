@@ -2,11 +2,11 @@ using System;
 
 namespace ZenKit.Daedalus
 {
-	public class MissionInstance  : DaedalusInstance
+	public class MissionInstance : DaedalusInstance
 	{
 		public MissionInstance(UIntPtr handle) : base(handle)
 		{
-		}	
+		}
 
 		public string Name => Native.ZkMissionInstance_getName(Handle).MarshalAsString() ?? string.Empty;
 		public string Description => Native.ZkMissionInstance_getDescription(Handle).MarshalAsString() ?? string.Empty;

@@ -7,7 +7,7 @@ namespace ZenKit.Daedalus
 		public InfoInstance(UIntPtr handle) : base(handle)
 		{
 		}
-	
+
 		public int Npc => Native.ZkInfoInstance_getNpc(Handle);
 		public int Nr => Native.ZkInfoInstance_getNr(Handle);
 		public int Important => Native.ZkInfoInstance_getImportant(Handle);

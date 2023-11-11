@@ -82,12 +82,12 @@ namespace ZenKit
 
 	public class DaedalusSymbol
 	{
-		public UIntPtr Handle { get; }
-
 		public DaedalusSymbol(UIntPtr handle)
 		{
 			Handle = handle;
 		}
+
+		public UIntPtr Handle { get; }
 
 		public bool IsConst => Native.ZkDaedalusSymbol_getIsConst(Handle);
 		public bool IsMember => Native.ZkDaedalusSymbol_getIsMember(Handle);
@@ -105,7 +105,8 @@ namespace ZenKit
 
 		public string GetString(ushort index, DaedalusInstance? context = null)
 		{
-			return Native.ZkDaedalusSymbol_getString(Handle, index, context?.Handle ?? UIntPtr.Zero).MarshalAsString() ??
+			return Native.ZkDaedalusSymbol_getString(Handle, index, context?.Handle ?? UIntPtr.Zero)
+				       .MarshalAsString() ??
 			       string.Empty;
 		}
 

@@ -7,7 +7,7 @@ namespace ZenKit.Daedalus
 		public SoundSystemInstance(UIntPtr handle) : base(handle)
 		{
 		}
-	
+
 		public float Volume => Native.ZkSoundSystemInstance_getVolume(Handle);
 		public int BitResolution => Native.ZkSoundSystemInstance_getBitResolution(Handle);
 		public int SampleRate => Native.ZkSoundSystemInstance_getSampleRate(Handle);

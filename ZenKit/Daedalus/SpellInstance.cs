@@ -7,7 +7,7 @@ namespace ZenKit.Daedalus
 		public SpellInstance(UIntPtr handle) : base(handle)
 		{
 		}
-	
+
 		public float TimePerMana => Native.ZkSpellInstance_getTimePerMana(Handle);
 		public int DamagePerLevel => Native.ZkSpellInstance_getDamagePerLevel(Handle);
 		public int DamageType => Native.ZkSpellInstance_getDamageType(Handle);

@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using ZenKit.NativeLoader.NativeStructs;
 
 namespace ZenKit.Vobs
 {
@@ -64,7 +65,7 @@ namespace ZenKit.Vobs
 
 		public Color[] ColorAnimationList => Array.ConvertAll(Native
 			.ZkLightPreset_getColorAnimationList(_handle, out var count)
-			.MarshalAsArray<NativeLoader.NativeStructs.ZkColor>(count), i => i.ToColor());
+			.MarshalAsArray<ZkColor>(count), i => i.ToColor());
 
 		public float ColorAnimationFps => Native.ZkLightPreset_getColorAnimationFps(_handle);
 		public bool ColorAnimationSmooth => Native.ZkLightPreset_getColorAnimationSmooth(_handle);
@@ -115,7 +116,7 @@ namespace ZenKit.Vobs
 
 		public Color[] ColorAnimationList => Array.ConvertAll(Native
 			.ZkLight_getColorAnimationList(Handle, out var count)
-			.MarshalAsArray<NativeLoader.NativeStructs.ZkColor>(count), i => i.ToColor());
+			.MarshalAsArray<ZkColor>(count), i => i.ToColor());
 
 		public float ColorAnimationFps => Native.ZkLight_getColorAnimationFps(Handle);
 		public bool ColorAnimationSmooth => Native.ZkLight_getColorAnimationSmooth(Handle);

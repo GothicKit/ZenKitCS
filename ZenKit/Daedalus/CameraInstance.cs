@@ -7,7 +7,7 @@ namespace ZenKit.Daedalus
 		public CameraInstance(UIntPtr handle) : base(handle)
 		{
 		}
-	
+
 		public float BestRange => Native.ZkCameraInstance_getBestRange(Handle);
 		public float MinRange => Native.ZkCameraInstance_getMinRange(Handle);
 		public float MaxRange => Native.ZkCameraInstance_getMaxRange(Handle);

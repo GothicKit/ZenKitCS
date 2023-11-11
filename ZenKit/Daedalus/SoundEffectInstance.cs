@@ -7,7 +7,7 @@ namespace ZenKit.Daedalus
 		public SoundEffectInstance(UIntPtr handle) : base(handle)
 		{
 		}
-    
+
 		public string File => Native.ZkSoundEffectInstance_getFile(Handle).MarshalAsString() ?? string.Empty;
 		public int PitchOff => Native.ZkSoundEffectInstance_getPitchOff(Handle);
 		public int PitchVar => Native.ZkSoundEffectInstance_getPitchVar(Handle);

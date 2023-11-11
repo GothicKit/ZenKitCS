@@ -9,7 +9,8 @@ namespace ZenKit.Vobs
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
 		}
 
-		public ZoneFarPlane(string path, GameVersion version) : base(Native.ZkZoneFarPlane_loadPath(path, version), true)
+		public ZoneFarPlane(string path, GameVersion version) : base(Native.ZkZoneFarPlane_loadPath(path, version),
+			true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
 		}

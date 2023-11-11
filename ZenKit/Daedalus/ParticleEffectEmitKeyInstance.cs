@@ -8,7 +8,9 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public string VisNameS => Native.ZkParticleEffectEmitKeyInstance_getVisNameS(Handle).MarshalAsString() ?? string.Empty;
+		public string VisNameS =>
+			Native.ZkParticleEffectEmitKeyInstance_getVisNameS(Handle).MarshalAsString() ?? string.Empty;
+
 		public float VisSizeScale => Native.ZkParticleEffectEmitKeyInstance_getVisSizeScale(Handle);
 		public float ScaleDuration => Native.ZkParticleEffectEmitKeyInstance_getScaleDuration(Handle);
 		public float PfxPpsValue => Native.ZkParticleEffectEmitKeyInstance_getPfxPpsValue(Handle);
@@ -19,10 +21,14 @@ namespace ZenKit.Daedalus
 		public string PfxFlyGravityS =>
 			Native.ZkParticleEffectEmitKeyInstance_getPfxFlyGravityS(Handle).MarshalAsString() ?? string.Empty;
 
-		public string PfxShpDimS => Native.ZkParticleEffectEmitKeyInstance_getPfxShpDimS(Handle).MarshalAsString() ?? string.Empty;
+		public string PfxShpDimS => Native.ZkParticleEffectEmitKeyInstance_getPfxShpDimS(Handle).MarshalAsString() ??
+		                            string.Empty;
+
 		public int PfxShpIsVolumeChg => Native.ZkParticleEffectEmitKeyInstance_getPfxShpIsVolumeChg(Handle);
 		public float PfxShpScaleFps => Native.ZkParticleEffectEmitKeyInstance_getPfxShpScaleFps(Handle);
-		public float PfxShpDistributionWalksPeed => Native.ZkParticleEffectEmitKeyInstance_getPfxShpDistribWalksPeed(Handle);
+
+		public float PfxShpDistributionWalksPeed =>
+			Native.ZkParticleEffectEmitKeyInstance_getPfxShpDistribWalksPeed(Handle);
 
 		public string PfxShpOffsetVecS =>
 			Native.ZkParticleEffectEmitKeyInstance_getPfxShpOffsetVecS(Handle).MarshalAsString() ?? string.Empty;
@@ -33,7 +39,8 @@ namespace ZenKit.Daedalus
 		public string PfxDirModeS =>
 			Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeS(Handle).MarshalAsString() ?? string.Empty;
 
-		public string PfxDirForS => Native.ZkParticleEffectEmitKeyInstance_getPfxDirForS(Handle).MarshalAsString() ?? string.Empty;
+		public string PfxDirForS => Native.ZkParticleEffectEmitKeyInstance_getPfxDirForS(Handle).MarshalAsString() ??
+		                            string.Empty;
 
 		public string PfxDirModeTargetForS =>
 			Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeTargetForS(Handle).MarshalAsString() ?? string.Empty;
@@ -49,7 +56,10 @@ namespace ZenKit.Daedalus
 			Native.ZkParticleEffectEmitKeyInstance_getLightPresetName(Handle).MarshalAsString() ?? string.Empty;
 
 		public float LightRange => Native.ZkParticleEffectEmitKeyInstance_getLightRange(Handle);
-		public string SfxId => Native.ZkParticleEffectEmitKeyInstance_getSfxId(Handle).MarshalAsString() ?? string.Empty;
+
+		public string SfxId =>
+			Native.ZkParticleEffectEmitKeyInstance_getSfxId(Handle).MarshalAsString() ?? string.Empty;
+
 		public int SfxIsAmbient => Native.ZkParticleEffectEmitKeyInstance_getSfxIsAmbient(Handle);
 
 		public string EmCreateFxId =>
@@ -60,7 +70,9 @@ namespace ZenKit.Daedalus
 		public string EmSelfRotVelS =>
 			Native.ZkParticleEffectEmitKeyInstance_getEmSelfRotVelS(Handle).MarshalAsString() ?? string.Empty;
 
-		public string EmTrjModeS => Native.ZkParticleEffectEmitKeyInstance_getEmTrjModeS(Handle).MarshalAsString() ?? string.Empty;
+		public string EmTrjModeS => Native.ZkParticleEffectEmitKeyInstance_getEmTrjModeS(Handle).MarshalAsString() ??
+		                            string.Empty;
+
 		public float EmTrjEaseVel => Native.ZkParticleEffectEmitKeyInstance_getEmTrjEaseVel(Handle);
 		public int EmCheckCollision => Native.ZkParticleEffectEmitKeyInstance_getEmCheckCollision(Handle);
 		public float EmFxLifespan => Native.ZkParticleEffectEmitKeyInstance_getEmFxLifespan(Handle);

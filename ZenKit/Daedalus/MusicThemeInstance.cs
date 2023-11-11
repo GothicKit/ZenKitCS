@@ -11,7 +11,7 @@ namespace ZenKit.Daedalus
 		Break = 4,
 		Intro = 5,
 		End = 6,
-		EndAndInto = 7,
+		EndAndInto = 7
 	}
 
 	public enum MusicTransitionType
@@ -19,7 +19,7 @@ namespace ZenKit.Daedalus
 		Unknown = 0,
 		Immediate = 1,
 		Beat = 2,
-		Measure = 3,
+		Measure = 3
 	}
 
 	public class MusicThemeInstance : DaedalusInstance
@@ -27,7 +27,7 @@ namespace ZenKit.Daedalus
 		public MusicThemeInstance(UIntPtr handle) : base(handle)
 		{
 		}
-	
+
 		public string File => Native.ZkMusicThemeInstance_getFile(Handle).MarshalAsString() ?? string.Empty;
 		public float Vol => Native.ZkMusicThemeInstance_getVol(Handle);
 		public int Loop => Native.ZkMusicThemeInstance_getLoop(Handle);

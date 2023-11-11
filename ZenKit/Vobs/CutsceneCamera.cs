@@ -63,7 +63,8 @@ namespace ZenKit.Vobs
 
 	public class CutsceneCamera : VirtualObject
 	{
-		public CutsceneCamera(Read buf, GameVersion version) : base(Native.ZkCutsceneCamera_load(buf.Handle, version), true)
+		public CutsceneCamera(Read buf, GameVersion version) : base(Native.ZkCutsceneCamera_load(buf.Handle, version),
+			true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");
 		}

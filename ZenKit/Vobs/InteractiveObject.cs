@@ -4,7 +4,8 @@ namespace ZenKit.Vobs
 {
 	public class InteractiveObject : MovableObject
 	{
-		public InteractiveObject(Read buf, GameVersion version) : base(Native.ZkInteractiveObject_load(buf.Handle, version),
+		public InteractiveObject(Read buf, GameVersion version) : base(
+			Native.ZkInteractiveObject_load(buf.Handle, version),
 			true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load InteractiveObject vob");

@@ -6,8 +6,6 @@ namespace ZenKit
 	{
 		public delegate void ExternalDefaultFunction(DaedalusVm vm, DaedalusSymbol sym);
 
-		private delegate void ExternalFunc();
-
 		public delegate TR ExternalFunc<out TR>();
 
 		public delegate TR ExternalFunc<out TR, in TP0>(TP0 p0);
@@ -17,7 +15,9 @@ namespace ZenKit
 		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2>(TP0 p0, TP1 p1, TP2 p2);
 
 		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3>(TP0 p0, TP1 p1, TP2 p2, TP3 p3);
-		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4>(TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4);
+
+		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4>(TP0 p0, TP1 p1, TP2 p2, TP3 p3,
+			TP4 p4);
 
 		public delegate void ExternalFuncV();
 
@@ -28,7 +28,9 @@ namespace ZenKit
 		public delegate void ExternalFuncV<in TP0, in TP1, in TP2>(TP0 p0, TP1 p1, TP2 p2);
 
 		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3>(TP0 p0, TP1 p1, TP2 p2, TP3 p3);
-		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4>(TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4);
+
+		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4>(TP0 p0, TP1 p1, TP2 p2, TP3 p3,
+			TP4 p4);
 
 		public DaedalusVm(string path) : base(Native.ZkDaedalusVm_loadPath(path))
 		{
@@ -226,8 +228,9 @@ namespace ZenKit
 				Push(cb(p0, p1, p2, p3));
 			});
 		}
-	
-		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4>(string name, ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4> cb)
+
+		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4> cb)
 		{
 			RegisterExternalUnsafe(name, () =>
 			{
@@ -287,7 +290,7 @@ namespace ZenKit
 				cb(p0, p1, p2, p3);
 			});
 		}
-	
+
 		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4>(string name, ExternalFuncV<TP0, TP1, TP2, TP3, TP4> cb)
 		{
 			RegisterExternalUnsafe(name, () =>
@@ -300,7 +303,7 @@ namespace ZenKit
 				cb(p0, p1, p2, p3, p4);
 			});
 		}
-	
+
 		private void Push<T>(T value)
 		{
 			switch (value)
@@ -332,7 +335,8 @@ namespace ZenKit
 		{
 			if (typeof(T) == typeof(string))
 				return (T)(object)(Native.ZkDaedalusVm_popString(Handle).MarshalAsString() ?? string.Empty);
-			if (typeof(T) == typeof(int) || typeof(T) == typeof(bool)) return (T)(object)Native.ZkDaedalusVm_popInt(Handle);
+			if (typeof(T) == typeof(int) || typeof(T) == typeof(bool))
+				return (T)(object)Native.ZkDaedalusVm_popInt(Handle);
 			if (typeof(T) == typeof(float)) return (T)(object)Native.ZkDaedalusVm_popFloat(Handle);
 			if (typeof(T).IsSubclassOf(typeof(DaedalusInstance)))
 				return (T)(object)DaedalusInstance.FromNative(Native.ZkDaedalusVm_popInstance(Handle));
@@ -353,5 +357,7 @@ namespace ZenKit
 		{
 			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, (_0, _1) => cb(), UIntPtr.Zero);
 		}
+
+		private delegate void ExternalFunc();
 	}
 }

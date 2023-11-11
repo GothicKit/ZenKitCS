@@ -11,7 +11,7 @@ namespace ZenKit.Daedalus
 		Cursor = 4,
 		ChoiceBox = 5,
 		Button = 6,
-		ListBox = 7,
+		ListBox = 7
 	}
 
 	public enum MenuItemFlag
@@ -31,7 +31,7 @@ namespace ZenKit.Daedalus
 		NeedsApply = 1 << 12,
 		NeedsRestart = 1 << 13,
 		ExtendedMenu = 1 << 14,
-		HorSelectable = 1 << 15,
+		HorSelectable = 1 << 15
 	}
 
 	public class MenuInstance : DaedalusInstance
@@ -52,7 +52,11 @@ namespace ZenKit.Daedalus
 		public int Flags => Native.ZkMenuInstance_getFlags(Handle);
 		public int DefaultOutGame => Native.ZkMenuInstance_getDefaultOutgame(Handle);
 		public int DefaultInGame => Native.ZkMenuInstance_getDefaultIngame(Handle);
-		public string GetItem(ulong i) => Native.ZkMenuInstance_getItem(Handle, i).MarshalAsString() ?? string.Empty;
+
+		public string GetItem(ulong i)
+		{
+			return Native.ZkMenuInstance_getItem(Handle, i).MarshalAsString() ?? string.Empty;
+		}
 	}
 
 	public class MenuItemInstance : DaedalusInstance
@@ -66,7 +70,9 @@ namespace ZenKit.Daedalus
 		public string AlphaMode => Native.ZkMenuItemInstance_getAlphaMode(Handle).MarshalAsString() ?? string.Empty;
 		public int Alpha => Native.ZkMenuItemInstance_getAlpha(Handle);
 		public MenuItemType MenuItemType => Native.ZkMenuItemInstance_getType(Handle);
-		public string OnChgSetOption => Native.ZkMenuItemInstance_getOnChgSetOption(Handle).MarshalAsString() ?? string.Empty;
+
+		public string OnChgSetOption =>
+			Native.ZkMenuItemInstance_getOnChgSetOption(Handle).MarshalAsString() ?? string.Empty;
 
 		public string OnChgSetOptionSection =>
 			Native.ZkMenuItemInstance_getOnChgSetOptionSection(Handle).MarshalAsString() ?? string.Empty;
@@ -87,7 +93,9 @@ namespace ZenKit.Daedalus
 		public string HideIfOptionSectionSet =>
 			Native.ZkMenuItemInstance_getHideIfOptionSectionSet(Handle).MarshalAsString() ?? string.Empty;
 
-		public string HideIfOptionSet => Native.ZkMenuItemInstance_getHideIfOptionSet(Handle).MarshalAsString() ?? string.Empty;
+		public string HideIfOptionSet =>
+			Native.ZkMenuItemInstance_getHideIfOptionSet(Handle).MarshalAsString() ?? string.Empty;
+
 		public int HideOnValue => Native.ZkMenuItemInstance_getHideOnValue(Handle);
 
 		public string GetText(ulong i)
