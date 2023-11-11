@@ -1,0 +1,35 @@
+name: 'Build'
+on:
+  - 'push'
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        system:
+          - 'windows-2019'
+          - 'ubuntu-latest'
+    runs-on: '${{matrix.system}}'
+    steps:
+      - uses: 'actions/checkout@v3'
+      - name: 'Setup .NET Core SDK'
+        uses: 'actions/setup-dotnet@v3'
+        with:
+          dotnet-version: '7.0.x'
+      - name: 'Test'
+        run: 'dotnet test -v normal'
+  release:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v3'
+      - name: 'Setup .NET Core SDK'
+        uses: 'actions/setup-dotnet@v3'
+        with:
+          dotnet-version: '7.0.x'
+      - name: 'Build'
+        run: 'dotnet pack -c Release -o ./__publish/ -v detailed ZenKit'
+      - name: 'Publish'
+        uses: 'actions/upload-artifact@v3'
+        with:
+          name: 'NuGet Package'
+          path: '__publish'
