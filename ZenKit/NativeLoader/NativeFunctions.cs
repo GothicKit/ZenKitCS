@@ -3636,7 +3636,7 @@ namespace ZenKit.NativeLoader
 
 	namespace NativeStructs
 	{
-		[StructLayout(LayoutKind.Sequential)]
+		[StructLayout(LayoutKind.Sequential, Pack = 1, Size = 4)]
 		public struct ZkColor
 		{
 			public byte R, G, B, A;
