@@ -54,7 +54,7 @@ namespace ZenKit
 		public int Layer => Native.ZkMorphAnimation_getLayer(_handle);
 		public float BlendIn => Native.ZkMorphAnimation_getBlendIn(_handle);
 		public float BlendOut => Native.ZkMorphAnimation_getBlendOut(_handle);
-		public TimeSpan Duration => TimeSpan.FromSeconds(Native.ZkMorphAnimation_getDuration(_handle));
+		public TimeSpan Duration => TimeSpan.FromMilliseconds(Native.ZkMorphAnimation_getDuration(_handle));
 		public float Speed => Native.ZkMorphAnimation_getSpeed(_handle);
 		public byte Flags => Native.ZkMorphAnimation_getFlags(_handle);
 		public uint FrameCount => Native.ZkMorphAnimation_getFrameCount(_handle);

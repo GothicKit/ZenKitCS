@@ -40,7 +40,7 @@ namespace ZenKit.Test
 			Assert.That(ani.Layer, Is.EqualTo(1));
 			Assert.That(ani.BlendIn, Is.EqualTo(0.0100000007f));
 			Assert.That(ani.BlendOut, Is.EqualTo(-0.0100000007f));
-			Assert.That(ani.Duration, Is.EqualTo(400.0f));
+			Assert.That(ani.Duration.TotalSeconds, Is.EqualTo(0.4));
 			Assert.That(ani.Speed, Is.EqualTo(0.0250000004f));
 			Assert.That(ani.Flags, Is.EqualTo(0));
 			Assert.That(ani.FrameCount, Is.EqualTo(10));
