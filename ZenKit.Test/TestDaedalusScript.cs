@@ -4,7 +4,7 @@ namespace ZenKit.Test
 {
 	public class TestDaedalusScript
 	{
-		[Test]
+		[Test, Category("Proprietary")]
 		public void TestLoad()
 		{
 			var scr = new DaedalusScript("./Samples/menu.proprietary.dat");

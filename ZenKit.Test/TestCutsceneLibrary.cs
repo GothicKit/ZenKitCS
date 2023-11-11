@@ -13,7 +13,7 @@ namespace ZenKit.Test
 					Console.WriteLine(new DateTime() + " [ZenKit] (" + level + ") > " + name + ": " + message));
 		}
 
-		[Test]
+		[Test, Category("Proprietary")]
 		public void TestLoad()
 		{
 			var csl = new CutsceneLibrary("./Samples/ou.proprietary.bin");

@@ -16,7 +16,7 @@ namespace ZenKit.Test
 			Assert.That(v.Z, Is.EqualTo(z));
 		}
 	
-		[Test]
+		[Test, Category("Proprietary")]
 		public void TestLoad()
 		{
 			var wld = new World("./Samples/world.proprietary.zen");
