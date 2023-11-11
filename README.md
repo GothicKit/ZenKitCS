@@ -2,8 +2,8 @@
 
 [![Build](https://img.shields.io/github/actions/workflow/status/GothicKit/ZenKitCS/build.yml?label=Build&branch=main)](https://img.shields.io/github/actions/workflow/status/GothicKit/phoenix-shared-interface/build.yml)
 ![License](https://img.shields.io/github/license/GothicKit/ZenKitCS?label=License&color=important)
-![C++](https://img.shields.io/static/v1?label=C%2B%2B&message=17&color=informational)
-![Platforms](https://img.shields.io/static/v1?label=Supports&message=GCC%20|%20MinGW-w64%20|%20Clang%20|%20MSVC%20|%20Apple%20Clang&color=blueviolet)
+![C#](https://img.shields.io/static/v1?label=C%23&message=netstandard2.1&color=informational)
+![Platforms](https://img.shields.io/static/v1?label=Supports&message=Linux%20x64%20|%20Windows%20x64%20|%20Android%20ARM64&color=blueviolet)
 ![Version](https://img.shields.io/github/v/tag/GothicKit/ZenKitCS?label=Version&sort=semver)
 
 A C#-library wrapping the [ZenKit](https://github.com/GothicKit/ZenKit) library for parsing game assets of
