@@ -1,11 +1,19 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
-        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-x64\native\czenkit.dll" Condition="'$(Platform)'=='x64'">
-            <Link>czenkit.dll</Link>
+    <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\win-x64\native\zenkitcapi.dll">
+            <Link>zenkitcapi.dll</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\linux-x64\native\libczenkit.so" Condition="'$(Platform)'=='x64'">
-            <Link>libczenkit.so</Link>
+        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\linux-x64\native\libzenkitcapi.so">
+            <Link>libzenkitcapi.so</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\android-arm64\native\libzenkitcapi.so">
+            <Link>libzenkitcapi.so</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="$(MSBuildThisFileDirectory)..\..\runtimes\osx-x64\native\libzenkitcapi.dylib">
+            <Link>libzenkitcapi.dylib</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
