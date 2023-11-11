@@ -157,6 +157,12 @@ namespace ZenKit.NativeLoader
 		public delegate void ZkRead_del(UIntPtr slf);
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+		public delegate ulong ZkRead_getSize(UIntPtr slf);
+		
+		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+		public delegate ulong ZkRead_getBytes(UIntPtr slf, byte[] buf, ulong length);
+        
+		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		public delegate UIntPtr ZkVfs_new();
 
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]

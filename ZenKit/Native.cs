@@ -103,6 +103,8 @@ namespace ZenKit
 		public static ZkRead_newPath ZkRead_newPath;
 		public static ZkRead_newExt ZkRead_newExt;
 		public static ZkRead_del ZkRead_del;
+		public static ZkRead_getSize ZkRead_getSize;
+		public static ZkRead_getBytes ZkRead_getBytes;
 		public static ZkVfs_new ZkVfs_new;
 		public static ZkVfs_del ZkVfs_del;
 		public static ZkVfs_getRoot ZkVfs_getRoot;
@@ -1289,7 +1291,7 @@ namespace ZenKit
 
 		static Native()
 		{
-			var loader = new NativeLibrary("czenkit", LibraryLoader.GetPlatformDefaultLoader(),
+			var loader = new NativeLibrary("zenkitcapi", LibraryLoader.GetPlatformDefaultLoader(),
 				new NativePathResolver());
 
 			ZkAnimation_getFps = loader.LoadFunction<ZkAnimation_getFps>("ZkAnimation_getFps");
@@ -1302,6 +1304,8 @@ namespace ZenKit
 			ZkRead_newPath = loader.LoadFunction<ZkRead_newPath>("ZkRead_newPath");
 			ZkRead_newExt = loader.LoadFunction<ZkRead_newExt>("ZkRead_newExt");
 			ZkRead_del = loader.LoadFunction<ZkRead_del>("ZkRead_del");
+			ZkRead_getSize = loader.LoadFunction<ZkRead_getSize>("ZkRead_getSize");
+			ZkRead_getBytes = loader.LoadFunction<ZkRead_getBytes>("ZkRead_getBytes");
 			ZkVfs_new = loader.LoadFunction<ZkVfs_new>("ZkVfs_new");
 			ZkVfs_del = loader.LoadFunction<ZkVfs_del>("ZkVfs_del");
 			ZkVfs_getRoot = loader.LoadFunction<ZkVfs_getRoot>("ZkVfs_getRoot");

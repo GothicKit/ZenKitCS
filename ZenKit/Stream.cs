@@ -1,4 +1,5 @@
 using System;
+using ZenKit.NativeLoader.NativeFunctions;
 using ZenKit.NativeLoader.NativeStructs;
 
 namespace ZenKit
@@ -50,6 +51,16 @@ namespace ZenKit
 
 		internal UIntPtr Handle { get; }
 
+		public byte[] Bytes
+		{
+			get
+			{
+				var buf = new byte[Native.ZkRead_getSize(Handle)];
+				Native.ZkRead_getBytes(Handle, buf, (ulong)buf.Length);
+				return buf;
+			}
+		}
+		
 		~Read()
 		{
 			Native.ZkRead_del(Handle);
