@@ -1,16 +1,49 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using NativeLibraryLoader;
 using ZenKit.NativeLoader;
 using ZenKit.NativeLoader.NativeFunctions;
 
 namespace ZenKit
 {
+	public enum StringEncoding {
+		CentralEurope = 1250,
+		EastEurope = 1251,
+		WestEurope = 1252
+	}
+
+	public static class StringEncodingController
+	{
+		private static Encoding _encoding;
+		
+		static StringEncodingController()
+		{
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+			_encoding = Encoding.GetEncoding(1252);
+		}
+		
+		public static void SetEncoding(StringEncoding coding)
+		{
+			_encoding = Encoding.GetEncoding((int)coding);
+		}
+
+		internal static string Decode(byte[] bytes)
+		{
+			return _encoding.GetString(bytes);
+		}
+	}
+	
+	
 	internal static class Marshalling
 	{
 		public static string? MarshalAsString(this IntPtr ptr)
 		{
-			return Marshal.PtrToStringUTF8(ptr);
+			if (ptr == IntPtr.Zero) return null;
+
+			uint length = 0;
+			while (Marshal.ReadByte(ptr, (int) length) != 0) length += 1;
+			return StringEncodingController.Decode(ptr.MarshalAsArray<byte>(length));
 		}
 
 		public static T[] MarshalAsArray<T>(this IntPtr ptr, ulong size)
