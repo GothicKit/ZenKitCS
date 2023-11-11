@@ -10,7 +10,7 @@ namespace ZenKit
 	{
 		public short ParentIndex;
 		public IntPtr _name;
-		private Native.ZkMat4x4 _transform;
+		private NativeLoader.NativeStructs.ZkMat4x4 _transform;
 
 		public string Name => _name.MarshalAsString() ?? throw new Exception("Failed to load model hierarchy node name");
 

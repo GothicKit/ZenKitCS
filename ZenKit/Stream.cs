@@ -34,7 +34,7 @@ namespace ZenKit
 
 		public Read(IRead impl)
 		{
-			var ext = new Native.ZkReadExt();
+			var ext = new NativeLoader.NativeStructs.ZkReadExt();
 			ext.read = (_, buf, len) => impl.Read(buf, len);
 			ext.seek = (_, off, whence) => impl.Seek(off, Whence.Begin);
 			ext.tell = _ => impl.Tell();

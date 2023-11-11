@@ -76,7 +76,7 @@ namespace ZenKit
 				if (Format != TextureFormat.P8) return null;
 
 				var palette = Native.ZkTexture_getPalette(_handle, out var size);
-				var argb = palette.MarshalAsArray<Native.ZkColorArgb>(size);
+				var argb = palette.MarshalAsArray<NativeLoader.NativeStructs.ZkColorArgb>(size);
 
 				var colors = new Color[argb.Length];
 				for (var i = 0; i < argb.Length; i++) colors[i] = argb[i].ToColor();
