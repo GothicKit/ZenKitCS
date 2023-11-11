@@ -33,9 +33,9 @@ namespace ZenKit.Test
 
 			var obb = mesh.OrientedBoundingBox;
 			Assert.Multiple(() => CheckVec3(obb.Center,    0, 0, 0));
-			Assert.Multiple(() => CheckVec3(obb.Axes[0],   0, 0, 0));
-			Assert.Multiple(() => CheckVec3(obb.Axes[1],   0, 0, 0));
-			Assert.Multiple(() => CheckVec3(obb.Axes[2],   0, 0, 0));
+			Assert.Multiple(() => CheckVec3(obb.Axes.Item1,   0, 0, 0));
+			Assert.Multiple(() => CheckVec3(obb.Axes.Item2,   0, 0, 0));
+			Assert.Multiple(() => CheckVec3(obb.Axes.Item3,   0, 0, 0));
 			Assert.Multiple(() => CheckVec3(obb.HalfWidth, 0, 0, 0));
 
 			var verts = mesh.Positions;

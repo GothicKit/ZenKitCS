@@ -81,9 +81,9 @@ namespace ZenKit.Test
 			Assert.That(bboxes, Has.Count.EqualTo(6));
 			Assert.Multiple(() => CheckVec3(bboxes[0].Center, 0.612892151f, 41.7827187f, 0.705307007f));
 			Assert.Multiple(() => CheckVec3(bboxes[0].HalfWidth, 15.2073612f, 33.4261742f, 14.8513918f));
-			Assert.Multiple(() => CheckVec3(bboxes[0].Axes[0], 0.777145922f, 0, -0.629320442f));
-			Assert.Multiple(() => CheckVec3(bboxes[0].Axes[1], 0, 1, 0));
-			Assert.Multiple(() => CheckVec3(bboxes[0].Axes[2], 0.629320442f, 0, 0.777145922f));
+			Assert.Multiple(() => CheckVec3(bboxes[0].Axes.Item1, 0.777145922f, 0, -0.629320442f));
+			Assert.Multiple(() => CheckVec3(bboxes[0].Axes.Item2, 0, 1, 0));
+			Assert.Multiple(() => CheckVec3(bboxes[0].Axes.Item3, 0.629320442f, 0, 0.777145922f));
 			Assert.That(bboxes[0].Children, Has.Count.EqualTo(0));
 		}
 	

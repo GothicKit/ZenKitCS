@@ -23,13 +23,11 @@ namespace ZenKit
 
 		public Vector3 Center => Native.ZkOrientedBoundingBox_getCenter(_handle);
 
-		// TODO(lmichaelis): Replace with Tuple
-		public Vector3[] Axes => new[]
-		{
+		public Tuple<Vector3, Vector3, Vector3> Axes => new Tuple<Vector3, Vector3, Vector3>(
 			Native.ZkOrientedBoundingBox_getAxis(_handle, 0),
 			Native.ZkOrientedBoundingBox_getAxis(_handle, 1),
 			Native.ZkOrientedBoundingBox_getAxis(_handle, 2)
-		};
+		);
 
 		public Vector3 HalfWidth => Native.ZkOrientedBoundingBox_getHalfWidth(_handle);
 		public ulong ChildCount => Native.ZkOrientedBoundingBox_getChildCount(_handle);
