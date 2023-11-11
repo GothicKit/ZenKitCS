@@ -4,10 +4,18 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
         <RootNamespace>ZenKit</RootNamespace>
-        <PackageId>ZenKit.Alpha</PackageId>
-        <Version>1.0.5</Version>
+        <PackRelease>true</PackRelease>
+        <PackageId>ZenKit</PackageId>
+        <Version>0.1.0</Version>
         <Authors>Luis Michaelis</Authors>
         <Company>GothicKit</Company>
+        <Copyright>© 2023. GothicKit Contributors</Copyright>
+        <PackageTags>gothic gothic2 file-formats file-format-library zengin wrapper library parser gothickit</PackageTags>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/GothicKit/ZenKitCS</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/GothicKit/ZenKitCS</RepositoryUrl>
+        <Description>C#-bindings for ZenKit, the ZenGin asset parser.</Description>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,7 +23,8 @@
         <Folder Include="runtimes\linux-x64\native"/>
         <Folder Include="runtimes\win-x64\native"/>
         <Folder Include="runtimes\osx-x64\native"/>
-        <None Include="ZenKit.Alpha.targets" Pack="true" PackagePath="build"/>
+        <None Include="..\README.md" Pack="true" PackagePath="/"/>
+        <None Include="ZenKit.targets" Pack="true" PackagePath="build" />
         <Content Include="runtimes\**" PackagePath="runtimes" PackageCopyToOutput="true" Pack="True" CopyToOutputDirectory="Always"/>
     </ItemGroup>
 
