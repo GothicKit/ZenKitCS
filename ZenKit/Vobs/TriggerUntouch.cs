@@ -1,27 +1,30 @@
-namespace ZenKit.Vobs;
+using System;
 
-public class TriggerUntouch : VirtualObject
+namespace ZenKit.Vobs
 {
-	public TriggerUntouch(Read buf, GameVersion version) : base(Native.ZkTriggerUntouch_load(buf.Handle, version), true)
+	public class TriggerUntouch : VirtualObject
 	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerUntouch vob");
-	}
+		public TriggerUntouch(Read buf, GameVersion version) : base(Native.ZkTriggerUntouch_load(buf.Handle, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerUntouch vob");
+		}
 
-	public TriggerUntouch(string path, GameVersion version) : base(Native.ZkTriggerUntouch_loadPath(path, version),
-		true)
-	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerUntouch vob");
-	}
+		public TriggerUntouch(string path, GameVersion version) : base(Native.ZkTriggerUntouch_loadPath(path, version),
+			true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerUntouch vob");
+		}
 
-	internal TriggerUntouch(UIntPtr handle, bool delete) : base(handle, delete)
-	{
-	}
+		internal TriggerUntouch(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
 
-	public string Target => Native.ZkTriggerUntouch_getTarget(Handle).MarshalAsString() ?? string.Empty;
+		public string Target => Native.ZkTriggerUntouch_getTarget(Handle).MarshalAsString() ?? string.Empty;
 
 
-	protected override void Delete()
-	{
-		Native.ZkTriggerUntouch_del(Handle);
+		protected override void Delete()
+		{
+			Native.ZkTriggerUntouch_del(Handle);
+		}
 	}
 }

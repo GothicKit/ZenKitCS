@@ -1,93 +1,97 @@
-namespace ZenKit;
+using System;
+using System.Collections.Generic;
 
-public class CutsceneMessage
+namespace ZenKit
 {
-	private readonly UIntPtr _handle;
-
-	internal CutsceneMessage(UIntPtr handle)
+	public class CutsceneMessage
 	{
-		_handle = handle;
-	}
+		private readonly UIntPtr _handle;
 
-	public uint Type => Native.ZkCutsceneMessage_getType(_handle);
-
-	public string Text => Native.ZkCutsceneMessage_getText(_handle).MarshalAsString() ??
-	                      throw new Exception("Failed to get cutscene message text");
-
-	public string Name => Native.ZkCutsceneMessage_getName(_handle).MarshalAsString() ??
-	                      throw new Exception("Failed to get cutscene message name");
-}
-
-public class CutsceneBlock
-{
-	private readonly UIntPtr _handle;
-
-	internal CutsceneBlock(UIntPtr handle)
-	{
-		_handle = handle;
-	}
-
-	public string Name => Native.ZkCutsceneBlock_getName(_handle).MarshalAsString() ??
-	                      throw new Exception("Failed to get cutscene block name");
-
-	public CutsceneMessage Message
-	{
-		get
+		internal CutsceneMessage(UIntPtr handle)
 		{
-			var handle = Native.ZkCutsceneBlock_getMessage(_handle);
-			return handle != UIntPtr.Zero
-				? new CutsceneMessage(handle)
-				: throw new Exception("Failed to load cutscene block message");
+			_handle = handle;
 		}
-	}
-}
 
-public class CutsceneLibrary
-{
-	private readonly UIntPtr _handle;
+		public uint Type => Native.ZkCutsceneMessage_getType(_handle);
 
-	public CutsceneLibrary(string path)
-	{
-		_handle = Native.ZkCutsceneLibrary_loadPath(path);
-		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
+		public string Text => Native.ZkCutsceneMessage_getText(_handle).MarshalAsString() ??
+		                      throw new Exception("Failed to get cutscene message text");
+
+		public string Name => Native.ZkCutsceneMessage_getName(_handle).MarshalAsString() ??
+		                      throw new Exception("Failed to get cutscene message name");
 	}
 
-	public CutsceneLibrary(Read r)
+	public class CutsceneBlock
 	{
-		_handle = Native.ZkCutsceneLibrary_load(r.Handle);
-		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
-	}
+		private readonly UIntPtr _handle;
 
-	public CutsceneLibrary(Vfs vfs, string name)
-	{
-		_handle = Native.ZkCutsceneLibrary_loadVfs(vfs.Handle, name);
-		if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
-	}
-
-	public List<CutsceneBlock> Blocks
-	{
-		get
+		internal CutsceneBlock(UIntPtr handle)
 		{
-			var blocks = new List<CutsceneBlock>();
+			_handle = handle;
+		}
 
-			Native.ZkCutsceneLibrary_enumerateBlocks(_handle, (_, block) =>
+		public string Name => Native.ZkCutsceneBlock_getName(_handle).MarshalAsString() ??
+		                      throw new Exception("Failed to get cutscene block name");
+
+		public CutsceneMessage Message
+		{
+			get
 			{
-				blocks.Add(new CutsceneBlock(block));
-				return false;
-			}, UIntPtr.Zero);
-
-			return blocks;
+				var handle = Native.ZkCutsceneBlock_getMessage(_handle);
+				return handle != UIntPtr.Zero
+					? new CutsceneMessage(handle)
+					: throw new Exception("Failed to load cutscene block message");
+			}
 		}
 	}
 
-	~CutsceneLibrary()
+	public class CutsceneLibrary
 	{
-		Native.ZkCutsceneLibrary_del(_handle);
-	}
+		private readonly UIntPtr _handle;
 
-	public CutsceneBlock? GetBlock(string name)
-	{
-		var block = Native.ZkCutsceneLibrary_getBlock(_handle, name);
-		return block == UIntPtr.Zero ? null : new CutsceneBlock(block);
+		public CutsceneLibrary(string path)
+		{
+			_handle = Native.ZkCutsceneLibrary_loadPath(path);
+			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
+		}
+
+		public CutsceneLibrary(Read r)
+		{
+			_handle = Native.ZkCutsceneLibrary_load(r.Handle);
+			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
+		}
+
+		public CutsceneLibrary(Vfs vfs, string name)
+		{
+			_handle = Native.ZkCutsceneLibrary_loadVfs(vfs.Handle, name);
+			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
+		}
+
+		public List<CutsceneBlock> Blocks
+		{
+			get
+			{
+				var blocks = new List<CutsceneBlock>();
+
+				Native.ZkCutsceneLibrary_enumerateBlocks(_handle, (_, block) =>
+				{
+					blocks.Add(new CutsceneBlock(block));
+					return false;
+				}, UIntPtr.Zero);
+
+				return blocks;
+			}
+		}
+
+		~CutsceneLibrary()
+		{
+			Native.ZkCutsceneLibrary_del(_handle);
+		}
+
+		public CutsceneBlock? GetBlock(string name)
+		{
+			var block = Native.ZkCutsceneLibrary_getBlock(_handle, name);
+			return block == UIntPtr.Zero ? null : new CutsceneBlock(block);
+		}
 	}
 }

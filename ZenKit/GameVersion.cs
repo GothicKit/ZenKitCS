@@ -1,7 +1,8 @@
-namespace ZenKit;
-
-public enum GameVersion
+namespace ZenKit
 {
-	Gothic1 = 0,
-	Gothic2 = 1
+	public enum GameVersion
+	{
+		Gothic1 = 0,
+		Gothic2 = 1
+	}
 }

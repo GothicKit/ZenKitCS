@@ -2,15 +2,16 @@ using NUnit.Framework;
 using ZenKit;
 using ZenKit.Vobs;
 
-namespace ZenKitTest.Tests.Vobs;
-
-public class TestTriggerWorldStart
+namespace ZenKitTest.Tests.Vobs
 {
-	[Test]
-	public void TestLoad()
+	public class TestTriggerWorldStart
 	{
-		var vob = new TriggerWorldStart("./Samples/G2/VOb/zCTriggerWorldStart.zen", GameVersion.Gothic2);
-		Assert.That(vob.Target, Is.EqualTo("EVT_TROLL_GRAVE_MOVER_01"));
-		Assert.That(vob.FireOnce, Is.True);
+		[Test]
+		public void TestLoad()
+		{
+			var vob = new TriggerWorldStart("./Samples/G2/VOb/zCTriggerWorldStart.zen", GameVersion.Gothic2);
+			Assert.That(vob.Target, Is.EqualTo("EVT_TROLL_GRAVE_MOVER_01"));
+			Assert.That(vob.FireOnce, Is.True);
+		}
 	}
 }

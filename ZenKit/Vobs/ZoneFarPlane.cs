@@ -1,26 +1,29 @@
-namespace ZenKit.Vobs;
+using System;
 
-public class ZoneFarPlane : VirtualObject
+namespace ZenKit.Vobs
 {
-	public ZoneFarPlane(Read buf, GameVersion version) : base(Native.ZkZoneFarPlane_load(buf.Handle, version), true)
+	public class ZoneFarPlane : VirtualObject
 	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
-	}
+		public ZoneFarPlane(Read buf, GameVersion version) : base(Native.ZkZoneFarPlane_load(buf.Handle, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
+		}
 
-	public ZoneFarPlane(string path, GameVersion version) : base(Native.ZkZoneFarPlane_loadPath(path, version), true)
-	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
-	}
+		public ZoneFarPlane(string path, GameVersion version) : base(Native.ZkZoneFarPlane_loadPath(path, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
+		}
 
-	internal ZoneFarPlane(UIntPtr handle, bool delete) : base(handle, delete)
-	{
-	}
+		internal ZoneFarPlane(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
 
-	public float VobFarPlaneZ => Native.ZkZoneFarPlane_getVobFarPlaneZ(Handle);
-	public float InnerRangePercentage => Native.ZkZoneFarPlane_getInnerRangePercentage(Handle);
+		public float VobFarPlaneZ => Native.ZkZoneFarPlane_getVobFarPlaneZ(Handle);
+		public float InnerRangePercentage => Native.ZkZoneFarPlane_getInnerRangePercentage(Handle);
 
-	protected override void Delete()
-	{
-		Native.ZkZoneFarPlane_del(Handle);
+		protected override void Delete()
+		{
+			Native.ZkZoneFarPlane_del(Handle);
+		}
 	}
 }

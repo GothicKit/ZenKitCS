@@ -1,26 +1,29 @@
-namespace ZenKit.Vobs;
+using System;
 
-public class Fire : InteractiveObject
+namespace ZenKit.Vobs
 {
-	public Fire(Read buf, GameVersion version) : base(Native.ZkFire_load(buf.Handle, version), true)
+	public class Fire : InteractiveObject
 	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Fire vob");
-	}
+		public Fire(Read buf, GameVersion version) : base(Native.ZkFire_load(buf.Handle, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Fire vob");
+		}
 
-	public Fire(string path, GameVersion version) : base(Native.ZkFire_loadPath(path, version), true)
-	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Fire vob");
-	}
+		public Fire(string path, GameVersion version) : base(Native.ZkFire_loadPath(path, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Fire vob");
+		}
 
-	internal Fire(UIntPtr handle, bool delete) : base(handle, delete)
-	{
-	}
+		internal Fire(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
 
-	public string Slot => Native.ZkFire_getSlot(Handle).MarshalAsString() ?? string.Empty;
-	public string VobTree => Native.ZkFire_getVobTree(Handle).MarshalAsString() ?? string.Empty;
+		public string Slot => Native.ZkFire_getSlot(Handle).MarshalAsString() ?? string.Empty;
+		public string VobTree => Native.ZkFire_getVobTree(Handle).MarshalAsString() ?? string.Empty;
 
-	protected override void Delete()
-	{
-		Native.ZkFire_del(Handle);
+		protected override void Delete()
+		{
+			Native.ZkFire_del(Handle);
+		}
 	}
 }

@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKit", "ZenKit\ZenKit.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKitTest", "ZenKitTest\ZenKitTest.csproj", "{21900B0F-7454-46DB-912C-AA6B94FA333C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZenKitExamples", "ZenKitExamples\ZenKitExamples.csproj", "{C7849268-7E94-4D95-B0FF-9C11C8550EFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{21900B0F-7454-46DB-912C-AA6B94FA333C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21900B0F-7454-46DB-912C-AA6B94FA333C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21900B0F-7454-46DB-912C-AA6B94FA333C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7849268-7E94-4D95-B0FF-9C11C8550EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7849268-7E94-4D95-B0FF-9C11C8550EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7849268-7E94-4D95-B0FF-9C11C8550EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7849268-7E94-4D95-B0FF-9C11C8550EFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,26 +1,29 @@
-namespace ZenKit.Vobs;
+using System;
 
-public class Item : VirtualObject
+namespace ZenKit.Vobs
 {
-	public Item(Read buf, GameVersion version) : base(Native.ZkItem_load(buf.Handle, version), true)
+	public class Item : VirtualObject
 	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load item vob");
-	}
+		public Item(Read buf, GameVersion version) : base(Native.ZkItem_load(buf.Handle, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load item vob");
+		}
 
-	public Item(string path, GameVersion version) : base(Native.ZkItem_loadPath(path, version), true)
-	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load item vob");
-	}
+		public Item(string path, GameVersion version) : base(Native.ZkItem_loadPath(path, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load item vob");
+		}
 
-	internal Item(UIntPtr handle, bool delete) : base(handle, delete)
-	{
-	}
+		internal Item(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
 
-	public string Instance => Native.ZkItem_getInstance(Handle).MarshalAsString() ??
-	                          throw new Exception("Failed to load item instance");
+		public string Instance => Native.ZkItem_getInstance(Handle).MarshalAsString() ??
+		                          throw new Exception("Failed to load item instance");
 
-	protected override void Delete()
-	{
-		Native.ZkItem_del(Handle);
+		protected override void Delete()
+		{
+			Native.ZkItem_del(Handle);
+		}
 	}
 }

@@ -1,39 +1,42 @@
-namespace ZenKit.Vobs;
+using System;
 
-public enum MessageFilterAction
+namespace ZenKit.Vobs
 {
-	None = 0,
-	Trigger = 1,
-	Untrigger = 2,
-	Enable = 3,
-	Disable = 4,
-	Toggle = 5
-}
-
-public class MessageFilter : VirtualObject
-{
-	public MessageFilter(Read buf, GameVersion version) : base(Native.ZkMessageFilter_load(buf.Handle, version), true)
+	public enum MessageFilterAction
 	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load message filter vob");
+		None = 0,
+		Trigger = 1,
+		Untrigger = 2,
+		Enable = 3,
+		Disable = 4,
+		Toggle = 5
 	}
 
-	public MessageFilter(string path, GameVersion version) : base(Native.ZkMessageFilter_loadPath(path, version), true)
+	public class MessageFilter : VirtualObject
 	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load message filter vob");
-	}
+		public MessageFilter(Read buf, GameVersion version) : base(Native.ZkMessageFilter_load(buf.Handle, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load message filter vob");
+		}
 
-	internal MessageFilter(UIntPtr handle, bool delete) : base(handle, delete)
-	{
-	}
+		public MessageFilter(string path, GameVersion version) : base(Native.ZkMessageFilter_loadPath(path, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load message filter vob");
+		}
 
-	public string Target => Native.ZkMessageFilter_getTarget(Handle).MarshalAsString() ??
-	                        throw new Exception("Failed to load message filter vob target");
+		internal MessageFilter(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
 
-	public MessageFilterAction OnTrigger => Native.ZkMessageFilter_getOnTrigger(Handle);
-	public MessageFilterAction OnUntrigger => Native.ZkMessageFilter_getOnUntrigger(Handle);
+		public string Target => Native.ZkMessageFilter_getTarget(Handle).MarshalAsString() ??
+		                        throw new Exception("Failed to load message filter vob target");
 
-	protected override void Delete()
-	{
-		Native.ZkMessageFilter_del(Handle);
+		public MessageFilterAction OnTrigger => Native.ZkMessageFilter_getOnTrigger(Handle);
+		public MessageFilterAction OnUntrigger => Native.ZkMessageFilter_getOnUntrigger(Handle);
+
+		protected override void Delete()
+		{
+			Native.ZkMessageFilter_del(Handle);
+		}
 	}
 }

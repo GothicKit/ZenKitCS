@@ -1,25 +1,28 @@
-namespace ZenKit.Vobs;
+using System;
 
-public class TriggerScript : Trigger
+namespace ZenKit.Vobs
 {
-	public TriggerScript(Read buf, GameVersion version) : base(Native.ZkTriggerScript_load(buf.Handle, version), true)
+	public class TriggerScript : Trigger
 	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerScript vob");
-	}
+		public TriggerScript(Read buf, GameVersion version) : base(Native.ZkTriggerScript_load(buf.Handle, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerScript vob");
+		}
 
-	public TriggerScript(string path, GameVersion version) : base(Native.ZkTriggerScript_loadPath(path, version), true)
-	{
-		if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerScript vob");
-	}
+		public TriggerScript(string path, GameVersion version) : base(Native.ZkTriggerScript_loadPath(path, version), true)
+		{
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerScript vob");
+		}
 
-	internal TriggerScript(UIntPtr handle, bool delete) : base(handle, delete)
-	{
-	}
+		internal TriggerScript(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
 
-	public string Function => Native.ZkTriggerScript_getFunction(Handle).MarshalAsString() ?? string.Empty;
+		public string Function => Native.ZkTriggerScript_getFunction(Handle).MarshalAsString() ?? string.Empty;
 
-	protected override void Delete()
-	{
-		Native.ZkTriggerScript_del(Handle);
+		protected override void Delete()
+		{
+			Native.ZkTriggerScript_del(Handle);
+		}
 	}
 }

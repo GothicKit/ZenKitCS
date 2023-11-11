@@ -2,15 +2,16 @@ using NUnit.Framework;
 using ZenKit;
 using ZenKit.Vobs;
 
-namespace ZenKitTest.Tests.Vobs;
-
-public class TestZoneFarPlane
+namespace ZenKitTest.Tests.Vobs
 {
-	[Test]
-	public void TestLoad()
+	public class TestZoneFarPlane
 	{
-		var vob = new ZoneFarPlane("./Samples/G2/VOb/zCZoneVobFarPlane.zen", GameVersion.Gothic2);
-		Assert.That(vob.VobFarPlaneZ, Is.EqualTo(6500.0f));
-		Assert.That(vob.InnerRangePercentage, Is.EqualTo(0.699999988f));
+		[Test]
+		public void TestLoad()
+		{
+			var vob = new ZoneFarPlane("./Samples/G2/VOb/zCZoneVobFarPlane.zen", GameVersion.Gothic2);
+			Assert.That(vob.VobFarPlaneZ, Is.EqualTo(6500.0f));
+			Assert.That(vob.InnerRangePercentage, Is.EqualTo(0.699999988f));
+		}
 	}
 }
