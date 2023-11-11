@@ -2,15 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	public enum BspTreeType
 	{
 		Indoor = 0,
 		Outdoor = 1
 	}
 
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 60)]
 	public struct BspNode
 	{
@@ -23,7 +26,31 @@ namespace ZenKit
 		public int ParentIndex;
 	}
 
-	public class BspSector
+	namespace Materialized
+	{
+		[Serializable]
+		public struct BspSector
+		{
+			public string Name;
+			public uint[] NodeIndices;
+			public uint[] PortalPolygonIndices;
+		}
+
+		[Serializable]
+		public struct BspTree
+		{
+			public BspTreeType Type;
+			public uint[] PolygonIndices;
+			public uint[] LeafPolygonIndices;
+			public uint[] PortalPolygonIndices;
+			public Vector3[] LightPoints;
+			public ulong[] LeafNodeIndices;
+			public BspNode[] Nodes;
+			public List<BspSector> Sectors;
+		}
+	}
+
+	public class BspSector : IMaterializing<Materialized.BspSector>
 	{
 		private readonly UIntPtr _handle;
 
@@ -35,13 +62,29 @@ namespace ZenKit
 		public string Name => Native.ZkBspSector_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load bsp sector name");
 
-		public uint[] NodeIndices => Native.ZkBspSector_getNodeIndices(_handle, out var count).MarshalAsArray<uint>(count);
+		public uint[] NodeIndices =>
+			Native.ZkBspSector_getNodeIndices(_handle, out var count).MarshalAsArray<uint>(count);
 
 		public uint[] PortalPolygonIndices =>
 			Native.ZkBspSector_getPortalPolygonIndices(_handle, out var count).MarshalAsArray<uint>(count);
+
+		/// <summary>
+		///     Fully loads this native object into a C# serializable object, disassociated
+		///     from the underlying native implementation.
+		/// </summary>
+		/// <returns>This native object in a pure C# representation.</returns>
+		public Materialized.BspSector Materialize()
+		{
+			return new Materialized.BspSector
+			{
+				Name = Name,
+				NodeIndices = NodeIndices,
+				PortalPolygonIndices = PortalPolygonIndices
+			};
+		}
 	}
 
-	public class BspTree
+	public class BspTree : IMaterializing<Materialized.BspTree>
 	{
 		private readonly UIntPtr _handle;
 
@@ -84,6 +127,26 @@ namespace ZenKit
 
 				return sectors;
 			}
+		}
+
+		/// <summary>
+		///     Fully loads this native object into a C# serializable object, disassociated
+		///     from the underlying native implementation.
+		/// </summary>
+		/// <returns>This native object in a pure C# representation.</returns>
+		public Materialized.BspTree Materialize()
+		{
+			return new Materialized.BspTree
+			{
+				Type = Type,
+				PolygonIndices = PolygonIndices,
+				LeafPolygonIndices = LeafPolygonIndices,
+				PortalPolygonIndices = PortalPolygonIndices,
+				LightPoints = LightPoints,
+				LeafNodeIndices = LeafNodeIndices,
+				Nodes = Nodes,
+				Sectors = Sectors.ConvertAll(sector => sector.Materialize())
+			};
 		}
 
 		public BspSector GetSector(ulong i)

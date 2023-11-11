@@ -1,9 +1,11 @@
 using System;
 using System.Drawing;
 using System.Numerics;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	public enum MaterialGroup
 	{
 		Undefined = 0,
@@ -15,12 +17,14 @@ namespace ZenKit
 		Snow = 6
 	}
 
+	[Serializable]
 	public enum AnimationMapping
 	{
 		None = 0,
 		Linear = 1
 	}
 
+	[Serializable]
 	public enum WaveMode
 	{
 		None = 0,
@@ -33,6 +37,7 @@ namespace ZenKit
 		Wind = 7
 	}
 
+	[Serializable]
 	public enum WaveSpeed
 	{
 		None = 0,
@@ -41,6 +46,7 @@ namespace ZenKit
 		Fast = 3
 	}
 
+	[Serializable]
 	public enum AlphaFunction
 	{
 		Default = 0,
@@ -52,7 +58,39 @@ namespace ZenKit
 		MultiplyAlt = 6
 	}
 
-	public class Material
+	namespace Materialized
+	{
+		[Serializable]
+		public struct Material
+		{
+			public string Name;
+			public MaterialGroup Group;
+			public Color Color;
+			public float SmoothAngle;
+			public string Texture;
+			public Vector2 TextureScale;
+			public float TextureAnimationFps;
+			public AnimationMapping TextureAnimationMapping;
+			public Vector2 TextureAnimationMappingDirection;
+			public bool DisableCollision;
+			public bool DisableLightmap;
+			public bool DontCollapse;
+			public string DetailObject;
+			public float DetailObjectScale;
+			public bool ForceOccluder;
+			public bool EnvironmentMapping;
+			public float EnvironmentMappingStrength;
+			public WaveMode WaveMode;
+			public WaveSpeed WaveSpeed;
+			public float WaveAmplitude;
+			public float WaveGridSize;
+			public bool IgnoreSun;
+			public AlphaFunction AlphaFunction;
+			public Vector2 DefaultMapping;
+		}
+	}
+
+	public class Material : IMaterializing<Materialized.Material>
 	{
 		private readonly bool _delete;
 		private readonly UIntPtr _handle;
@@ -90,7 +128,10 @@ namespace ZenKit
 		public Vector2 TextureScale => Native.ZkMaterial_getTextureScale(_handle);
 		public float TextureAnimationFps => Native.ZkMaterial_getTextureAnimationFps(_handle);
 		public AnimationMapping TextureAnimationMapping => Native.ZkMaterial_getTextureAnimationMapping(_handle);
-		public Vector2 TextureAnimationMappingDirection => Native.ZkMaterial_getTextureAnimationMappingDirection(_handle);
+
+		public Vector2 TextureAnimationMappingDirection =>
+			Native.ZkMaterial_getTextureAnimationMappingDirection(_handle);
+
 		public bool DisableCollision => Native.ZkMaterial_getDisableCollision(_handle);
 		public bool DisableLightmap => Native.ZkMaterial_getDisableLightmap(_handle);
 		public bool DontCollapse => Native.ZkMaterial_getDontCollapse(_handle);
@@ -109,6 +150,37 @@ namespace ZenKit
 		public bool IgnoreSun => Native.ZkMaterial_getIgnoreSun(_handle);
 		public AlphaFunction AlphaFunction => Native.ZkMaterial_getAlphaFunction(_handle);
 		public Vector2 DefaultMapping => Native.ZkMaterial_getDefaultMapping(_handle);
+
+		public Materialized.Material Materialize()
+		{
+			return new Materialized.Material
+			{
+				Name = Name,
+				Group = Group,
+				Color = Color,
+				SmoothAngle = SmoothAngle,
+				Texture = Texture,
+				TextureScale = TextureScale,
+				TextureAnimationFps = TextureAnimationFps,
+				TextureAnimationMapping = TextureAnimationMapping,
+				TextureAnimationMappingDirection = TextureAnimationMappingDirection,
+				DisableCollision = DisableCollision,
+				DisableLightmap = DisableLightmap,
+				DontCollapse = DontCollapse,
+				DetailObject = DetailObject,
+				DetailObjectScale = DetailObjectScale,
+				ForceOccluder = ForceOccluder,
+				EnvironmentMapping = EnvironmentMapping,
+				EnvironmentMappingStrength = EnvironmentMappingStrength,
+				WaveMode = WaveMode,
+				WaveSpeed = WaveSpeed,
+				WaveAmplitude = WaveAmplitude,
+				WaveGridSize = WaveGridSize,
+				IgnoreSun = IgnoreSun,
+				AlphaFunction = AlphaFunction,
+				DefaultMapping = DefaultMapping
+			};
+		}
 
 		~Material()
 		{

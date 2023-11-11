@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using ZenKit.NativeLoader.NativeStructs;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	public enum TextureFormat
 	{
 		B8G8R8A8 = 0x0,
@@ -23,7 +26,24 @@ namespace ZenKit
 		Dxt5 = 0xE
 	}
 
-	public class Texture
+	namespace Materialized
+	{
+		[Serializable]
+		public struct Texture
+		{
+			public TextureFormat Format;
+			public uint Width;
+			public uint Height;
+			public uint WidthRef;
+			public uint HeightRef;
+			public uint MipmapCount;
+			public Color AverageColor;
+			public Color[]? Palette;
+			public List<byte[]> AllMipmapsRgba;
+		}
+	}
+
+	public class Texture : IMaterializing<Materialized.Texture>
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -64,7 +84,8 @@ namespace ZenKit
 			get
 			{
 				var color = Native.ZkTexture_getAverageColor(_handle);
-				return Color.FromArgb((int)((color >> 24) & 0xFF), (int)((color >> 16) & 0xFF), (int)((color >> 8) & 0xFF),
+				return Color.FromArgb((int)((color >> 24) & 0xFF), (int)((color >> 16) & 0xFF),
+					(int)((color >> 8) & 0xFF),
 					(int)(color & 0xFF));
 			}
 		}
@@ -76,7 +97,7 @@ namespace ZenKit
 				if (Format != TextureFormat.P8) return null;
 
 				var palette = Native.ZkTexture_getPalette(_handle, out var size);
-				var argb = palette.MarshalAsArray<NativeLoader.NativeStructs.ZkColorArgb>(size);
+				var argb = palette.MarshalAsArray<ZkColorArgb>(size);
 
 				var colors = new Color[argb.Length];
 				for (var i = 0; i < argb.Length; i++) colors[i] = argb[i].ToColor();
@@ -115,6 +136,22 @@ namespace ZenKit
 
 				return mipmaps;
 			}
+		}
+
+		public Materialized.Texture Materialize()
+		{
+			return new Materialized.Texture
+			{
+				Format = Format,
+				Width = Width,
+				Height = Height,
+				WidthRef = WidthRef,
+				HeightRef = HeightRef,
+				MipmapCount = MipmapCount,
+				AverageColor = AverageColor,
+				Palette = Palette,
+				AllMipmapsRgba = AllMipmapsRgba
+			};
 		}
 
 		~Texture()

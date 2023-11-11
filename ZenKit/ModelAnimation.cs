@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
 	public struct AnimationSample
 	{
@@ -12,7 +14,29 @@ namespace ZenKit
 		public Quaternion Rotation;
 	}
 
-	public class ModelAnimation
+	namespace Materialized
+	{
+		[Serializable]
+		public struct ModelAnimation
+		{
+			public string Name;
+			public string Next;
+			public uint Layer;
+			public uint FrameCount;
+			public uint NodeCount;
+			public float Fps;
+			public float FpsSource;
+			public AxisAlignedBoundingBox BoundingBox;
+			public uint Checksum;
+			public string SourcePath;
+			public DateTime SourceDate;
+			public string SourceScript;
+			public List<AnimationSample> Samples;
+			public uint[] NodeIndices;
+		}
+	}
+
+	public class ModelAnimation : IMaterializing<Materialized.ModelAnimation>
 	{
 		private readonly UIntPtr _handle;
 
@@ -76,6 +100,27 @@ namespace ZenKit
 
 		public uint[] NodeIndices =>
 			Native.ZkModelAnimation_getNodeIndices(_handle, out var size).MarshalAsArray<uint>(size);
+
+		public Materialized.ModelAnimation Materialize()
+		{
+			return new Materialized.ModelAnimation
+			{
+				Name = Name,
+				Next = Next,
+				Layer = Layer,
+				FrameCount = FrameCount,
+				NodeCount = NodeCount,
+				Fps = Fps,
+				FpsSource = FpsSource,
+				BoundingBox = BoundingBox,
+				Checksum = Checksum,
+				SourcePath = SourcePath,
+				SourceDate = SourceDate,
+				SourceScript = SourceScript,
+				Samples = Samples,
+				NodeIndices = NodeIndices
+			};
+		}
 
 		~ModelAnimation()
 		{

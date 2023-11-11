@@ -1,8 +1,19 @@
 using System;
+using ZenKit.Util;
 
 namespace ZenKit
 {
-	public class Model
+	namespace Materialized
+	{
+		[Serializable]
+		public struct Model
+		{
+			public ModelHierarchy Hierarchy;
+			public ModelMesh Mesh;
+		}
+	}
+
+	public class Model : IMaterializing<Materialized.Model>
 	{
 		private readonly UIntPtr _handle;
 
@@ -27,6 +38,15 @@ namespace ZenKit
 
 		public ModelHierarchy Hierarchy => new ModelHierarchy(Native.ZkModel_getHierarchy(_handle));
 		public ModelMesh Mesh => new ModelMesh(Native.ZkModel_getMesh(_handle));
+
+		public Materialized.Model Materialize()
+		{
+			return new Materialized.Model
+			{
+				Hierarchy = Hierarchy.Materialize(),
+				Mesh = Mesh.Materialize()
+			};
+		}
 
 		~Model()
 		{

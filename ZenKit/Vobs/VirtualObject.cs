@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using ZenKit.Util;
 
 namespace ZenKit.Vobs
 {
+	[Serializable]
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	public enum VirtualObjectType
 	{
@@ -56,6 +58,7 @@ namespace ZenKit.Vobs
 		Unknown = 45
 	}
 
+	[Serializable]
 	public enum SpriteAlignment
 	{
 		None = 0,
@@ -63,12 +66,14 @@ namespace ZenKit.Vobs
 		Full = 2
 	}
 
+	[Serializable]
 	public enum ShadowType
 	{
 		None = 0,
 		Blob = 1
 	}
 
+	[Serializable]
 	public enum AnimationType
 	{
 		None = 0,
@@ -76,6 +81,7 @@ namespace ZenKit.Vobs
 		WindAlt = 2
 	}
 
+	[Serializable]
 	public enum VisualType
 	{
 		Decal = 0,
@@ -88,7 +94,79 @@ namespace ZenKit.Vobs
 		Unknown = 7
 	}
 
-	public class Decal
+	namespace Materialized
+	{
+		[Serializable]
+		public struct Decal
+		{
+			public string Name;
+			public Vector2 Dimension;
+			public Vector2 Offset;
+			public bool TwoSided;
+			public AlphaFunction AlphaFunction;
+			public float TextureAnimationFps;
+			public byte AlphaWeight;
+			public bool IgnoreDaylight;
+		}
+
+		[Serializable]
+		public class VirtualObject
+		{
+			public bool Ambient;
+			public float AnimationStrength;
+			public AnimationType AnimationType;
+			public int Bias;
+			public AxisAlignedBoundingBox BoundingBox;
+			public bool CdDynamic;
+			public bool CdStatic;
+			public List<VirtualObject> Children;
+			public ShadowType DynamicShadows;
+			public float FarClipScale;
+			public uint Id;
+			public string Name;
+			public bool PhysicsEnabled;
+			public Vector3 Position;
+			public string PresetName;
+			public Quaternion Rotation;
+			public bool ShowVisual;
+			public SpriteAlignment SpriteCameraFacingMode;
+			public bool Static;
+			public VirtualObjectType Type;
+			public Decal? VisualDecal;
+			public string VisualName;
+			public VisualType VisualType;
+
+			internal virtual VirtualObject MaterializeFrom(Vobs.VirtualObject orig)
+			{
+				Type = orig.Type;
+				Id = orig.Id;
+				BoundingBox = orig.BoundingBox;
+				Position = orig.Position;
+				Rotation = orig.Rotation;
+				ShowVisual = orig.ShowVisual;
+				SpriteCameraFacingMode = orig.SpriteCameraFacingMode;
+				CdStatic = orig.CdStatic;
+				CdDynamic = orig.CdDynamic;
+				Static = orig.Static;
+				DynamicShadows = orig.DynamicShadows;
+				PhysicsEnabled = orig.PhysicsEnabled;
+				AnimationType = orig.AnimationType;
+				Bias = orig.Bias;
+				Ambient = orig.Ambient;
+				AnimationStrength = orig.AnimationStrength;
+				FarClipScale = orig.FarClipScale;
+				PresetName = orig.PresetName;
+				Name = orig.Name;
+				VisualName = orig.VisualName;
+				VisualType = orig.VisualType;
+				VisualDecal = orig.VisualDecal?.Materialize();
+				Children = orig.Children.ConvertAll(child => child.Materialize());
+				return this;
+			}
+		}
+	}
+
+	public class Decal : IMaterializing<Materialized.Decal>
 	{
 		private readonly UIntPtr _handle;
 
@@ -107,9 +185,24 @@ namespace ZenKit.Vobs
 		public float TextureAnimationFps => Native.ZkDecal_getTextureAnimFps(_handle);
 		public byte AlphaWeight => Native.ZkDecal_getAlphaWeight(_handle);
 		public bool IgnoreDaylight => Native.ZkDecal_getIgnoreDaylight(_handle);
+
+		public Materialized.Decal Materialize()
+		{
+			return new Materialized.Decal
+			{
+				Name = Name,
+				Dimension = Dimension,
+				Offset = Offset,
+				TwoSided = TwoSided,
+				AlphaFunction = AlphaFunction,
+				TextureAnimationFps = TextureAnimationFps,
+				AlphaWeight = AlphaWeight,
+				IgnoreDaylight = IgnoreDaylight
+			};
+		}
 	}
 
-	public class VirtualObject
+	public class VirtualObject : IMaterializing<Materialized.VirtualObject>
 	{
 		private readonly bool _delete;
 		protected readonly UIntPtr Handle;
@@ -188,6 +281,11 @@ namespace ZenKit.Vobs
 
 				return children;
 			}
+		}
+
+		public virtual Materialized.VirtualObject Materialize()
+		{
+			return new Materialized.VirtualObject().MaterializeFrom(this);
 		}
 
 		protected virtual void Delete()

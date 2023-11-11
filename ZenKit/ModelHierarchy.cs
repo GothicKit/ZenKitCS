@@ -2,22 +2,58 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.NativeLoader.NativeStructs;
+using ZenKit.Util;
 
 namespace ZenKit
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public struct ModelHierarchyNode
+	namespace Materialized
 	{
-		public short ParentIndex;
-		public IntPtr _name;
-		private NativeLoader.NativeStructs.ZkMat4x4 _transform;
+		[Serializable]
+		public struct ModelHierarchyNode
+		{
+			public short ParentIndex;
+			public string Name;
+			public Matrix4x4 Transform;
+		}
 
-		public string Name => _name.MarshalAsString() ?? throw new Exception("Failed to load model hierarchy node name");
-
-		public Matrix4x4 Transform => _transform.ToCSharp();
+		[Serializable]
+		public struct ModelHierarchy
+		{
+			public AxisAlignedBoundingBox BoundingBox;
+			public AxisAlignedBoundingBox CollisionBoundingBox;
+			public Vector3 RootTranslation;
+			public uint Checksum;
+			public DateTime SourceDate;
+			public string SourcePath;
+			public List<ModelHierarchyNode> Nodes;
+		}
 	}
 
-	public class ModelHierarchy
+	[StructLayout(LayoutKind.Sequential)]
+	public struct ModelHierarchyNode : IMaterializing<Materialized.ModelHierarchyNode>
+	{
+		public short ParentIndex;
+		private IntPtr _name;
+		private ZkMat4x4 _transform;
+
+		public string Name =>
+			_name.MarshalAsString() ?? throw new Exception("Failed to load model hierarchy node name");
+
+		public Matrix4x4 Transform => _transform.ToCSharp();
+
+		public Materialized.ModelHierarchyNode Materialize()
+		{
+			return new Materialized.ModelHierarchyNode
+			{
+				ParentIndex = ParentIndex,
+				Name = Name,
+				Transform = Transform
+			};
+		}
+	}
+
+	public class ModelHierarchy : IMaterializing<Materialized.ModelHierarchy>
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -40,7 +76,7 @@ namespace ZenKit
 			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load model hierarchy");
 		}
 
-		public ModelHierarchy(UIntPtr handle)
+		internal ModelHierarchy(UIntPtr handle)
 		{
 			_handle = handle;
 			_delete = false;
@@ -70,6 +106,20 @@ namespace ZenKit
 
 				return nodes;
 			}
+		}
+
+		public Materialized.ModelHierarchy Materialize()
+		{
+			return new Materialized.ModelHierarchy
+			{
+				BoundingBox = BoundingBox,
+				CollisionBoundingBox = CollisionBoundingBox,
+				RootTranslation = RootTranslation,
+				Checksum = Checksum,
+				SourceDate = SourceDate,
+				SourcePath = SourcePath,
+				Nodes = Nodes.ConvertAll(node => node.Materialize())
+			};
 		}
 
 		~ModelHierarchy()

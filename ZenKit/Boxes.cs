@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
 	public struct AxisAlignedBoundingBox
 	{
@@ -12,7 +14,22 @@ namespace ZenKit
 		public Vector3 Max;
 	}
 
-	public class OrientedBoundingBox
+	namespace Materialized
+	{
+		[Serializable]
+		public struct OrientedBoundingBox
+		{
+			public Vector3 Center;
+			public Tuple<Vector3, Vector3, Vector3> Axes;
+			public Vector3 HalfWidth;
+			public List<OrientedBoundingBox> Children;
+		}
+	}
+
+	/// <summary>
+	///     The interface to native oriented bounding boxes.
+	/// </summary>
+	public class OrientedBoundingBox : IMaterializing<Materialized.OrientedBoundingBox>
 	{
 		private readonly UIntPtr _handle;
 
@@ -46,6 +63,22 @@ namespace ZenKit
 
 				return children;
 			}
+		}
+
+		/// <summary>
+		///     Fully loads this native object into a C# serializable object, disassociated
+		///     from the underlying native implementation.
+		/// </summary>
+		/// <returns>This native object in a pure C# representation.</returns>
+		public Materialized.OrientedBoundingBox Materialize()
+		{
+			return new Materialized.OrientedBoundingBox
+			{
+				Center = Center,
+				HalfWidth = HalfWidth,
+				Axes = Axes,
+				Children = Children.ConvertAll(obb => obb.Materialize())
+			};
 		}
 
 		public OrientedBoundingBox GetChild(ulong i)

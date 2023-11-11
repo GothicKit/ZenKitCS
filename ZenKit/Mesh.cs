@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 24)]
 	public struct Vertex
 	{
@@ -13,11 +15,55 @@ namespace ZenKit
 		public Vector3 Normal;
 	}
 
-	public class LightMap
+	namespace Materialized
+	{
+		[Serializable]
+		public struct LightMap
+		{
+			public Texture Image;
+			public Vector3 Origin;
+			public Tuple<Vector3, Vector3> Normals;
+		}
+
+		[Serializable]
+		public struct Polygon
+		{
+			public uint MaterialIndex;
+			public int LightMapIndex;
+			public uint[] PositionIndices;
+			public uint[] PolygonIndices;
+			public bool IsPortal;
+			public bool IsOccluder;
+			public bool IsSector;
+			public bool ShouldRelight;
+			public bool IsOutdoor;
+			public bool IsGhostOccluder;
+			public bool IsDynamicallyLit;
+			public bool IsLod;
+			public byte NormalAxis;
+			public short SectorIndex;
+		}
+
+		[Serializable]
+		public struct Mesh
+		{
+			public DateTime SourceDate;
+			public string Name;
+			public AxisAlignedBoundingBox BoundingBox;
+			public OrientedBoundingBox OrientedBoundingBox;
+			public List<Material> Materials;
+			public Vector3[] Positions;
+			public Vertex[] Vertices;
+			public List<LightMap> LightMap;
+			public List<Polygon> Polygons;
+		}
+	}
+
+	public class LightMap : IMaterializing<Materialized.LightMap>
 	{
 		private readonly UIntPtr _handle;
 
-		public LightMap(UIntPtr handle)
+		internal LightMap(UIntPtr handle)
 		{
 			_handle = handle;
 		}
@@ -27,9 +73,19 @@ namespace ZenKit
 
 		public Tuple<Vector3, Vector3> Normals => new Tuple<Vector3, Vector3>(Native.ZkLightMap_getNormal(_handle, 0),
 			Native.ZkLightMap_getNormal(_handle, 1));
+
+		public Materialized.LightMap Materialize()
+		{
+			return new Materialized.LightMap
+			{
+				Image = Image.Materialize(),
+				Origin = Origin,
+				Normals = Normals
+			};
+		}
 	}
 
-	public class Polygon
+	public class Polygon : IMaterializing<Materialized.Polygon>
 	{
 		private readonly UIntPtr _handle;
 
@@ -57,9 +113,30 @@ namespace ZenKit
 		public bool IsLod => Native.ZkPolygon_getIsLod(_handle);
 		public byte NormalAxis => Native.ZkPolygon_getNormalAxis(_handle);
 		public short SectorIndex => Native.ZkPolygon_getSectorIndex(_handle);
+
+		public Materialized.Polygon Materialize()
+		{
+			return new Materialized.Polygon
+			{
+				MaterialIndex = MaterialIndex,
+				LightMapIndex = LightMapIndex,
+				PositionIndices = PositionIndices,
+				PolygonIndices = PolygonIndices,
+				IsPortal = IsPortal,
+				IsOccluder = IsOccluder,
+				IsSector = IsSector,
+				ShouldRelight = ShouldRelight,
+				IsOutdoor = IsOutdoor,
+				IsGhostOccluder = IsGhostOccluder,
+				IsDynamicallyLit = IsDynamicallyLit,
+				IsLod = IsLod,
+				NormalAxis = NormalAxis,
+				SectorIndex = SectorIndex
+			};
+		}
 	}
 
-	public class Mesh
+	public class Mesh : IMaterializing<Materialized.Mesh>
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -95,7 +172,10 @@ namespace ZenKit
 		                      throw new Exception("Failed to load mesh name");
 
 		public AxisAlignedBoundingBox BoundingBox => Native.ZkMesh_getBoundingBox(_handle);
-		public OrientedBoundingBox OrientedBoundingBox => new OrientedBoundingBox(Native.ZkMesh_getOrientedBoundingBox(_handle));
+
+		public OrientedBoundingBox OrientedBoundingBox =>
+			new OrientedBoundingBox(Native.ZkMesh_getOrientedBoundingBox(_handle));
+
 		public ulong MaterialCount => Native.ZkMesh_getMaterialCount(_handle);
 
 		public List<Material> Materials
@@ -151,6 +231,22 @@ namespace ZenKit
 
 				return polygons;
 			}
+		}
+
+		public Materialized.Mesh Materialize()
+		{
+			return new Materialized.Mesh
+			{
+				SourceDate = SourceDate,
+				Name = Name,
+				BoundingBox = BoundingBox,
+				OrientedBoundingBox = OrientedBoundingBox.Materialize(),
+				Materials = Materials.ConvertAll(mat => mat.Materialize()),
+				Positions = Positions,
+				Vertices = Vertices,
+				LightMap = LightMap.ConvertAll(lm => lm.Materialize()),
+				Polygons = Polygons.ConvertAll(polygon => polygon.Materialize())
+			};
 		}
 
 		~Mesh()

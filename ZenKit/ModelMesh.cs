@@ -1,9 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using ZenKit.Util;
 
 namespace ZenKit
 {
-	public class ModelMesh
+	namespace Materialized
+	{
+		[Serializable]
+		public struct ModelMesh
+		{
+			public List<SoftSkinMesh> Meshes;
+			public Dictionary<string, MultiResolutionMesh> Attachments;
+			public uint Checksum;
+		}
+	}
+
+	public class ModelMesh : IMaterializing<Materialized.ModelMesh>
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -26,7 +39,7 @@ namespace ZenKit
 			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load model mesh");
 		}
 
-		public ModelMesh(UIntPtr handle)
+		internal ModelMesh(UIntPtr handle)
 		{
 			_handle = handle;
 			_delete = false;
@@ -72,6 +85,15 @@ namespace ZenKit
 		}
 
 		public uint Checksum => Native.ZkModelMesh_getChecksum(_handle);
+
+		public Materialized.ModelMesh Materialize()
+		{
+			return new Materialized.ModelMesh
+			{
+				Meshes = Meshes.ConvertAll(mesh => mesh.Materialize()),
+				Attachments = Attachments.ToDictionary(p => p.Key, p => p.Value.Materialize())
+			};
+		}
 
 		~ModelMesh()
 		{

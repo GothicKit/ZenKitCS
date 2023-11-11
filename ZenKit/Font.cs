@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
 	public struct FontGlyph
 	{
@@ -13,7 +15,18 @@ namespace ZenKit
 		public Vector2 bottomRight;
 	}
 
-	public class Font
+	namespace Materialized
+	{
+		[Serializable]
+		public struct Font
+		{
+			public string Name;
+			public uint Height;
+			public List<FontGlyph> Glyphs;
+		}
+	}
+
+	public class Font : IMaterializing<Materialized.Font>
 	{
 		private readonly UIntPtr _handle;
 
@@ -56,6 +69,16 @@ namespace ZenKit
 
 				return glyphs;
 			}
+		}
+
+		public Materialized.Font Materialize()
+		{
+			return new Materialized.Font
+			{
+				Name = Name,
+				Height = Height,
+				Glyphs = Glyphs
+			};
 		}
 
 		~Font()

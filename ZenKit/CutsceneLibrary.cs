@@ -1,9 +1,34 @@
 using System;
 using System.Collections.Generic;
+using ZenKit.Util;
 
 namespace ZenKit
 {
-	public class CutsceneMessage
+	namespace Materialized
+	{
+		[Serializable]
+		public struct CutsceneMessage
+		{
+			public uint Type;
+			public string Text;
+			public string Name;
+		}
+
+		[Serializable]
+		public struct CutsceneBlock
+		{
+			public string Name;
+			public CutsceneMessage Message;
+		}
+
+		[Serializable]
+		public struct CutsceneLibrary
+		{
+			public List<CutsceneBlock> Blocks;
+		}
+	}
+
+	public class CutsceneMessage : IMaterializing<Materialized.CutsceneMessage>
 	{
 		private readonly UIntPtr _handle;
 
@@ -19,9 +44,19 @@ namespace ZenKit
 
 		public string Name => Native.ZkCutsceneMessage_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to get cutscene message name");
+
+		public Materialized.CutsceneMessage Materialize()
+		{
+			return new Materialized.CutsceneMessage
+			{
+				Type = Type,
+				Text = Text,
+				Name = Name
+			};
+		}
 	}
 
-	public class CutsceneBlock
+	public class CutsceneBlock : IMaterializing<Materialized.CutsceneBlock>
 	{
 		private readonly UIntPtr _handle;
 
@@ -43,9 +78,18 @@ namespace ZenKit
 					: throw new Exception("Failed to load cutscene block message");
 			}
 		}
+
+		public Materialized.CutsceneBlock Materialize()
+		{
+			return new Materialized.CutsceneBlock
+			{
+				Name = Name,
+				Message = Message.Materialize()
+			};
+		}
 	}
 
-	public class CutsceneLibrary
+	public class CutsceneLibrary : IMaterializing<Materialized.CutsceneLibrary>
 	{
 		private readonly UIntPtr _handle;
 
@@ -81,6 +125,14 @@ namespace ZenKit
 
 				return blocks;
 			}
+		}
+
+		public Materialized.CutsceneLibrary Materialize()
+		{
+			return new Materialized.CutsceneLibrary
+			{
+				Blocks = Blocks.ConvertAll(block => block.Materialize())
+			};
 		}
 
 		~CutsceneLibrary()

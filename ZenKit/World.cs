@@ -1,10 +1,23 @@
 using System;
 using System.Collections.Generic;
-using ZenKit.Vobs;
+using ZenKit.Util;
+using ZenKit.Vobs.Materialized;
 
 namespace ZenKit
 {
-	public class World
+	namespace Materialized
+	{
+		[Serializable]
+		public struct World
+		{
+			public Mesh Mesh;
+			public BspTree BspTree;
+			public WayNet WayNet;
+			public List<VirtualObject> RootObjects;
+		}
+	}
+
+	public class World : IMaterializing<Materialized.World>
 	{
 		private readonly UIntPtr _handle;
 
@@ -32,15 +45,15 @@ namespace ZenKit
 		public WayNet WayNet => new WayNet(Native.ZkWorld_getWayNet(_handle));
 		public ulong RootObjectCount => Native.ZkWorld_getRootObjectCount(_handle);
 
-		public List<VirtualObject> RootObjects
+		public List<Vobs.VirtualObject> RootObjects
 		{
 			get
 			{
-				var objects = new List<VirtualObject>();
+				var objects = new List<Vobs.VirtualObject>();
 
 				Native.ZkWorld_enumerateRootObjects(_handle, (_, vob) =>
 				{
-					objects.Add(VirtualObject.FromNative(vob));
+					objects.Add(Vobs.VirtualObject.FromNative(vob));
 					return false;
 				}, UIntPtr.Zero);
 
@@ -48,14 +61,25 @@ namespace ZenKit
 			}
 		}
 
+		public Materialized.World Materialize()
+		{
+			return new Materialized.World
+			{
+				Mesh = Mesh.Materialize(),
+				BspTree = BspTree.Materialize(),
+				WayNet = WayNet.Materialize(),
+				RootObjects = RootObjects.ConvertAll(obj => obj.Materialize())
+			};
+		}
+
 		~World()
 		{
 			Native.ZkWorld_del(_handle);
 		}
 
-		public VirtualObject GetRootObject(ulong i)
+		public Vobs.VirtualObject GetRootObject(ulong i)
 		{
-			return VirtualObject.FromNative(Native.ZkWorld_getRootObject(_handle, i));
+			return Vobs.VirtualObject.FromNative(Native.ZkWorld_getRootObject(_handle, i));
 		}
 	}
 }

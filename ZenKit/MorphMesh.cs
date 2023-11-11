@@ -1,14 +1,49 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using ZenKit.Util;
 
 namespace ZenKit
 {
-	public class MorphAnimation
+	namespace Materialized
+	{
+		[Serializable]
+		public struct MorphAnimation
+		{
+			public int Layer;
+			public float BlendIn;
+			public float BlendOut;
+			public TimeSpan Duration;
+			public float Speed;
+			public byte Flags;
+			public uint FrameCount;
+			public uint[] Vertices;
+			public Vector3[] Samples;
+		}
+
+		[Serializable]
+		public struct MorphSource
+		{
+			public string FileName;
+			public DateTime FileDate;
+		}
+
+		[Serializable]
+		public struct MorphMesh
+		{
+			public string Name;
+			public MultiResolutionMesh Mesh;
+			public Vector3[] MorphPositions;
+			public List<MorphAnimation> Animations;
+			public List<MorphSource> Sources;
+		}
+	}
+
+	public class MorphAnimation : IMaterializing<Materialized.MorphAnimation>
 	{
 		private readonly UIntPtr _handle;
 
-		public MorphAnimation(UIntPtr handle)
+		internal MorphAnimation(UIntPtr handle)
 		{
 			_handle = handle;
 		}
@@ -19,21 +54,39 @@ namespace ZenKit
 		public int Layer => Native.ZkMorphAnimation_getLayer(_handle);
 		public float BlendIn => Native.ZkMorphAnimation_getBlendIn(_handle);
 		public float BlendOut => Native.ZkMorphAnimation_getBlendOut(_handle);
-		public float Duration => Native.ZkMorphAnimation_getDuration(_handle);
+		public TimeSpan Duration => TimeSpan.FromSeconds(Native.ZkMorphAnimation_getDuration(_handle));
 		public float Speed => Native.ZkMorphAnimation_getSpeed(_handle);
 		public byte Flags => Native.ZkMorphAnimation_getFlags(_handle);
 		public uint FrameCount => Native.ZkMorphAnimation_getFrameCount(_handle);
-		public uint[] Vertices => Native.ZkMorphAnimation_getVertices(_handle, out var count).MarshalAsArray<uint>(count);
+
+		public uint[] Vertices =>
+			Native.ZkMorphAnimation_getVertices(_handle, out var count).MarshalAsArray<uint>(count);
 
 		public Vector3[] Samples =>
 			Native.ZkMorphAnimation_getSamples(_handle, out var count).MarshalAsArray<Vector3>(count);
+
+		public Materialized.MorphAnimation Materialize()
+		{
+			return new Materialized.MorphAnimation
+			{
+				Layer = Layer,
+				BlendIn = BlendIn,
+				BlendOut = BlendOut,
+				Duration = Duration,
+				Speed = Speed,
+				Flags = Flags,
+				FrameCount = FrameCount,
+				Vertices = Vertices,
+				Samples = Samples
+			};
+		}
 	}
 
-	public class MorphSource
+	public class MorphSource : IMaterializing<Materialized.MorphSource>
 	{
 		private readonly UIntPtr _handle;
 
-		public MorphSource(UIntPtr handle)
+		internal MorphSource(UIntPtr handle)
 		{
 			_handle = handle;
 		}
@@ -42,9 +95,18 @@ namespace ZenKit
 		                          throw new Exception("Failed to load morph source file name");
 
 		public DateTime FileDate => Native.ZkMorphSource_getFileDate(_handle).AsDateTime();
+
+		public Materialized.MorphSource Materialize()
+		{
+			return new Materialized.MorphSource
+			{
+				FileDate = FileDate,
+				FileName = FileName
+			};
+		}
 	}
 
-	public class MorphMesh
+	public class MorphMesh : IMaterializing<Materialized.MorphMesh>
 	{
 		private readonly UIntPtr _handle;
 
@@ -108,6 +170,18 @@ namespace ZenKit
 
 				return sources;
 			}
+		}
+
+		public Materialized.MorphMesh Materialize()
+		{
+			return new Materialized.MorphMesh
+			{
+				Name = Name,
+				Mesh = Mesh.Materialize(),
+				MorphPositions = MorphPositions,
+				Animations = Animations.ConvertAll(ani => ani.Materialize()),
+				Sources = Sources.ConvertAll(src => src.Materialize())
+			};
 		}
 
 		~MorphMesh()

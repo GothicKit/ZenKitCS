@@ -1,9 +1,12 @@
 using System;
 using ZenKit.Daedalus;
+using ZenKit.Util;
 
 namespace ZenKit
 {
-	public enum DaedalusInstanceType {
+	[Serializable]
+	public enum DaedalusInstanceType
+	{
 		GuildValues = 0,
 		Npc = 1,
 		Mission = 2,
@@ -25,12 +28,22 @@ namespace ZenKit
 		FightAi = 18,
 		SoundEffect = 19,
 		SoundSystem = 20,
-		Invalid = 20,
+		Invalid = 20
 	}
 
-	public class DaedalusInstance
+	namespace Materialized
 	{
-		public DaedalusInstance(UIntPtr handle)
+		[Serializable]
+		public struct DaedalusInstance
+		{
+			public DaedalusInstanceType Type;
+			public uint Index;
+		}
+	}
+
+	public class DaedalusInstance : IMaterializing<Materialized.DaedalusInstance>
+	{
+		protected DaedalusInstance(UIntPtr handle)
 		{
 			Handle = handle;
 		}
@@ -39,6 +52,15 @@ namespace ZenKit
 
 		public DaedalusInstanceType Type => Native.ZkDaedalusInstance_getType(Handle);
 		public uint Index => Native.ZkDaedalusInstance_getIndex(Handle);
+
+		public Materialized.DaedalusInstance Materialize()
+		{
+			return new Materialized.DaedalusInstance
+			{
+				Type = Type,
+				Index = Index
+			};
+		}
 
 		public static DaedalusInstance FromNative(UIntPtr handle)
 		{
@@ -64,7 +86,8 @@ namespace ZenKit
 				DaedalusInstanceType.FightAi => new FightAiInstance(handle),
 				DaedalusInstanceType.SoundEffect => new SoundEffectInstance(handle),
 				DaedalusInstanceType.SoundSystem => new SoundSystemInstance(handle),
-				DaedalusInstanceType.Svm => throw new InvalidOperationException("Svm Instances are currently not supported"),
+				DaedalusInstanceType.Svm => throw new InvalidOperationException(
+					"Svm Instances are currently not supported"),
 				_ => new DaedalusInstance(handle)
 			};
 		}

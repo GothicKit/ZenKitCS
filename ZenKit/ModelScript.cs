@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	public class AnimationFlag
 	{
 		public static int None = 0;
@@ -14,12 +16,14 @@ namespace ZenKit
 		public static int InPlace = 32;
 	}
 
+	[Serializable]
 	public enum AnimationDirection
 	{
 		Forward = 0,
 		Backward = 1
 	}
 
+	[Serializable]
 	public enum EventType
 	{
 		Unknown = 0,
@@ -47,6 +51,7 @@ namespace ZenKit
 		ComboWindow = 22
 	}
 
+	[Serializable]
 	public enum FightMode
 	{
 		Fist = 0,
@@ -59,10 +64,151 @@ namespace ZenKit
 		Invalid = 0xFF
 	}
 
-	public class ModelScript
+	namespace Materialized
+	{
+		[Serializable]
+		public struct ModelScript
+		{
+			public string SkeletonName;
+			public bool SkeletonMeshDisabled;
+			public List<AnimationCombine> AnimationCombines;
+			public List<string> Meshes;
+			public List<string> DisabledAnimations;
+			public List<AnimationBlend> AnimationBlends;
+			public List<AnimationAlias> AnimationAliases;
+			public List<string> ModelTags;
+			public List<Animation> Animations;
+		}
+
+		[Serializable]
+		public struct Animation
+		{
+			public string Name;
+			public uint Layer;
+			public string Next;
+			public float BlendIn;
+			public float BlendOut;
+			public int Flags;
+			public string Model;
+			public AnimationDirection Direction;
+			public int FirstFrame;
+			public int LastFrame;
+			public float Fps;
+			public float Speed;
+			public float CollisionVolumeScale;
+			public List<EventTag> EventTags;
+			public List<EventParticleEffect> ParticleEffects;
+			public List<EventParticleEffectStop> ParticleEffectsStop;
+			public List<EventSoundEffect> SoundEffects;
+			public List<EventSoundEffectGround> SoundEffectsGround;
+			public List<EventMorphAnimation> MorphAnimations;
+			public List<EventCameraTremor> CameraTremors;
+		}
+
+		[Serializable]
+		public struct EventMorphAnimation
+		{
+			public int Frame;
+			public string Animation;
+			public string Node;
+		}
+
+		[Serializable]
+		public struct EventCameraTremor
+		{
+			public int Frame;
+			public int Field1;
+			public int Field2;
+			public int Field3;
+			public int Field4;
+		}
+
+		[Serializable]
+		public struct EventSoundEffectGround
+		{
+			public int Frame;
+			public string Name;
+			public float Range;
+			public bool EmptySlot;
+		}
+
+		[Serializable]
+		public struct EventSoundEffect
+		{
+			public int Frame;
+			public string Name;
+			public float Range;
+			public bool EmptySlot;
+		}
+
+		[Serializable]
+		public struct EventParticleEffectStop
+		{
+			public int Frame;
+			public int Index;
+		}
+
+		[Serializable]
+		public struct EventParticleEffect
+		{
+			public int Frame;
+			public int Index;
+			public string Name;
+			public string Position;
+			public bool Attached;
+		}
+
+		[Serializable]
+		public struct EventTag
+		{
+			public int Frame;
+			public EventType Type;
+			public Tuple<string, string> Slots;
+			public string Item;
+			public uint[] Frames;
+			public FightMode FightMode;
+			public bool Attached;
+		}
+
+		[Serializable]
+		public struct AnimationAlias
+		{
+			public string Name;
+			public uint Layer;
+			public string Next;
+			public float BlendIn;
+			public float BlendOut;
+			public uint Flags;
+			public string Alias;
+			public AnimationDirection Direction;
+		}
+
+		[Serializable]
+		public struct AnimationBlend
+		{
+			public string Name;
+			public string Next;
+			public float BlendIn;
+			public float BlendOut;
+		}
+
+		[Serializable]
+		public struct AnimationCombine
+		{
+			public string Name;
+			public uint Layer;
+			public string Next;
+			public float BlendIn;
+			public float BlendOut;
+			public uint Flags;
+			public string Model;
+			public int LastFrame;
+		}
+	}
+
+	public class ModelScript : IMaterializing<Materialized.ModelScript>
 	{
 		private readonly UIntPtr _handle;
-
 
 		public ModelScript(string path)
 		{
@@ -141,7 +287,8 @@ namespace ZenKit
 
 				Native.ZkModelScript_enumerateDisabledAnimations(_handle, (_, v) =>
 				{
-					arr.Add(v.MarshalAsString() ?? throw new Exception("Failed to load model script disabled animation"));
+					arr.Add(
+						v.MarshalAsString() ?? throw new Exception("Failed to load model script disabled animation"));
 					return false;
 				}, UIntPtr.Zero);
 
@@ -214,6 +361,22 @@ namespace ZenKit
 		}
 
 
+		public Materialized.ModelScript Materialize()
+		{
+			return new Materialized.ModelScript
+			{
+				SkeletonName = SkeletonName,
+				SkeletonMeshDisabled = SkeletonMeshDisabled,
+				AnimationCombines = AnimationCombines.ConvertAll(obj => obj.Materialize()),
+				Meshes = Meshes,
+				DisabledAnimations = DisabledAnimations,
+				AnimationBlends = AnimationBlends.ConvertAll(obj => obj.Materialize()),
+				AnimationAliases = AnimationAliases.ConvertAll(obj => obj.Materialize()),
+				ModelTags = ModelTags,
+				Animations = Animations.ConvertAll(obj => obj.Materialize())
+			};
+		}
+
 		~ModelScript()
 		{
 			Native.ZkModelScript_del(_handle);
@@ -229,7 +392,6 @@ namespace ZenKit
 		{
 			return Native.ZkModelScript_getMesh(_handle, i).MarshalAsString() ??
 			       throw new Exception("Failed to load model script mesh");
-			;
 		}
 
 		public AnimationCombine GetAnimationCombine(long i)
@@ -259,7 +421,7 @@ namespace ZenKit
 		}
 	}
 
-	public class Animation
+	public class Animation : IMaterializing<Materialized.Animation>
 	{
 		private readonly UIntPtr _handle;
 
@@ -430,44 +592,71 @@ namespace ZenKit
 			}
 		}
 
+		public Materialized.Animation Materialize()
+		{
+			return new Materialized.Animation
+			{
+				Name = Name,
+				Layer = Layer,
+				Next = Next,
+				BlendIn = BlendIn,
+				BlendOut = BlendOut,
+				Flags = Flags,
+				Model = Model,
+				Direction = Direction,
+				FirstFrame = FirstFrame,
+				LastFrame = LastFrame,
+				Fps = Fps,
+				Speed = Speed,
+				CollisionVolumeScale = CollisionVolumeScale,
+				EventTags = EventTags.ConvertAll(evt => evt.Materialize()),
+				ParticleEffects = ParticleEffects.ConvertAll(evt => evt.Materialize()),
+				ParticleEffectsStop = ParticleEffectsStop.ConvertAll(evt => evt.Materialize()),
+				SoundEffects = SoundEffects.ConvertAll(evt => evt.Materialize()),
+				SoundEffectsGround = SoundEffectsGround.ConvertAll(evt => evt.Materialize()),
+				MorphAnimations = MorphAnimations.ConvertAll(evt => evt.Materialize()),
+				CameraTremors = CameraTremors.ConvertAll(evt => evt.Materialize())
+			};
+		}
 
-		public EventTag ZkAnimation_getEventTag(ulong i)
+
+		public EventTag GetEventTag(ulong i)
 		{
 			return new EventTag(Native.ZkAnimation_getEventTag(_handle, i));
 		}
 
-		public EventParticleEffect ZkAnimation_getParticleEffect(ulong i)
+		public EventParticleEffect GetParticleEffect(ulong i)
 		{
 			return new EventParticleEffect(Native.ZkAnimation_getParticleEffect(_handle, i));
 		}
 
-		public EventParticleEffectStop ZkAnimation_getParticleEffectStop(ulong i)
+		public EventParticleEffectStop GetParticleEffectStop(ulong i)
 		{
 			return new EventParticleEffectStop(Native.ZkAnimation_getParticleEffectStop(_handle, i));
 		}
 
-		public EventSoundEffect ZkAnimation_getSoundEffect(ulong i)
+		public EventSoundEffect GetSoundEffect(ulong i)
 		{
 			return new EventSoundEffect(Native.ZkAnimation_getSoundEffect(_handle, i));
 		}
 
-		public EventSoundEffectGround ZkAnimation_getSoundEffectGround(ulong i)
+		public EventSoundEffectGround GetSoundEffectGround(ulong i)
 		{
 			return new EventSoundEffectGround(Native.ZkAnimation_getSoundEffectGround(_handle, i));
 		}
 
-		public EventMorphAnimation ZkAnimation_getMorphAnimation(ulong i)
+		public EventMorphAnimation GetMorphAnimation(ulong i)
 		{
 			return new EventMorphAnimation(Native.ZkAnimation_getMorphAnimation(_handle, i));
 		}
 
-		public EventCameraTremor ZkAnimation_getCameraTremor(ulong i)
+		public EventCameraTremor GetCameraTremor(ulong i)
 		{
 			return new EventCameraTremor(Native.ZkAnimation_getCameraTremor(_handle, i));
 		}
 	}
 
-	public class EventMorphAnimation
+	public class EventMorphAnimation : IMaterializing<Materialized.EventMorphAnimation>
 	{
 		private readonly UIntPtr _handle;
 
@@ -483,9 +672,19 @@ namespace ZenKit
 
 		public string Node => Native.ZkMorphAnimation_getNode(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load event morph animation node");
+
+		public Materialized.EventMorphAnimation Materialize()
+		{
+			return new Materialized.EventMorphAnimation
+			{
+				Frame = Frame,
+				Animation = Animation,
+				Node = Node
+			};
+		}
 	}
 
-	public class EventCameraTremor
+	public class EventCameraTremor : IMaterializing<Materialized.EventCameraTremor>
 	{
 		private readonly UIntPtr _handle;
 
@@ -503,9 +702,21 @@ namespace ZenKit
 		public int Field3 => Native.ZkEventCameraTremor_getField3(_handle);
 
 		public int Field4 => Native.ZkEventCameraTremor_getField4(_handle);
+
+		public Materialized.EventCameraTremor Materialize()
+		{
+			return new Materialized.EventCameraTremor
+			{
+				Frame = Frame,
+				Field1 = Field1,
+				Field2 = Field2,
+				Field3 = Field3,
+				Field4 = Field4
+			};
+		}
 	}
 
-	public class EventSoundEffectGround
+	public class EventSoundEffectGround : IMaterializing<Materialized.EventSoundEffectGround>
 	{
 		private readonly UIntPtr _handle;
 
@@ -522,9 +733,20 @@ namespace ZenKit
 		public float Range => Native.ZkEventSoundEffectGround_getRange(_handle);
 
 		public bool EmptySlot => Native.ZkEventSoundEffectGround_getEmptySlot(_handle);
+
+		public Materialized.EventSoundEffectGround Materialize()
+		{
+			return new Materialized.EventSoundEffectGround
+			{
+				Frame = Frame,
+				Name = Name,
+				Range = Range,
+				EmptySlot = EmptySlot
+			};
+		}
 	}
 
-	public class EventSoundEffect
+	public class EventSoundEffect : IMaterializing<Materialized.EventSoundEffect>
 	{
 		private readonly UIntPtr _handle;
 
@@ -541,9 +763,20 @@ namespace ZenKit
 		public float Range => Native.ZkEventSoundEffect_getRange(_handle);
 
 		public bool EmptySlot => Native.ZkEventSoundEffect_getEmptySlot(_handle);
+
+		public Materialized.EventSoundEffect Materialize()
+		{
+			return new Materialized.EventSoundEffect
+			{
+				Frame = Frame,
+				Name = Name,
+				Range = Range,
+				EmptySlot = EmptySlot
+			};
+		}
 	}
 
-	public class EventParticleEffectStop
+	public class EventParticleEffectStop : IMaterializing<Materialized.EventParticleEffectStop>
 	{
 		private readonly UIntPtr _handle;
 
@@ -555,9 +788,18 @@ namespace ZenKit
 		public int Frame => Native.ZkEventParticleEffectStop_getFrame(_handle);
 
 		public int Index => Native.ZkEventParticleEffectStop_getIndex(_handle);
+
+		public Materialized.EventParticleEffectStop Materialize()
+		{
+			return new Materialized.EventParticleEffectStop
+			{
+				Frame = Frame,
+				Index = Index
+			};
+		}
 	}
 
-	public class EventParticleEffect
+	public class EventParticleEffect : IMaterializing<Materialized.EventParticleEffect>
 	{
 		private readonly UIntPtr _handle;
 
@@ -577,9 +819,21 @@ namespace ZenKit
 		                          throw new Exception("Failed to load event particle effect position");
 
 		public bool Attached => Native.ZkEventParticleEffect_getIsAttached(_handle);
+
+		public Materialized.EventParticleEffect Materialize()
+		{
+			return new Materialized.EventParticleEffect
+			{
+				Frame = Frame,
+				Index = Index,
+				Name = Name,
+				Position = Position,
+				Attached = Attached
+			};
+		}
 	}
 
-	public class EventTag
+	public class EventTag : IMaterializing<Materialized.EventTag>
 	{
 		private readonly UIntPtr _handle;
 
@@ -608,9 +862,23 @@ namespace ZenKit
 		public FightMode FightMode => Native.ZkEventTag_getFightMode(_handle);
 
 		public bool Attached => Native.ZkEventTag_getIsAttached(_handle);
+
+		public Materialized.EventTag Materialize()
+		{
+			return new Materialized.EventTag
+			{
+				Frame = Frame,
+				Type = Type,
+				Slots = Slots,
+				Item = Item,
+				Frames = Frames,
+				FightMode = FightMode,
+				Attached = Attached
+			};
+		}
 	}
 
-	public class AnimationAlias
+	public class AnimationAlias : IMaterializing<Materialized.AnimationAlias>
 	{
 		private readonly UIntPtr _handle;
 
@@ -637,9 +905,24 @@ namespace ZenKit
 		                       throw new Exception("Failed to load animation alias alias");
 
 		public AnimationDirection Direction => Native.ZkAnimationAlias_getDirection(_handle);
+
+		public Materialized.AnimationAlias Materialize()
+		{
+			return new Materialized.AnimationAlias
+			{
+				Name = Name,
+				Layer = Layer,
+				Next = Next,
+				BlendIn = BlendIn,
+				BlendOut = BlendOut,
+				Flags = Flags,
+				Alias = Alias,
+				Direction = Direction
+			};
+		}
 	}
 
-	public class AnimationBlend
+	public class AnimationBlend : IMaterializing<Materialized.AnimationBlend>
 	{
 		private readonly UIntPtr _handle;
 
@@ -657,9 +940,20 @@ namespace ZenKit
 		public float BlendIn => Native.ZkAnimationBlend_getBlendIn(_handle);
 
 		public float BlendOut => Native.ZkAnimationBlend_getBlendOut(_handle);
+
+		public Materialized.AnimationBlend Materialize()
+		{
+			return new Materialized.AnimationBlend
+			{
+				Name = Name,
+				Next = Next,
+				BlendIn = BlendIn,
+				BlendOut = BlendOut
+			};
+		}
 	}
 
-	public class AnimationCombine
+	public class AnimationCombine : IMaterializing<Materialized.AnimationCombine>
 	{
 		private readonly UIntPtr _handle;
 
@@ -686,5 +980,20 @@ namespace ZenKit
 		                       throw new Exception("Failed to load animation combine model");
 
 		public int LastFrame => Native.ZkAnimationCombine_getLastFrame(_handle);
+
+		public Materialized.AnimationCombine Materialize()
+		{
+			return new Materialized.AnimationCombine
+			{
+				Name = Name,
+				Layer = Layer,
+				Next = Next,
+				BlendIn = BlendIn,
+				BlendOut = BlendOut,
+				Flags = Flags,
+				Model = Model,
+				LastFrame = LastFrame
+			};
+		}
 	}
 }

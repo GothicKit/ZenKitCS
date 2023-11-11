@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 16)]
 	public struct SoftSkinWedgeNormal
 	{
@@ -12,6 +14,7 @@ namespace ZenKit
 		public uint Index;
 	}
 
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 20)]
 	public struct SoftSkinWeightEntry
 	{
@@ -20,7 +23,20 @@ namespace ZenKit
 		public byte NodeIndex;
 	}
 
-	public class SoftSkinMesh
+	namespace Materialized
+	{
+		[Serializable]
+		public struct SoftSkinMesh
+		{
+			public MultiResolutionMesh Mesh;
+			public SoftSkinWedgeNormal[] WedgeNormals;
+			public int[] Nodes;
+			public List<OrientedBoundingBox> BoundingBoxes;
+			public List<SoftSkinWeightEntry[]> Weights;
+		}
+	}
+
+	public class SoftSkinMesh : IMaterializing<Materialized.SoftSkinMesh>
 	{
 		private readonly UIntPtr _handle;
 
@@ -67,6 +83,18 @@ namespace ZenKit
 
 				return weights;
 			}
+		}
+
+		public Materialized.SoftSkinMesh Materialize()
+		{
+			return new Materialized.SoftSkinMesh
+			{
+				Mesh = Mesh.Materialize(),
+				WedgeNormals = WedgeNormals,
+				Nodes = Nodes,
+				BoundingBoxes = BoundingBoxes.ConvertAll(obb => obb.Materialize()),
+				Weights = Weights
+			};
 		}
 
 		public OrientedBoundingBox GetBoundingBox(ulong node)

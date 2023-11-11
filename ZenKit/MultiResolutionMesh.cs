@@ -2,27 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 6)]
 	public struct MeshTriangle
 	{
 		public ushort Wedge0, Wedge1, Wedge2;
 	}
 
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 6)]
 	public struct MeshTriangleEdge
 	{
 		public ushort Edge0, Edge1, Edge2;
 	}
 
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 4)]
 	public struct MeshEdge
 	{
 		public ushort Edge0, Edge1;
 	}
 
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 24)]
 	public struct MeshWedge
 	{
@@ -31,6 +36,7 @@ namespace ZenKit
 		public ushort Index;
 	}
 
+	[Serializable]
 	[StructLayout(LayoutKind.Sequential, Size = 16)]
 	public struct MeshPlane
 	{
@@ -38,7 +44,37 @@ namespace ZenKit
 		public Vector3 Normal;
 	}
 
-	public class MultiResolutionSubMesh
+	namespace Materialized
+	{
+		[Serializable]
+		public struct MultiResolutionSubMesh
+		{
+			public Material Material;
+			public MeshTriangle[] Triangles;
+			public MeshWedge[] Wedges;
+			public float[] Colors;
+			public ushort[] TrianglePlaneIndices;
+			public MeshPlane[] TrianglePlanes;
+			public MeshTriangleEdge[] TriangleEdges;
+			public MeshEdge[] Edges;
+			public float[] EdgeScores;
+			public ushort[] WedgeMap;
+		}
+
+		[Serializable]
+		public struct MultiResolutionMesh
+		{
+			public Vector3[] Positions;
+			public Vector3[] Normals;
+			public List<MultiResolutionSubMesh> SubMeshes;
+			public List<Material> Materials;
+			public bool AlphaTest;
+			public AxisAlignedBoundingBox BoundingBox;
+			public OrientedBoundingBox OrientedBoundingBox;
+		}
+	}
+
+	public class MultiResolutionSubMesh : IMaterializing<Materialized.MultiResolutionSubMesh>
 	{
 		private readonly UIntPtr _handle;
 
@@ -52,7 +88,9 @@ namespace ZenKit
 		public MeshTriangle[] Triangles =>
 			Native.ZkSubMesh_getTriangles(_handle, out var count).MarshalAsArray<MeshTriangle>(count);
 
-		public MeshWedge[] Wedges => Native.ZkSubMesh_getWedges(_handle, out var count).MarshalAsArray<MeshWedge>(count);
+		public MeshWedge[] Wedges =>
+			Native.ZkSubMesh_getWedges(_handle, out var count).MarshalAsArray<MeshWedge>(count);
+
 		public float[] Colors => Native.ZkSubMesh_getColors(_handle, out var count).MarshalAsArray<float>(count);
 
 		public ushort[] TrianglePlaneIndices => Native.ZkSubMesh_getTrianglePlaneIndices(_handle, out var count)
@@ -65,11 +103,31 @@ namespace ZenKit
 			.MarshalAsArray<MeshTriangleEdge>(count);
 
 		public MeshEdge[] Edges => Native.ZkSubMesh_getEdges(_handle, out var count).MarshalAsArray<MeshEdge>(count);
-		public float[] EdgeScores => Native.ZkSubMesh_getEdgeScores(_handle, out var count).MarshalAsArray<float>(count);
+
+		public float[] EdgeScores =>
+			Native.ZkSubMesh_getEdgeScores(_handle, out var count).MarshalAsArray<float>(count);
+
 		public ushort[] WedgeMap => Native.ZkSubMesh_getWedgeMap(_handle, out var count).MarshalAsArray<ushort>(count);
+
+		public Materialized.MultiResolutionSubMesh Materialize()
+		{
+			return new Materialized.MultiResolutionSubMesh
+			{
+				Material = Material.Materialize(),
+				Triangles = Triangles,
+				Wedges = Wedges,
+				Colors = Colors,
+				TrianglePlaneIndices = TrianglePlaneIndices,
+				TrianglePlanes = TrianglePlanes,
+				TriangleEdges = TriangleEdges,
+				Edges = Edges,
+				EdgeScores = EdgeScores,
+				WedgeMap = WedgeMap
+			};
+		}
 	}
 
-	public class MultiResolutionMesh
+	public class MultiResolutionMesh : IMaterializing<Materialized.MultiResolutionMesh>
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -143,7 +201,22 @@ namespace ZenKit
 		public bool AlphaTest => Native.ZkMultiResolutionMesh_getAlphaTest(_handle);
 		public AxisAlignedBoundingBox BoundingBox => Native.ZkMultiResolutionMesh_getBbox(_handle);
 
-		public OrientedBoundingBox OrientedBoundingBox => new OrientedBoundingBox(Native.ZkMultiResolutionMesh_getOrientedBbox(_handle));
+		public OrientedBoundingBox OrientedBoundingBox =>
+			new OrientedBoundingBox(Native.ZkMultiResolutionMesh_getOrientedBbox(_handle));
+
+		public Materialized.MultiResolutionMesh Materialize()
+		{
+			return new Materialized.MultiResolutionMesh
+			{
+				Positions = Positions,
+				Normals = Normals,
+				SubMeshes = SubMeshes.ConvertAll(sm => sm.Materialize()),
+				Materials = Materials.ConvertAll(mat => mat.Materialize()),
+				AlphaTest = AlphaTest,
+				BoundingBox = BoundingBox,
+				OrientedBoundingBox = OrientedBoundingBox.Materialize()
+			};
+		}
 
 		~MultiResolutionMesh()
 		{
