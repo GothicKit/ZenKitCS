@@ -1,16 +1,15 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- Well, I hate this. -->
     <ItemGroup>
-        <None Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\zenkitcapi.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="$(MSBuildThisFileDirectory)..\runtimes\linux-x64\native\libzenkitcapi.so">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="$(MSBuildThisFileDirectory)..\runtimes\android-arm64\native\libzenkitcapi.so">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="$(MSBuildThisFileDirectory)..\runtimes\osx-x64\native\libzenkitcapi.dylib">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+        <NativeAndroid Include="$(MSBuildThisFileDirectory)..\runtimes\android-arm64\native\libzenkitcapi.so" />
+        <NativeLinux   Include="$(MSBuildThisFileDirectory)..\runtimes\linux-x64\native\libzenkitcapi.so" />
+        <NativeOSX     Include="$(MSBuildThisFileDirectory)..\runtimes\osx-x64\native\libzenkitcapi.dylib" />
+        <NativeWindows Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\zenkitcapi.dll" />
     </ItemGroup>
+    <Target Name="CopyNativeLibraries" BeforeTargets="Build">
+        <Copy SourceFiles="@(NativeAndroid)" DestinationFiles="$(TargetDir)\runtimes\android-arm64\native\libzenkitcapi.so" ContinueOnError="true" />
+        <Copy SourceFiles="@(NativeLinux)"   DestinationFiles="$(TargetDir)\runtimes\linux-x64\native\libzenkitcapi.so" ContinueOnError="true" />
+        <Copy SourceFiles="@(NativeOSX)"     DestinationFiles="$(TargetDir)\runtimes\osx-x64\native\libzenkitcapi.dylib" ContinueOnError="true" />
+        <Copy SourceFiles="@(NativeWindows)" DestinationFiles="$(TargetDir)\runtimes\win-x64\native\zenkitcapi.dll" ContinueOnError="true" />
+    </Target>
 </Project>
