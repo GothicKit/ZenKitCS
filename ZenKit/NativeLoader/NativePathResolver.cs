@@ -12,7 +12,6 @@ namespace ZenKit.NativeLoader
 		{
 			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 			{
-				Console.WriteLine(Path.Combine(AppContext.BaseDirectory, $"runtimes\\win-x64\\native\\{name}.dll"));
 				yield return Path.Combine(AppContext.BaseDirectory, $"runtimes\\win-x64\\native\\{name}.dll");
 			}
 			else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
