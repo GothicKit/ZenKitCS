@@ -6,7 +6,7 @@
         <RootNamespace>ZenKit</RootNamespace>
         <PackRelease>true</PackRelease>
         <PackageId>ZenKit</PackageId>
-        <Version>0.1.9</Version>
+        <Version>0.1.10</Version>
         <Authors>Luis Michaelis</Authors>
         <Company>GothicKit</Company>
         <Copyright>© 2023. GothicKit Contributors</Copyright>
@@ -59,7 +59,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="NativeLibraryLoader" Version="1.0.13"/>
         <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0"/>
     </ItemGroup>
 </Project>

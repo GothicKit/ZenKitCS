@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using ZenKit.NativeLoader.NativeStructs;
 using ZenKit.Util;
 
 namespace ZenKit
@@ -35,7 +34,7 @@ namespace ZenKit
 	{
 		public short ParentIndex;
 		private IntPtr _name;
-		private ZkMat4x4 _transform;
+		private Native.Structs.ZkMat4x4 _transform;
 
 		public string Name =>
 			_name.MarshalAsString() ?? throw new Exception("Failed to load model hierarchy node name");
