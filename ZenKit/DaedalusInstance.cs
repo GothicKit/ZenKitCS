@@ -28,7 +28,7 @@ namespace ZenKit
 		FightAi = 18,
 		SoundEffect = 19,
 		SoundSystem = 20,
-		Invalid = 20
+		Invalid = 21
 	}
 
 	namespace Materialized
@@ -62,8 +62,10 @@ namespace ZenKit
 			};
 		}
 
-		public static DaedalusInstance FromNative(UIntPtr handle)
+		public static DaedalusInstance? FromNative(UIntPtr handle)
 		{
+			if (handle == UIntPtr.Zero) return null;
+			
 			return Native.ZkDaedalusInstance_getType(handle) switch
 			{
 				DaedalusInstanceType.GuildValues => new GuildValuesInstance(handle),

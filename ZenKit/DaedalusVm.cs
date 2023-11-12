@@ -47,34 +47,34 @@ namespace ZenKit
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
 		}
 
-		public DaedalusInstance GlobalSelf
+		public DaedalusInstance? GlobalSelf
 		{
 			get => DaedalusInstance.FromNative(Native.ZkDaedalusVm_getGlobalSelf(Handle));
-			set => Native.ZkDaedalusVm_setGlobalSelf(Handle, value.Handle);
+			set => Native.ZkDaedalusVm_setGlobalSelf(Handle,  value?.Handle ?? UIntPtr.Zero);
 		}
 
-		public DaedalusInstance GlobalOther
+		public DaedalusInstance? GlobalOther
 		{
 			get => DaedalusInstance.FromNative(Native.ZkDaedalusVm_getGlobalOther(Handle));
-			set => Native.ZkDaedalusVm_setGlobalOther(Handle, value.Handle);
+			set => Native.ZkDaedalusVm_setGlobalOther(Handle, value?.Handle ?? UIntPtr.Zero);
 		}
 
-		public DaedalusInstance GlobalVictim
+		public DaedalusInstance? GlobalVictim
 		{
 			get => DaedalusInstance.FromNative(Native.ZkDaedalusVm_getGlobalVictim(Handle));
-			set => Native.ZkDaedalusVm_setGlobalVictim(Handle, value.Handle);
+			set => Native.ZkDaedalusVm_setGlobalVictim(Handle, value?.Handle ?? UIntPtr.Zero);
 		}
 
-		public DaedalusInstance GlobalHero
+		public DaedalusInstance? GlobalHero
 		{
 			get => DaedalusInstance.FromNative(Native.ZkDaedalusVm_getGlobalHero(Handle));
-			set => Native.ZkDaedalusVm_setGlobalHero(Handle, value.Handle);
+			set => Native.ZkDaedalusVm_setGlobalHero(Handle, value?.Handle ?? UIntPtr.Zero);
 		}
 
-		public DaedalusInstance GlobalItem
+		public DaedalusInstance? GlobalItem
 		{
 			get => DaedalusInstance.FromNative(Native.ZkDaedalusVm_getGlobalItem(Handle));
-			set => Native.ZkDaedalusVm_setGlobalItem(Handle, value.Handle);
+			set => Native.ZkDaedalusVm_setGlobalItem(Handle, value?.Handle ?? UIntPtr.Zero);
 		}
 
 		protected override void Delete()
@@ -96,20 +96,20 @@ namespace ZenKit
 
 		public DaedalusInstance InitInstance(DaedalusSymbol symbol, DaedalusInstanceType type)
 		{
-			return DaedalusInstance.FromNative(Native.ZkDaedalusVm_initInstance(Handle, symbol.Handle, type));
+			return DaedalusInstance.FromNative(Native.ZkDaedalusVm_initInstance(Handle, symbol.Handle, type)) ?? throw new InvalidOperationException();
 		}
 
 		public void Call(string name)
 		{
 			var sym = GetSymbolByName(name);
-			if (sym == null) throw new Exception("Symbol not found");
+			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
 			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
 		}
 
 		public TR Call<TR>(string name)
 		{
 			var sym = GetSymbolByName(name);
-			if (sym == null) throw new Exception("Symbol not found");
+			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
 			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
 
 			if (!sym.HasReturn) throw new InvalidOperationException("The function does not return anything!");
