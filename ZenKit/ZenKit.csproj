@@ -6,7 +6,7 @@
         <RootNamespace>ZenKit</RootNamespace>
         <PackRelease>true</PackRelease>
         <PackageId>ZenKit</PackageId>
-        <Version>0.1.7</Version>
+        <Version>0.1.9</Version>
         <Authors>Luis Michaelis</Authors>
         <Company>GothicKit</Company>
         <Copyright>© 2023. GothicKit Contributors</Copyright>
@@ -16,18 +16,46 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/GothicKit/ZenKitCS</RepositoryUrl>
         <Description>C#-bindings for ZenKit, the ZenGin asset parser.</Description>
+        
+        <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Android'))">android-arm64</RuntimeIdentifier>
+        <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64</RuntimeIdentifier>
+        <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('macOS'))">osx-x64</RuntimeIdentifier>
+        <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</RuntimeIdentifier>
     </PropertyGroup>
 
     <ItemGroup>
         <None Include="..\README.md" Pack="true" PackagePath="/"/>
     </ItemGroup>
     
-    <ItemGroup Label="NativeLibraries">
+    <ItemGroup Label="Packaging">
         <None Include="ZenKit.targets" Pack="true" PackagePath="build" />
+
         <None Include="runtimes\**" Pack="true" PackagePath="runtimes">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
             <PackageCopyToOutput>true</PackageCopyToOutput>
         </None>
+    </ItemGroup>
+    
+    <ItemGroup Label="NativeLibraries">
+        <ContentWithTargetPath Include="runtimes\android-arm64\native\libzenkitcapi.so" Condition="'$(RuntimeIdentifier)' == 'android-arm64'">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>libzenkitcapi.so</TargetPath>
+        </ContentWithTargetPath>
+
+        <ContentWithTargetPath Include="runtimes\linux-x64\native\libzenkitcapi.so" Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>libzenkitcapi.so</TargetPath>
+        </ContentWithTargetPath>
+
+        <ContentWithTargetPath Include="runtimes\osx-x64\native\libzenkitcapi.dylib" Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>libzenkitcapi.dylib</TargetPath>
+        </ContentWithTargetPath>
+
+        <ContentWithTargetPath Include="runtimes\win-x64\native\zenkitcapi.dll" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>zenkitcapi.dll</TargetPath>
+        </ContentWithTargetPath>
     </ItemGroup>
 
     <ItemGroup>
