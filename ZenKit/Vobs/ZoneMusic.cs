@@ -30,4 +30,19 @@ namespace ZenKit.Vobs
 			Native.ZkZoneMusic_del(Handle);
 		}
 	}
+
+	public class ZoneMusicDefault : ZoneMusic
+	{
+		public ZoneMusicDefault(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public ZoneMusicDefault(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal ZoneMusicDefault(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
 }

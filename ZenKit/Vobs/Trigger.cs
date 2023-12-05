@@ -33,4 +33,19 @@ namespace ZenKit.Vobs
 			Native.ZkTrigger_del(Handle);
 		}
 	}
+	
+	public class CutsceneTrigger : Trigger
+	{
+		public CutsceneTrigger(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public CutsceneTrigger(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal CutsceneTrigger(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
 }

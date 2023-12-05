@@ -27,4 +27,19 @@ namespace ZenKit.Vobs
 			Native.ZkZoneFarPlane_del(Handle);
 		}
 	}
+	
+	public class ZoneFarPlaneDefault : ZoneFarPlane
+	{
+		public ZoneFarPlaneDefault(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public ZoneFarPlaneDefault(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal ZoneFarPlaneDefault(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
 }

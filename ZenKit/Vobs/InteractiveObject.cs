@@ -38,4 +38,64 @@ namespace ZenKit.Vobs
 			Native.ZkInteractiveObject_del(Handle);
 		}
 	}
+	
+	public class Bed : InteractiveObject
+	{
+		public Bed(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public Bed(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal Bed(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
+	
+	public class Ladder : InteractiveObject
+	{
+		public Ladder(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public Ladder(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal Ladder(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
+	
+	public class Switch : InteractiveObject
+	{
+		public Switch(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public Switch(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal Switch(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
+	
+	public class Wheel : InteractiveObject
+	{
+		public Wheel(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public Wheel(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal Wheel(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
 }

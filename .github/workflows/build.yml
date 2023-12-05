@@ -33,3 +33,8 @@ jobs:
         with:
           name: 'NuGet Package'
           path: '__publish'
+      - name: 'Publish'
+        uses: 'actions/upload-artifact@v3'
+        with:
+          name: 'Managed DLL'
+          path: 'ZenKit/bin/**/*.dll'

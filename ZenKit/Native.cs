@@ -1368,13 +1368,7 @@ namespace ZenKit
 		public static extern IntPtr ZkVirtualObject_getName(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkVirtualObject_getVisualName(UIntPtr slf);
-
-		[DllImport(DllName)]
-		public static extern VisualType ZkVirtualObject_getVisualType(UIntPtr slf);
-
-		[DllImport(DllName)]
-		public static extern UIntPtr ZkVirtualObject_getVisualDecal(UIntPtr slf);
+		public static extern UIntPtr ZkVirtualObject_getVisual(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkVirtualObject_getChildCount(UIntPtr slf);
@@ -1385,30 +1379,36 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkVirtualObject_enumerateChildren(UIntPtr slf, Callbacks.ZkVirtualObjectEnumerator cb,
 			UIntPtr ctx);
+		
+		[DllImport(DllName)]
+		public static extern IntPtr ZkVisual_getName(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkDecal_getName(UIntPtr slf);
+		public static extern VisualType ZkVisual_getType(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern Vector2 ZkDecal_getDimension(UIntPtr slf);
+		public static extern IntPtr ZkVisualDecal_getName(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern Vector2 ZkDecal_getOffset(UIntPtr slf);
+		public static extern Vector2 ZkVisualDecal_getDimension(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern bool ZkDecal_getTwoSided(UIntPtr slf);
+		public static extern Vector2 ZkVisualDecal_getOffset(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern AlphaFunction ZkDecal_getAlphaFunc(UIntPtr slf);
+		public static extern bool ZkVisualDecal_getTwoSided(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern float ZkDecal_getTextureAnimFps(UIntPtr slf);
+		public static extern AlphaFunction ZkVisualDecal_getAlphaFunc(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern byte ZkDecal_getAlphaWeight(UIntPtr slf);
+		public static extern float ZkVisualDecal_getTextureAnimFps(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern bool ZkDecal_getIgnoreDaylight(UIntPtr slf);
+		public static extern byte ZkVisualDecal_getAlphaWeight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkVisualDecal_getIgnoreDaylight(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkCutsceneCamera_load(UIntPtr buf, GameVersion version);

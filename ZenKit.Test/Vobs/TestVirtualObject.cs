@@ -52,12 +52,11 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.Bias, Is.EqualTo(0));
 			Assert.That(vob.Ambient, Is.False);
 			Assert.That(vob.AnimationStrength, Is.EqualTo(0));
-			Assert.That(vob.FarClipScale, Is.EqualTo(0));
+			Assert.That(vob.FarClipScale, Is.EqualTo(2.0));
 			Assert.That(vob.PresetName, Is.EqualTo(""));
 			Assert.That(vob.Name, Is.EqualTo(""));
-			Assert.That(vob.VisualName, Is.EqualTo("FIRE.pfx"));
-			Assert.That(vob.VisualType, Is.EqualTo(VisualType.ParticleEffect));
-			Assert.That(vob.VisualDecal, Is.Null);
+			Assert.That(vob.Visual?.Name, Is.EqualTo("FIRE.pfx"));
+			Assert.That(vob.Visual?.Type, Is.EqualTo(VisualType.ParticleEffect));
 		}
 
 		[Test]
@@ -87,9 +86,8 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.FarClipScale, Is.EqualTo(1));
 			Assert.That(vob.PresetName, Is.EqualTo(""));
 			Assert.That(vob.Name, Is.EqualTo(""));
-			Assert.That(vob.VisualName, Is.EqualTo("OW_MISC_WALL_TORCH_01.3DS"));
-			Assert.That(vob.VisualType, Is.EqualTo(VisualType.MultiResolutionMesh));
-			Assert.That(vob.VisualDecal, Is.Null);
+			Assert.That(vob.Visual?.Name, Is.EqualTo("OW_MISC_WALL_TORCH_01.3DS"));
+			Assert.That(vob.Visual?.Type, Is.EqualTo(VisualType.MultiResolutionMesh));
 		}
 	}
 }

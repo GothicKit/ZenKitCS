@@ -30,4 +30,19 @@ namespace ZenKit.Vobs
 			Native.ZkZoneFog_del(Handle);
 		}
 	}
+	
+	public class ZoneFogDefault : ZoneFog
+	{
+		public ZoneFogDefault(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public ZoneFogDefault(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal ZoneFogDefault(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
 }

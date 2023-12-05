@@ -88,7 +88,7 @@ namespace ZenKit.Vobs
 		Mesh = 1,
 		MultiResolutionMesh = 2,
 		ParticleEffect = 3,
-		ACameraInstance = 4,
+		Camera = 4,
 		Model = 5,
 		MorphMesh = 6,
 		Unknown = 7
@@ -97,9 +97,16 @@ namespace ZenKit.Vobs
 	namespace Materialized
 	{
 		[Serializable]
-		public struct Decal
+		public class Visual
 		{
 			public string Name;
+			public VisualType Type;
+		}
+		
+		[Serializable]
+		public class VisualDecal : Visual
+		{
+			public string DecalName;
 			public Vector2 Dimension;
 			public Vector2 Offset;
 			public bool TwoSided;
@@ -132,7 +139,7 @@ namespace ZenKit.Vobs
 			public SpriteAlignment SpriteCameraFacingMode;
 			public bool Static;
 			public VirtualObjectType Type;
-			public Decal? VisualDecal;
+			public Visual? Visual;
 			public string VisualName;
 			public VisualType VisualType;
 
@@ -157,40 +164,129 @@ namespace ZenKit.Vobs
 				FarClipScale = orig.FarClipScale;
 				PresetName = orig.PresetName;
 				Name = orig.Name;
-				VisualName = orig.VisualName;
-				VisualType = orig.VisualType;
-				VisualDecal = orig.VisualDecal?.Materialize();
+				Visual = orig.Visual?.Materialize();
 				Children = orig.Children.ConvertAll(child => child.Materialize());
 				return this;
 			}
 		}
 	}
 
-	public class Decal : IMaterializing<Materialized.Decal>
-	{
-		private readonly UIntPtr _handle;
 
-		internal Decal(UIntPtr handle)
+	public class Visual : IMaterializing<Materialized.Visual>
+	{
+		protected readonly UIntPtr Handle;
+
+		internal Visual(UIntPtr handle)
 		{
-			_handle = handle;
+			Handle = handle;
 		}
 
-		public string Name => Native.ZkDecal_getName(_handle).MarshalAsString() ??
-		                      throw new Exception("Failed to load decal name");
+		public string Name => Native.ZkVisual_getName(Handle).MarshalAsString() ??
+		                      throw new Exception("Failed to load visual name");
 
-		public Vector2 Dimension => Native.ZkDecal_getDimension(_handle);
-		public Vector2 Offset => Native.ZkDecal_getOffset(_handle);
-		public bool TwoSided => Native.ZkDecal_getTwoSided(_handle);
-		public AlphaFunction AlphaFunction => Native.ZkDecal_getAlphaFunc(_handle);
-		public float TextureAnimationFps => Native.ZkDecal_getTextureAnimFps(_handle);
-		public byte AlphaWeight => Native.ZkDecal_getAlphaWeight(_handle);
-		public bool IgnoreDaylight => Native.ZkDecal_getIgnoreDaylight(_handle);
+		public VisualType Type => Native.ZkVisual_getType(Handle);
 
-		public Materialized.Decal Materialize()
+		public static Visual? FromNative(UIntPtr ptr)
 		{
-			return new Materialized.Decal
+			if (ptr == UIntPtr.Zero) return null;
+
+			switch (Native.ZkVisual_getType(ptr))
+			{
+				case VisualType.Decal:
+					return new VisualDecal(ptr);
+				case VisualType.Mesh:
+					return new VisualMesh(ptr);
+				case VisualType.MultiResolutionMesh:
+					return new VisualMultiResolutionMesh(ptr);
+				case VisualType.ParticleEffect:
+					return new VisualParticleEffect(ptr);
+				case VisualType.Camera:
+					return new VisualCamera(ptr);
+				case VisualType.Model:
+					return new VisualModel(ptr);
+				case VisualType.MorphMesh:
+					return new VisualMorphMesh(ptr);
+				default:
+					return new Visual(ptr);
+			}
+		}
+		
+		public Materialized.Visual Materialize()
+		{
+			return new Materialized.Visual
 			{
 				Name = Name,
+				Type = Type,
+			};
+		}
+	}
+	
+	public class VisualMesh : Visual
+	{
+		internal VisualMesh(UIntPtr handle) : base(handle)
+		{
+		}
+	}
+	
+	public class VisualMultiResolutionMesh : Visual
+	{
+		internal VisualMultiResolutionMesh(UIntPtr handle) : base(handle)
+		{
+		}
+	}
+	
+	public class VisualParticleEffect : Visual
+	{
+		internal VisualParticleEffect(UIntPtr handle) : base(handle)
+		{
+		}
+	}
+	
+	public class VisualCamera : Visual
+	{
+		internal VisualCamera(UIntPtr handle) : base(handle)
+		{
+		}
+	}
+	
+	public class VisualModel : Visual
+	{
+		internal VisualModel(UIntPtr handle) : base(handle)
+		{
+		}
+	}
+	
+	public class VisualMorphMesh : Visual
+	{
+		internal VisualMorphMesh(UIntPtr handle) : base(handle)
+		{
+		}
+	}
+	
+	public class VisualDecal : Visual
+	{
+		internal VisualDecal(UIntPtr handle) : base(handle)
+		{
+		}
+
+		public string DecalName => Native.ZkVisualDecal_getName(Handle).MarshalAsString() ??
+		                      throw new Exception("Failed to load decal name");
+
+		public Vector2 Dimension => Native.ZkVisualDecal_getDimension(Handle);
+		public Vector2 Offset => Native.ZkVisualDecal_getOffset(Handle);
+		public bool TwoSided => Native.ZkVisualDecal_getTwoSided(Handle);
+		public AlphaFunction AlphaFunction => Native.ZkVisualDecal_getAlphaFunc(Handle);
+		public float TextureAnimationFps => Native.ZkVisualDecal_getTextureAnimFps(Handle);
+		public byte AlphaWeight => Native.ZkVisualDecal_getAlphaWeight(Handle);
+		public bool IgnoreDaylight => Native.ZkVisualDecal_getIgnoreDaylight(Handle);
+
+		public Materialized.VisualDecal Materialize()
+		{
+			return new Materialized.VisualDecal
+			{
+				Name = Name,
+				Type = Type,
+				DecalName = DecalName,
 				Dimension = Dimension,
 				Offset = Offset,
 				TwoSided = TwoSided,
@@ -251,17 +347,12 @@ namespace ZenKit.Vobs
 		public string Name => Native.ZkVirtualObject_getName(Handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load virtual object name");
 
-		public string VisualName => Native.ZkVirtualObject_getVisualName(Handle).MarshalAsString() ??
-		                            throw new Exception("Failed to load virtual object visual name");
-
-		public VisualType VisualType => Native.ZkVirtualObject_getVisualType(Handle);
-
-		public Decal? VisualDecal
+		public Visual? Visual
 		{
 			get
 			{
-				var val = Native.ZkVirtualObject_getVisualDecal(Handle);
-				return val == UIntPtr.Zero ? null : new Decal(val);
+				var val = Native.ZkVirtualObject_getVisual(Handle);
+				return Visual.FromNative(val);
 			}
 		}
 
@@ -322,15 +413,15 @@ namespace ZenKit.Vobs
 				VirtualObjectType.oCMobDoor => new Door(ptr, false),
 				VirtualObjectType.oCMobFire => new Fire(ptr, false),
 				VirtualObjectType.oCMobInter => new InteractiveObject(ptr, false),
-				VirtualObjectType.oCMobLadder => new InteractiveObject(ptr, false),
-				VirtualObjectType.oCMobSwitch => new InteractiveObject(ptr, false),
-				VirtualObjectType.oCMobWheel => new InteractiveObject(ptr, false),
-				VirtualObjectType.oCMobBed => new InteractiveObject(ptr, false),
+				VirtualObjectType.oCMobLadder => new Ladder(ptr, false),
+				VirtualObjectType.oCMobSwitch => new Switch(ptr, false),
+				VirtualObjectType.oCMobWheel => new Wheel(ptr, false),
+				VirtualObjectType.oCMobBed => new Bed(ptr, false),
 				VirtualObjectType.oCMOB => new MovableObject(ptr, false),
 				VirtualObjectType.zCVobSound => new Sound(ptr, false),
 				VirtualObjectType.zCVobSoundDaytime => new SoundDaytime(ptr, false),
 				VirtualObjectType.zCTrigger => new Trigger(ptr, false),
-				VirtualObjectType.oCCSTrigger => new Trigger(ptr, false),
+				VirtualObjectType.oCCSTrigger => new CutsceneTrigger(ptr, false),
 				VirtualObjectType.zCTriggerList => new TriggerList(ptr, false),
 				VirtualObjectType.oCTriggerScript => new TriggerScript(ptr, false),
 				VirtualObjectType.zCMover => new Mover(ptr, false),
@@ -338,13 +429,73 @@ namespace ZenKit.Vobs
 				VirtualObjectType.zCTriggerWorldStart => new TriggerWorldStart(ptr, false),
 				VirtualObjectType.zCTriggerUntouch => new TriggerUntouch(ptr, false),
 				VirtualObjectType.oCZoneMusic => new ZoneMusic(ptr, false),
-				VirtualObjectType.oCZoneMusicDefault => new ZoneMusic(ptr, false),
+				VirtualObjectType.oCZoneMusicDefault => new ZoneMusicDefault(ptr, false),
 				VirtualObjectType.zCZoneZFog => new ZoneFog(ptr, false),
-				VirtualObjectType.zCZoneZFogDefault => new ZoneFog(ptr, false),
+				VirtualObjectType.zCZoneZFogDefault => new ZoneFogDefault(ptr, false),
 				VirtualObjectType.zCZoneVobFarPlane => new ZoneFarPlane(ptr, false),
-				VirtualObjectType.zCZoneVobFarPlaneDefault => new ZoneFarPlane(ptr, false),
+				VirtualObjectType.zCZoneVobFarPlaneDefault => new ZoneFarPlaneDefault(ptr, false),
 				_ => new VirtualObject(ptr, false)
 			};
+		}
+	}
+	
+	public class VSpot : VirtualObject
+	{
+		public VSpot(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public VSpot(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal VSpot(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
+	
+	public class VStair : VirtualObject
+	{
+		public VStair(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public VStair(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal VStair(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
+	
+	public class VStartPoint : VirtualObject
+	{
+		public VStartPoint(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public VStartPoint(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal VStartPoint(UIntPtr handle, bool delete) : base(handle, delete)
+		{
+		}
+	}
+	
+	public class VLevel : VirtualObject
+	{
+		public VLevel(Read buf, GameVersion version) : base(buf, version)
+		{
+		}
+
+		public VLevel(string path, GameVersion version) : base(path, version)
+		{
+		}
+
+		internal VLevel(UIntPtr handle, bool delete) : base(handle, delete)
+		{
 		}
 	}
 }

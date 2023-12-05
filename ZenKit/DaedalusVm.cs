@@ -87,6 +87,7 @@ namespace ZenKit
 			Native.ZkDaedalusVm_printStackTrace(Handle);
 		}
 
+		// TODO: Use generics!
 		public DaedalusInstance InitInstance(string symbolName, DaedalusInstanceType type)
 		{
 			var sym = GetSymbolByName(symbolName);
