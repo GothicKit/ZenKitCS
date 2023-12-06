@@ -58,7 +58,7 @@ namespace ZenKit
 				return buf;
 			}
 		}
-		
+
 		~Read()
 		{
 			Native.ZkRead_del(Handle);

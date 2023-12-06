@@ -1,23 +1,21 @@
 using NUnit.Framework;
 using ZenKit.Vobs;
 
-namespace ZenKit.Test.Vobs
+namespace ZenKit.Test.Vobs;
+
+public class TestAnimate
 {
-	public class TestAnimate
+	[Test]
+	public void TestLoad()
 	{
-		[Test]
-		public void TestLoad()
-		{
-			var vob = new Animate("./Samples/G2/VOb/zCVobAnimate.zen", GameVersion.Gothic2);
-			Assert.That(vob.StartOn, Is.True);
+		var vob = new Animate("./Samples/G2/VOb/zCVobAnimate.zen", GameVersion.Gothic2);
+		Assert.That(vob.StartOn, Is.True);
+	}
 
-		}
-
-		[Test]
-		public void TestSetters()
-		{
-			var vob = new Animate("./Samples/G2/VOb/zCVobAnimate.zen", GameVersion.Gothic2);
-			vob.StartOn = true;
-		}
+	[Test]
+	public void TestSetters()
+	{
+		var vob = new Animate("./Samples/G2/VOb/zCVobAnimate.zen", GameVersion.Gothic2);
+		vob.StartOn = true;
 	}
 }

@@ -93,7 +93,7 @@ debugging such modifications, if you also do each of the following:
   these notices, as well as a reference directing the user to the
   copies of the GNU GPL and this license document.
 - d) Do one of the following:
-    -
+  -
         0) Convey the Minimal Corresponding Source under the terms of
            this License, and the Corresponding Application Code in a form
            suitable for, and under terms that permit, the user to

@@ -65,7 +65,7 @@ namespace ZenKit
 		public static DaedalusInstance? FromNative(UIntPtr handle)
 		{
 			if (handle == UIntPtr.Zero) return null;
-			
+
 			return Native.ZkDaedalusInstance_getType(handle) switch
 			{
 				DaedalusInstanceType.GuildValues => new GuildValuesInstance(handle),

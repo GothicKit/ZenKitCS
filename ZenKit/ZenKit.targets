@@ -5,17 +5,21 @@
         <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('macOS'))">osx-x64</RuntimeIdentifier>
         <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</RuntimeIdentifier>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <NativeAndroid Include="$(MSBuildThisFileDirectory)..\runtimes\android-arm64\native\libzenkitcapi.so" />
-        <NativeLinux   Include="$(MSBuildThisFileDirectory)..\runtimes\linux-x64\native\libzenkitcapi.so" />
-        <NativeOSX     Include="$(MSBuildThisFileDirectory)..\runtimes\osx-x64\native\libzenkitcapi.dylib" />
-        <NativeWindows Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\zenkitcapi.dll" />
+        <NativeAndroid Include="$(MSBuildThisFileDirectory)..\runtimes\android-arm64\native\libzenkitcapi.so"/>
+        <NativeLinux Include="$(MSBuildThisFileDirectory)..\runtimes\linux-x64\native\libzenkitcapi.so"/>
+        <NativeOSX Include="$(MSBuildThisFileDirectory)..\runtimes\osx-x64\native\libzenkitcapi.dylib"/>
+        <NativeWindows Include="$(MSBuildThisFileDirectory)..\runtimes\win-x64\native\zenkitcapi.dll"/>
     </ItemGroup>
     <Target Name="CopyNativeLibraries" BeforeTargets="Build">
-        <Copy SourceFiles="@(NativeAndroid)" Condition="'$(RuntimeIdentifier)' == 'android-arm64'" DestinationFiles="$(TargetDir)\libzenkitcapi.so" ContinueOnError="true" />
-        <Copy SourceFiles="@(NativeLinux)"   Condition="'$(RuntimeIdentifier)' == 'linux-x64'" DestinationFiles="$(TargetDir)\libzenkitcapi.so" ContinueOnError="true" />
-        <Copy SourceFiles="@(NativeOSX)"     Condition="'$(RuntimeIdentifier)' == 'osx-x64'" DestinationFiles="$(TargetDir)\libzenkitcapi.dylib" ContinueOnError="true" />
-        <Copy SourceFiles="@(NativeWindows)" Condition="'$(RuntimeIdentifier)' == 'win-x64'" DestinationFiles="$(TargetDir)\zenkitcapi.dll" ContinueOnError="true" />
+        <Copy SourceFiles="@(NativeAndroid)" Condition="'$(RuntimeIdentifier)' == 'android-arm64'"
+              DestinationFiles="$(TargetDir)\libzenkitcapi.so" ContinueOnError="true"/>
+        <Copy SourceFiles="@(NativeLinux)" Condition="'$(RuntimeIdentifier)' == 'linux-x64'"
+              DestinationFiles="$(TargetDir)\libzenkitcapi.so" ContinueOnError="true"/>
+        <Copy SourceFiles="@(NativeOSX)" Condition="'$(RuntimeIdentifier)' == 'osx-x64'"
+              DestinationFiles="$(TargetDir)\libzenkitcapi.dylib" ContinueOnError="true"/>
+        <Copy SourceFiles="@(NativeWindows)" Condition="'$(RuntimeIdentifier)' == 'win-x64'"
+              DestinationFiles="$(TargetDir)\zenkitcapi.dll" ContinueOnError="true"/>
     </Target>
 </Project>
