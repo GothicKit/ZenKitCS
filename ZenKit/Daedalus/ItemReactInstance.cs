@@ -8,12 +8,46 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public int Npc => Native.ZkItemReactInstance_getNpc(Handle);
-		public int TradeItem => Native.ZkItemReactInstance_getTradeItem(Handle);
-		public int TradeAmount => Native.ZkItemReactInstance_getTradeAmount(Handle);
-		public int RequestedCategory => Native.ZkItemReactInstance_getRequestedCategory(Handle);
-		public int RequestedItem => Native.ZkItemReactInstance_getRequestedItem(Handle);
-		public int RequestedAmount => Native.ZkItemReactInstance_getRequestedAmount(Handle);
-		public int Reaction => Native.ZkItemReactInstance_getReaction(Handle);
+		public int Npc
+		{
+			get => Native.ZkItemReactInstance_getNpc(Handle);
+			set => Native.ZkItemReactInstance_setNpc(Handle, value);
+		}
+
+		public int TradeItem
+		{
+			get => Native.ZkItemReactInstance_getTradeItem(Handle);
+			set => Native.ZkItemReactInstance_setTradeItem(Handle, value);
+		}
+
+		public int TradeAmount
+		{
+			get => Native.ZkItemReactInstance_getTradeAmount(Handle);
+			set => Native.ZkItemReactInstance_setTradeAmount(Handle, value);
+		}
+
+		public int RequestedCategory
+		{
+			get => Native.ZkItemReactInstance_getRequestedCategory(Handle);
+			set => Native.ZkItemReactInstance_setRequestedCategory(Handle, value);
+		}
+
+		public int RequestedItem
+		{
+			get => Native.ZkItemReactInstance_getRequestedItem(Handle);
+			set => Native.ZkItemReactInstance_setRequestedItem(Handle, value);
+		}
+
+		public int RequestedAmount
+		{
+			get => Native.ZkItemReactInstance_getRequestedAmount(Handle);
+			set => Native.ZkItemReactInstance_setRequestedAmount(Handle, value);
+		}
+
+		public int Reaction
+		{
+			get => Native.ZkItemReactInstance_getReaction(Handle);
+			set => Native.ZkItemReactInstance_setReaction(Handle, value);
+		}
 	}
 }

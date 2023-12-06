@@ -4,9 +4,9 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 using ZenKit.Daedalus;
+using ZenKit.Vobs;
 using static ZenKit.Native.Callbacks;
 using static ZenKit.Native.Structs;
-using ZenKit.Vobs;
 
 namespace ZenKit
 {
@@ -105,7 +105,7 @@ namespace ZenKit
 		public static extern float ZkAnimation_getSpeed(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkLogger_set(LogLevel lvl, Callbacks.ZkLogger logger, UIntPtr ctx);
+		public static extern void ZkLogger_set(LogLevel lvl, ZkLogger logger, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkLogger_setDefault(LogLevel lvl);
@@ -123,7 +123,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkRead_newPath(string path);
 
 		[DllImport(DllName)]
-		public static extern UIntPtr ZkRead_newExt(Structs.ZkReadExt ext, UIntPtr ctx);
+		public static extern UIntPtr ZkRead_newExt(ZkReadExt ext, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkRead_del(UIntPtr slf);
@@ -202,7 +202,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkVfsNode_open(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkVfsNode_enumerateChildren(UIntPtr slf, Callbacks.ZkVfsNodeEnumerator callback,
+		public static extern void ZkVfsNode_enumerateChildren(UIntPtr slf, ZkVfsNodeEnumerator callback,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -221,7 +221,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkCutsceneLibrary_getBlock(UIntPtr slf, string name);
 
 		[DllImport(DllName)]
-		public static extern void ZkCutsceneLibrary_enumerateBlocks(UIntPtr slf, Callbacks.ZkCutsceneBlockEnumerator cb,
+		public static extern void ZkCutsceneLibrary_enumerateBlocks(UIntPtr slf, ZkCutsceneBlockEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -264,7 +264,7 @@ namespace ZenKit
 		public static extern FontGlyph ZkFont_getGlyph(UIntPtr slf, [MarshalAs(UnmanagedType.U8)] ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkFont_enumerateGlyphs(UIntPtr slf, Callbacks.ZkFontGlyphEnumerator cb, UIntPtr ctx);
+		public static extern void ZkFont_enumerateGlyphs(UIntPtr slf, ZkFontGlyphEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkModelAnimation_load(UIntPtr buf);
@@ -309,7 +309,7 @@ namespace ZenKit
 		public static extern IntPtr ZkModelAnimation_getSourcePath(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkDate ZkModelAnimation_getSourceDate(UIntPtr slf);
+		public static extern ZkDate ZkModelAnimation_getSourceDate(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkModelAnimation_getSourceScript(UIntPtr slf);
@@ -323,7 +323,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void
-			ZkModelAnimation_enumerateSamples(UIntPtr slf, Callbacks.ZkAnimationSampleEnumerator cb, UIntPtr ctx);
+			ZkModelAnimation_enumerateSamples(UIntPtr slf, ZkAnimationSampleEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkModelAnimation_getNodeIndices(UIntPtr slf, out ulong size);
@@ -359,14 +359,14 @@ namespace ZenKit
 		public static extern uint ZkModelHierarchy_getChecksum(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkDate ZkModelHierarchy_getSourceDate(UIntPtr slf);
+		public static extern ZkDate ZkModelHierarchy_getSourceDate(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkModelHierarchy_getSourcePath(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern void ZkModelHierarchy_enumerateNodes(UIntPtr slf,
-			Callbacks.ZkModelHierarchyNodeEnumerator cb,
+			ZkModelHierarchyNodeEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -386,7 +386,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkOrientedBoundingBox_enumerateChildren(UIntPtr slf,
-			Callbacks.ZkOrientedBoundingBoxEnumerator cb,
+			ZkOrientedBoundingBoxEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -408,7 +408,7 @@ namespace ZenKit
 		public static extern MaterialGroup ZkMaterial_getGroup(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkColor ZkMaterial_getColor(UIntPtr slf);
+		public static extern ZkColor ZkMaterial_getColor(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern float ZkMaterial_getSmoothAngle(UIntPtr slf);
@@ -499,7 +499,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkMultiResolutionMesh_enumerateSubMeshes(UIntPtr slf,
-			Callbacks.ZkSubMeshEnumerator cb,
+			ZkSubMeshEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -510,7 +510,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void
-			ZkMultiResolutionMesh_enumerateMaterials(UIntPtr slf, Callbacks.ZkMaterialEnumerator cb, UIntPtr ctx);
+			ZkMultiResolutionMesh_enumerateMaterials(UIntPtr slf, ZkMaterialEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern bool ZkMultiResolutionMesh_getAlphaTest(UIntPtr slf);
@@ -562,14 +562,14 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkSoftSkinMesh_enumerateBoundingBoxes(UIntPtr slf,
-			Callbacks.ZkOrientedBoundingBoxEnumerator cb,
+			ZkOrientedBoundingBoxEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkSoftSkinMesh_getWeights(UIntPtr slf, ulong node, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern void ZkSoftSkinMesh_enumerateWeights(UIntPtr slf, Callbacks.ZkSoftSkinWeightEnumerator cb,
+		public static extern void ZkSoftSkinMesh_enumerateWeights(UIntPtr slf, ZkSoftSkinWeightEnumerator cb,
 			UIntPtr node);
 
 		[DllImport(DllName)]
@@ -597,7 +597,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkModelMesh_getMesh(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelMesh_enumerateMeshes(UIntPtr slf, Callbacks.ZkSoftSkinMeshEnumerator cb,
+		public static extern void ZkModelMesh_enumerateMeshes(UIntPtr slf, ZkSoftSkinMeshEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -607,7 +607,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkModelMesh_getAttachment(UIntPtr slf, string name);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelMesh_enumerateAttachments(UIntPtr slf, Callbacks.ZkAttachmentEnumerator cb,
+		public static extern void ZkModelMesh_enumerateAttachments(UIntPtr slf, ZkAttachmentEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -680,12 +680,12 @@ namespace ZenKit
 		public static extern ulong ZkTexture_getMipmapRgba(UIntPtr slf, ulong level, byte[] buf, ulong size);
 
 		[DllImport(DllName)]
-		public static extern void ZkTexture_enumerateRawMipmaps(UIntPtr slf, Callbacks.ZkTextureMipmapEnumerator cb,
+		public static extern void ZkTexture_enumerateRawMipmaps(UIntPtr slf, ZkTextureMipmapEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void
-			ZkTexture_enumerateRgbaMipmaps(UIntPtr slf, Callbacks.ZkTextureMipmapEnumerator cb, UIntPtr ctx);
+			ZkTexture_enumerateRgbaMipmaps(UIntPtr slf, ZkTextureMipmapEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkMorphMesh_load(UIntPtr buf);
@@ -715,7 +715,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkMorphMesh_getAnimation(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkMorphMesh_enumerateAnimations(UIntPtr slf, Callbacks.ZkMorphAnimationEnumerator cb,
+		public static extern void ZkMorphMesh_enumerateAnimations(UIntPtr slf, ZkMorphAnimationEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -725,7 +725,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkMorphMesh_getSource(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkMorphMesh_enumerateSources(UIntPtr slf, Callbacks.ZkMorphSourceEnumerator cb,
+		public static extern void ZkMorphMesh_enumerateSources(UIntPtr slf, ZkMorphSourceEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -762,7 +762,7 @@ namespace ZenKit
 		public static extern IntPtr ZkMorphSource_getFileName(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkDate ZkMorphSource_getFileDate(UIntPtr slf);
+		public static extern ZkDate ZkMorphSource_getFileDate(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkMesh_load(UIntPtr buf);
@@ -777,7 +777,7 @@ namespace ZenKit
 		public static extern void ZkMesh_del(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkDate ZkMesh_getSourceDate(UIntPtr slf);
+		public static extern ZkDate ZkMesh_getSourceDate(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMesh_getName(UIntPtr slf);
@@ -796,7 +796,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void
-			ZkMesh_enumerateMaterials(UIntPtr slf, Callbacks.ZkMaterialEnumerator cb, UIntPtr ctx);
+			ZkMesh_enumerateMaterials(UIntPtr slf, ZkMaterialEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMesh_getPositions(UIntPtr slf, out ulong count);
@@ -812,7 +812,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void
-			ZkMesh_enumerateLightMaps(UIntPtr slf, Callbacks.ZkLightMapEnumerator cb, UIntPtr ctx);
+			ZkMesh_enumerateLightMaps(UIntPtr slf, ZkLightMapEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkMesh_getPolygonCount(UIntPtr slf);
@@ -821,7 +821,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkMesh_getPolygon(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkMesh_enumeratePolygons(UIntPtr slf, Callbacks.ZkPolygonEnumerator cb, UIntPtr ctx);
+		public static extern void ZkMesh_enumeratePolygons(UIntPtr slf, ZkPolygonEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkLightMap_getImage(UIntPtr slf);
@@ -936,34 +936,34 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkModelScript_enumerateAnimationCombines(UIntPtr slf,
-			Callbacks.ZkAnimationCombineEnumerator cb,
+			ZkAnimationCombineEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateMeshes(UIntPtr slf, Callbacks.ZkStringEnumerator cb,
+		public static extern void ZkModelScript_enumerateMeshes(UIntPtr slf, ZkStringEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkModelScript_enumerateDisabledAnimations(UIntPtr slf,
-			Callbacks.ZkStringEnumerator cb,
+			ZkStringEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkModelScript_enumerateAnimationBlends(UIntPtr slf,
-			Callbacks.ZkAnimationBlendEnumerator cb,
+			ZkAnimationBlendEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkModelScript_enumerateAnimationAliases(UIntPtr slf,
-			Callbacks.ZkAnimationAliasEnumerator cb,
+			ZkAnimationAliasEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateModelTags(UIntPtr slf, Callbacks.ZkStringEnumerator cb,
+		public static extern void ZkModelScript_enumerateModelTags(UIntPtr slf, ZkStringEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateAnimations(UIntPtr slf, Callbacks.ZkAnimationEnumerator cb,
+		public static extern void ZkModelScript_enumerateAnimations(UIntPtr slf, ZkAnimationEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1042,36 +1042,36 @@ namespace ZenKit
 		public static extern UIntPtr ZkAnimation_getCameraTremor(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkAnimation_enumerateEventTags(UIntPtr slf, Callbacks.ZkEventTagEnumerator cb,
+		public static extern void ZkAnimation_enumerateEventTags(UIntPtr slf, ZkEventTagEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkAnimation_enumerateParticleEffects(UIntPtr slf,
-			Callbacks.ZkEventParticlEffectEnumerator cb,
+			ZkEventParticlEffectEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkAnimation_enumerateParticleEffectStops(UIntPtr slf,
-			Callbacks.ZkEventParticleEffectStopEnumerator cb, UIntPtr ctx);
+			ZkEventParticleEffectStopEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkAnimation_enumerateSoundEffects(UIntPtr slf,
-			Callbacks.ZkEventSoundEffectEnumerator cb,
+			ZkEventSoundEffectEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkAnimation_enumerateSoundEffectGrounds(UIntPtr slf,
-			Callbacks.ZkEventSoundEffectGroundEnumerator cb,
+			ZkEventSoundEffectGroundEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkAnimation_enumerateMorphAnimations(UIntPtr slf,
-			Callbacks.ZkEventMorphAnimationEnumerator cb,
+			ZkEventMorphAnimationEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkAnimation_enumerateCameraTremors(UIntPtr slf,
-			Callbacks.ZkEventCameraTremorEnumerator cb,
+			ZkEventCameraTremorEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1252,7 +1252,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkBspTree_getSector(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkBspTree_enumerateSectors(UIntPtr slf, Callbacks.ZkBspSectorEnumerator cb,
+		public static extern void ZkBspTree_enumerateSectors(UIntPtr slf, ZkBspSectorEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1274,7 +1274,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkWayNet_getPoint(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkWayNet_enumeratePoints(UIntPtr slf, Callbacks.ZkWayPointEnumerator cb, UIntPtr ctx);
+		public static extern void ZkWayNet_enumeratePoints(UIntPtr slf, ZkWayPointEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkWayPoint_getName(UIntPtr slf);
@@ -1322,7 +1322,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkWorld_getRootObject(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkWorld_enumerateRootObjects(UIntPtr slf, Callbacks.ZkVirtualObjectEnumerator cb,
+		public static extern void ZkWorld_enumerateRootObjects(UIntPtr slf, ZkVirtualObjectEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1354,10 +1354,10 @@ namespace ZenKit
 		public static extern void ZkVirtualObject_setPosition(UIntPtr slf, Vector3 position);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkMat3x3 ZkVirtualObject_getRotation(UIntPtr slf);
+		public static extern ZkMat3x3 ZkVirtualObject_getRotation(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkVirtualObject_setRotation(UIntPtr slf, Structs.ZkMat3x3 rotation);
+		public static extern void ZkVirtualObject_setRotation(UIntPtr slf, ZkMat3x3 rotation);
 
 		[DllImport(DllName)]
 		public static extern bool ZkVirtualObject_getShowVisual(UIntPtr slf);
@@ -1457,7 +1457,7 @@ namespace ZenKit
 		public static extern UIntPtr ZkVirtualObject_getChild(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkVirtualObject_enumerateChildren(UIntPtr slf, Callbacks.ZkVirtualObjectEnumerator cb,
+		public static extern void ZkVirtualObject_enumerateChildren(UIntPtr slf, ZkVirtualObjectEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1636,7 +1636,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkCutsceneCamera_enumerateFrames(UIntPtr slf,
-			Callbacks.ZkCameraTrajectoryFrameEnumerator cb,
+			ZkCameraTrajectoryFrameEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1713,10 +1713,10 @@ namespace ZenKit
 		public static extern void ZkCameraTrajectoryFrame_setTimeFixed(UIntPtr slf, bool timeFixed);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkMat4x4 ZkCameraTrajectoryFrame_getOriginalPose(UIntPtr slf);
+		public static extern ZkMat4x4 ZkCameraTrajectoryFrame_getOriginalPose(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkCameraTrajectoryFrame_setOriginalPose(UIntPtr slf, Structs.ZkMat4x4 originalPose);
+		public static extern void ZkCameraTrajectoryFrame_setOriginalPose(UIntPtr slf, ZkMat4x4 originalPose);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkLightPreset_load(UIntPtr buf, GameVersion version);
@@ -1755,10 +1755,10 @@ namespace ZenKit
 		public static extern void ZkLightPreset_setRange(UIntPtr slf, float range);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkColor ZkLightPreset_getColor(UIntPtr slf);
+		public static extern ZkColor ZkLightPreset_getColor(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkLightPreset_setColor(UIntPtr slf, Structs.ZkColor color);
+		public static extern void ZkLightPreset_setColor(UIntPtr slf, ZkColor color);
 
 		[DllImport(DllName)]
 		public static extern float ZkLightPreset_getConeAngle(UIntPtr slf);
@@ -1794,7 +1794,8 @@ namespace ZenKit
 		public static extern IntPtr ZkLightPreset_getRangeAnimationScale(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern void ZkLightPreset_setRangeAnimationScale(UIntPtr slf, float[] rangeAnimationScale, ulong count);
+		public static extern void ZkLightPreset_setRangeAnimationScale(UIntPtr slf, float[] rangeAnimationScale,
+			ulong count);
 
 		[DllImport(DllName)]
 		public static extern float ZkLightPreset_getRangeAnimationFps(UIntPtr slf);
@@ -1812,7 +1813,8 @@ namespace ZenKit
 		public static extern IntPtr ZkLightPreset_getColorAnimationList(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern void ZkLightPreset_setColorAnimationList(UIntPtr slf, ZkColor[] colorAnimationList, ulong count);
+		public static extern void ZkLightPreset_setColorAnimationList(UIntPtr slf, ZkColor[] colorAnimationList,
+			ulong count);
 
 		[DllImport(DllName)]
 		public static extern float ZkLightPreset_getColorAnimationFps(UIntPtr slf);
@@ -1851,10 +1853,10 @@ namespace ZenKit
 		public static extern void ZkLight_setRange(UIntPtr slf, float range);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkColor ZkLight_getColor(UIntPtr slf);
+		public static extern ZkColor ZkLight_getColor(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkLight_setColor(UIntPtr slf, Structs.ZkColor color);
+		public static extern void ZkLight_setColor(UIntPtr slf, ZkColor color);
 
 		[DllImport(DllName)]
 		public static extern float ZkLight_getConeAngle(UIntPtr slf);
@@ -2077,7 +2079,7 @@ namespace ZenKit
 		public static extern void ZkCodeMaster_setSlave(UIntPtr slf, ulong i, string slave);
 
 		[DllImport(DllName)]
-		public static extern void ZkCodeMaster_enumerateSlaves(UIntPtr slf, Callbacks.ZkStringEnumerator cb,
+		public static extern void ZkCodeMaster_enumerateSlaves(UIntPtr slf, ZkStringEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -2088,7 +2090,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void
-			ZkCodeMaster_removeSlaves(UIntPtr slf, Callbacks.ZkStringEnumerator pred, UIntPtr ctx);
+			ZkCodeMaster_removeSlaves(UIntPtr slf, ZkStringEnumerator pred, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkMoverController_load(UIntPtr buf, GameVersion version);
@@ -2564,7 +2566,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern int ZkTrigger_getMaxActivationCount(UIntPtr slf);
-        
+
 		[DllImport(DllName)]
 		public static extern void ZkTrigger_setMaxActivationCount(UIntPtr slf, int maxActivationCount);
 
@@ -2726,18 +2728,18 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkTriggerList_enumerateTargets(UIntPtr slf,
-			Callbacks.ZkTriggerListTargetEnumerator cb,
+			ZkTriggerListTargetEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTriggerList_addTarget(UIntPtr slf);
-		
+
 		[DllImport(DllName)]
 		public static extern void ZkTriggerList_removeTarget(UIntPtr slf, ulong i);
-		
+
 		[DllImport(DllName)]
 		public static extern void ZkTriggerList_removeTargets(UIntPtr slf,
-			Callbacks.ZkTriggerListTargetEnumerator cb,
+			ZkTriggerListTargetEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -2912,10 +2914,10 @@ namespace ZenKit
 		public static extern void ZkZoneFog_setInnerRangePercentage(UIntPtr slf, float innerRangePercentage);
 
 		[DllImport(DllName)]
-		public static extern Structs.ZkColor ZkZoneFog_getColor(UIntPtr slf);
+		public static extern ZkColor ZkZoneFog_getColor(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkZoneFog_setColor(UIntPtr slf, Structs.ZkColor color);
+		public static extern void ZkZoneFog_setColor(UIntPtr slf, ZkColor color);
 
 		[DllImport(DllName)]
 		public static extern bool ZkZoneFog_getFadeOutSky(UIntPtr slf);
@@ -2947,12 +2949,12 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkDaedalusScript_enumerateSymbols(UIntPtr slf,
-			Callbacks.ZkDaedalusSymbolEnumerator cb,
+			ZkDaedalusSymbolEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkDaedalusScript_enumerateInstanceSymbols(UIntPtr slf, string className,
-			Callbacks.ZkDaedalusSymbolEnumerator cb, UIntPtr ctx);
+			ZkDaedalusSymbolEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern DaedalusInstruction ZkDaedalusScript_getInstruction(UIntPtr slf, ulong address);
@@ -3103,12 +3105,12 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkDaedalusVm_registerExternal(UIntPtr slf, UIntPtr sym,
-			Callbacks.ZkDaedalusVmExternalCallback cb,
+			ZkDaedalusVmExternalCallback cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkDaedalusVm_registerExternalDefault(UIntPtr slf,
-			Callbacks.ZkDaedalusVmExternalDefaultCallback cb,
+			ZkDaedalusVmExternalDefaultCallback cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -3833,6 +3835,9 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getCount(UIntPtr slf, ItemTextSlot slot);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setCount(UIntPtr slf, ItemTextSlot slot, int count);
 
 		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getNpcLongrange(UIntPtr slf);
@@ -5553,6 +5558,12 @@ namespace ZenKit
 			public delegate bool ZkDaedalusSymbolEnumerator(UIntPtr ctx, UIntPtr symbol);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void ZkDaedalusVmExternalCallback(UIntPtr ctx, UIntPtr vm);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate void ZkDaedalusVmExternalDefaultCallback(UIntPtr ctx, UIntPtr vm, UIntPtr sym);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkEventCameraTremorEnumerator(UIntPtr ctx, UIntPtr evt);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -5626,12 +5637,6 @@ namespace ZenKit
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkWayPointEnumerator(UIntPtr ctx, UIntPtr point);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate void ZkDaedalusVmExternalCallback(UIntPtr ctx, UIntPtr vm);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate void ZkDaedalusVmExternalDefaultCallback(UIntPtr ctx, UIntPtr vm, UIntPtr sym);
 		}
 
 		public class Structs

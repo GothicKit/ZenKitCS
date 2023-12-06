@@ -28,12 +28,46 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public string File => Native.ZkMusicThemeInstance_getFile(Handle).MarshalAsString() ?? string.Empty;
-		public float Vol => Native.ZkMusicThemeInstance_getVol(Handle);
-		public int Loop => Native.ZkMusicThemeInstance_getLoop(Handle);
-		public float ReverbMix => Native.ZkMusicThemeInstance_getReverbmix(Handle);
-		public float ReverbTime => Native.ZkMusicThemeInstance_getReverbtime(Handle);
-		public MusicTransitionEffect TransType => Native.ZkMusicThemeInstance_getTranstype(Handle);
-		public MusicTransitionType TransSubType => Native.ZkMusicThemeInstance_getTranssubtype(Handle);
+		public string File
+		{
+			get => Native.ZkMusicThemeInstance_getFile(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMusicThemeInstance_setFile(Handle, value);
+		}
+
+		public float Vol
+		{
+			get => Native.ZkMusicThemeInstance_getVol(Handle);
+			set => Native.ZkMusicThemeInstance_setVol(Handle, value);
+		}
+
+		public int Loop
+		{
+			get => Native.ZkMusicThemeInstance_getLoop(Handle);
+			set => Native.ZkMusicThemeInstance_setLoop(Handle, value);
+		}
+
+		public float ReverbMix
+		{
+			get => Native.ZkMusicThemeInstance_getReverbmix(Handle);
+			set => Native.ZkMusicThemeInstance_setReverbmix(Handle, value);
+		}
+
+		public float ReverbTime
+		{
+			get => Native.ZkMusicThemeInstance_getReverbtime(Handle);
+			set => Native.ZkMusicThemeInstance_setReverbtime(Handle, value);
+		}
+
+		public MusicTransitionEffect TransType
+		{
+			get => Native.ZkMusicThemeInstance_getTranstype(Handle);
+			set => Native.ZkMusicThemeInstance_setTranstype(Handle, value);
+		}
+
+		public MusicTransitionType TransSubType
+		{
+			get => Native.ZkMusicThemeInstance_getTranssubtype(Handle);
+			set => Native.ZkMusicThemeInstance_setTranssubtype(Handle, value);
+		}
 	}
 }

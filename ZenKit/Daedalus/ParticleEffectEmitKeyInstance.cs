@@ -8,73 +8,217 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public string VisNameS =>
-			Native.ZkParticleEffectEmitKeyInstance_getVisNameS(Handle).MarshalAsString() ?? string.Empty;
+		public string VisNameS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getVisNameS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setVisNameS(Handle, value);
+		}
 
-		public float VisSizeScale => Native.ZkParticleEffectEmitKeyInstance_getVisSizeScale(Handle);
-		public float ScaleDuration => Native.ZkParticleEffectEmitKeyInstance_getScaleDuration(Handle);
-		public float PfxPpsValue => Native.ZkParticleEffectEmitKeyInstance_getPfxPpsValue(Handle);
-		public int PfxPpsIsSmoothChg => Native.ZkParticleEffectEmitKeyInstance_getPfxPpsIsSmoothChg(Handle);
-		public int PfxPpsIsLoopingChg => Native.ZkParticleEffectEmitKeyInstance_getPfxPpsIsLoopingChg(Handle);
-		public float PfxScTime => Native.ZkParticleEffectEmitKeyInstance_getPfxScTime(Handle);
 
-		public string PfxFlyGravityS =>
-			Native.ZkParticleEffectEmitKeyInstance_getPfxFlyGravityS(Handle).MarshalAsString() ?? string.Empty;
+		public float VisSizeScale
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getVisSizeScale(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setVisSizeScale(Handle, value);
+		}
 
-		public string PfxShpDimS => Native.ZkParticleEffectEmitKeyInstance_getPfxShpDimS(Handle).MarshalAsString() ??
-		                            string.Empty;
+		public float ScaleDuration
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getScaleDuration(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setScaleDuration(Handle, value);
+		}
 
-		public int PfxShpIsVolumeChg => Native.ZkParticleEffectEmitKeyInstance_getPfxShpIsVolumeChg(Handle);
-		public float PfxShpScaleFps => Native.ZkParticleEffectEmitKeyInstance_getPfxShpScaleFps(Handle);
+		public float PfxPpsValue
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxPpsValue(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxPpsValue(Handle, value);
+		}
 
-		public float PfxShpDistributionWalksPeed =>
-			Native.ZkParticleEffectEmitKeyInstance_getPfxShpDistribWalksPeed(Handle);
+		public int PfxPpsIsSmoothChg
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxPpsIsSmoothChg(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxPpsIsSmoothChg(Handle, value);
+		}
 
-		public string PfxShpOffsetVecS =>
-			Native.ZkParticleEffectEmitKeyInstance_getPfxShpOffsetVecS(Handle).MarshalAsString() ?? string.Empty;
+		public int PfxPpsIsLoopingChg
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxPpsIsLoopingChg(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxPpsIsLoopingChg(Handle, value);
+		}
 
-		public string PfxShpDistributionTypeS =>
-			Native.ZkParticleEffectEmitKeyInstance_getPfxShpDistribTypeS(Handle).MarshalAsString() ?? string.Empty;
+		public float PfxScTime
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxScTime(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxScTime(Handle, value);
+		}
 
-		public string PfxDirModeS =>
-			Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeS(Handle).MarshalAsString() ?? string.Empty;
 
-		public string PfxDirForS => Native.ZkParticleEffectEmitKeyInstance_getPfxDirForS(Handle).MarshalAsString() ??
-		                            string.Empty;
+		public string PfxFlyGravityS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxFlyGravityS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxFlyGravityS(Handle, value);
+		}
 
-		public string PfxDirModeTargetForS =>
-			Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeTargetForS(Handle).MarshalAsString() ?? string.Empty;
 
-		public string PfxDirModeTargetPosS =>
-			Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeTargetPosS(Handle).MarshalAsString() ?? string.Empty;
+		public string PfxShpDimS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxShpDimS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxShpDimS(Handle, value);
+		}
 
-		public float PfxVelAvg => Native.ZkParticleEffectEmitKeyInstance_getPfxVelAvg(Handle);
-		public float PfxLspPartAvg => Native.ZkParticleEffectEmitKeyInstance_getPfxLspPartAvg(Handle);
-		public float PfxVisAlphaStart => Native.ZkParticleEffectEmitKeyInstance_getPfxVisAlphaStart(Handle);
 
-		public string LightPresetName =>
-			Native.ZkParticleEffectEmitKeyInstance_getLightPresetName(Handle).MarshalAsString() ?? string.Empty;
+		public int PfxShpIsVolumeChg
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxShpIsVolumeChg(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxShpIsVolumeChg(Handle, value);
+		}
 
-		public float LightRange => Native.ZkParticleEffectEmitKeyInstance_getLightRange(Handle);
+		public float PfxShpScaleFps
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxShpScaleFps(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxShpScaleFps(Handle, value);
+		}
 
-		public string SfxId =>
-			Native.ZkParticleEffectEmitKeyInstance_getSfxId(Handle).MarshalAsString() ?? string.Empty;
 
-		public int SfxIsAmbient => Native.ZkParticleEffectEmitKeyInstance_getSfxIsAmbient(Handle);
+		public float PfxShpDistributionWalksPeed
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxShpDistribWalksPeed(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxShpDistribWalksPeed(Handle, value);
+		}
 
-		public string EmCreateFxId =>
-			Native.ZkParticleEffectEmitKeyInstance_getEmCreateFxId(Handle).MarshalAsString() ?? string.Empty;
 
-		public float EmFlyGravity => Native.ZkParticleEffectEmitKeyInstance_getEmFlyGravity(Handle);
+		public string PfxShpOffsetVecS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxShpOffsetVecS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxShpOffsetVecS(Handle, value);
+		}
 
-		public string EmSelfRotVelS =>
-			Native.ZkParticleEffectEmitKeyInstance_getEmSelfRotVelS(Handle).MarshalAsString() ?? string.Empty;
 
-		public string EmTrjModeS => Native.ZkParticleEffectEmitKeyInstance_getEmTrjModeS(Handle).MarshalAsString() ??
-		                            string.Empty;
+		public string PfxShpDistributionTypeS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxShpDistribTypeS(Handle).MarshalAsString() ??
+			       string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxShpDistribTypeS(Handle, value);
+		}
 
-		public float EmTrjEaseVel => Native.ZkParticleEffectEmitKeyInstance_getEmTrjEaseVel(Handle);
-		public int EmCheckCollision => Native.ZkParticleEffectEmitKeyInstance_getEmCheckCollision(Handle);
-		public float EmFxLifespan => Native.ZkParticleEffectEmitKeyInstance_getEmFxLifespan(Handle);
+
+		public string PfxDirModeS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxDirModeS(Handle, value);
+		}
+
+
+		public string PfxDirForS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxDirForS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxDirForS(Handle, value);
+		}
+
+		public string PfxDirModeTargetForS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeTargetForS(Handle).MarshalAsString() ??
+			       string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxDirModeTargetForS(Handle, value);
+		}
+
+
+		public string PfxDirModeTargetPosS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxDirModeTargetPosS(Handle).MarshalAsString() ??
+			       string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxDirModeTargetPosS(Handle, value);
+		}
+
+
+		public float PfxVelAvg
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxVelAvg(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxVelAvg(Handle, value);
+		}
+
+		public float PfxLspPartAvg
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxLspPartAvg(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxLspPartAvg(Handle, value);
+		}
+
+		public float PfxVisAlphaStart
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getPfxVisAlphaStart(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setPfxVisAlphaStart(Handle, value);
+		}
+
+
+		public string LightPresetName
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getLightPresetName(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setLightPresetName(Handle, value);
+		}
+
+
+		public float LightRange
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getLightRange(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setLightRange(Handle, value);
+		}
+
+
+		public string SfxId
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getSfxId(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setSfxId(Handle, value);
+		}
+
+		public int SfxIsAmbient
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getSfxIsAmbient(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setSfxIsAmbient(Handle, value);
+		}
+
+
+		public string EmCreateFxId
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getEmCreateFxId(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setEmCreateFxId(Handle, value);
+		}
+
+		public float EmFlyGravity
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getEmFlyGravity(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setEmFlyGravity(Handle, value);
+		}
+
+
+		public string EmSelfRotVelS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getEmSelfRotVelS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setEmSelfRotVelS(Handle, value);
+		}
+
+
+		public string EmTrjModeS
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getEmTrjModeS(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkParticleEffectEmitKeyInstance_setEmTrjModeS(Handle, value);
+		}
+
+
+		public float EmTrjEaseVel
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getEmTrjEaseVel(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setEmTrjEaseVel(Handle, value);
+		}
+
+		public int EmCheckCollision
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getEmCheckCollision(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setEmCheckCollision(Handle, value);
+		}
+
+		public float EmFxLifespan
+		{
+			get => Native.ZkParticleEffectEmitKeyInstance_getEmFxLifespan(Handle);
+			set => Native.ZkParticleEffectEmitKeyInstance_setEmFxLifespan(Handle, value);
+		}
 	}
 }

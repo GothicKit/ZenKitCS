@@ -33,41 +33,215 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public int Id => Native.ZkItemInstance_getId(Handle);
-		public string Name => Native.ZkItemInstance_getName(Handle).MarshalAsString() ?? string.Empty;
-		public string NameId => Native.ZkItemInstance_getNameId(Handle).MarshalAsString() ?? string.Empty;
-		public int Hp => Native.ZkItemInstance_getHp(Handle);
-		public int HpMax => Native.ZkItemInstance_getHpMax(Handle);
-		public int MainFlag => Native.ZkItemInstance_getMainFlag(Handle);
-		public int Flags => Native.ZkItemInstance_getFlags(Handle);
-		public int Weight => Native.ZkItemInstance_getWeight(Handle);
-		public int Value => Native.ZkItemInstance_getValue(Handle);
-		public int DamageType => Native.ZkItemInstance_getDamageType(Handle);
-		public int DamageTotal => Native.ZkItemInstance_getDamageTotal(Handle);
-		public int Wear => Native.ZkItemInstance_getWear(Handle);
-		public int Nutrition => Native.ZkItemInstance_getNutrition(Handle);
-		public int Magic => Native.ZkItemInstance_getMagic(Handle);
-		public int OnEquip => Native.ZkItemInstance_getOnEquip(Handle);
-		public int OnUnEquip => Native.ZkItemInstance_getOnUnequip(Handle);
-		public int Owner => Native.ZkItemInstance_getOwner(Handle);
-		public int OwnerGuild => Native.ZkItemInstance_getOwnerGuild(Handle);
-		public int DisguiseGuild => Native.ZkItemInstance_getDisguiseGuild(Handle);
-		public string Visual => Native.ZkItemInstance_getVisual(Handle).MarshalAsString() ?? string.Empty;
-		public string VisualChange => Native.ZkItemInstance_getVisualChange(Handle).MarshalAsString() ?? string.Empty;
-		public string Effect => Native.ZkItemInstance_getEffect(Handle).MarshalAsString() ?? string.Empty;
-		public int VisualSkin => Native.ZkItemInstance_getVisualSkin(Handle);
-		public string SchemeName => Native.ZkItemInstance_getSchemeName(Handle).MarshalAsString() ?? string.Empty;
-		public int Material => Native.ZkItemInstance_getMaterial(Handle);
-		public int Munition => Native.ZkItemInstance_getMunition(Handle);
-		public int Spell => Native.ZkItemInstance_getSpell(Handle);
-		public int Range => Native.ZkItemInstance_getRange(Handle);
-		public int MagCircle => Native.ZkItemInstance_getMagCircle(Handle);
-		public string Description => Native.ZkItemInstance_getDescription(Handle).MarshalAsString() ?? string.Empty;
-		public int InvZBias => Native.ZkItemInstance_getInvZBias(Handle);
-		public int InvRotX => Native.ZkItemInstance_getInvRotX(Handle);
-		public int InvRotY => Native.ZkItemInstance_getInvRotY(Handle);
-		public int InvRotZ => Native.ZkItemInstance_getInvRotZ(Handle);
-		public int InvAnimate => Native.ZkItemInstance_getInvAnimate(Handle);
+		public int Id
+		{
+			get => Native.ZkItemInstance_getId(Handle);
+			set => Native.ZkItemInstance_setId(Handle, value);
+		}
+
+		public string Name
+		{
+			get => Native.ZkItemInstance_getName(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkItemInstance_setName(Handle, value);
+		}
+
+		public string NameId
+		{
+			get => Native.ZkItemInstance_getNameId(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkItemInstance_setNameId(Handle, value);
+		}
+
+		public int Hp
+		{
+			get => Native.ZkItemInstance_getHp(Handle);
+			set => Native.ZkItemInstance_setHp(Handle, value);
+		}
+
+		public int HpMax
+		{
+			get => Native.ZkItemInstance_getHpMax(Handle);
+			set => Native.ZkItemInstance_setHpMax(Handle, value);
+		}
+
+		public int MainFlag
+		{
+			get => Native.ZkItemInstance_getMainFlag(Handle);
+			set => Native.ZkItemInstance_setMainFlag(Handle, value);
+		}
+
+		public int Flags
+		{
+			get => Native.ZkItemInstance_getFlags(Handle);
+			set => Native.ZkItemInstance_setFlags(Handle, value);
+		}
+
+		public int Weight
+		{
+			get => Native.ZkItemInstance_getWeight(Handle);
+			set => Native.ZkItemInstance_setWeight(Handle, value);
+		}
+
+		public int Value
+		{
+			get => Native.ZkItemInstance_getValue(Handle);
+			set => Native.ZkItemInstance_setValue(Handle, value);
+		}
+
+		public int DamageType
+		{
+			get => Native.ZkItemInstance_getDamageType(Handle);
+			set => Native.ZkItemInstance_setDamageType(Handle, value);
+		}
+
+		public int DamageTotal
+		{
+			get => Native.ZkItemInstance_getDamageTotal(Handle);
+			set => Native.ZkItemInstance_setDamageTotal(Handle, value);
+		}
+
+		public int Wear
+		{
+			get => Native.ZkItemInstance_getWear(Handle);
+			set => Native.ZkItemInstance_setWear(Handle, value);
+		}
+
+		public int Nutrition
+		{
+			get => Native.ZkItemInstance_getNutrition(Handle);
+			set => Native.ZkItemInstance_setNutrition(Handle, value);
+		}
+
+		public int Magic
+		{
+			get => Native.ZkItemInstance_getMagic(Handle);
+			set => Native.ZkItemInstance_setMagic(Handle, value);
+		}
+
+		public int OnEquip
+		{
+			get => Native.ZkItemInstance_getOnEquip(Handle);
+			set => Native.ZkItemInstance_setOnEquip(Handle, value);
+		}
+
+		public int OnUnEquip
+		{
+			get => Native.ZkItemInstance_getOnUnequip(Handle);
+			set => Native.ZkItemInstance_setOnUnequip(Handle, value);
+		}
+
+		public int Owner
+		{
+			get => Native.ZkItemInstance_getOwner(Handle);
+			set => Native.ZkItemInstance_setOwner(Handle, value);
+		}
+
+		public int OwnerGuild
+		{
+			get => Native.ZkItemInstance_getOwnerGuild(Handle);
+			set => Native.ZkItemInstance_setOwnerGuild(Handle, value);
+		}
+
+		public int DisguiseGuild
+		{
+			get => Native.ZkItemInstance_getDisguiseGuild(Handle);
+			set => Native.ZkItemInstance_setDisguiseGuild(Handle, value);
+		}
+
+		public string Visual
+		{
+			get => Native.ZkItemInstance_getVisual(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkItemInstance_setVisual(Handle, value);
+		}
+
+		public string VisualChange
+		{
+			get => Native.ZkItemInstance_getVisualChange(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkItemInstance_setVisualChange(Handle, value);
+		}
+
+		public string Effect
+		{
+			get => Native.ZkItemInstance_getEffect(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkItemInstance_setEffect(Handle, value);
+		}
+
+		public int VisualSkin
+		{
+			get => Native.ZkItemInstance_getVisualSkin(Handle);
+			set => Native.ZkItemInstance_setVisualSkin(Handle, value);
+		}
+
+		public string SchemeName
+		{
+			get => Native.ZkItemInstance_getSchemeName(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkItemInstance_setSchemeName(Handle, value);
+		}
+
+		public int Material
+		{
+			get => Native.ZkItemInstance_getMaterial(Handle);
+			set => Native.ZkItemInstance_setMaterial(Handle, value);
+		}
+
+		public int Munition
+		{
+			get => Native.ZkItemInstance_getMunition(Handle);
+			set => Native.ZkItemInstance_setMunition(Handle, value);
+		}
+
+		public int Spell
+		{
+			get => Native.ZkItemInstance_getSpell(Handle);
+			set => Native.ZkItemInstance_setSpell(Handle, value);
+		}
+
+		public int Range
+		{
+			get => Native.ZkItemInstance_getRange(Handle);
+			set => Native.ZkItemInstance_setRange(Handle, value);
+		}
+
+		public int MagCircle
+		{
+			get => Native.ZkItemInstance_getMagCircle(Handle);
+			set => Native.ZkItemInstance_setMagCircle(Handle, value);
+		}
+
+		public string Description
+		{
+			get => Native.ZkItemInstance_getDescription(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkItemInstance_setDescription(Handle, value);
+		}
+
+		public int InvZBias
+		{
+			get => Native.ZkItemInstance_getInvZBias(Handle);
+			set => Native.ZkItemInstance_setInvZBias(Handle, value);
+		}
+
+		public int InvRotX
+		{
+			get => Native.ZkItemInstance_getInvRotX(Handle);
+			set => Native.ZkItemInstance_setInvRotX(Handle, value);
+		}
+
+		public int InvRotY
+		{
+			get => Native.ZkItemInstance_getInvRotY(Handle);
+			set => Native.ZkItemInstance_setInvRotY(Handle, value);
+		}
+
+		public int InvRotZ
+		{
+			get => Native.ZkItemInstance_getInvRotZ(Handle);
+			set => Native.ZkItemInstance_setInvRotZ(Handle, value);
+		}
+
+		public int InvAnimate
+		{
+			get => Native.ZkItemInstance_getInvAnimate(Handle);
+			set => Native.ZkItemInstance_setInvAnimate(Handle, value);
+		}
 
 		public int GetDamage(DamageType type)
 		{
@@ -112,6 +286,51 @@ namespace ZenKit.Daedalus
 		public int GetCount(ItemTextSlot slot)
 		{
 			return Native.ZkItemInstance_getCount(Handle, slot);
+		}
+
+		public void SetDamage(DamageType type, int v)
+		{
+			Native.ZkItemInstance_setDamage(Handle, type, v);
+		}
+
+		public void SetProtection(DamageType type, int v)
+		{
+			Native.ZkItemInstance_setProtection(Handle, type, v);
+		}
+
+		public void SetCondAtr(ItemConditionSlot slot, int v)
+		{
+			Native.ZkItemInstance_setCondAtr(Handle, slot, v);
+		}
+
+		public void SetCondValue(ItemConditionSlot slot, int v)
+		{
+			Native.ZkItemInstance_setCondValue(Handle, slot, v);
+		}
+
+		public void SetChangeAtr(ItemConditionSlot slot, int v)
+		{
+			Native.ZkItemInstance_setChangeAtr(Handle, slot, v);
+		}
+
+		public void SetChangeValue(ItemConditionSlot slot, int v)
+		{
+			Native.ZkItemInstance_setChangeValue(Handle, slot, v);
+		}
+
+		public void SetOnState(ItemStateSlot slot, int v)
+		{
+			Native.ZkItemInstance_setOnState(Handle, slot, v);
+		}
+
+		public void SetText(ItemTextSlot slot, string v)
+		{
+			Native.ZkItemInstance_setText(Handle, slot, v);
+		}
+
+		public void SetCount(ItemTextSlot slot, int v)
+		{
+			Native.ZkItemInstance_setCount(Handle, slot, v);
 		}
 	}
 }

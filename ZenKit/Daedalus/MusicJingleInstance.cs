@@ -8,9 +8,28 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public string Name => Native.ZkMusicJingleInstance_getName(Handle).MarshalAsString() ?? string.Empty;
-		public int Loop => Native.ZkMusicJingleInstance_getLoop(Handle);
-		public float Vol => Native.ZkMusicJingleInstance_getVol(Handle);
-		public int TransSubType => Native.ZkMusicJingleInstance_getTranssubtype(Handle);
+		public string Name
+		{
+			get => Native.ZkMusicJingleInstance_getName(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMusicJingleInstance_setName(Handle, value);
+		}
+
+		public int Loop
+		{
+			get => Native.ZkMusicJingleInstance_getLoop(Handle);
+			set => Native.ZkMusicJingleInstance_setLoop(Handle, value);
+		}
+
+		public float Vol
+		{
+			get => Native.ZkMusicJingleInstance_getVol(Handle);
+			set => Native.ZkMusicJingleInstance_setVol(Handle, value);
+		}
+
+		public int TransSubType
+		{
+			get => Native.ZkMusicJingleInstance_getTranssubtype(Handle);
+			set => Native.ZkMusicJingleInstance_setTranssubtype(Handle, value);
+		}
 	}
 }

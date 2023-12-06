@@ -80,31 +80,155 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public int Id => Native.ZkNpcInstance_getId(Handle);
-		public string Slot => Native.ZkNpcInstance_getSlot(Handle).MarshalAsString() ?? string.Empty;
-		public string Effect => Native.ZkNpcInstance_getEffect(Handle).MarshalAsString() ?? string.Empty;
-		public NpcType NpcType => Native.ZkNpcInstance_getType(Handle);
-		public uint Flags => Native.ZkNpcInstance_getFlags(Handle);
-		public int DamageType => Native.ZkNpcInstance_getDamageType(Handle);
-		public int Guild => Native.ZkNpcInstance_getGuild(Handle);
-		public int Level => Native.ZkNpcInstance_getLevel(Handle);
-		public int FightTactic => Native.ZkNpcInstance_getFightTactic(Handle);
-		public int Weapon => Native.ZkNpcInstance_getWeapon(Handle);
-		public int Voice => Native.ZkNpcInstance_getVoice(Handle);
-		public int VoicePitch => Native.ZkNpcInstance_getVoicePitch(Handle);
-		public int BodyMass => Native.ZkNpcInstance_getBodyMass(Handle);
-		public int DailyRoutine => Native.ZkNpcInstance_getDailyRoutine(Handle);
-		public int StartAiState => Native.ZkNpcInstance_getStartAiState(Handle);
-		public string SpawnPoint => Native.ZkNpcInstance_getSpawnPoint(Handle).MarshalAsString() ?? string.Empty;
-		public int SpawnDelay => Native.ZkNpcInstance_getSpawnDelay(Handle);
-		public int Senses => Native.ZkNpcInstance_getSenses(Handle);
-		public int SensesRange => Native.ZkNpcInstance_getSensesRange(Handle);
-		public string Wp => Native.ZkNpcInstance_getWp(Handle).MarshalAsString() ?? string.Empty;
-		public int Exp => Native.ZkNpcInstance_getExp(Handle);
-		public int ExpNext => Native.ZkNpcInstance_getExpNext(Handle);
-		public int Lp => Native.ZkNpcInstance_getLp(Handle);
-		public int BodyStateInterruptableOverride => Native.ZkNpcInstance_getBodyStateInterruptableOverride(Handle);
-		public int NoFocus => Native.ZkNpcInstance_getNoFocus(Handle);
+		public int Id
+		{
+			get => Native.ZkNpcInstance_getId(Handle);
+			set => Native.ZkNpcInstance_setId(Handle, value);
+		}
+
+		public string Slot
+		{
+			get => Native.ZkNpcInstance_getSlot(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkNpcInstance_setSlot(Handle, value);
+		}
+
+		public string Effect
+		{
+			get => Native.ZkNpcInstance_getEffect(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkNpcInstance_setEffect(Handle, value);
+		}
+
+		public NpcType NpcType
+		{
+			get => Native.ZkNpcInstance_getType(Handle);
+			set => Native.ZkNpcInstance_setType(Handle, value);
+		}
+
+		public uint Flags
+		{
+			get => Native.ZkNpcInstance_getFlags(Handle);
+			set => Native.ZkNpcInstance_setFlags(Handle, value);
+		}
+
+		public int DamageType
+		{
+			get => Native.ZkNpcInstance_getDamageType(Handle);
+			set => Native.ZkNpcInstance_setDamageType(Handle, value);
+		}
+
+		public int Guild
+		{
+			get => Native.ZkNpcInstance_getGuild(Handle);
+			set => Native.ZkNpcInstance_setGuild(Handle, value);
+		}
+
+		public int Level
+		{
+			get => Native.ZkNpcInstance_getLevel(Handle);
+			set => Native.ZkNpcInstance_setLevel(Handle, value);
+		}
+
+		public int FightTactic
+		{
+			get => Native.ZkNpcInstance_getFightTactic(Handle);
+			set => Native.ZkNpcInstance_setFightTactic(Handle, value);
+		}
+
+		public int Weapon
+		{
+			get => Native.ZkNpcInstance_getWeapon(Handle);
+			set => Native.ZkNpcInstance_setWeapon(Handle, value);
+		}
+
+		public int Voice
+		{
+			get => Native.ZkNpcInstance_getVoice(Handle);
+			set => Native.ZkNpcInstance_setVoice(Handle, value);
+		}
+
+		public int VoicePitch
+		{
+			get => Native.ZkNpcInstance_getVoicePitch(Handle);
+			set => Native.ZkNpcInstance_setVoicePitch(Handle, value);
+		}
+
+		public int BodyMass
+		{
+			get => Native.ZkNpcInstance_getBodyMass(Handle);
+			set => Native.ZkNpcInstance_setBodyMass(Handle, value);
+		}
+
+		public int DailyRoutine
+		{
+			get => Native.ZkNpcInstance_getDailyRoutine(Handle);
+			set => Native.ZkNpcInstance_setDailyRoutine(Handle, value);
+		}
+
+		public int StartAiState
+		{
+			get => Native.ZkNpcInstance_getStartAiState(Handle);
+			set => Native.ZkNpcInstance_setStartAiState(Handle, value);
+		}
+
+		public string SpawnPoint
+		{
+			get => Native.ZkNpcInstance_getSpawnPoint(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkNpcInstance_setSpawnPoint(Handle, value);
+		}
+
+		public int SpawnDelay
+		{
+			get => Native.ZkNpcInstance_getSpawnDelay(Handle);
+			set => Native.ZkNpcInstance_setSpawnDelay(Handle, value);
+		}
+
+		public int Senses
+		{
+			get => Native.ZkNpcInstance_getSenses(Handle);
+			set => Native.ZkNpcInstance_setSenses(Handle, value);
+		}
+
+		public int SensesRange
+		{
+			get => Native.ZkNpcInstance_getSensesRange(Handle);
+			set => Native.ZkNpcInstance_setSensesRange(Handle, value);
+		}
+
+		public string Wp
+		{
+			get => Native.ZkNpcInstance_getWp(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkNpcInstance_setWp(Handle, value);
+		}
+
+		public int Exp
+		{
+			get => Native.ZkNpcInstance_getExp(Handle);
+			set => Native.ZkNpcInstance_setExp(Handle, value);
+		}
+
+		public int ExpNext
+		{
+			get => Native.ZkNpcInstance_getExpNext(Handle);
+			set => Native.ZkNpcInstance_setExpNext(Handle, value);
+		}
+
+		public int Lp
+		{
+			get => Native.ZkNpcInstance_getLp(Handle);
+			set => Native.ZkNpcInstance_setLp(Handle, value);
+		}
+
+		public int BodyStateInterruptableOverride
+		{
+			get => Native.ZkNpcInstance_getBodyStateInterruptableOverride(Handle);
+			set => Native.ZkNpcInstance_setBodyStateInterruptableOverride(Handle, value);
+		}
+
+		public int NoFocus
+		{
+			get => Native.ZkNpcInstance_getNoFocus(Handle);
+			set => Native.ZkNpcInstance_setNoFocus(Handle, value);
+		}
 
 		public string GetName(NpcNameSlot slot)
 		{
@@ -139,6 +263,41 @@ namespace ZenKit.Daedalus
 		public int GetAiVar(ulong i)
 		{
 			return Native.ZkNpcInstance_getAiVar(Handle, i);
+		}
+
+		public void SetName(NpcNameSlot slot, string v)
+		{
+			Native.ZkNpcInstance_setName(Handle, slot, v);
+		}
+
+		public void SetMission(NpcMissionSlot slot, int v)
+		{
+			Native.ZkNpcInstance_setMission(Handle, slot, v);
+		}
+
+		public void SetAttribute(NpcAttribute attribute, int v)
+		{
+			Native.ZkNpcInstance_setAttribute(Handle, attribute, v);
+		}
+
+		public void SetHitChance(NpcTalent talent, int v)
+		{
+			Native.ZkNpcInstance_setHitChance(Handle, talent, v);
+		}
+
+		public void SetProtection(DamageType type, int v)
+		{
+			Native.ZkNpcInstance_setProtection(Handle, type, v);
+		}
+
+		public void setDamage(DamageType type, int v)
+		{
+			Native.ZkNpcInstance_setDamage(Handle, type, v);
+		}
+
+		public void SetAiVar(ulong i, int v)
+		{
+			Native.ZkNpcInstance_setAiVar(Handle, i, v);
 		}
 	}
 }

@@ -40,18 +40,78 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public string BackPic => Native.ZkMenuInstance_getBackPic(Handle).MarshalAsString() ?? string.Empty;
-		public string BackWorld => Native.ZkMenuInstance_getBackWorld(Handle).MarshalAsString() ?? string.Empty;
-		public int PosX => Native.ZkMenuInstance_getPosX(Handle);
-		public int PosY => Native.ZkMenuInstance_getPosY(Handle);
-		public int DimX => Native.ZkMenuInstance_getDimX(Handle);
-		public int DimY => Native.ZkMenuInstance_getDimY(Handle);
-		public int Alpha => Native.ZkMenuInstance_getAlpha(Handle);
-		public string MusicTheme => Native.ZkMenuInstance_getMusicTheme(Handle).MarshalAsString() ?? string.Empty;
-		public int EventTimerMsec => Native.ZkMenuInstance_getEventTimerMsec(Handle);
-		public int Flags => Native.ZkMenuInstance_getFlags(Handle);
-		public int DefaultOutGame => Native.ZkMenuInstance_getDefaultOutgame(Handle);
-		public int DefaultInGame => Native.ZkMenuInstance_getDefaultIngame(Handle);
+		public string BackPic
+		{
+			get => Native.ZkMenuInstance_getBackPic(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuInstance_setBackPic(Handle, value);
+		}
+
+		public string BackWorld
+		{
+			get => Native.ZkMenuInstance_getBackWorld(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuInstance_setBackWorld(Handle, value);
+		}
+
+		public int PosX
+		{
+			get => Native.ZkMenuInstance_getPosX(Handle);
+			set => Native.ZkMenuInstance_setPosX(Handle, value);
+		}
+
+		public int PosY
+		{
+			get => Native.ZkMenuInstance_getPosY(Handle);
+			set => Native.ZkMenuInstance_setPosY(Handle, value);
+		}
+
+		public int DimX
+		{
+			get => Native.ZkMenuInstance_getDimX(Handle);
+			set => Native.ZkMenuInstance_setDimX(Handle, value);
+		}
+
+		public int DimY
+		{
+			get => Native.ZkMenuInstance_getDimY(Handle);
+			set => Native.ZkMenuInstance_setDimY(Handle, value);
+		}
+
+		public int Alpha
+		{
+			get => Native.ZkMenuInstance_getAlpha(Handle);
+			set => Native.ZkMenuInstance_setAlpha(Handle, value);
+		}
+
+		public string MusicTheme
+		{
+			get => Native.ZkMenuInstance_getMusicTheme(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuInstance_setMusicTheme(Handle, value);
+		}
+
+		public int EventTimerMsec
+		{
+			get => Native.ZkMenuInstance_getEventTimerMsec(Handle);
+			set => Native.ZkMenuInstance_setEventTimerMsec(Handle, value);
+		}
+
+		public int Flags
+		{
+			get => Native.ZkMenuInstance_getFlags(Handle);
+			set => Native.ZkMenuInstance_setFlags(Handle, value);
+		}
+
+		public int DefaultOutGame
+		{
+			get => Native.ZkMenuInstance_getDefaultOutgame(Handle);
+			set => Native.ZkMenuInstance_setDefaultOutgame(Handle, value);
+		}
+
+		public int DefaultInGame
+		{
+			get => Native.ZkMenuInstance_getDefaultIngame(Handle);
+			set => Native.ZkMenuInstance_setDefaultIngame(Handle, value);
+		}
+
 
 		public string GetItem(ulong i)
 		{
@@ -65,38 +125,143 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public string FontName => Native.ZkMenuItemInstance_getFontName(Handle).MarshalAsString() ?? string.Empty;
-		public string BackPic => Native.ZkMenuItemInstance_getBackpic(Handle).MarshalAsString() ?? string.Empty;
-		public string AlphaMode => Native.ZkMenuItemInstance_getAlphaMode(Handle).MarshalAsString() ?? string.Empty;
-		public int Alpha => Native.ZkMenuItemInstance_getAlpha(Handle);
-		public MenuItemType MenuItemType => Native.ZkMenuItemInstance_getType(Handle);
+		public string FontName
+		{
+			get => Native.ZkMenuItemInstance_getFontName(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuItemInstance_setFontName(Handle, value);
+		}
 
-		public string OnChgSetOption =>
-			Native.ZkMenuItemInstance_getOnChgSetOption(Handle).MarshalAsString() ?? string.Empty;
+		public string BackPic
+		{
+			get => Native.ZkMenuItemInstance_getBackpic(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuItemInstance_setBackpic(Handle, value);
+		}
 
-		public string OnChgSetOptionSection =>
-			Native.ZkMenuItemInstance_getOnChgSetOptionSection(Handle).MarshalAsString() ?? string.Empty;
+		public string AlphaMode
+		{
+			get => Native.ZkMenuItemInstance_getAlphaMode(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuItemInstance_setAlphaMode(Handle, value);
+		}
 
-		public int PosX => Native.ZkMenuItemInstance_getPosX(Handle);
-		public int PosY => Native.ZkMenuItemInstance_getPosY(Handle);
-		public int DimX => Native.ZkMenuItemInstance_getDimX(Handle);
-		public int DimY => Native.ZkMenuItemInstance_getDimY(Handle);
-		public float SizeStartScale => Native.ZkMenuItemInstance_getSizeStartScale(Handle);
-		public int Flags => Native.ZkMenuItemInstance_getFlags(Handle);
-		public float OpenDelayTime => Native.ZkMenuItemInstance_getOpenDelayTime(Handle);
-		public float OpenDuration => Native.ZkMenuItemInstance_getOpenDuration(Handle);
-		public int FramePosX => Native.ZkMenuItemInstance_getFramePosX(Handle);
-		public int FramePosY => Native.ZkMenuItemInstance_getFramePosY(Handle);
-		public int FrameSizeX => Native.ZkMenuItemInstance_getFrameSizeX(Handle);
-		public int FrameSizeY => Native.ZkMenuItemInstance_getFrameSizeY(Handle);
+		public int Alpha
+		{
+			get => Native.ZkMenuItemInstance_getAlpha(Handle);
+			set => Native.ZkMenuItemInstance_setAlpha(Handle, value);
+		}
 
-		public string HideIfOptionSectionSet =>
-			Native.ZkMenuItemInstance_getHideIfOptionSectionSet(Handle).MarshalAsString() ?? string.Empty;
+		public MenuItemType MenuItemType
+		{
+			get => Native.ZkMenuItemInstance_getType(Handle);
+			set => Native.ZkMenuItemInstance_setType(Handle, value);
+		}
 
-		public string HideIfOptionSet =>
-			Native.ZkMenuItemInstance_getHideIfOptionSet(Handle).MarshalAsString() ?? string.Empty;
 
-		public int HideOnValue => Native.ZkMenuItemInstance_getHideOnValue(Handle);
+		public string OnChgSetOption
+		{
+			get => Native.ZkMenuItemInstance_getOnChgSetOption(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuItemInstance_setOnChgSetOption(Handle, value);
+		}
+
+
+		public string OnChgSetOptionSection
+		{
+			get => Native.ZkMenuItemInstance_getOnChgSetOptionSection(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuItemInstance_setOnChgSetOptionSection(Handle, value);
+		}
+
+
+		public int PosX
+		{
+			get => Native.ZkMenuItemInstance_getPosX(Handle);
+			set => Native.ZkMenuItemInstance_setPosX(Handle, value);
+		}
+
+		public int PosY
+		{
+			get => Native.ZkMenuItemInstance_getPosY(Handle);
+			set => Native.ZkMenuItemInstance_setPosY(Handle, value);
+		}
+
+		public int DimX
+		{
+			get => Native.ZkMenuItemInstance_getDimX(Handle);
+			set => Native.ZkMenuItemInstance_setDimX(Handle, value);
+		}
+
+		public int DimY
+		{
+			get => Native.ZkMenuItemInstance_getDimY(Handle);
+			set => Native.ZkMenuItemInstance_setDimY(Handle, value);
+		}
+
+		public float SizeStartScale
+		{
+			get => Native.ZkMenuItemInstance_getSizeStartScale(Handle);
+			set => Native.ZkMenuItemInstance_setSizeStartScale(Handle, value);
+		}
+
+		public int Flags
+		{
+			get => Native.ZkMenuItemInstance_getFlags(Handle);
+			set => Native.ZkMenuItemInstance_setFlags(Handle, value);
+		}
+
+		public float OpenDelayTime
+		{
+			get => Native.ZkMenuItemInstance_getOpenDelayTime(Handle);
+			set => Native.ZkMenuItemInstance_setOpenDelayTime(Handle, value);
+		}
+
+		public float OpenDuration
+		{
+			get => Native.ZkMenuItemInstance_getOpenDuration(Handle);
+			set => Native.ZkMenuItemInstance_setOpenDuration(Handle, value);
+		}
+
+		public int FramePosX
+		{
+			get => Native.ZkMenuItemInstance_getFramePosX(Handle);
+			set => Native.ZkMenuItemInstance_setFramePosX(Handle, value);
+		}
+
+		public int FramePosY
+		{
+			get => Native.ZkMenuItemInstance_getFramePosY(Handle);
+			set => Native.ZkMenuItemInstance_setFramePosY(Handle, value);
+		}
+
+		public int FrameSizeX
+		{
+			get => Native.ZkMenuItemInstance_getFrameSizeX(Handle);
+			set => Native.ZkMenuItemInstance_setFrameSizeX(Handle, value);
+		}
+
+		public int FrameSizeY
+		{
+			get => Native.ZkMenuItemInstance_getFrameSizeY(Handle);
+			set => Native.ZkMenuItemInstance_setFrameSizeY(Handle, value);
+		}
+
+
+		public string HideIfOptionSectionSet
+		{
+			get => Native.ZkMenuItemInstance_getHideIfOptionSectionSet(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuItemInstance_setHideIfOptionSectionSet(Handle, value);
+		}
+
+
+		public string HideIfOptionSet
+		{
+			get => Native.ZkMenuItemInstance_getHideIfOptionSet(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMenuItemInstance_setHideIfOptionSet(Handle, value);
+		}
+
+
+		public int HideOnValue
+		{
+			get => Native.ZkMenuItemInstance_getHideOnValue(Handle);
+			set => Native.ZkMenuItemInstance_setHideOnValue(Handle, value);
+		}
 
 		public string GetText(ulong i)
 		{
@@ -126,6 +291,36 @@ namespace ZenKit.Daedalus
 		public string GetUserString(ulong i)
 		{
 			return Native.ZkMenuItemInstance_getUserString(Handle, i).MarshalAsString() ?? string.Empty;
+		}
+
+		public void SetText(ulong i, string v)
+		{
+			Native.ZkMenuItemInstance_setText(Handle, i, v);
+		}
+
+		public void SetOnSelAction(ulong i, int v)
+		{
+			Native.ZkMenuItemInstance_setOnSelAction(Handle, i, v);
+		}
+
+		public void SetOnSelActionS(ulong i, string v)
+		{
+			Native.ZkMenuItemInstance_setOnSelActionS(Handle, i, v);
+		}
+
+		public void SetOnEventAction(ulong i, int v)
+		{
+			Native.ZkMenuItemInstance_setOnEventAction(Handle, i, v);
+		}
+
+		public void SetUserFloat(ulong i, float v)
+		{
+			Native.ZkMenuItemInstance_setUserFloat(Handle, i, v);
+		}
+
+		public void SetUserString(ulong i, string v)
+		{
+			Native.ZkMenuItemInstance_setUserString(Handle, i, v);
 		}
 	}
 }
