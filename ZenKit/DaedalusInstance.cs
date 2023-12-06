@@ -88,8 +88,7 @@ namespace ZenKit
 				DaedalusInstanceType.FightAi => new FightAiInstance(handle),
 				DaedalusInstanceType.SoundEffect => new SoundEffectInstance(handle),
 				DaedalusInstanceType.SoundSystem => new SoundSystemInstance(handle),
-				DaedalusInstanceType.Svm => throw new InvalidOperationException(
-					"Svm Instances are currently not supported"),
+				DaedalusInstanceType.Svm => new SvmInstance(handle),
 				_ => new DaedalusInstance(handle)
 			};
 		}

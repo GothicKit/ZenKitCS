@@ -5524,7 +5524,942 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkSoundSystemInstance_setUsed3DProviderName(UIntPtr slf, string used3DProviderName);
 
-// =================
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMilGreetings(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getPalGreetings(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWeather(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getIGetYouStill(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDieEnemy(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDieMonster(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonDieMonster(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonDieMonster2(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDirtyThief(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHandsOff(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSheepKiller(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSheepKillerMonster(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouMurderer(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDieStupidBeast(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouDareHitMe(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouAskedForIt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getThenIBeatYouOutOfHere(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhatDidYouDoInThere(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWillYouStopFighting(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getKillEnemy(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getEnemyKilled(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMonsterKilled(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonMonsterKilled(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonMonsterKilled2(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getThiefDown(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getRumfummlerDown(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSheepAttackerDown(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getKillMurderer(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getStupidBeastKilled(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNeverHitMeAgain(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouBetterShouldHaveListened(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGetUpAndBegone(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNeverEnterRoomAgain(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getThereIsNoFightingHere(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSpareMe(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getRunAway(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAlarm(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGuards(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHelp(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGoodMonsterKill(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGoodKill(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNotNow(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getRunCoward(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGetOutOfHere(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhyAreYouInHere(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYesGoOutOfHere(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhatsThisSupposedToBe(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouDisturbedMySlumber(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getITookYourGold(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getShitNoGold(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getITakeYourWeapon(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhatAreYouDoing(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getLookingForTroubleAgain(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getStopMagic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getISaidStopMagic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWeaponDown(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getISaidWeaponDown(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWiseMove(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNextTimeYoureInForIt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOhMyHead(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTheresAFight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOhMyGodItsAFight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGoodVictory(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNotBad(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOhMyGodHesDown(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCheerFriend01(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCheerFriend02(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCheerFriend03(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOoh01(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOoh02(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOoh03(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhatWasThat(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGetOutOfMyBed(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAwake(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAbsCommander(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAbsMonastery(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAbsFarm(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAbsGood(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSheepKillerCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAttackCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTheftCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMurderCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getPalCityCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMilCityCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCityCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMonaCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getFarmCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOcCrime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getToughguyAttackLost(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getToughguyAttackWon(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getToughguyPlayerAttack(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold1000(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold950(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold900(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold850(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold800(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold750(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold700(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold650(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold600(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold550(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold500(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold450(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold400(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold350(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold300(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold250(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold200(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold150(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold100(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold90(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold80(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold70(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold60(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold50(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold40(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold30(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold20(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGold10(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk01(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk02(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk03(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk04(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk05(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk06(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk07(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk08(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk09(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk10(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk11(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk12(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk13(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk14(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk15(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk16(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk17(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk18(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk19(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk20(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk21(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk22(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk23(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk24(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk25(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk26(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk27(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk28(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk29(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSmalltalk30(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoLearnNoPoints(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoLearnOverPersonalMax(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoLearnYoureBetter(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouLearnedSomething(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getUnterstadt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOberstadt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTempel(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMarkt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGalgen(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getKaserne(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHafen(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhereto(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOberstadt2Unterstadt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getUnterstadt2Oberstadt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getUnterstadt2Tempel(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getUnterstadt2Hafen(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTempel2Unterstadt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTempel2Markt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTempel2Galgen(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMarkt2Tempel(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMarkt2Kaserne(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMarkt2Galgen(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGalgen2Tempel(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGalgen2Markt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGalgen2Kaserne(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getKaserne2Markt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getKaserne2Galgen(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHafen2Unterstadt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDead(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAargh1(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAargh2(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAargh3(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonWrongArmor(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonWrongArmorSld(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonWrongArmorMil(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonWrongArmorKdf(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonNoArmorBdt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonDieBandit(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonDirtyPirate(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getScHeyTurnAround(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getScHeyTurnAround02(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getScHeyTurnAround03(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getScHeyTurnAround04(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getScHeyWaitASecond(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDoesntMork(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getPickBroke(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNeedKey(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoMorePicks(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoPickLockTalent(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoSweeping(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getPickLockOrKeyMissing(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getKeyMissing(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getPickLockMissing(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNeverOpen(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMissingItem(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDontKnow(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNothingToGet(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNothingToGet02(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNothingToGet03(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHealShrine(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHealLastShrine(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getIrdorathThereYouAre(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getScOpensIrdorathBook(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getScOpensLastDoor(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTrade1(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTrade2(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTrade3(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getVerstehe(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getFoundTreasure(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCantUnderstandThis(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCantReadThis(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getStoneplate1(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getStoneplate2(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getStoneplate3(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCough(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHui(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonThisLittleBastard(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonOpenAdanosTemple(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAttentatAddonDescription(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAttentatAddonDescription2(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAttentatAddonPro(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAttentatAddonContra(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMineAddonDescription(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonSummonAncientGhost(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonAncientGhostNotNear(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAddonGoldDescription(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWatchYourAim(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWatchYourAimAngry(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getLetsForgetOurLittleFight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getStrange(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getDieMortalEnemy(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNowWait(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNowWaitIntruder(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouStillNotHaveEnough(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouAttackedMyCharge(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getIWillTeachYouRespectForForeignProperty(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledOneOfUs(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getBerzerk(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYoullBeSorryForThis(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYesYes(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getShitWhatAMonster(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWeWillMeetAgain(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNeverTryThatAgain(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getITookYourOre(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getShitNoOre(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouViolatedForbiddenTerritory(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouWannaFoolMe(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhatDidYouInThere(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getIntruderAlert(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getBehindYou(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHeyHeyHey(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCheerFight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getCheerFriend(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOoh(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYeahWellDone(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHeDefeatedhim(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHeDeservEdit(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHeKilledHim(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getItWasAGoodFight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getFriendlyGreetings(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getAlGreetings(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMageGreetings(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSectGreetings(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getThereHeIs(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoLearnOverMax(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getNoLearnYouAlreadyKnow(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getHeyYou(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhatDoYouWant(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getISaidWhatDoYouWant(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getMakeWay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOutOfMyWay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouDeafOrWhat(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getLookAway(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOkayKeepIt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getWhatsThat(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getThatsMyWeapon(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGiveItTome(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouCanKeepTheCrap(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getTheyKilledMyFriend(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSuckerGotSome(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSuckerDefeatedEbr(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSuckerDefeatedGur(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSuckerDefeatedMage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSuckerDefeatedNovGuard(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getSuckerDefeatedVlkGuard(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouDefeatedMyComrade(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouDefeatedNovGuard(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouDefeatedVlkGuard(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouStoleFromMe(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouStoleFromUs(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouStoleFromEbr(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouStoleFromGur(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getStoleUromMage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledmyfriend(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledEbr(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledGur(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledMage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledOcFolk(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledNcFolk(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouKilledPsiFolk(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getGetThingsRight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getYouDefeatedMeWell(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSvmInstance_getOm(UIntPtr slf);
+
 		public class Callbacks
 		{
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
