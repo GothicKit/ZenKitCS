@@ -12,5 +12,13 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.Target, Is.EqualTo("EVT_TROLL_GRAVE_MOVER_01"));
 			Assert.That(vob.FireOnce, Is.True);
 		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new TriggerWorldStart("./Samples/G2/VOb/zCTriggerWorldStart.zen", GameVersion.Gothic2);
+			vob.Target = "EVT_TROLL_GRAVE_MOVER_01";
+			vob.FireOnce = true;
+		}
 	}
 }

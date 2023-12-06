@@ -21,7 +21,7 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.Radius, Is.EqualTo(3000.0f));
 			Assert.That(vob.SoundName, Is.EqualTo("OW_CROW"));
 		}
-	
+		
 		[Test]
 		public void TestLoadSoundDaytime()
 		{
@@ -30,5 +30,23 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.EndTime, Is.EqualTo(21));
 			Assert.That(vob.SoundNameDaytime, Is.EqualTo("InsectsFrogs_Night"));
 		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new Sound("./Samples/G2/VOb/zCVobSound.zen", GameVersion.Gothic2);
+			vob.Volume = 80.0f;
+			vob.Mode = SoundMode.Random;
+			vob.RandomDelay = 30.0f;
+			vob.RandomDelayVar = 20.0f;
+			vob.InitiallyPlaying = true;
+			vob.Ambient3d = false;
+			vob.Obstruction = true;
+			vob.ConeAngle = 0.0f;
+			vob.VolumeType = SoundTriggerVolumeType.Spherical;
+			vob.Radius = 3000.0f;
+			vob.SoundName = "OW_CROW";
+		}
+	
 	}
 }

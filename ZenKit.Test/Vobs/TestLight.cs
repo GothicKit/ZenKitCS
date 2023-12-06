@@ -37,7 +37,7 @@ namespace ZenKit.Test.Vobs
 		{
 			var vob = new Light("./Samples/G1/VOb/zCVobLight.zen", GameVersion.Gothic1);
 
-			Assert.That(vob.Preset, Is.EqualTo(""));
+			Assert.That(vob.PresetName, Is.EqualTo(""));
 			Assert.That(vob.LightType, Is.EqualTo(LightType.Point));
 			Assert.That(vob.Range, Is.EqualTo(2000.0f));
 			Assert.That(vob.Color, Is.EqualTo(Color.FromArgb(255, 223, 173, 117)));
@@ -53,6 +53,30 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.RangeAnimationSmooth, Is.True);
 			Assert.That(vob.CanMove, Is.True);
 			Assert.That(vob.ColorAnimationSmooth, Is.False);
+		}
+		
+
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new Light("./Samples/G1/VOb/zCVobLight.zen", GameVersion.Gothic1);
+
+			vob.PresetName = "";
+			vob.LightType = LightType.Point;
+			vob.Range = 2000.0f;
+			vob.Color = Color.FromArgb(255, 223, 173, 117);
+			vob.ConeAngle = 0.0f;
+			vob.LightStatic = false;
+			vob.Quality = LightQuality.Low;
+			vob.LensflareFx = "";
+			vob.RangeAnimationScale = G1LightRangeAnimationScale;
+			vob.RangeAnimationFps = 0.0f;
+			vob.ColorAnimationList = G1LightColorAnimationList;
+			vob.ColorAnimationFps = 11.0000067f;
+			vob.On = true;
+			vob.RangeAnimationSmooth = false;
+			vob.CanMove = true;
+			vob.ColorAnimationSmooth = false;
 		}
 	}
 }

@@ -11,5 +11,12 @@ namespace ZenKit.Test.Vobs
 			var vob = new LensFlare("./Samples/G1/VOb/zCVobLensFlare.zen", GameVersion.Gothic1);
 			Assert.That(vob.Effect, Is.EqualTo("TORCHFX01"));
 		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new LensFlare("./Samples/G1/VOb/zCVobLensFlare.zen", GameVersion.Gothic1);
+			vob.Effect = "TORCHFX01";
+		}
 	}
 }

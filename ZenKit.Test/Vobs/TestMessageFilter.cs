@@ -13,5 +13,14 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.OnTrigger, Is.EqualTo(MessageFilterAction.Untrigger));
 			Assert.That(vob.OnUntrigger, Is.EqualTo(MessageFilterAction.Untrigger));
 		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new MessageFilter("./Samples/G2/VOb/zCMessageFilter.zen", GameVersion.Gothic2);
+			vob.Target = "EVT_ADDON_TROLLPORTAL_CAMERA_01";
+			vob.OnTrigger = MessageFilterAction.Untrigger;
+			vob.OnUntrigger = MessageFilterAction.Untrigger;
+		}
 	}
 }

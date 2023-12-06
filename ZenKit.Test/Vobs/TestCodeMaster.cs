@@ -24,5 +24,19 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.UntriggeredCancels, Is.False);
 			Assert.That(vob.Slaves, Is.EqualTo(Slaves));
 		}
+
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new CodeMaster("./Samples/G2/VOb/zCCodeMaster.zen", GameVersion.Gothic2);
+			vob.Target = "EVT_ORNAMENT_TRIGGER_BIGFARM_01";
+			vob.Ordered = false;
+			vob.FirstFalseIsFailure = false;
+			vob.FailureTarget = "";
+			vob.UntriggeredCancels = true;
+			
+			vob.AddSlave("Test");
+			vob.RemoveSlave(0);
+		}
 	}
 }

@@ -21,79 +21,74 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public int State => Native.ZkInteractiveObject_getState(Handle);
-		public string Target => Native.ZkInteractiveObject_getTarget(Handle).MarshalAsString() ?? string.Empty;
-		public string Item => Native.ZkInteractiveObject_getItem(Handle).MarshalAsString() ?? string.Empty;
+		public int State
+		{
+			get => Native.ZkInteractiveObject_getState(Handle);
+			set => Native.ZkInteractiveObject_setState(Handle, value);
+		}
 
-		public string ConditionFunction =>
-			Native.ZkInteractiveObject_getConditionFunction(Handle).MarshalAsString() ?? string.Empty;
+		public string Target
+		{
+			get => Native.ZkInteractiveObject_getTarget(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkInteractiveObject_setTarget(Handle, value);
+		}
 
-		public string OnStateChangeFunction =>
-			Native.ZkInteractiveObject_getOnStateChangeFunction(Handle).MarshalAsString() ?? string.Empty;
+		public string Item
+		{
+			get => Native.ZkInteractiveObject_getItem(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkInteractiveObject_setItem(Handle, value);
+		}
 
-		public bool Rewind => Native.ZkInteractiveObject_getRewind(Handle);
+
+		public string ConditionFunction
+		{
+			get => Native.ZkInteractiveObject_getConditionFunction(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkInteractiveObject_setConditionFunction(Handle, value);
+		}
+
+
+		public string OnStateChangeFunction
+		{
+			get => Native.ZkInteractiveObject_getOnStateChangeFunction(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkInteractiveObject_setOnStateChangeFunction(Handle, value);
+		}
+
+
+		public bool Rewind
+		{
+			get => Native.ZkInteractiveObject_getRewind(Handle);
+			set => Native.ZkInteractiveObject_setRewind(Handle, value);
+		}
 
 		protected override void Delete()
 		{
 			Native.ZkInteractiveObject_del(Handle);
 		}
 	}
-	
+
 	public class Bed : InteractiveObject
 	{
-		public Bed(Read buf, GameVersion version) : base(buf, version)
-		{
-		}
-
-		public Bed(string path, GameVersion version) : base(path, version)
-		{
-		}
-
 		internal Bed(UIntPtr handle, bool delete) : base(handle, delete)
 		{
 		}
 	}
-	
+
 	public class Ladder : InteractiveObject
 	{
-		public Ladder(Read buf, GameVersion version) : base(buf, version)
-		{
-		}
-
-		public Ladder(string path, GameVersion version) : base(path, version)
-		{
-		}
-
 		internal Ladder(UIntPtr handle, bool delete) : base(handle, delete)
 		{
 		}
 	}
-	
+
 	public class Switch : InteractiveObject
 	{
-		public Switch(Read buf, GameVersion version) : base(buf, version)
-		{
-		}
-
-		public Switch(string path, GameVersion version) : base(path, version)
-		{
-		}
-
 		internal Switch(UIntPtr handle, bool delete) : base(handle, delete)
 		{
 		}
 	}
-	
+
 	public class Wheel : InteractiveObject
 	{
-		public Wheel(Read buf, GameVersion version) : base(buf, version)
-		{
-		}
-
-		public Wheel(string path, GameVersion version) : base(path, version)
-		{
-		}
-
 		internal Wheel(UIntPtr handle, bool delete) : base(handle, delete)
 		{
 		}

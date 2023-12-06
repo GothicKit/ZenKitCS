@@ -89,5 +89,39 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.Visual?.Name, Is.EqualTo("OW_MISC_WALL_TORCH_01.3DS"));
 			Assert.That(vob.Visual?.Type, Is.EqualTo(VisualType.MultiResolutionMesh));
 		}
+
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new VirtualObject("./Samples/G2/VOb/zCVob.zen", GameVersion.Gothic2);
+
+			vob.BoundingBox = new AxisAlignedBoundingBox
+			{
+				Min = new Vector3(30897.1035f, 4760.24951f, -14865.5723f),
+				Max = new Vector3(30929.8301f, 4836.17529f, -14817.3135f)
+			};
+
+			vob.Position = new Vector3(30913.4668f, 4798.9751f, -14841.4434f);
+			vob.Rotation = new Quaternion(0, -0.199367985f, 0, 0.979924798f);
+			vob.ShowVisual = false;
+			vob.SpriteCameraFacingMode = SpriteAlignment.None;
+			vob.CdStatic = true;
+			vob.CdDynamic = true;
+			vob.Static = false;
+			vob.DynamicShadows = ShadowType.None;
+			vob.PhysicsEnabled = true;
+			vob.AnimationType = AnimationType.None;
+			vob.Bias = 0;
+			vob.Ambient = true;
+			vob.AnimationStrength = 0;
+			vob.FarClipScale = 1;
+			vob.PresetName = "";
+			vob.Name = "";
+			
+			vob.ResetVisual<VisualDecal>();
+			vob.ResetVisual();
+			vob.AddChild<Light>();
+			vob.RemoveChild(0);
+		}
 	}
 }

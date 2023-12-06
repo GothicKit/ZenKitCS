@@ -20,7 +20,11 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Function => Native.ZkTriggerScript_getFunction(Handle).MarshalAsString() ?? string.Empty;
+		public string Function
+		{
+			get => Native.ZkTriggerScript_getFunction(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTriggerScript_setFunction(Handle, value);
+		}
 
 		protected override void Delete()
 		{

@@ -30,20 +30,73 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string FocusName => Native.ZkMovableObject_getName(Handle).MarshalAsString() ?? string.Empty;
-		public int Hp => Native.ZkMovableObject_getHp(Handle);
-		public int Damage => Native.ZkMovableObject_getDamage(Handle);
-		public bool Movable => Native.ZkMovableObject_getMovable(Handle);
-		public bool Takable => Native.ZkMovableObject_getTakable(Handle);
-		public bool FocusOverride => Native.ZkMovableObject_getFocusOverride(Handle);
-		public SoundMaterialType Material => Native.ZkMovableObject_getMaterial(Handle);
+		public string FocusName
+		{
+			get => Native.ZkMovableObject_getName(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMovableObject_setName(Handle, value);
+		}
 
-		public string VisualDestroyed =>
-			Native.ZkMovableObject_getVisualDestroyed(Handle).MarshalAsString() ?? string.Empty;
+		public int Hp
+		{
+			get => Native.ZkMovableObject_getHp(Handle);
+			set => Native.ZkMovableObject_setHp(Handle, value);
+		}
 
-		public string Owner => Native.ZkMovableObject_getOwner(Handle).MarshalAsString() ?? string.Empty;
-		public string OwnerGuild => Native.ZkMovableObject_getOwnerGuild(Handle).MarshalAsString() ?? string.Empty;
-		public bool Destroyed => Native.ZkMovableObject_getDestroyed(Handle);
+		public int Damage
+		{
+			get => Native.ZkMovableObject_getDamage(Handle);
+			set => Native.ZkMovableObject_setDamage(Handle, value);
+		}
+
+		public bool Movable
+		{
+			get => Native.ZkMovableObject_getMovable(Handle);
+			set => Native.ZkMovableObject_setMovable(Handle, value);
+		}
+
+		public bool Takable
+		{
+			get => Native.ZkMovableObject_getTakable(Handle);
+			set => Native.ZkMovableObject_setTakable(Handle, value);
+		}
+
+		public bool FocusOverride
+		{
+			get => Native.ZkMovableObject_getFocusOverride(Handle);
+			set => Native.ZkMovableObject_setFocusOverride(Handle, value);
+		}
+
+		public SoundMaterialType Material
+		{
+			get => Native.ZkMovableObject_getMaterial(Handle);
+			set => Native.ZkMovableObject_setMaterial(Handle, value);
+		}
+
+
+		public string VisualDestroyed
+		{
+			get => Native.ZkMovableObject_getVisualDestroyed(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMovableObject_setVisualDestroyed(Handle, value);
+		}
+
+
+		public string Owner
+		{
+			get => Native.ZkMovableObject_getOwner(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMovableObject_setOwner(Handle, value);
+		}
+
+		public string OwnerGuild
+		{
+			get => Native.ZkMovableObject_getOwnerGuild(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMovableObject_setOwnerGuild(Handle, value);
+		}
+
+		public bool Destroyed
+		{
+			get => Native.ZkMovableObject_getDestroyed(Handle);
+			set => Native.ZkMovableObject_setDestroyed(Handle, value);
+		}
 
 
 		protected override void Delete()

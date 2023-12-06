@@ -21,5 +21,22 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.OwnerGuild, Is.EqualTo(""));
 			Assert.That(vob.Destroyed, Is.False);
 		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new MovableObject("./Samples/G2/VOb/oCMOB.zen", GameVersion.Gothic2);
+			vob.FocusName = "MOBNAME_GRAVE_18";
+			vob.Hp = 10;
+			vob.Damage = 0;
+			vob.Movable = false;
+			vob.Takable = false;
+			vob.FocusOverride = false;
+			vob.Material = SoundMaterialType.Wood;
+			vob.VisualDestroyed = "";
+			vob.Owner = "";
+			vob.OwnerGuild = "";
+			vob.Destroyed = false;
+		}
 	}
 }

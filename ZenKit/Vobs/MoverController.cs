@@ -29,11 +29,25 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Target => Native.ZkMoverController_getTarget(Handle).MarshalAsString() ??
-		                        throw new Exception("Failed to load mover controller target");
+		public string Target
+		{
+			get => Native.ZkMoverController_getTarget(Handle).MarshalAsString() ??
+			       throw new Exception("Failed to load mover controller target");
+			set => Native.ZkMoverController_setTarget(Handle, value);
+		}
 
-		public MoverMessageType Message => Native.ZkMoverController_getMessage(Handle);
-		public int Key => Native.ZkMoverController_getKey(Handle);
+
+		public MoverMessageType Message
+		{
+			get => Native.ZkMoverController_getMessage(Handle);
+			set => Native.ZkMoverController_setMessage(Handle, value);
+		}
+
+		public int Key
+		{
+			get => Native.ZkMoverController_getKey(Handle);
+			set => Native.ZkMoverController_setKey(Handle, value);
+		}
 
 		protected override void Delete()
 		{

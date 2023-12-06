@@ -19,8 +19,17 @@ namespace ZenKit.Vobs
 			_handle = handle;
 		}
 
-		public string Name => Native.ZkTriggerListTarget_getName(_handle).MarshalAsString() ?? string.Empty;
-		public TimeSpan Delay => TimeSpan.FromSeconds(Native.ZkTriggerListTarget_getDelaySeconds(_handle));
+		public string Name
+		{
+			get => Native.ZkTriggerListTarget_getName(_handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTriggerListTarget_setName(_handle, value);
+		}
+
+		public TimeSpan Delay
+		{
+			get => TimeSpan.FromSeconds(Native.ZkTriggerListTarget_getDelaySeconds(_handle));
+			set => Native.ZkTriggerListTarget_setDelaySeconds(_handle, (float)value.TotalSeconds);
+		}
 	}
 
 	public class TriggerList : Trigger
@@ -39,7 +48,12 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public TriggerBatchMode Mode => Native.ZkTriggerList_getMode(Handle);
+		public TriggerBatchMode Mode
+		{
+			get => Native.ZkTriggerList_getMode(Handle);
+			set => Native.ZkTriggerList_setMode(Handle, value);
+		}
+
 		public ulong TargetCount => Native.ZkTriggerList_getTargetCount(Handle);
 
 		public List<TriggerListTarget> Targets
@@ -61,6 +75,21 @@ namespace ZenKit.Vobs
 		public TriggerListTarget GetTarget(ulong i)
 		{
 			return new TriggerListTarget(Native.ZkTriggerList_getTarget(Handle, i));
+		}
+
+		public TriggerListTarget AddTarget()
+		{
+			return new TriggerListTarget(Native.ZkTriggerList_addTarget(Handle));
+		}
+
+		public void RemoveTarget(ulong i)
+		{
+			Native.ZkTriggerList_removeTarget(Handle, i);
+		}
+
+		public void RemoveTargets(Predicate<TriggerListTarget> pred)
+		{
+			Native.ZkTriggerList_removeTargets(Handle, (_, ptr) => pred(new TriggerListTarget(ptr)), UIntPtr.Zero);
 		}
 
 		protected override void Delete()

@@ -20,9 +20,17 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string LevelName => Native.ZkTriggerChangeLevel_getLevelName(Handle).MarshalAsString() ?? string.Empty;
-		public string StartVob => Native.ZkTriggerChangeLevel_getStartVob(Handle).MarshalAsString() ?? string.Empty;
+		public string LevelName
+		{
+			get => Native.ZkTriggerChangeLevel_getLevelName(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTriggerChangeLevel_setLevelName(Handle, value);
+		}
 
+		public string StartVob
+		{
+			get => Native.ZkTriggerChangeLevel_getStartVob(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTriggerChangeLevel_setStartVob(Handle, value);
+		}
 
 		protected override void Delete()
 		{

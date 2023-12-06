@@ -18,7 +18,11 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public bool StartOn => Native.ZkAnimate_getStartOn(Handle);
+		public bool StartOn
+		{
+			get => Native.ZkAnimate_getStartOn(Handle);
+			set => Native.ZkAnimate_setStartOn(Handle, value);
+		}
 
 		protected override void Delete()
 		{

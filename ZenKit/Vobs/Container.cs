@@ -18,10 +18,29 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public bool IsLocked => Native.ZkContainer_getIsLocked(Handle);
-		public string Key => Native.ZkContainer_getKey(Handle).MarshalAsString() ?? string.Empty;
-		public string PickString => Native.ZkContainer_getPickString(Handle).MarshalAsString() ?? string.Empty;
-		public string Contents => Native.ZkContainer_getContents(Handle).MarshalAsString() ?? string.Empty;
+		public bool IsLocked
+		{
+			get => Native.ZkContainer_getIsLocked(Handle);
+			set => Native.ZkContainer_setIsLocked(Handle, value);
+		}
+
+		public string Key
+		{
+			get => Native.ZkContainer_getKey(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkContainer_setKey(Handle, value);
+		}
+
+		public string PickString
+		{
+			get => Native.ZkContainer_getPickString(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkContainer_setPickString(Handle, value);
+		}
+
+		public string Contents
+		{
+			get => Native.ZkContainer_getContents(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkContainer_setContents(Handle, value);
+		}
 
 		protected override void Delete()
 		{

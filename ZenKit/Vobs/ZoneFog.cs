@@ -19,18 +19,42 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public float RangeCenter => Native.ZkZoneFog_getRangeCenter(Handle);
-		public float InnerRangePercentage => Native.ZkZoneFog_getInnerRangePercentage(Handle);
-		public Color Color => Native.ZkZoneFog_getColor(Handle).ToColor();
-		public bool FadeOutSky => Native.ZkZoneFog_getFadeOutSky(Handle);
-		public bool OverrideColor => Native.ZkZoneFog_getOverrideColor(Handle);
+		public float RangeCenter
+		{
+			get => Native.ZkZoneFog_getRangeCenter(Handle);
+			set => Native.ZkZoneFog_setRangeCenter(Handle, value);
+		}
+
+		public float InnerRangePercentage
+		{
+			get => Native.ZkZoneFog_getInnerRangePercentage(Handle);
+			set => Native.ZkZoneFog_setInnerRangePercentage(Handle, value);
+		}
+
+		public Color Color
+		{
+			get => Native.ZkZoneFog_getColor(Handle).ToColor();
+			set => Native.ZkZoneFog_setColor(Handle, new Native.Structs.ZkColor(value));
+		}
+
+		public bool FadeOutSky
+		{
+			get => Native.ZkZoneFog_getFadeOutSky(Handle);
+			set => Native.ZkZoneFog_setFadeOutSky(Handle, value);
+		}
+
+		public bool OverrideColor
+		{
+			get => Native.ZkZoneFog_getOverrideColor(Handle);
+			set => Native.ZkZoneFog_setOverrideColor(Handle, value);
+		}
 
 		protected override void Delete()
 		{
 			Native.ZkZoneFog_del(Handle);
 		}
 	}
-	
+
 	public class ZoneFogDefault : ZoneFog
 	{
 		public ZoneFogDefault(Read buf, GameVersion version) : base(buf, version)

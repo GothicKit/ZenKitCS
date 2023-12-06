@@ -18,8 +18,12 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Effect => Native.ZkLensFlare_getEffect(Handle).MarshalAsString() ??
-		                        throw new Exception("Failed to load lens flare vob effect");
+		public string Effect
+		{
+			get => Native.ZkLensFlare_getEffect(Handle).MarshalAsString() ??
+			       throw new Exception("Failed to load lens flare vob effect");
+			set => Native.ZkLensFlare_setEffect(Handle, value);
+		}
 
 		protected override void Delete()
 		{

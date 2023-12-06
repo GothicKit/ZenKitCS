@@ -16,5 +16,17 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.Volume, Is.EqualTo(1.0f));
 			Assert.That(vob.IsLoop, Is.True);
 		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new ZoneMusic("./Samples/G2/VOb/oCZoneMusic.zen", GameVersion.Gothic2);
+			vob.IsEnabled = true;
+			vob.Priority = 1;
+			vob.IsEllipsoid = false;
+			vob.Reverb = -3.2190001f;
+			vob.Volume = 1.0f;
+			vob.IsLoop = true;
+		}
 	}
 }

@@ -10,6 +10,14 @@ namespace ZenKit.Test.Vobs
 		{
 			var vob = new Animate("./Samples/G2/VOb/zCVobAnimate.zen", GameVersion.Gothic2);
 			Assert.That(vob.StartOn, Is.True);
+
+		}
+
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new Animate("./Samples/G2/VOb/zCVobAnimate.zen", GameVersion.Gothic2);
+			vob.StartOn = true;
 		}
 	}
 }

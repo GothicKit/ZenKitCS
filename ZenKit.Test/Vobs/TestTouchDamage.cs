@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using ZenKit.Vobs;
 
@@ -21,6 +22,24 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.RepeatDelay.TotalSeconds, Is.EqualTo(0.0f));
 			Assert.That(vob.VolumeScale, Is.EqualTo(1.0f));
 			Assert.That(vob.CollisionType, Is.EqualTo(TouchCollisionType.Box));
+		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new TouchDamage("./Samples/G2/VOb/oCTouchDamage.zen", GameVersion.Gothic2);
+			vob.Damage = 1000.0f;
+			vob.IsBarrier=true;
+			vob.IsBlunt=false;
+			vob.IsEdge=true;
+			vob.IsFire=false;
+			vob.IsFly=false;
+			vob.IsMagic=false;
+			vob.IsPoint=false;
+			vob.IsFall=false;
+			vob.RepeatDelay = TimeSpan.FromSeconds(0.0f);
+			vob.VolumeScale = 1.0f;
+			vob.CollisionType = TouchCollisionType.Box;
 		}
 	}
 }

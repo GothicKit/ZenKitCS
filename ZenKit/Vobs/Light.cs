@@ -41,34 +41,113 @@ namespace ZenKit.Vobs
 			_delete = false;
 		}
 
-		public string Preset => Native.ZkLightPreset_getPreset(_handle).MarshalAsString() ??
-		                        throw new Exception("Failed to load light preset name");
+		public string Preset
+		{
+			get =>
+				Native.ZkLightPreset_getPreset(_handle).MarshalAsString() ??
+				throw new Exception("Failed to load light preset name");
+			set => Native.ZkLightPreset_setPreset(_handle, value);
+		}
 
-		public LightType LightType => Native.ZkLightPreset_getLightType(_handle);
-		public float Range => Native.ZkLightPreset_getRange(_handle);
-		public Color Color => Native.ZkLightPreset_getColor(_handle).ToColor();
-		public float ConeAngle => Native.ZkLightPreset_getConeAngle(_handle);
-		public bool LightStatic => Native.ZkLightPreset_getIsStatic(_handle);
-		public LightQuality Quality => Native.ZkLightPreset_getQuality(_handle);
 
-		public string LensflareFx => Native.ZkLightPreset_getLensflareFx(_handle).MarshalAsString() ??
-		                             throw new Exception("Failed to load light preset lensflare fx");
+		public LightType LightType
+		{
+			get => Native.ZkLightPreset_getLightType(_handle);
+			set => Native.ZkLightPreset_setLightType(_handle, value);
+		}
 
-		public bool On => Native.ZkLightPreset_getOn(_handle);
+		public float Range
+		{
+			get => Native.ZkLightPreset_getRange(_handle);
+			set => Native.ZkLightPreset_setRange(_handle, value);
+		}
 
-		public float[] RangeAnimationScale => Native.ZkLightPreset_getRangeAnimationScale(_handle, out var count)
-			.MarshalAsArray<float>(count);
+		public Color Color
+		{
+			get => Native.ZkLightPreset_getColor(_handle).ToColor();
+			set => Native.ZkLightPreset_setColor(_handle, new Native.Structs.ZkColor(value));
+		}
 
-		public float RangeAnimationFps => Native.ZkLightPreset_getRangeAnimationFps(_handle);
-		public bool RangeAnimationSmooth => Native.ZkLightPreset_getRangeAnimationSmooth(_handle);
+		public float ConeAngle
+		{
+			get => Native.ZkLightPreset_getConeAngle(_handle);
+			set => Native.ZkLightPreset_setConeAngle(_handle, value);
+		}
 
-		public Color[] ColorAnimationList => Array.ConvertAll(Native
-			.ZkLightPreset_getColorAnimationList(_handle, out var count)
-			.MarshalAsArray<Native.Structs.ZkColor>(count), i => i.ToColor());
+		public bool LightStatic
+		{
+			get => Native.ZkLightPreset_getIsStatic(_handle);
+			set => Native.ZkLightPreset_setIsStatic(_handle, value);
+		}
 
-		public float ColorAnimationFps => Native.ZkLightPreset_getColorAnimationFps(_handle);
-		public bool ColorAnimationSmooth => Native.ZkLightPreset_getColorAnimationSmooth(_handle);
-		public bool CanMove => Native.ZkLightPreset_getCanMove(_handle);
+		public LightQuality Quality
+		{
+			get => Native.ZkLightPreset_getQuality(_handle);
+			set => Native.ZkLightPreset_setQuality(_handle, value);
+		}
+
+		public string LensflareFx
+		{
+			get => Native.ZkLightPreset_getLensflareFx(_handle).MarshalAsString() ??
+			       throw new Exception("Failed to load light preset lensflare fx");
+			set => Native.ZkLightPreset_setLensflareFx(_handle, value);
+		}
+
+		public bool On
+		{
+			get => Native.ZkLightPreset_getOn(_handle);
+			set => Native.ZkLightPreset_setOn(_handle, value);
+		}
+
+		public float[] RangeAnimationScale
+		{
+			get =>
+				Native.ZkLightPreset_getRangeAnimationScale(_handle, out var count)
+					.MarshalAsArray<float>(count);
+			set => Native.ZkLightPreset_setRangeAnimationScale(_handle, value, (ulong)value.Length);
+		}
+
+		public float RangeAnimationFps
+		{
+			get => Native.ZkLightPreset_getRangeAnimationFps(_handle);
+			set => Native.ZkLightPreset_setRangeAnimationFps(_handle, value);
+		}
+
+		public bool RangeAnimationSmooth
+		{
+			get => Native.ZkLightPreset_getRangeAnimationSmooth(_handle);
+			set => Native.ZkLightPreset_setRangeAnimationSmooth(_handle, value);
+		}
+
+		public Color[] ColorAnimationList
+		{
+			get =>
+				Array.ConvertAll(
+					Native.ZkLightPreset_getColorAnimationList(_handle, out var count)
+						.MarshalAsArray<Native.Structs.ZkColor>(count), i => i.ToColor());
+			set => Native.ZkLightPreset_setColorAnimationList(_handle,
+				Array.ConvertAll(value, c => new Native.Structs.ZkColor(c)), (ulong)value.Length);
+		}
+
+
+		public float ColorAnimationFps
+		{
+			get => Native.ZkLightPreset_getColorAnimationFps(_handle);
+			set => Native.ZkLightPreset_setColorAnimationFps(_handle, value);
+		}
+
+		public bool ColorAnimationSmooth
+		{
+			get => Native.ZkLightPreset_getColorAnimationSmooth(_handle);
+			set => Native.ZkLightPreset_setColorAnimationSmooth(_handle, value);
+		}
+
+		public bool CanMove
+		{
+			get => Native.ZkLightPreset_getCanMove(_handle);
+			set => Native.ZkLightPreset_setCanMove(_handle, value);
+		}
+
 
 		~LightPreset()
 		{
@@ -92,34 +171,117 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Preset => Native.ZkLight_getPreset(Handle).MarshalAsString() ??
-		                        throw new Exception("Failed to load light name");
+		public string Preset
+		{
+			get =>
+				Native.ZkLight_getPreset(Handle).MarshalAsString() ??
+				throw new Exception("Failed to load light name");
+			set => Native.ZkLight_setPreset(Handle, value);
+		}
 
-		public LightType LightType => Native.ZkLight_getLightType(Handle);
-		public float Range => Native.ZkLight_getRange(Handle);
-		public Color Color => Native.ZkLight_getColor(Handle).ToColor();
-		public float ConeAngle => Native.ZkLight_getConeAngle(Handle);
-		public bool LightStatic => Native.ZkLight_getIsStatic(Handle);
-		public LightQuality Quality => Native.ZkLight_getQuality(Handle);
 
-		public string LensflareFx => Native.ZkLight_getLensflareFx(Handle).MarshalAsString() ??
-		                             throw new Exception("Failed to load light lensflare fx");
+		public LightType LightType
+		{
+			get => Native.ZkLight_getLightType(Handle);
+			set => Native.ZkLight_setLightType(Handle, value);
+		}
 
-		public bool On => Native.ZkLight_getOn(Handle);
+		public float Range
+		{
+			get => Native.ZkLight_getRange(Handle);
+			set => Native.ZkLight_setRange(Handle, value);
+		}
 
-		public float[] RangeAnimationScale => Native.ZkLight_getRangeAnimationScale(Handle, out var count)
-			.MarshalAsArray<float>(count);
+		public Color Color
+		{
+			get => Native.ZkLight_getColor(Handle).ToColor();
+			set => Native.ZkLight_setColor(Handle, new Native.Structs.ZkColor(value));
+		}
 
-		public float RangeAnimationFps => Native.ZkLight_getRangeAnimationFps(Handle);
-		public bool RangeAnimationSmooth => Native.ZkLight_getRangeAnimationSmooth(Handle);
+		public float ConeAngle
+		{
+			get => Native.ZkLight_getConeAngle(Handle);
+			set => Native.ZkLight_setConeAngle(Handle, value);
+		}
 
-		public Color[] ColorAnimationList => Array.ConvertAll(Native
-			.ZkLight_getColorAnimationList(Handle, out var count)
-			.MarshalAsArray<Native.Structs.ZkColor>(count), i => i.ToColor());
+		public bool LightStatic
+		{
+			get => Native.ZkLight_getIsStatic(Handle);
+			set => Native.ZkLight_setIsStatic(Handle, value);
+		}
 
-		public float ColorAnimationFps => Native.ZkLight_getColorAnimationFps(Handle);
-		public bool ColorAnimationSmooth => Native.ZkLight_getColorAnimationSmooth(Handle);
-		public bool CanMove => Native.ZkLight_getCanMove(Handle);
+		public LightQuality Quality
+		{
+			get => Native.ZkLight_getQuality(Handle);
+			set => Native.ZkLight_setQuality(Handle, value);
+		}
+
+
+		public string LensflareFx
+		{
+			get => Native.ZkLight_getLensflareFx(Handle).MarshalAsString() ??
+			       throw new Exception("Failed to load light lensflare fx");
+			set => Native.ZkLight_setLensflareFx(Handle, value);
+		}
+
+
+		public bool On
+		{
+			get => Native.ZkLight_getOn(Handle);
+			set => Native.ZkLight_setOn(Handle, value);
+		}
+
+
+		public float[] RangeAnimationScale
+		{
+			get =>
+				Native.ZkLight_getRangeAnimationScale(Handle, out var count)
+					.MarshalAsArray<float>(count);
+			set => Native.ZkLight_setRangeAnimationScale(Handle, value, (ulong)value.Length);
+		}
+
+
+		public float RangeAnimationFps
+		{
+			get => Native.ZkLight_getRangeAnimationFps(Handle);
+			set => Native.ZkLight_setRangeAnimationFps(Handle, value);
+		}
+
+		public bool RangeAnimationSmooth
+		{
+			get => Native.ZkLight_getRangeAnimationSmooth(Handle);
+			set => Native.ZkLight_setRangeAnimationSmooth(Handle, value);
+		}
+
+		public Color[] ColorAnimationList
+		{
+			get =>
+				Array.ConvertAll(
+					Native.ZkLight_getColorAnimationList(Handle, out var count)
+						.MarshalAsArray<Native.Structs.ZkColor>(count), i => i.ToColor());
+			set => Native.ZkLight_setColorAnimationList(Handle,
+				Array.ConvertAll(value, c => new Native.Structs.ZkColor(c)), (ulong)value.Length);
+		}
+
+
+		public float ColorAnimationFps
+		{
+			get => Native.ZkLight_getColorAnimationFps(Handle);
+			set => Native.ZkLight_setColorAnimationFps(Handle, value);
+		}
+
+		public bool ColorAnimationSmooth
+		{
+			get => Native.ZkLight_getColorAnimationSmooth(Handle);
+			set => Native.ZkLight_setColorAnimationSmooth(Handle, value);
+		}
+
+		public bool CanMove
+		{
+			get => Native.ZkLight_getCanMove(Handle);
+			set => Native.ZkLight_setCanMove(Handle, value);
+		}
+
 
 		protected override void Delete()
 		{

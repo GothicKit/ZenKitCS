@@ -42,19 +42,83 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public float Time => Native.ZkCameraTrajectoryFrame_getTime(Handle);
-		public float RollAngle => Native.ZkCameraTrajectoryFrame_getRollAngle(Handle);
-		public float FovScale => Native.ZkCameraTrajectoryFrame_getFovScale(Handle);
-		public CameraMotion MotionType => Native.ZkCameraTrajectoryFrame_getMotionType(Handle);
-		public CameraMotion MotionTypeFov => Native.ZkCameraTrajectoryFrame_getMotionTypeFov(Handle);
-		public CameraMotion MotionTypeRoll => Native.ZkCameraTrajectoryFrame_getMotionTypeRoll(Handle);
-		public CameraMotion MotionTypeTimeScale => Native.ZkCameraTrajectoryFrame_getMotionTypeTimeScale(Handle);
-		public float Tension => Native.ZkCameraTrajectoryFrame_getTension(Handle);
-		public float CamBias => Native.ZkCameraTrajectoryFrame_getCamBias(Handle);
-		public float Continuity => Native.ZkCameraTrajectoryFrame_getContinuity(Handle);
-		public float TimeScale => Native.ZkCameraTrajectoryFrame_getTimeScale(Handle);
-		public bool TimeFixed => Native.ZkCameraTrajectoryFrame_getTimeFixed(Handle);
-		public Matrix4x4 OriginalPose => Native.ZkCameraTrajectoryFrame_getOriginalPose(Handle).ToCSharp();
+		public float Time
+		{
+			get => Native.ZkCameraTrajectoryFrame_getTime(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setTime(Handle, value);
+		}
+
+		public float RollAngle
+		{
+			get => Native.ZkCameraTrajectoryFrame_getRollAngle(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setRollAngle(Handle, value);
+		}
+
+		public float FovScale
+		{
+			get => Native.ZkCameraTrajectoryFrame_getFovScale(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setFovScale(Handle, value);
+		}
+
+		public CameraMotion MotionType
+		{
+			get => Native.ZkCameraTrajectoryFrame_getMotionType(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setMotionType(Handle, value);
+		}
+
+		public CameraMotion MotionTypeFov
+		{
+			get => Native.ZkCameraTrajectoryFrame_getMotionTypeFov(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setMotionTypeFov(Handle, value);
+		}
+
+		public CameraMotion MotionTypeRoll
+		{
+			get => Native.ZkCameraTrajectoryFrame_getMotionTypeRoll(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setMotionTypeRoll(Handle, value);
+		}
+
+		public CameraMotion MotionTypeTimeScale
+		{
+			get => Native.ZkCameraTrajectoryFrame_getMotionTypeTimeScale(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setMotionTypeTimeScale(Handle, value);
+		}
+
+		public float Tension
+		{
+			get => Native.ZkCameraTrajectoryFrame_getTension(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setTension(Handle, value);
+		}
+
+		public float CamBias
+		{
+			get => Native.ZkCameraTrajectoryFrame_getCamBias(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setCamBias(Handle, value);
+		}
+
+		public float Continuity
+		{
+			get => Native.ZkCameraTrajectoryFrame_getContinuity(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setContinuity(Handle, value);
+		}
+
+		public float TimeScale
+		{
+			get => Native.ZkCameraTrajectoryFrame_getTimeScale(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setTimeScale(Handle, value);
+		}
+
+		public bool TimeFixed
+		{
+			get => Native.ZkCameraTrajectoryFrame_getTimeFixed(Handle);
+			set => Native.ZkCameraTrajectoryFrame_setTimeFixed(Handle, value);
+		}
+
+		public Matrix4x4 OriginalPose
+		{
+			get => Native.ZkCameraTrajectoryFrame_getOriginalPose(Handle).ToCSharp();
+			set => Native.ZkCameraTrajectoryFrame_setOriginalPose(Handle, new Native.Structs.ZkMat4x4(value));
+		}
 
 		protected override void Delete()
 		{
@@ -79,23 +143,92 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public CameraTrajectory TrajectoryFOR => Native.ZkCutsceneCamera_getTrajectoryFOR(Handle);
-		public CameraTrajectory TargetTrajectoryFOR => Native.ZkCutsceneCamera_getTargetTrajectoryFOR(Handle);
-		public CameraLoopType LoopMode => Native.ZkCutsceneCamera_getLoopMode(Handle);
-		public CameraLerpType LerpMode => Native.ZkCutsceneCamera_getLerpMode(Handle);
-		public bool IgnoreFORVobRotation => Native.ZkCutsceneCamera_getIgnoreFORVobRotation(Handle);
-		public bool IgnoreFORVobRotationTarget => Native.ZkCutsceneCamera_getIgnoreFORVobRotationTarget(Handle);
-		public bool Adapt => Native.ZkCutsceneCamera_getAdapt(Handle);
-		public bool EaseFirst => Native.ZkCutsceneCamera_getEaseFirst(Handle);
-		public bool EaseLast => Native.ZkCutsceneCamera_getEaseLast(Handle);
-		public float TotalDuration => Native.ZkCutsceneCamera_getTotalDuration(Handle);
+		public CameraTrajectory TrajectoryFOR
+		{
+			get => Native.ZkCutsceneCamera_getTrajectoryFOR(Handle);
+			set => Native.ZkCutsceneCamera_setTrajectoryFOR(Handle, value);
+		}
 
-		public string AutoFocusVob => Native.ZkCutsceneCamera_getAutoFocusVob(Handle).MarshalAsString() ??
-		                              throw new Exception("Failed to load cutscene camera auto focus vob");
+		public CameraTrajectory TargetTrajectoryFOR
+		{
+			get => Native.ZkCutsceneCamera_getTargetTrajectoryFOR(Handle);
+			set => Native.ZkCutsceneCamera_setTargetTrajectoryFOR(Handle, value);
+		}
 
-		public bool AutoPlayerMovable => Native.ZkCutsceneCamera_getAutoPlayerMovable(Handle);
-		public bool AutoUntriggerLast => Native.ZkCutsceneCamera_getAutoUntriggerLast(Handle);
-		public float AutoUntriggerLastDelay => Native.ZkCutsceneCamera_getAutoUntriggerLastDelay(Handle);
+		public CameraLoopType LoopMode
+		{
+			get => Native.ZkCutsceneCamera_getLoopMode(Handle);
+			set => Native.ZkCutsceneCamera_setLoopMode(Handle, value);
+		}
+
+		public CameraLerpType LerpMode
+		{
+			get => Native.ZkCutsceneCamera_getLerpMode(Handle);
+			set => Native.ZkCutsceneCamera_setLerpMode(Handle, value);
+		}
+
+		public bool IgnoreFORVobRotation
+		{
+			get => Native.ZkCutsceneCamera_getIgnoreFORVobRotation(Handle);
+			set => Native.ZkCutsceneCamera_setIgnoreFORVobRotation(Handle, value);
+		}
+
+		public bool IgnoreFORVobRotationTarget
+		{
+			get => Native.ZkCutsceneCamera_getIgnoreFORVobRotationTarget(Handle);
+			set => Native.ZkCutsceneCamera_setIgnoreFORVobRotationTarget(Handle, value);
+		}
+
+		public bool Adapt
+		{
+			get => Native.ZkCutsceneCamera_getAdapt(Handle);
+			set => Native.ZkCutsceneCamera_setAdapt(Handle, value);
+		}
+
+		public bool EaseFirst
+		{
+			get => Native.ZkCutsceneCamera_getEaseFirst(Handle);
+			set => Native.ZkCutsceneCamera_setEaseFirst(Handle, value);
+		}
+
+		public bool EaseLast
+		{
+			get => Native.ZkCutsceneCamera_getEaseLast(Handle);
+			set => Native.ZkCutsceneCamera_setEaseLast(Handle, value);
+		}
+
+		public float TotalDuration
+		{
+			get => Native.ZkCutsceneCamera_getTotalDuration(Handle);
+			set => Native.ZkCutsceneCamera_setTotalDuration(Handle, value);
+		}
+
+		public string AutoFocusVob
+		{
+			get =>
+				Native.ZkCutsceneCamera_getAutoFocusVob(Handle).MarshalAsString() ??
+				throw new Exception("Failed to load cutscene camera auto focus vob");
+			set => Native.ZkCutsceneCamera_setAutoFocusVob(Handle, value);
+		}
+
+		public bool AutoPlayerMovable
+		{
+			get => Native.ZkCutsceneCamera_getAutoPlayerMovable(Handle);
+			set => Native.ZkCutsceneCamera_setAutoPlayerMovable(Handle, value);
+		}
+
+		public bool AutoUntriggerLast
+		{
+			get => Native.ZkCutsceneCamera_getAutoUntriggerLast(Handle);
+			set => Native.ZkCutsceneCamera_setAutoUntriggerLast(Handle, value);
+		}
+
+		public float AutoUntriggerLastDelay
+		{
+			get => Native.ZkCutsceneCamera_getAutoUntriggerLastDelay(Handle);
+			set => Native.ZkCutsceneCamera_setAutoUntriggerLastDelay(Handle, value);
+		}
+
 		public int PositionCount => Native.ZkCutsceneCamera_getPositionCount(Handle);
 		public int TargetCount => Native.ZkCutsceneCamera_getTargetCount(Handle);
 		public ulong FrameCount => Native.ZkCutsceneCamera_getFrameCount(Handle);

@@ -13,5 +13,14 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.KillWhenDone, Is.False);
 			Assert.That(vob.InitiallyRunning, Is.False);
 		}
+
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new ParticleEffectController("./Samples/G2/VOb/zCPFXControler.zen", GameVersion.Gothic2);
+			vob.EffectName = "STARGATE_EDGES.PFX";
+			vob.KillWhenDone = false;
+			vob.InitiallyRunning = false;
+		}
 	}
 }

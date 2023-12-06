@@ -19,7 +19,6 @@ namespace ZenKit.Test.Vobs
 		{
 			var vob = new CutsceneCamera("./Samples/G2/VOb/zCCSCamera.zen", GameVersion.Gothic2);
 
-			Assert.That(vob.Type, Is.EqualTo(VirtualObjectType.zCCSCamera));
 			Assert.That(vob.TrajectoryFOR, Is.EqualTo(CameraTrajectory.World));
 			Assert.That(vob.TargetTrajectoryFOR, Is.EqualTo(CameraTrajectory.World));
 			Assert.That(vob.LoopMode, Is.EqualTo(CameraLoopType.None));
@@ -72,6 +71,39 @@ namespace ZenKit.Test.Vobs
 			Assert.That(pose.M24, Is.EqualTo(3905.95044f));
 			Assert.That(pose.M34, Is.EqualTo(29227.1875f));
 			Assert.That(pose.M44, Is.EqualTo(1.0f));
+		}
+
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new CutsceneCamera("./Samples/G2/VOb/zCCSCamera.zen", GameVersion.Gothic2);
+			vob.TrajectoryFOR = CameraTrajectory.World;
+			vob.TargetTrajectoryFOR = CameraTrajectory.World;
+			vob.LoopMode = CameraLoopType.None;
+			vob.LerpMode = CameraLerpType.Path;
+			vob.IgnoreFORVobRotation = false;
+			vob.IgnoreFORVobRotationTarget = false;
+			vob.Adapt = false;
+			vob.EaseFirst = false;
+			vob.EaseLast = false;
+			vob.TotalDuration = 20.0f;
+			vob.AutoFocusVob = "";
+			vob.AutoPlayerMovable = false;
+			vob.AutoUntriggerLast = false;
+			vob.AutoUntriggerLastDelay = 1.0f;
+
+			vob.Frames[0].Time = 0;
+			vob.Frames[0].RollAngle = 0;
+			vob.Frames[0].FovScale = 1;
+			vob.Frames[0].MotionType = CameraMotion.Slow;
+			vob.Frames[0].MotionTypeFov = CameraMotion.Smooth;
+			vob.Frames[0].MotionTypeRoll = CameraMotion.Smooth;
+			vob.Frames[0].MotionTypeTimeScale = CameraMotion.Smooth;
+			vob.Frames[0].Tension = 0;
+			vob.Frames[0].CamBias = 0;
+			vob.Frames[0].Continuity = 0;
+			vob.Frames[0].TimeScale = 1;
+			vob.Frames[0].TimeFixed = false;
 		}
 	}
 }

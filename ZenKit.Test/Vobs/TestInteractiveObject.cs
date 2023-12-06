@@ -16,5 +16,17 @@ namespace ZenKit.Test.Vobs
 			Assert.That(vob.OnStateChangeFunction, Is.EqualTo("PRAYIDOL"));
 			Assert.That(vob.Rewind, Is.False);
 		}
+
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new InteractiveObject("./Samples/G2/VOb/oCMobInter.zen", GameVersion.Gothic2);
+			vob.State = 1;
+			vob.Target = "";
+			vob.Item = "";
+			vob.ConditionFunction = "";
+			vob.OnStateChangeFunction = "PRAYIDOL";
+			vob.Rewind = true;
+		}
 	}
 }

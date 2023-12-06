@@ -18,12 +18,41 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public bool IsEnabled => Native.ZkZoneMusic_getIsEnabled(Handle);
-		public int Priority => Native.ZkZoneMusic_getPriority(Handle);
-		public bool IsEllipsoid => Native.ZkZoneMusic_getIsEllipsoid(Handle);
-		public float Reverb => Native.ZkZoneMusic_getReverb(Handle);
-		public float Volume => Native.ZkZoneMusic_getVolume(Handle);
-		public bool IsLoop => Native.ZkZoneMusic_getIsLoop(Handle);
+		public bool IsEnabled
+		{
+			get => Native.ZkZoneMusic_getIsEnabled(Handle);
+			set => Native.ZkZoneMusic_setIsEnabled(Handle, value);
+		}
+
+		public int Priority
+		{
+			get => Native.ZkZoneMusic_getPriority(Handle);
+			set => Native.ZkZoneMusic_setPriority(Handle, value);
+		}
+
+		public bool IsEllipsoid
+		{
+			get => Native.ZkZoneMusic_getIsEllipsoid(Handle);
+			set => Native.ZkZoneMusic_setIsEllipsoid(Handle, value);
+		}
+
+		public float Reverb
+		{
+			get => Native.ZkZoneMusic_getReverb(Handle);
+			set => Native.ZkZoneMusic_setReverb(Handle, value);
+		}
+
+		public float Volume
+		{
+			get => Native.ZkZoneMusic_getVolume(Handle);
+			set => Native.ZkZoneMusic_setVolume(Handle, value);
+		}
+
+		public bool IsLoop
+		{
+			get => Native.ZkZoneMusic_getIsLoop(Handle);
+			set => Native.ZkZoneMusic_setIsLoop(Handle, value);
+		}
 
 		protected override void Delete()
 		{

@@ -44,27 +44,113 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public MoverBehavior Behavior => Native.ZkMover_getBehavior(Handle);
-		public float TouchBlockerDamage => Native.ZkMover_getTouchBlockerDamage(Handle);
-		public TimeSpan StayOpenTime => TimeSpan.FromSeconds(Native.ZkMover_getStayOpenTimeSeconds(Handle));
-		public bool IsLocked => Native.ZkMover_getIsLocked(Handle);
-		public bool AutoLink => Native.ZkMover_getAutoLink(Handle);
-		public bool AutoRotate => Native.ZkMover_getAutoRotate(Handle);
-		public float Speed => Native.ZkMover_getSpeed(Handle);
-		public MoverLerpType LerpType => Native.ZkMover_getLerpType(Handle);
-		public MoverSpeedType SpeedType => Native.ZkMover_getSpeedType(Handle);
+		public MoverBehavior Behavior
+		{
+			get => Native.ZkMover_getBehavior(Handle);
+			set => Native.ZkMover_setBehavior(Handle, value);
+		}
+
+		public float TouchBlockerDamage
+		{
+			get => Native.ZkMover_getTouchBlockerDamage(Handle);
+			set => Native.ZkMover_setTouchBlockerDamage(Handle, value);
+		}
+
+		public TimeSpan StayOpenTime
+		{
+			get => TimeSpan.FromSeconds(Native.ZkMover_getStayOpenTimeSeconds(Handle));
+			set => Native.ZkMover_setStayOpenTimeSeconds(Handle, (float)value.TotalSeconds);
+		}
+
+		public bool IsLocked
+		{
+			get => Native.ZkMover_getIsLocked(Handle);
+			set => Native.ZkMover_setIsLocked(Handle, value);
+		}
+
+		public bool AutoLink
+		{
+			get => Native.ZkMover_getAutoLink(Handle);
+			set => Native.ZkMover_setAutoLink(Handle, value);
+		}
+
+		public bool AutoRotate
+		{
+			get => Native.ZkMover_getAutoRotate(Handle);
+			set => Native.ZkMover_setAutoRotate(Handle, value);
+		}
+
+		public float Speed
+		{
+			get => Native.ZkMover_getSpeed(Handle);
+			set => Native.ZkMover_setSpeed(Handle, value);
+		}
+
+		public MoverLerpType LerpType
+		{
+			get => Native.ZkMover_getLerpType(Handle);
+			set => Native.ZkMover_setLerpType(Handle, value);
+		}
+
+		public MoverSpeedType SpeedType
+		{
+			get => Native.ZkMover_getSpeedType(Handle);
+			set => Native.ZkMover_setSpeedType(Handle, value);
+		}
+
 
 		public AnimationSample[] Keyframes =>
 			Native.ZkMover_getKeyframes(Handle, out var count).MarshalAsArray<AnimationSample>(count);
 
-		public string SfxOpenStart => Native.ZkMover_getSfxOpenStart(Handle).MarshalAsString() ?? string.Empty;
-		public string SfxOpenEnd => Native.ZkMover_getSfxOpenEnd(Handle).MarshalAsString() ?? string.Empty;
-		public string SfxTransitioning => Native.ZkMover_getSfxTransitioning(Handle).MarshalAsString() ?? string.Empty;
-		public string SfxCloseStart => Native.ZkMover_getSfxCloseStart(Handle).MarshalAsString() ?? string.Empty;
-		public string SfxCloseEnd => Native.ZkMover_getSfxCloseEnd(Handle).MarshalAsString() ?? string.Empty;
-		public string SfxLock => Native.ZkMover_getSfxLock(Handle).MarshalAsString() ?? string.Empty;
-		public string SfxUnlock => Native.ZkMover_getSfxUnlock(Handle).MarshalAsString() ?? string.Empty;
-		public string SfxUseLocked => Native.ZkMover_getSfxUseLocked(Handle).MarshalAsString() ?? string.Empty;
+
+		public string SfxOpenStart
+		{
+			get => Native.ZkMover_getSfxOpenStart(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxOpenStart(Handle, value);
+		}
+
+		public string SfxOpenEnd
+		{
+			get => Native.ZkMover_getSfxOpenEnd(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxOpenEnd(Handle, value);
+		}
+
+		public string SfxTransitioning
+		{
+			get => Native.ZkMover_getSfxTransitioning(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxTransitioning(Handle, value);
+		}
+
+		public string SfxCloseStart
+		{
+			get => Native.ZkMover_getSfxCloseStart(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxCloseStart(Handle, value);
+		}
+
+		public string SfxCloseEnd
+		{
+			get => Native.ZkMover_getSfxCloseEnd(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxCloseEnd(Handle, value);
+		}
+
+		public string SfxLock
+		{
+			get => Native.ZkMover_getSfxLock(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxLock(Handle, value);
+		}
+
+		public string SfxUnlock
+		{
+			get => Native.ZkMover_getSfxUnlock(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxUnlock(Handle, value);
+		}
+
+		public string SfxUseLocked
+		{
+			get => Native.ZkMover_getSfxUseLocked(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkMover_setSfxUseLocked(Handle, value);
+		}
+
 
 		protected override void Delete()
 		{

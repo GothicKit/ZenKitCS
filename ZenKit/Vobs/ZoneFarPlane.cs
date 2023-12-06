@@ -19,15 +19,24 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public float VobFarPlaneZ => Native.ZkZoneFarPlane_getVobFarPlaneZ(Handle);
-		public float InnerRangePercentage => Native.ZkZoneFarPlane_getInnerRangePercentage(Handle);
+		public float VobFarPlaneZ
+		{
+			get => Native.ZkZoneFarPlane_getVobFarPlaneZ(Handle);
+			set => Native.ZkZoneFarPlane_setVobFarPlaneZ(Handle, value);
+		}
+
+		public float InnerRangePercentage
+		{
+			get => Native.ZkZoneFarPlane_getInnerRangePercentage(Handle);
+			set => Native.ZkZoneFarPlane_setInnerRangePercentage(Handle, value);
+		}
 
 		protected override void Delete()
 		{
 			Native.ZkZoneFarPlane_del(Handle);
 		}
 	}
-	
+
 	public class ZoneFarPlaneDefault : ZoneFarPlane
 	{
 		public ZoneFarPlaneDefault(Read buf, GameVersion version) : base(buf, version)

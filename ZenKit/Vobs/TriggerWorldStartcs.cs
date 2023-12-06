@@ -21,9 +21,17 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Target => Native.ZkTriggerWorldStart_getTarget(Handle).MarshalAsString() ?? string.Empty;
-		public bool FireOnce => Native.ZkTriggerWorldStart_getFireOnce(Handle);
+		public string Target
+		{
+			get => Native.ZkTriggerWorldStart_getTarget(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTriggerWorldStart_setTarget(Handle, value);
+		}
 
+		public bool FireOnce
+		{
+			get => Native.ZkTriggerWorldStart_getFireOnce(Handle);
+			set => Native.ZkTriggerWorldStart_setFireOnce(Handle, value);
+		}
 
 		protected override void Delete()
 		{

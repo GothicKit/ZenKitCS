@@ -30,11 +30,25 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Target => Native.ZkMessageFilter_getTarget(Handle).MarshalAsString() ??
-		                        throw new Exception("Failed to load message filter vob target");
+		public string Target
+		{
+			get => Native.ZkMessageFilter_getTarget(Handle).MarshalAsString() ??
+			       throw new Exception("Failed to load message filter vob target");
+			set => Native.ZkMessageFilter_setTarget(Handle, value);
+		}
 
-		public MessageFilterAction OnTrigger => Native.ZkMessageFilter_getOnTrigger(Handle);
-		public MessageFilterAction OnUntrigger => Native.ZkMessageFilter_getOnUntrigger(Handle);
+
+		public MessageFilterAction OnTrigger
+		{
+			get => Native.ZkMessageFilter_getOnTrigger(Handle);
+			set => Native.ZkMessageFilter_setOnTrigger(Handle, value);
+		}
+
+		public MessageFilterAction OnUntrigger
+		{
+			get => Native.ZkMessageFilter_getOnUntrigger(Handle);
+			set => Native.ZkMessageFilter_setOnUntrigger(Handle, value);
+		}
 
 		protected override void Delete()
 		{

@@ -20,8 +20,11 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Target => Native.ZkTriggerUntouch_getTarget(Handle).MarshalAsString() ?? string.Empty;
-
+		public string Target
+		{
+			get => Native.ZkTriggerUntouch_getTarget(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTriggerUntouch_setTarget(Handle, value);
+		}
 
 		protected override void Delete()
 		{

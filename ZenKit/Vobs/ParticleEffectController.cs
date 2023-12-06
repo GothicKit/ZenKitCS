@@ -20,12 +20,24 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string EffectName => Native.ZkParticleEffectController_getEffectName(Handle).MarshalAsString() ??
-		                            throw new Exception("Failed to load particle effect controller vob effect name");
+		public string EffectName
+		{
+			get => Native.ZkParticleEffectController_getEffectName(Handle).MarshalAsString() ??
+			       throw new Exception("Failed to load particle effect controller vob effect name");
+			set => Native.ZkParticleEffectController_setEffectName(Handle, value);
+		}
 
-		public bool KillWhenDone => Native.ZkParticleEffectController_getKillWhenDone(Handle);
-		public bool InitiallyRunning => Native.ZkParticleEffectController_getInitiallyRunning(Handle);
+		public bool KillWhenDone
+		{
+			get => Native.ZkParticleEffectController_getKillWhenDone(Handle);
+			set => Native.ZkParticleEffectController_setKillWhenDone(Handle, value);
+		}
 
+		public bool InitiallyRunning
+		{
+			get => Native.ZkParticleEffectController_getInitiallyRunning(Handle);
+			set => Native.ZkParticleEffectController_setInitiallyRunning(Handle, value);
+		}
 
 		protected override void Delete()
 		{

@@ -18,22 +18,60 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Target => Native.ZkTrigger_getTarget(Handle).MarshalAsString() ?? string.Empty;
-		public byte Flags => Native.ZkTrigger_getFlags(Handle);
-		public byte FilterFlags => Native.ZkTrigger_getFilterFlags(Handle);
-		public string VobTarget => Native.ZkTrigger_getVobTarget(Handle).MarshalAsString() ?? string.Empty;
-		public int MaxActivationCount => Native.ZkTrigger_getMaxActivationCount(Handle);
-		public TimeSpan RetriggerDelay => TimeSpan.FromSeconds(Native.ZkTrigger_getRetriggerDelaySeconds(Handle));
-		public float DamageThreshold => Native.ZkTrigger_getDamageThreshold(Handle);
-		public TimeSpan FireDelay => TimeSpan.FromSeconds(Native.ZkTrigger_getFireDelaySeconds(Handle));
+		public string Target
+		{
+			get => Native.ZkTrigger_getTarget(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTrigger_setTarget(Handle, value);
+		}
 
+		public byte Flags
+		{
+			get => Native.ZkTrigger_getFlags(Handle);
+			set => Native.ZkTrigger_setFlags(Handle, value);
+		}
+
+		public byte FilterFlags
+		{
+			get => Native.ZkTrigger_getFilterFlags(Handle);
+			set => Native.ZkTrigger_setFilterFlags(Handle, value);
+		}
+
+		public string VobTarget
+		{
+			get => Native.ZkTrigger_getVobTarget(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkTrigger_setVobTarget(Handle, value);
+		}
+
+		public int MaxActivationCount
+		{
+			get => Native.ZkTrigger_getMaxActivationCount(Handle);
+			set => Native.ZkTrigger_setMaxActivationCount(Handle, value);
+		}
+
+		public TimeSpan RetriggerDelay
+		{
+			get => TimeSpan.FromSeconds(Native.ZkTrigger_getRetriggerDelaySeconds(Handle));
+			set => Native.ZkTrigger_setRetriggerDelaySeconds(Handle, (float)value.TotalSeconds);
+		}
+
+		public float DamageThreshold
+		{
+			get => Native.ZkTrigger_getDamageThreshold(Handle);
+			set => Native.ZkTrigger_setDamageThreshold(Handle, value);
+		}
+
+		public TimeSpan FireDelay
+		{
+			get => TimeSpan.FromSeconds(Native.ZkTrigger_getFireDelaySeconds(Handle));
+			set => Native.ZkTrigger_setFireDelaySeconds(Handle, (float)value.TotalSeconds);
+		}
 
 		protected override void Delete()
 		{
 			Native.ZkTrigger_del(Handle);
 		}
 	}
-	
+
 	public class CutsceneTrigger : Trigger
 	{
 		public CutsceneTrigger(Read buf, GameVersion version) : base(buf, version)

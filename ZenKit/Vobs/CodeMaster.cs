@@ -19,16 +19,42 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Target => Native.ZkCodeMaster_getTarget(Handle).MarshalAsString() ??
-		                        throw new Exception("Failed to load code master vob target");
+		public string Target
+		{
+			get =>
+				Native.ZkCodeMaster_getTarget(Handle).MarshalAsString() ??
+				throw new Exception("Failed to load code master vob target");
+			set => Native.ZkCodeMaster_setTarget(Handle, value);
+		}
 
-		public bool Ordered => Native.ZkCodeMaster_getOrdered(Handle);
-		public bool FirstFalseIsFailure => Native.ZkCodeMaster_getFirstFalseIsFailure(Handle);
+		public bool Ordered
+		{
+			get => Native.ZkCodeMaster_getOrdered(Handle);
+			set => Native.ZkCodeMaster_setOrdered(Handle, value);
+		}
 
-		public string FailureTarget => Native.ZkCodeMaster_getFailureTarget(Handle).MarshalAsString() ??
-		                               throw new Exception("Failed to load code master vob failure target");
+		public bool FirstFalseIsFailure
+		{
+			get => Native.ZkCodeMaster_getFirstFalseIsFailure(Handle);
+			set => Native.ZkCodeMaster_setFirstFalseIsFailure(Handle, value);
+		}
 
-		public bool UntriggeredCancels => Native.ZkCodeMaster_getUntriggeredCancels(Handle);
+
+		public string FailureTarget
+		{
+			get =>
+				Native.ZkCodeMaster_getFailureTarget(Handle).MarshalAsString() ??
+				throw new Exception("Failed to load code master vob failure target");
+			set => Native.ZkCodeMaster_setFailureTarget(Handle, value);
+		}
+
+
+		public bool UntriggeredCancels
+		{
+			get => Native.ZkCodeMaster_getUntriggeredCancels(Handle);
+			set => Native.ZkCodeMaster_setUntriggeredCancels(Handle, value);
+		}
+
 		public ulong SlaveCount => Native.ZkCodeMaster_getSlaveCount(Handle);
 
 		public List<string> Slaves
@@ -47,10 +73,25 @@ namespace ZenKit.Vobs
 			}
 		}
 
-		public string Slave(ulong i)
+		public string GetSlave(ulong i)
 		{
 			return Native.ZkCodeMaster_getSlave(Handle, i).MarshalAsString() ??
 			       throw new Exception("Failed to load code master vob slave");
+		}
+
+		public void AddSlave(string slave)
+		{
+			Native.ZkCodeMaster_addSlave(Handle, slave);
+		}
+
+		public void RemoveSlave(ulong i)
+		{
+			Native.ZkCodeMaster_removeSlave(Handle, i);
+		}
+
+		public void RemoveSlaves(Predicate<string> pred)
+		{
+			Native.ZkCodeMaster_removeSlaves(Handle, (_, ptr) => pred(ptr.MarshalAsString()!), UIntPtr.Zero);
 		}
 
 		protected override void Delete()

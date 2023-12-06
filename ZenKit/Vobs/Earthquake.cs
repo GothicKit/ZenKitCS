@@ -19,9 +19,23 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public float Radius => Native.ZkEarthquake_getRadius(Handle);
-		public TimeSpan Duration => TimeSpan.FromSeconds(Native.ZkEarthquake_getDuration(Handle));
-		public Vector3 Amplitude => Native.ZkEarthquake_getAmplitude(Handle);
+		public float Radius
+		{
+			get => Native.ZkEarthquake_getRadius(Handle);
+			set => Native.ZkEarthquake_setRadius(Handle, value);
+		}
+
+		public TimeSpan Duration
+		{
+			get => TimeSpan.FromSeconds(Native.ZkEarthquake_getDuration(Handle));
+			set => Native.ZkEarthquake_setDuration(Handle, (float)value.TotalSeconds);
+		}
+
+		public Vector3 Amplitude
+		{
+			get => Native.ZkEarthquake_getAmplitude(Handle);
+			set => Native.ZkEarthquake_setAmplitude(Handle, value);
+		}
 
 		protected override void Delete()
 		{

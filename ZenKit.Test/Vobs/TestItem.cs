@@ -11,5 +11,12 @@ namespace ZenKit.Test.Vobs
 			var vob = new Item("./Samples/G2/VOb/oCItem.zen", GameVersion.Gothic2);
 			Assert.That(vob.Instance, Is.EqualTo("ITPL_BLUEPLANT"));
 		}
+		
+		[Test]
+		public void TestSetters()
+		{
+			var vob = new Item("./Samples/G2/VOb/oCItem.zen", GameVersion.Gothic2);
+			vob.Instance = "ITPL_BLUEPLANT";
+		}
 	}
 }

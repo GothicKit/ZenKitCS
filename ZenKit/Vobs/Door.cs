@@ -18,9 +18,24 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public bool IsLocked => Native.ZkDoor_getIsLocked(Handle);
-		public string Key => Native.ZkDoor_getKey(Handle).MarshalAsString() ?? string.Empty;
-		public string PickString => Native.ZkDoor_getPickString(Handle).MarshalAsString() ?? string.Empty;
+
+		public bool IsLocked
+		{
+			get => Native.ZkDoor_getIsLocked(Handle);
+			set => Native.ZkDoor_setIsLocked(Handle, value);
+		}
+
+		public string Key
+		{
+			get => Native.ZkDoor_getKey(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkDoor_setKey(Handle, value);
+		}
+
+		public string PickString
+		{
+			get => Native.ZkDoor_getPickString(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkDoor_setPickString(Handle, value);
+		}
 
 		protected override void Delete()
 		{

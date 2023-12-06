@@ -18,8 +18,17 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Slot => Native.ZkFire_getSlot(Handle).MarshalAsString() ?? string.Empty;
-		public string VobTree => Native.ZkFire_getVobTree(Handle).MarshalAsString() ?? string.Empty;
+		public string Slot
+		{
+			get => Native.ZkFire_getSlot(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkFire_setSlot(Handle, value);
+		}
+
+		public string VobTree
+		{
+			get => Native.ZkFire_getVobTree(Handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkFire_setVobTree(Handle, value);
+		}
 
 		protected override void Delete()
 		{

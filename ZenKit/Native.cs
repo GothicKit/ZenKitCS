@@ -93,7 +93,7 @@ namespace ZenKit
 			return array;
 		}
 	}
-	
+
 	internal static class Native
 	{
 		private const string DllName = "zenkitcapi";
@@ -202,7 +202,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkVfsNode_open(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkVfsNode_enumerateChildren(UIntPtr slf, Callbacks.ZkVfsNodeEnumerator callback, UIntPtr ctx);
+		public static extern void ZkVfsNode_enumerateChildren(UIntPtr slf, Callbacks.ZkVfsNodeEnumerator callback,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkCutsceneLibrary_load(UIntPtr buf);
@@ -364,7 +365,8 @@ namespace ZenKit
 		public static extern IntPtr ZkModelHierarchy_getSourcePath(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelHierarchy_enumerateNodes(UIntPtr slf, Callbacks.ZkModelHierarchyNodeEnumerator cb,
+		public static extern void ZkModelHierarchy_enumerateNodes(UIntPtr slf,
+			Callbacks.ZkModelHierarchyNodeEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -496,7 +498,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkMultiResolutionMesh_getSubMesh(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkMultiResolutionMesh_enumerateSubMeshes(UIntPtr slf, Callbacks.ZkSubMeshEnumerator cb,
+		public static extern void ZkMultiResolutionMesh_enumerateSubMeshes(UIntPtr slf,
+			Callbacks.ZkSubMeshEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -558,7 +561,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkSoftSkinMesh_getBbox(UIntPtr slf, ulong node);
 
 		[DllImport(DllName)]
-		public static extern void ZkSoftSkinMesh_enumerateBoundingBoxes(UIntPtr slf, Callbacks.ZkOrientedBoundingBoxEnumerator cb,
+		public static extern void ZkSoftSkinMesh_enumerateBoundingBoxes(UIntPtr slf,
+			Callbacks.ZkOrientedBoundingBoxEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -593,7 +597,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkModelMesh_getMesh(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelMesh_enumerateMeshes(UIntPtr slf, Callbacks.ZkSoftSkinMeshEnumerator cb, UIntPtr ctx);
+		public static extern void ZkModelMesh_enumerateMeshes(UIntPtr slf, Callbacks.ZkSoftSkinMeshEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkModelMesh_getAttachmentCount(UIntPtr slf);
@@ -602,7 +607,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkModelMesh_getAttachment(UIntPtr slf, string name);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelMesh_enumerateAttachments(UIntPtr slf, Callbacks.ZkAttachmentEnumerator cb, UIntPtr ctx);
+		public static extern void ZkModelMesh_enumerateAttachments(UIntPtr slf, Callbacks.ZkAttachmentEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern uint ZkModelMesh_getChecksum(UIntPtr slf);
@@ -674,7 +680,8 @@ namespace ZenKit
 		public static extern ulong ZkTexture_getMipmapRgba(UIntPtr slf, ulong level, byte[] buf, ulong size);
 
 		[DllImport(DllName)]
-		public static extern void ZkTexture_enumerateRawMipmaps(UIntPtr slf, Callbacks.ZkTextureMipmapEnumerator cb, UIntPtr ctx);
+		public static extern void ZkTexture_enumerateRawMipmaps(UIntPtr slf, Callbacks.ZkTextureMipmapEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void
@@ -718,7 +725,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkMorphMesh_getSource(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkMorphMesh_enumerateSources(UIntPtr slf, Callbacks.ZkMorphSourceEnumerator cb, UIntPtr ctx);
+		public static extern void ZkMorphMesh_enumerateSources(UIntPtr slf, Callbacks.ZkMorphSourceEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMorphAnimation_getName(UIntPtr slf);
@@ -787,7 +795,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkMesh_getMaterial(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkMesh_enumerateMaterials(UIntPtr slf, Callbacks.ZkMaterialEnumerator cb, UIntPtr ctx);
+		public static extern void
+			ZkMesh_enumerateMaterials(UIntPtr slf, Callbacks.ZkMaterialEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMesh_getPositions(UIntPtr slf, out ulong count);
@@ -802,7 +811,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkMesh_getLightMap(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkMesh_enumerateLightMaps(UIntPtr slf, Callbacks.ZkLightMapEnumerator cb, UIntPtr ctx);
+		public static extern void
+			ZkMesh_enumerateLightMaps(UIntPtr slf, Callbacks.ZkLightMapEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkMesh_getPolygonCount(UIntPtr slf);
@@ -925,29 +935,36 @@ namespace ZenKit
 		public static extern UIntPtr ZkModelScript_getAnimation(UIntPtr slf, long i);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateAnimationCombines(UIntPtr slf, Callbacks.ZkAnimationCombineEnumerator cb,
+		public static extern void ZkModelScript_enumerateAnimationCombines(UIntPtr slf,
+			Callbacks.ZkAnimationCombineEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateMeshes(UIntPtr slf, Callbacks.ZkStringEnumerator cb, UIntPtr ctx);
-
-		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateDisabledAnimations(UIntPtr slf, Callbacks.ZkStringEnumerator cb,
+		public static extern void ZkModelScript_enumerateMeshes(UIntPtr slf, Callbacks.ZkStringEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateAnimationBlends(UIntPtr slf, Callbacks.ZkAnimationBlendEnumerator cb,
+		public static extern void ZkModelScript_enumerateDisabledAnimations(UIntPtr slf,
+			Callbacks.ZkStringEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateAnimationAliases(UIntPtr slf, Callbacks.ZkAnimationAliasEnumerator cb,
+		public static extern void ZkModelScript_enumerateAnimationBlends(UIntPtr slf,
+			Callbacks.ZkAnimationBlendEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateModelTags(UIntPtr slf, Callbacks.ZkStringEnumerator cb, UIntPtr ctx);
+		public static extern void ZkModelScript_enumerateAnimationAliases(UIntPtr slf,
+			Callbacks.ZkAnimationAliasEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkModelScript_enumerateAnimations(UIntPtr slf, Callbacks.ZkAnimationEnumerator cb, UIntPtr ctx);
+		public static extern void ZkModelScript_enumerateModelTags(UIntPtr slf, Callbacks.ZkStringEnumerator cb,
+			UIntPtr ctx);
+
+		[DllImport(DllName)]
+		public static extern void ZkModelScript_enumerateAnimations(UIntPtr slf, Callbacks.ZkAnimationEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkAnimation_getName(UIntPtr slf);
@@ -1025,10 +1042,12 @@ namespace ZenKit
 		public static extern UIntPtr ZkAnimation_getCameraTremor(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkAnimation_enumerateEventTags(UIntPtr slf, Callbacks.ZkEventTagEnumerator cb, UIntPtr ctx);
+		public static extern void ZkAnimation_enumerateEventTags(UIntPtr slf, Callbacks.ZkEventTagEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkAnimation_enumerateParticleEffects(UIntPtr slf, Callbacks.ZkEventParticlEffectEnumerator cb,
+		public static extern void ZkAnimation_enumerateParticleEffects(UIntPtr slf,
+			Callbacks.ZkEventParticlEffectEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1036,7 +1055,8 @@ namespace ZenKit
 			Callbacks.ZkEventParticleEffectStopEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkAnimation_enumerateSoundEffects(UIntPtr slf, Callbacks.ZkEventSoundEffectEnumerator cb,
+		public static extern void ZkAnimation_enumerateSoundEffects(UIntPtr slf,
+			Callbacks.ZkEventSoundEffectEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1045,11 +1065,13 @@ namespace ZenKit
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkAnimation_enumerateMorphAnimations(UIntPtr slf, Callbacks.ZkEventMorphAnimationEnumerator cb,
+		public static extern void ZkAnimation_enumerateMorphAnimations(UIntPtr slf,
+			Callbacks.ZkEventMorphAnimationEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern void ZkAnimation_enumerateCameraTremors(UIntPtr slf, Callbacks.ZkEventCameraTremorEnumerator cb,
+		public static extern void ZkAnimation_enumerateCameraTremors(UIntPtr slf,
+			Callbacks.ZkEventCameraTremorEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -1230,7 +1252,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkBspTree_getSector(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkBspTree_enumerateSectors(UIntPtr slf, Callbacks.ZkBspSectorEnumerator cb, UIntPtr ctx);
+		public static extern void ZkBspTree_enumerateSectors(UIntPtr slf, Callbacks.ZkBspSectorEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkBspSector_getName(UIntPtr slf);
@@ -1299,7 +1322,8 @@ namespace ZenKit
 		public static extern UIntPtr ZkWorld_getRootObject(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkWorld_enumerateRootObjects(UIntPtr slf, Callbacks.ZkVirtualObjectEnumerator cb, UIntPtr ctx);
+		public static extern void ZkWorld_enumerateRootObjects(UIntPtr slf, Callbacks.ZkVirtualObjectEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkVirtualObject_load(UIntPtr buf, GameVersion version);
@@ -1319,56 +1343,112 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern AxisAlignedBoundingBox ZkVirtualObject_getBbox(UIntPtr slf);
 
+		// =================
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setBbox(UIntPtr slf, AxisAlignedBoundingBox bbox);
+
 		[DllImport(DllName)]
 		public static extern Vector3 ZkVirtualObject_getPosition(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setPosition(UIntPtr slf, Vector3 position);
 
 		[DllImport(DllName)]
 		public static extern Structs.ZkMat3x3 ZkVirtualObject_getRotation(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setRotation(UIntPtr slf, Structs.ZkMat3x3 rotation);
+
+		[DllImport(DllName)]
 		public static extern bool ZkVirtualObject_getShowVisual(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setShowVisual(UIntPtr slf, bool showVisual);
 
 		[DllImport(DllName)]
 		public static extern SpriteAlignment ZkVirtualObject_getSpriteCameraFacingMode(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setSpriteCameraFacingMode(UIntPtr slf,
+			SpriteAlignment spriteCameraFacingMode);
+
+		[DllImport(DllName)]
 		public static extern bool ZkVirtualObject_getCdStatic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setCdStatic(UIntPtr slf, bool cdStatic);
 
 		[DllImport(DllName)]
 		public static extern bool ZkVirtualObject_getCdDynamic(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setCdDynamic(UIntPtr slf, bool cdDynamic);
+
+		[DllImport(DllName)]
 		public static extern bool ZkVirtualObject_getVobStatic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setVobStatic(UIntPtr slf, bool vobStatic);
 
 		[DllImport(DllName)]
 		public static extern ShadowType ZkVirtualObject_getDynamicShadows(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setDynamicShadows(UIntPtr slf, ShadowType dynamicShadows);
+
+		[DllImport(DllName)]
 		public static extern bool ZkVirtualObject_getPhysicsEnabled(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setPhysicsEnabled(UIntPtr slf, bool physicsEnabled);
 
 		[DllImport(DllName)]
 		public static extern AnimationType ZkVirtualObject_getAnimMode(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setAnimMode(UIntPtr slf, AnimationType animMode);
+
+		[DllImport(DllName)]
 		public static extern int ZkVirtualObject_getBias(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setBias(UIntPtr slf, int bias);
 
 		[DllImport(DllName)]
 		public static extern bool ZkVirtualObject_getAmbient(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setAmbient(UIntPtr slf, bool ambient);
+
+		[DllImport(DllName)]
 		public static extern float ZkVirtualObject_getAnimStrength(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setAnimStrength(UIntPtr slf, float animStrength);
 
 		[DllImport(DllName)]
 		public static extern float ZkVirtualObject_getFarClipScale(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setFarClipScale(UIntPtr slf, float farClipScale);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkVirtualObject_getPresetName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setPresetName(UIntPtr slf, string presetName);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkVirtualObject_getName(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_setName(UIntPtr slf, string name);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkVirtualObject_getVisual(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkVirtualObject_setVisual(UIntPtr slf, VisualType type);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkVirtualObject_getChildCount(UIntPtr slf);
@@ -1379,9 +1459,22 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkVirtualObject_enumerateChildren(UIntPtr slf, Callbacks.ZkVirtualObjectEnumerator cb,
 			UIntPtr ctx);
-		
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkVirtualObject_addChild(UIntPtr slf, VirtualObjectType type);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_removeChild(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkVirtualObject_removeChildren(UIntPtr slf, ZkVirtualObjectEnumerator pred,
+			UIntPtr ctx);
+
 		[DllImport(DllName)]
 		public static extern IntPtr ZkVisual_getName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVisual_setName(UIntPtr slf, string name);
 
 		[DllImport(DllName)]
 		public static extern VisualType ZkVisual_getType(UIntPtr slf);
@@ -1390,25 +1483,49 @@ namespace ZenKit
 		public static extern IntPtr ZkVisualDecal_getName(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setName(UIntPtr slf, string name);
+
+		[DllImport(DllName)]
 		public static extern Vector2 ZkVisualDecal_getDimension(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setDimension(UIntPtr slf, Vector2 dimension);
 
 		[DllImport(DllName)]
 		public static extern Vector2 ZkVisualDecal_getOffset(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setOffset(UIntPtr slf, Vector2 offset);
+
+		[DllImport(DllName)]
 		public static extern bool ZkVisualDecal_getTwoSided(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setTwoSided(UIntPtr slf, bool twoSided);
 
 		[DllImport(DllName)]
 		public static extern AlphaFunction ZkVisualDecal_getAlphaFunc(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setAlphaFunc(UIntPtr slf, AlphaFunction alphaFunc);
+
+		[DllImport(DllName)]
 		public static extern float ZkVisualDecal_getTextureAnimFps(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setTextureAnimFps(UIntPtr slf, float textureAnimFps);
 
 		[DllImport(DllName)]
 		public static extern byte ZkVisualDecal_getAlphaWeight(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setAlphaWeight(UIntPtr slf, byte alphaWeight);
+
+		[DllImport(DllName)]
 		public static extern bool ZkVisualDecal_getIgnoreDaylight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkVisualDecal_setIgnoreDaylight(UIntPtr slf, bool ignoreDaylight);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkCutsceneCamera_load(UIntPtr buf, GameVersion version);
@@ -1423,43 +1540,87 @@ namespace ZenKit
 		public static extern CameraTrajectory ZkCutsceneCamera_getTrajectoryFOR(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setTrajectoryFOR(UIntPtr slf, CameraTrajectory trajectoryFOR);
+
+		[DllImport(DllName)]
 		public static extern CameraTrajectory ZkCutsceneCamera_getTargetTrajectoryFOR(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setTargetTrajectoryFOR(UIntPtr slf,
+			CameraTrajectory targetTrajectoryFOR);
 
 		[DllImport(DllName)]
 		public static extern CameraLoopType ZkCutsceneCamera_getLoopMode(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setLoopMode(UIntPtr slf, CameraLoopType loopMode);
+
+		[DllImport(DllName)]
 		public static extern CameraLerpType ZkCutsceneCamera_getLerpMode(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setLerpMode(UIntPtr slf, CameraLerpType lerpMode);
 
 		[DllImport(DllName)]
 		public static extern bool ZkCutsceneCamera_getIgnoreFORVobRotation(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setIgnoreFORVobRotation(UIntPtr slf, bool ignoreFORVobRotation);
+
+		[DllImport(DllName)]
 		public static extern bool ZkCutsceneCamera_getIgnoreFORVobRotationTarget(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setIgnoreFORVobRotationTarget(UIntPtr slf,
+			bool ignoreFORVobRotationTarget);
 
 		[DllImport(DllName)]
 		public static extern bool ZkCutsceneCamera_getAdapt(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setAdapt(UIntPtr slf, bool adapt);
+
+		[DllImport(DllName)]
 		public static extern bool ZkCutsceneCamera_getEaseFirst(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setEaseFirst(UIntPtr slf, bool easeFirst);
 
 		[DllImport(DllName)]
 		public static extern bool ZkCutsceneCamera_getEaseLast(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setEaseLast(UIntPtr slf, bool easeLast);
+
+		[DllImport(DllName)]
 		public static extern float ZkCutsceneCamera_getTotalDuration(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setTotalDuration(UIntPtr slf, float totalDuration);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkCutsceneCamera_getAutoFocusVob(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setAutoFocusVob(UIntPtr slf, string autoFocusVob);
+
+		[DllImport(DllName)]
 		public static extern bool ZkCutsceneCamera_getAutoPlayerMovable(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setAutoPlayerMovable(UIntPtr slf, bool autoPlayerMovable);
 
 		[DllImport(DllName)]
 		public static extern bool ZkCutsceneCamera_getAutoUntriggerLast(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setAutoUntriggerLast(UIntPtr slf, bool autoUntriggerLast);
+
+		[DllImport(DllName)]
 		public static extern float ZkCutsceneCamera_getAutoUntriggerLastDelay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutsceneCamera_setAutoUntriggerLastDelay(UIntPtr slf, float autoUntriggerLastDelay);
 
 		[DllImport(DllName)]
 		public static extern int ZkCutsceneCamera_getPositionCount(UIntPtr slf);
@@ -1474,47 +1635,88 @@ namespace ZenKit
 		public static extern UIntPtr ZkCutsceneCamera_getFrame(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkCutsceneCamera_enumerateFrames(UIntPtr slf, Callbacks.ZkCameraTrajectoryFrameEnumerator cb,
+		public static extern void ZkCutsceneCamera_enumerateFrames(UIntPtr slf,
+			Callbacks.ZkCameraTrajectoryFrameEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraTrajectoryFrame_getTime(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setTime(UIntPtr slf, float time);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraTrajectoryFrame_getRollAngle(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setRollAngle(UIntPtr slf, float rollAngle);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraTrajectoryFrame_getFovScale(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setFovScale(UIntPtr slf, float fovScale);
+
+		[DllImport(DllName)]
 		public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setMotionType(UIntPtr slf, CameraMotion motionType);
 
 		[DllImport(DllName)]
 		public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionTypeFov(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setMotionTypeFov(UIntPtr slf, CameraMotion motionTypeFov);
+
+		[DllImport(DllName)]
 		public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionTypeRoll(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setMotionTypeRoll(UIntPtr slf, CameraMotion motionTypeRoll);
 
 		[DllImport(DllName)]
 		public static extern CameraMotion ZkCameraTrajectoryFrame_getMotionTypeTimeScale(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setMotionTypeTimeScale(UIntPtr slf,
+			CameraMotion motionTypeTimeScale);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraTrajectoryFrame_getTension(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setTension(UIntPtr slf, float tension);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraTrajectoryFrame_getCamBias(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setCamBias(UIntPtr slf, float camBias);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraTrajectoryFrame_getContinuity(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setContinuity(UIntPtr slf, float continuity);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraTrajectoryFrame_getTimeScale(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setTimeScale(UIntPtr slf, float timeScale);
+
+		[DllImport(DllName)]
 		public static extern bool ZkCameraTrajectoryFrame_getTimeFixed(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setTimeFixed(UIntPtr slf, bool timeFixed);
+
+		[DllImport(DllName)]
 		public static extern Structs.ZkMat4x4 ZkCameraTrajectoryFrame_getOriginalPose(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraTrajectoryFrame_setOriginalPose(UIntPtr slf, Structs.ZkMat4x4 originalPose);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkLightPreset_load(UIntPtr buf, GameVersion version);
@@ -1538,97 +1740,194 @@ namespace ZenKit
 		public static extern IntPtr ZkLightPreset_getPreset(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setPreset(UIntPtr slf, string preset);
+
+		[DllImport(DllName)]
 		public static extern LightType ZkLightPreset_getLightType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setLightType(UIntPtr slf, LightType lightType);
 
 		[DllImport(DllName)]
 		public static extern float ZkLightPreset_getRange(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setRange(UIntPtr slf, float range);
+
+		[DllImport(DllName)]
 		public static extern Structs.ZkColor ZkLightPreset_getColor(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setColor(UIntPtr slf, Structs.ZkColor color);
 
 		[DllImport(DllName)]
 		public static extern float ZkLightPreset_getConeAngle(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setConeAngle(UIntPtr slf, float coneAngle);
+
+		[DllImport(DllName)]
 		public static extern bool ZkLightPreset_getIsStatic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setIsStatic(UIntPtr slf, bool isStatic);
 
 		[DllImport(DllName)]
 		public static extern LightQuality ZkLightPreset_getQuality(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setQuality(UIntPtr slf, LightQuality quality);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkLightPreset_getLensflareFx(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setLensflareFx(UIntPtr slf, string lensflareFx);
 
 		[DllImport(DllName)]
 		public static extern bool ZkLightPreset_getOn(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setOn(UIntPtr slf, bool on);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkLightPreset_getRangeAnimationScale(UIntPtr slf, out ulong count);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setRangeAnimationScale(UIntPtr slf, float[] rangeAnimationScale, ulong count);
 
 		[DllImport(DllName)]
 		public static extern float ZkLightPreset_getRangeAnimationFps(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setRangeAnimationFps(UIntPtr slf, float rangeAnimationFps);
+
+		[DllImport(DllName)]
 		public static extern bool ZkLightPreset_getRangeAnimationSmooth(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setRangeAnimationSmooth(UIntPtr slf, bool rangeAnimationSmooth);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkLightPreset_getColorAnimationList(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setColorAnimationList(UIntPtr slf, ZkColor[] colorAnimationList, ulong count);
+
+		[DllImport(DllName)]
 		public static extern float ZkLightPreset_getColorAnimationFps(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setColorAnimationFps(UIntPtr slf, float colorAnimationFps);
 
 		[DllImport(DllName)]
 		public static extern bool ZkLightPreset_getColorAnimationSmooth(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setColorAnimationSmooth(UIntPtr slf, bool colorAnimationSmooth);
+
+		[DllImport(DllName)]
 		public static extern bool ZkLightPreset_getCanMove(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_setCanMove(UIntPtr slf, bool canMove);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkLight_getPreset(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLight_setPreset(UIntPtr slf, string preset);
+
+		[DllImport(DllName)]
 		public static extern LightType ZkLight_getLightType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setLightType(UIntPtr slf, LightType lightType);
 
 		[DllImport(DllName)]
 		public static extern float ZkLight_getRange(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLight_setRange(UIntPtr slf, float range);
+
+		[DllImport(DllName)]
 		public static extern Structs.ZkColor ZkLight_getColor(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setColor(UIntPtr slf, Structs.ZkColor color);
 
 		[DllImport(DllName)]
 		public static extern float ZkLight_getConeAngle(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLight_setConeAngle(UIntPtr slf, float coneAngle);
+
+		[DllImport(DllName)]
 		public static extern bool ZkLight_getIsStatic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setIsStatic(UIntPtr slf, bool isStatic);
 
 		[DllImport(DllName)]
 		public static extern LightQuality ZkLight_getQuality(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLight_setQuality(UIntPtr slf, LightQuality quality);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkLight_getLensflareFx(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setLensflareFx(UIntPtr slf, string lensflareFx);
 
 		[DllImport(DllName)]
 		public static extern bool ZkLight_getOn(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLight_setOn(UIntPtr slf, bool on);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkLight_getRangeAnimationScale(UIntPtr slf, out ulong count);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setRangeAnimationScale(UIntPtr slf, float[] rangeAnimationScale, ulong count);
 
 		[DllImport(DllName)]
 		public static extern float ZkLight_getRangeAnimationFps(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLight_setRangeAnimationFps(UIntPtr slf, float rangeAnimationFps);
+
+		[DllImport(DllName)]
 		public static extern bool ZkLight_getRangeAnimationSmooth(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setRangeAnimationSmooth(UIntPtr slf, bool rangeAnimationSmooth);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkLight_getColorAnimationList(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
+		public static extern void
+			ZkLight_setColorAnimationList(UIntPtr slf, ZkColor[] colorAnimationList, ulong count);
+
+		[DllImport(DllName)]
 		public static extern float ZkLight_getColorAnimationFps(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setColorAnimationFps(UIntPtr slf, float colorAnimationFps);
 
 		[DllImport(DllName)]
 		public static extern bool ZkLight_getColorAnimationSmooth(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLight_setColorAnimationSmooth(UIntPtr slf, bool colorAnimationSmooth);
+
+		[DllImport(DllName)]
 		public static extern bool ZkLight_getCanMove(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_setCanMove(UIntPtr slf, bool canMove);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkAnimate_load(UIntPtr buf, GameVersion version);
@@ -1643,6 +1942,9 @@ namespace ZenKit
 		public static extern bool ZkAnimate_getStartOn(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkAnimate_setStartOn(UIntPtr slf, bool startOn);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkItem_load(UIntPtr buf, GameVersion version);
 
 		[DllImport(DllName)]
@@ -1653,6 +1955,9 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkItem_getInstance(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItem_setInstance(UIntPtr slf, string instance);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkLensFlare_load(UIntPtr buf, GameVersion version);
@@ -1667,6 +1972,9 @@ namespace ZenKit
 		public static extern IntPtr ZkLensFlare_getEffect(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkLensFlare_setEffect(UIntPtr slf, string effect);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkParticleEffectController_load(UIntPtr buf, GameVersion version);
 
 		[DllImport(DllName)]
@@ -1679,10 +1987,19 @@ namespace ZenKit
 		public static extern IntPtr ZkParticleEffectController_getEffectName(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectController_setEffectName(UIntPtr slf, string effectName);
+
+		[DllImport(DllName)]
 		public static extern bool ZkParticleEffectController_getKillWhenDone(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectController_setKillWhenDone(UIntPtr slf, bool killWhenDone);
+
+		[DllImport(DllName)]
 		public static extern bool ZkParticleEffectController_getInitiallyRunning(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectController_setInitiallyRunning(UIntPtr slf, bool initiallyRunning);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkMessageFilter_load(UIntPtr buf, GameVersion version);
@@ -1697,10 +2014,19 @@ namespace ZenKit
 		public static extern IntPtr ZkMessageFilter_getTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMessageFilter_setTarget(UIntPtr slf, string target);
+
+		[DllImport(DllName)]
 		public static extern MessageFilterAction ZkMessageFilter_getOnTrigger(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMessageFilter_setOnTrigger(UIntPtr slf, MessageFilterAction onTrigger);
+
+		[DllImport(DllName)]
 		public static extern MessageFilterAction ZkMessageFilter_getOnUntrigger(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMessageFilter_setOnUntrigger(UIntPtr slf, MessageFilterAction onUntrigger);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkCodeMaster_load(UIntPtr buf, GameVersion version);
@@ -1715,16 +2041,31 @@ namespace ZenKit
 		public static extern IntPtr ZkCodeMaster_getTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_setTarget(UIntPtr slf, string target);
+
+		[DllImport(DllName)]
 		public static extern bool ZkCodeMaster_getOrdered(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_setOrdered(UIntPtr slf, bool ordered);
 
 		[DllImport(DllName)]
 		public static extern bool ZkCodeMaster_getFirstFalseIsFailure(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_setFirstFalseIsFailure(UIntPtr slf, bool firstFalseIsFailure);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkCodeMaster_getFailureTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_setFailureTarget(UIntPtr slf, string failureTarget);
+
+		[DllImport(DllName)]
 		public static extern bool ZkCodeMaster_getUntriggeredCancels(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_setUntriggeredCancels(UIntPtr slf, bool untriggeredCancels);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkCodeMaster_getSlaveCount(UIntPtr slf);
@@ -1733,7 +2074,21 @@ namespace ZenKit
 		public static extern IntPtr ZkCodeMaster_getSlave(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkCodeMaster_enumerateSlaves(UIntPtr slf, Callbacks.ZkStringEnumerator cb, UIntPtr ctx);
+		public static extern void ZkCodeMaster_setSlave(UIntPtr slf, ulong i, string slave);
+
+		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_enumerateSlaves(UIntPtr slf, Callbacks.ZkStringEnumerator cb,
+			UIntPtr ctx);
+
+		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_addSlave(UIntPtr slf, string slave);
+
+		[DllImport(DllName)]
+		public static extern void ZkCodeMaster_removeSlave(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void
+			ZkCodeMaster_removeSlaves(UIntPtr slf, Callbacks.ZkStringEnumerator pred, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkMoverController_load(UIntPtr buf, GameVersion version);
@@ -1748,10 +2103,19 @@ namespace ZenKit
 		public static extern IntPtr ZkMoverController_getTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMoverController_setTarget(UIntPtr slf, string target);
+
+		[DllImport(DllName)]
 		public static extern MoverMessageType ZkMoverController_getMessage(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMoverController_setMessage(UIntPtr slf, MoverMessageType message);
+
+		[DllImport(DllName)]
 		public static extern int ZkMoverController_getKey(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMoverController_setKey(UIntPtr slf, int key);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTouchDamage_load(UIntPtr buf, GameVersion version);
@@ -1766,37 +2130,73 @@ namespace ZenKit
 		public static extern float ZkTouchDamage_getDamage(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setDamage(UIntPtr slf, float damage);
+
+		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsBarrier(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsBarrier(UIntPtr slf, bool isBarrier);
 
 		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsBlunt(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsBlunt(UIntPtr slf, bool isBlunt);
+
+		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsEdge(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsEdge(UIntPtr slf, bool isEdge);
 
 		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsFire(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsFire(UIntPtr slf, bool isFire);
+
+		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsFly(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsFly(UIntPtr slf, bool isFly);
 
 		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsMagic(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsMagic(UIntPtr slf, bool isMagic);
+
+		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsPoint(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsPoint(UIntPtr slf, bool isPoint);
 
 		[DllImport(DllName)]
 		public static extern bool ZkTouchDamage_getIsFall(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setIsFall(UIntPtr slf, bool isFall);
+
+		[DllImport(DllName)]
 		public static extern float ZkTouchDamage_getRepeatDelaySeconds(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setRepeatDelaySeconds(UIntPtr slf, float repeatDelaySeconds);
 
 		[DllImport(DllName)]
 		public static extern float ZkTouchDamage_getVolumeScale(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setVolumeScale(UIntPtr slf, float volumeScale);
+
+		[DllImport(DllName)]
 		public static extern TouchCollisionType ZkTouchDamage_getCollisionType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTouchDamage_setCollisionType(UIntPtr slf, TouchCollisionType collisionType);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkEarthquake_load(UIntPtr buf, GameVersion version);
@@ -1811,10 +2211,19 @@ namespace ZenKit
 		public static extern float ZkEarthquake_getRadius(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEarthquake_setRadius(UIntPtr slf, float radius);
+
+		[DllImport(DllName)]
 		public static extern float ZkEarthquake_getDuration(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEarthquake_setDuration(UIntPtr slf, float duration);
+
+		[DllImport(DllName)]
 		public static extern Vector3 ZkEarthquake_getAmplitude(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEarthquake_setAmplitude(UIntPtr slf, Vector3 amplitude);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkMovableObject_load(UIntPtr buf, GameVersion version);
@@ -1829,34 +2238,67 @@ namespace ZenKit
 		public static extern IntPtr ZkMovableObject_getName(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setName(UIntPtr slf, string name);
+
+		[DllImport(DllName)]
 		public static extern int ZkMovableObject_getHp(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setHp(UIntPtr slf, int hp);
 
 		[DllImport(DllName)]
 		public static extern int ZkMovableObject_getDamage(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setDamage(UIntPtr slf, int damage);
+
+		[DllImport(DllName)]
 		public static extern bool ZkMovableObject_getMovable(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setMovable(UIntPtr slf, bool movable);
 
 		[DllImport(DllName)]
 		public static extern bool ZkMovableObject_getTakable(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setTakable(UIntPtr slf, bool takable);
+
+		[DllImport(DllName)]
 		public static extern bool ZkMovableObject_getFocusOverride(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setFocusOverride(UIntPtr slf, bool focusOverride);
 
 		[DllImport(DllName)]
 		public static extern SoundMaterialType ZkMovableObject_getMaterial(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setMaterial(UIntPtr slf, SoundMaterialType material);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMovableObject_getVisualDestroyed(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setVisualDestroyed(UIntPtr slf, string visualDestroyed);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMovableObject_getOwner(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setOwner(UIntPtr slf, string owner);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMovableObject_getOwnerGuild(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setOwnerGuild(UIntPtr slf, string ownerGuild);
+
+		[DllImport(DllName)]
 		public static extern bool ZkMovableObject_getDestroyed(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMovableObject_setDestroyed(UIntPtr slf, bool destroyed);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkInteractiveObject_load(UIntPtr buf, GameVersion version);
@@ -1871,19 +2313,38 @@ namespace ZenKit
 		public static extern int ZkInteractiveObject_getState(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkInteractiveObject_setState(UIntPtr slf, int state);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkInteractiveObject_getTarget(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkInteractiveObject_setTarget(UIntPtr slf, string target);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkInteractiveObject_getItem(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkInteractiveObject_setItem(UIntPtr slf, string item);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkInteractiveObject_getConditionFunction(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkInteractiveObject_setConditionFunction(UIntPtr slf, string conditionFunction);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkInteractiveObject_getOnStateChangeFunction(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkInteractiveObject_setOnStateChangeFunction(UIntPtr slf,
+			string onStateChangeFunction);
+
+		[DllImport(DllName)]
 		public static extern bool ZkInteractiveObject_getRewind(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkInteractiveObject_setRewind(UIntPtr slf, bool rewind);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkFire_load(UIntPtr buf, GameVersion version);
@@ -1898,7 +2359,13 @@ namespace ZenKit
 		public static extern IntPtr ZkFire_getSlot(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFire_setSlot(UIntPtr slf, string slot);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkFire_getVobTree(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFire_setVobTree(UIntPtr slf, string vobTree);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkContainer_load(UIntPtr buf, GameVersion version);
@@ -1913,13 +2380,25 @@ namespace ZenKit
 		public static extern bool ZkContainer_getIsLocked(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkContainer_setIsLocked(UIntPtr slf, bool isLocked);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkContainer_getKey(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkContainer_setKey(UIntPtr slf, string key);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkContainer_getPickString(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkContainer_setPickString(UIntPtr slf, string pickString);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkContainer_getContents(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkContainer_setContents(UIntPtr slf, string contents);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkDoor_load(UIntPtr buf, GameVersion version);
@@ -1934,10 +2413,19 @@ namespace ZenKit
 		public static extern bool ZkDoor_getIsLocked(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkDoor_setIsLocked(UIntPtr slf, bool isLocked);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkDoor_getKey(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkDoor_setKey(UIntPtr slf, string key);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkDoor_getPickString(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkDoor_setPickString(UIntPtr slf, string pickString);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkSound_load(UIntPtr buf, GameVersion version);
@@ -1952,34 +2440,67 @@ namespace ZenKit
 		public static extern float ZkSound_getVolume(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSound_setVolume(UIntPtr slf, float volume);
+
+		[DllImport(DllName)]
 		public static extern SoundMode ZkSound_getMode(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSound_setMode(UIntPtr slf, SoundMode mode);
 
 		[DllImport(DllName)]
 		public static extern float ZkSound_getRandomDelay(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSound_setRandomDelay(UIntPtr slf, float randomDelay);
+
+		[DllImport(DllName)]
 		public static extern float ZkSound_getRandomDelayVar(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSound_setRandomDelayVar(UIntPtr slf, float randomDelayVar);
 
 		[DllImport(DllName)]
 		public static extern bool ZkSound_getInitiallyPlaying(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSound_setInitiallyPlaying(UIntPtr slf, bool initiallyPlaying);
+
+		[DllImport(DllName)]
 		public static extern bool ZkSound_getAmbient3d(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSound_setAmbient3d(UIntPtr slf, bool ambient3d);
 
 		[DllImport(DllName)]
 		public static extern bool ZkSound_getObstruction(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSound_setObstruction(UIntPtr slf, bool obstruction);
+
+		[DllImport(DllName)]
 		public static extern float ZkSound_getConeAngle(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSound_setConeAngle(UIntPtr slf, float coneAngle);
 
 		[DllImport(DllName)]
 		public static extern SoundTriggerVolumeType ZkSound_getVolumeType(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSound_setVolumeType(UIntPtr slf, SoundTriggerVolumeType volumeType);
+
+		[DllImport(DllName)]
 		public static extern float ZkSound_getRadius(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSound_setRadius(UIntPtr slf, float radius);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkSound_getSoundName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSound_setSoundName(UIntPtr slf, string soundName);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkSoundDaytime_load(UIntPtr buf, GameVersion version);
@@ -1994,10 +2515,19 @@ namespace ZenKit
 		public static extern float ZkSoundDaytime_getStartTime(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundDaytime_setStartTime(UIntPtr slf, float startTime);
+
+		[DllImport(DllName)]
 		public static extern float ZkSoundDaytime_getEndTime(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundDaytime_setEndTime(UIntPtr slf, float endTime);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkSoundDaytime_getSoundNameDaytime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundDaytime_setSoundNameDaytime(UIntPtr slf, string soundNameDaytime);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTrigger_load(UIntPtr buf, GameVersion version);
@@ -2012,25 +2542,49 @@ namespace ZenKit
 		public static extern IntPtr ZkTrigger_getTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTrigger_setTarget(UIntPtr slf, string target);
+
+		[DllImport(DllName)]
 		public static extern byte ZkTrigger_getFlags(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setFlags(UIntPtr slf, byte flags);
 
 		[DllImport(DllName)]
 		public static extern byte ZkTrigger_getFilterFlags(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTrigger_setFilterFlags(UIntPtr slf, byte filterFlags);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkTrigger_getVobTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTrigger_setVobTarget(UIntPtr slf, string vobTarget);
+
+		[DllImport(DllName)]
 		public static extern int ZkTrigger_getMaxActivationCount(UIntPtr slf);
+        
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setMaxActivationCount(UIntPtr slf, int maxActivationCount);
 
 		[DllImport(DllName)]
 		public static extern float ZkTrigger_getRetriggerDelaySeconds(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTrigger_setRetriggerDelaySeconds(UIntPtr slf, float retriggerDelaySeconds);
+
+		[DllImport(DllName)]
 		public static extern float ZkTrigger_getDamageThreshold(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTrigger_setDamageThreshold(UIntPtr slf, float damageThreshold);
+
+		[DllImport(DllName)]
 		public static extern float ZkTrigger_getFireDelaySeconds(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setFireDelaySeconds(UIntPtr slf, float fireDelaySeconds);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkMover_load(UIntPtr buf, GameVersion version);
@@ -2045,55 +2599,109 @@ namespace ZenKit
 		public static extern MoverBehavior ZkMover_getBehavior(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setBehavior(UIntPtr slf, MoverBehavior behavior);
+
+		[DllImport(DllName)]
 		public static extern float ZkMover_getTouchBlockerDamage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setTouchBlockerDamage(UIntPtr slf, float touchBlockerDamage);
 
 		[DllImport(DllName)]
 		public static extern float ZkMover_getStayOpenTimeSeconds(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setStayOpenTimeSeconds(UIntPtr slf, float stayOpenTimeSeconds);
+
+		[DllImport(DllName)]
 		public static extern bool ZkMover_getIsLocked(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setIsLocked(UIntPtr slf, bool isLocked);
 
 		[DllImport(DllName)]
 		public static extern bool ZkMover_getAutoLink(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setAutoLink(UIntPtr slf, bool autoLink);
+
+		[DllImport(DllName)]
 		public static extern bool ZkMover_getAutoRotate(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setAutoRotate(UIntPtr slf, bool autoRotate);
 
 		[DllImport(DllName)]
 		public static extern float ZkMover_getSpeed(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setSpeed(UIntPtr slf, float speed);
+
+		[DllImport(DllName)]
 		public static extern MoverLerpType ZkMover_getLerpType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setLerpType(UIntPtr slf, MoverLerpType lerpType);
 
 		[DllImport(DllName)]
 		public static extern MoverSpeedType ZkMover_getSpeedType(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setSpeedType(UIntPtr slf, MoverSpeedType speedType);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getKeyframes(UIntPtr slf, out ulong count);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setKeyframes(UIntPtr slf, out ulong count, string keyframes);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxOpenStart(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxOpenStart(UIntPtr slf, string sfxOpenStart);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxOpenEnd(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxOpenEnd(UIntPtr slf, string sfxOpenEnd);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxTransitioning(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxTransitioning(UIntPtr slf, string sfxTransitioning);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxCloseStart(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxCloseStart(UIntPtr slf, string sfxCloseStart);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxCloseEnd(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxCloseEnd(UIntPtr slf, string sfxCloseEnd);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxLock(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxLock(UIntPtr slf, string sfxLock);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxUnlock(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxUnlock(UIntPtr slf, string sfxUnlock);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxUseLocked(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_setSfxUseLocked(UIntPtr slf, string sfxUseLocked);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTriggerList_load(UIntPtr buf, GameVersion version);
@@ -2108,20 +2716,41 @@ namespace ZenKit
 		public static extern TriggerBatchMode ZkTriggerList_getMode(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTriggerList_setMode(UIntPtr slf, TriggerBatchMode mode);
+
+		[DllImport(DllName)]
 		public static extern ulong ZkTriggerList_getTargetCount(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTriggerList_getTarget(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
-		public static extern void ZkTriggerList_enumerateTargets(UIntPtr slf, Callbacks.ZkTriggerListTargetEnumerator cb,
+		public static extern void ZkTriggerList_enumerateTargets(UIntPtr slf,
+			Callbacks.ZkTriggerListTargetEnumerator cb,
+			UIntPtr ctx);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkTriggerList_addTarget(UIntPtr slf);
+		
+		[DllImport(DllName)]
+		public static extern void ZkTriggerList_removeTarget(UIntPtr slf, ulong i);
+		
+		[DllImport(DllName)]
+		public static extern void ZkTriggerList_removeTargets(UIntPtr slf,
+			Callbacks.ZkTriggerListTargetEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkTriggerListTarget_getName(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTriggerListTarget_setName(UIntPtr slf, string name);
+
+		[DllImport(DllName)]
 		public static extern float ZkTriggerListTarget_getDelaySeconds(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTriggerListTarget_setDelaySeconds(UIntPtr slf, float delaySeconds);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTriggerScript_load(UIntPtr buf, GameVersion version);
@@ -2136,6 +2765,9 @@ namespace ZenKit
 		public static extern IntPtr ZkTriggerScript_getFunction(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTriggerScript_setFunction(UIntPtr slf, string function);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkTriggerChangeLevel_load(UIntPtr buf, GameVersion version);
 
 		[DllImport(DllName)]
@@ -2148,7 +2780,13 @@ namespace ZenKit
 		public static extern IntPtr ZkTriggerChangeLevel_getLevelName(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTriggerChangeLevel_setLevelName(UIntPtr slf, string levelName);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkTriggerChangeLevel_getStartVob(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTriggerChangeLevel_setStartVob(UIntPtr slf, string startVob);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTriggerWorldStart_load(UIntPtr buf, GameVersion version);
@@ -2163,7 +2801,13 @@ namespace ZenKit
 		public static extern IntPtr ZkTriggerWorldStart_getTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTriggerWorldStart_setTarget(UIntPtr slf, string target);
+
+		[DllImport(DllName)]
 		public static extern bool ZkTriggerWorldStart_getFireOnce(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTriggerWorldStart_setFireOnce(UIntPtr slf, bool fireOnce);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkTriggerUntouch_load(UIntPtr buf, GameVersion version);
@@ -2178,6 +2822,9 @@ namespace ZenKit
 		public static extern IntPtr ZkTriggerUntouch_getTarget(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkTriggerUntouch_setTarget(UIntPtr slf, string target);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkZoneMusic_load(UIntPtr buf, GameVersion version);
 
 		[DllImport(DllName)]
@@ -2190,19 +2837,37 @@ namespace ZenKit
 		public static extern bool ZkZoneMusic_getIsEnabled(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkZoneMusic_setIsEnabled(UIntPtr slf, bool isEnabled);
+
+		[DllImport(DllName)]
 		public static extern int ZkZoneMusic_getPriority(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkZoneMusic_setPriority(UIntPtr slf, int priority);
 
 		[DllImport(DllName)]
 		public static extern bool ZkZoneMusic_getIsEllipsoid(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkZoneMusic_setIsEllipsoid(UIntPtr slf, bool isEllipsoid);
+
+		[DllImport(DllName)]
 		public static extern float ZkZoneMusic_getReverb(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkZoneMusic_setReverb(UIntPtr slf, float reverb);
 
 		[DllImport(DllName)]
 		public static extern float ZkZoneMusic_getVolume(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkZoneMusic_setVolume(UIntPtr slf, float volume);
+
+		[DllImport(DllName)]
 		public static extern bool ZkZoneMusic_getIsLoop(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkZoneMusic_setIsLoop(UIntPtr slf, bool isLoop);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkZoneFarPlane_load(UIntPtr buf, GameVersion version);
@@ -2217,7 +2882,13 @@ namespace ZenKit
 		public static extern float ZkZoneFarPlane_getVobFarPlaneZ(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkZoneFarPlane_setVobFarPlaneZ(UIntPtr slf, float vobFarPlaneZ);
+
+		[DllImport(DllName)]
 		public static extern float ZkZoneFarPlane_getInnerRangePercentage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkZoneFarPlane_setInnerRangePercentage(UIntPtr slf, float innerRangePercentage);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkZoneFog_load(UIntPtr buf, GameVersion version);
@@ -2232,17 +2903,33 @@ namespace ZenKit
 		public static extern float ZkZoneFog_getRangeCenter(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkZoneFog_setRangeCenter(UIntPtr slf, float rangeCenter);
+
+		[DllImport(DllName)]
 		public static extern float ZkZoneFog_getInnerRangePercentage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkZoneFog_setInnerRangePercentage(UIntPtr slf, float innerRangePercentage);
 
 		[DllImport(DllName)]
 		public static extern Structs.ZkColor ZkZoneFog_getColor(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkZoneFog_setColor(UIntPtr slf, Structs.ZkColor color);
+
+		[DllImport(DllName)]
 		public static extern bool ZkZoneFog_getFadeOutSky(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkZoneFog_setFadeOutSky(UIntPtr slf, bool fadeOutSky);
 
 		[DllImport(DllName)]
 		public static extern bool ZkZoneFog_getOverrideColor(UIntPtr slf);
 
+		[DllImport(DllName)]
+		public static extern void ZkZoneFog_setOverrideColor(UIntPtr slf, bool overrideColor);
+
+// =================
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkDaedalusScript_load(UIntPtr buf);
 
@@ -2259,7 +2946,8 @@ namespace ZenKit
 		public static extern uint ZkDaedalusScript_getSymbolCount(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkDaedalusScript_enumerateSymbols(UIntPtr slf, Callbacks.ZkDaedalusSymbolEnumerator cb,
+		public static extern void ZkDaedalusScript_enumerateSymbols(UIntPtr slf,
+			Callbacks.ZkDaedalusSymbolEnumerator cb,
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
@@ -2429,359 +3117,719 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getWaterDepthKnee(UIntPtr slf, ulong i);
 
+// =================
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setWaterDepthKnee(UIntPtr slf, ulong i, int waterDepthKnee);
+
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getWaterDepthChest(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setWaterDepthChest(UIntPtr slf, ulong i, int waterDepthChest);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getJumpUpHeight(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setJumpUpHeight(UIntPtr slf, ulong i, int jumpUpHeight);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getSwimTime(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setSwimTime(UIntPtr slf, ulong i, int swimTime);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getDiveTime(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setDiveTime(UIntPtr slf, ulong i, int diveTime);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getStepHeight(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setStepHeight(UIntPtr slf, ulong i, int stepHeight);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getJumpLowHeight(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setJumpLowHeight(UIntPtr slf, ulong i, int jumpLowHeight);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getJumpMidHeight(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setJumpMidHeight(UIntPtr slf, ulong i, int jumpMidHeight);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getSlideAngle(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setSlideAngle(UIntPtr slf, ulong i, int slideAngle);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getSlideAngle2(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setSlideAngle2(UIntPtr slf, ulong i, int slideAngle2);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getDisableAutoRoll(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setDisableAutoRoll(UIntPtr slf, ulong i, int disableAutoRoll);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getSurfaceAlign(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setSurfaceAlign(UIntPtr slf, ulong i, int surfaceAlign);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getClimbHeadingAngle(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setClimbHeadingAngle(UIntPtr slf, ulong i,
+			int climbHeadingAngle);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getClimbHorizAngle(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setClimbHorizAngle(UIntPtr slf, ulong i, int climbHorizAngle);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getClimbGroundAngle(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setClimbGroundAngle(UIntPtr slf, ulong i, int climbGroundAngle);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFightRangeBase(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFightRangeBase(UIntPtr slf, ulong i, int fightRangeBase);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFightRangeFist(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFightRangeFist(UIntPtr slf, ulong i, int fightRangeFist);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFightRangeG(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFightRangeG(UIntPtr slf, ulong i, int fightRangeG);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFightRange1Hs(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFightRange1Hs(UIntPtr slf, ulong i, int fightRange1Hs);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFightRange1Ha(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFightRange1Ha(UIntPtr slf, ulong i, int fightRange1Ha);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFightRange2Hs(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFightRange2Hs(UIntPtr slf, ulong i, int fightRange2Hs);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFightRange2Ha(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFightRange2Ha(UIntPtr slf, ulong i, int fightRange2Ha);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFallDownHeight(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFallDownHeight(UIntPtr slf, ulong i, int fallDownHeight);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getFallDownDamage(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setFallDownDamage(UIntPtr slf, ulong i, int fallDownDamage);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getBloodDisabled(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setBloodDisabled(UIntPtr slf, ulong i, int bloodDisabled);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getBloodMaxDistance(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setBloodMaxDistance(UIntPtr slf, ulong i, int bloodMaxDistance);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getBloodAmount(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setBloodAmount(UIntPtr slf, ulong i, int bloodAmount);
+
+		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getBloodFlow(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setBloodFlow(UIntPtr slf, ulong i, int bloodFlow);
 
 		[DllImport(DllName)]
 		public static extern int ZkGuildValuesInstance_getTurnSpeed(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setTurnSpeed(UIntPtr slf, ulong i, int turnSpeed);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkGuildValuesInstance_getBloodEmitter(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setBloodEmitter(UIntPtr slf, ulong i, string bloodEmitter);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkGuildValuesInstance_getBloodTexture(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkGuildValuesInstance_setBloodTexture(UIntPtr slf, ulong i, string bloodTexture);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getId(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setId(UIntPtr slf, int id);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkNpcInstance_getSlot(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setSlot(UIntPtr slf, string slot);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkNpcInstance_getEffect(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setEffect(UIntPtr slf, string effect);
 
 		[DllImport(DllName)]
 		public static extern NpcType ZkNpcInstance_getType(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setType(UIntPtr slf, NpcType type);
+
+		[DllImport(DllName)]
 		public static extern uint ZkNpcInstance_getFlags(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setFlags(UIntPtr slf, uint flags);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getDamageType(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setDamageType(UIntPtr slf, int damageType);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getGuild(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setGuild(UIntPtr slf, int guild);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getLevel(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setLevel(UIntPtr slf, int level);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getFightTactic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setFightTactic(UIntPtr slf, int fightTactic);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getWeapon(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setWeapon(UIntPtr slf, int weapon);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getVoice(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setVoice(UIntPtr slf, int voice);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getVoicePitch(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setVoicePitch(UIntPtr slf, int voicePitch);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getBodyMass(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setBodyMass(UIntPtr slf, int bodyMass);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getDailyRoutine(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setDailyRoutine(UIntPtr slf, int dailyRoutine);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getStartAiState(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setStartAiState(UIntPtr slf, int startAiState);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkNpcInstance_getSpawnPoint(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setSpawnPoint(UIntPtr slf, string spawnPoint);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getSpawnDelay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setSpawnDelay(UIntPtr slf, int spawnDelay);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getSenses(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setSenses(UIntPtr slf, int senses);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getSensesRange(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setSensesRange(UIntPtr slf, int sensesRange);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkNpcInstance_getWp(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setWp(UIntPtr slf, string wp);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getExp(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setExp(UIntPtr slf, int exp);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getExpNext(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setExpNext(UIntPtr slf, int expNext);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getLp(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setLp(UIntPtr slf, int lp);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getBodyStateInterruptableOverride(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setBodyStateInterruptableOverride(UIntPtr slf,
+			int bodyStateInterruptableOverride);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getNoFocus(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setNoFocus(UIntPtr slf, int noFocus);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkNpcInstance_getName(UIntPtr slf, NpcNameSlot slot);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setName(UIntPtr slf, NpcNameSlot slot, string name);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getMission(UIntPtr slf, NpcMissionSlot slot);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setMission(UIntPtr slf, NpcMissionSlot slot, int mission);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getAttribute(UIntPtr slf, NpcAttribute attribute);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setAttribute(UIntPtr slf, NpcAttribute attribute, int value);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getHitChance(UIntPtr slf, NpcTalent talent);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setHitChance(UIntPtr slf, NpcTalent talent, int hitChance);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getProtection(UIntPtr slf, DamageType type);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setProtection(UIntPtr slf, DamageType type, int protection);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getDamage(UIntPtr slf, DamageType type);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setDamage(UIntPtr slf, DamageType type, int damage);
 
 		[DllImport(DllName)]
 		public static extern int ZkNpcInstance_getAiVar(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkNpcInstance_setAiVar(UIntPtr slf, ulong i, int aiVar);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMissionInstance_getName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setName(UIntPtr slf, string name);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMissionInstance_getDescription(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setDescription(UIntPtr slf, string description);
+
+		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getDuration(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setDuration(UIntPtr slf, int duration);
 
 		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getImportant(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setImportant(UIntPtr slf, int important);
+
+		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getOfferConditions(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setOfferConditions(UIntPtr slf, int offerConditions);
 
 		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getOffer(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setOffer(UIntPtr slf, int offer);
+
+		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getSuccessConditions(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setSuccessConditions(UIntPtr slf, int successConditions);
 
 		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getSuccess(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setSuccess(UIntPtr slf, int success);
+
+		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getFailureConditions(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setFailureConditions(UIntPtr slf, int failureConditions);
 
 		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getFailure(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setFailure(UIntPtr slf, int failure);
+
+		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getObsoleteConditions(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setObsoleteConditions(UIntPtr slf, int obsoleteConditions);
 
 		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getObsolete(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setObsolete(UIntPtr slf, int obsolete);
+
+		[DllImport(DllName)]
 		public static extern int ZkMissionInstance_getRunning(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMissionInstance_setRunning(UIntPtr slf, int running);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getId(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setId(UIntPtr slf, int id);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setName(UIntPtr slf, string name);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getNameId(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setNameId(UIntPtr slf, string nameId);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getHp(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setHp(UIntPtr slf, int hp);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getHpMax(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setHpMax(UIntPtr slf, int hpMax);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getMainFlag(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setMainFlag(UIntPtr slf, int mainFlag);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getFlags(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setFlags(UIntPtr slf, int flags);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getWeight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setWeight(UIntPtr slf, int weight);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getValue(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setValue(UIntPtr slf, int value);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getDamageType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setDamageType(UIntPtr slf, int damageType);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getDamageTotal(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setDamageTotal(UIntPtr slf, int damageTotal);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getWear(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setWear(UIntPtr slf, int wear);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getNutrition(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setNutrition(UIntPtr slf, int nutrition);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getMagic(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setMagic(UIntPtr slf, int magic);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getOnEquip(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setOnEquip(UIntPtr slf, int onEquip);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getOnUnequip(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setOnUnequip(UIntPtr slf, int onUnequip);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getOwner(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setOwner(UIntPtr slf, int owner);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getOwnerGuild(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setOwnerGuild(UIntPtr slf, int ownerGuild);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getDisguiseGuild(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setDisguiseGuild(UIntPtr slf, int disguiseGuild);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getVisual(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setVisual(UIntPtr slf, string visual);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getVisualChange(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setVisualChange(UIntPtr slf, string visualChange);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getEffect(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setEffect(UIntPtr slf, string effect);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getVisualSkin(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setVisualSkin(UIntPtr slf, int visualSkin);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getSchemeName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setSchemeName(UIntPtr slf, string schemeName);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getMaterial(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setMaterial(UIntPtr slf, int material);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getMunition(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setMunition(UIntPtr slf, int munition);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getSpell(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setSpell(UIntPtr slf, int spell);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getRange(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setRange(UIntPtr slf, int range);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getMagCircle(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setMagCircle(UIntPtr slf, int magCircle);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getDescription(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setDescription(UIntPtr slf, string description);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getInvZBias(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setInvZBias(UIntPtr slf, int invZBias);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getInvRotX(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setInvRotX(UIntPtr slf, int invRotX);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getInvRotY(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setInvRotY(UIntPtr slf, int invRotY);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getInvRotZ(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setInvRotZ(UIntPtr slf, int invRotZ);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getInvAnimate(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setInvAnimate(UIntPtr slf, int invAnimate);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getDamage(UIntPtr slf, DamageType type);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setDamage(UIntPtr slf, DamageType type, int damage);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getProtection(UIntPtr slf, DamageType type);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setProtection(UIntPtr slf, DamageType type, int protection);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getCondAtr(UIntPtr slf, ItemConditionSlot slot);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setCondAtr(UIntPtr slf, ItemConditionSlot slot, int condAtr);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getCondValue(UIntPtr slf, ItemConditionSlot slot);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setCondValue(UIntPtr slf, ItemConditionSlot slot, int condValue);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getChangeAtr(UIntPtr slf, ItemConditionSlot slot);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setChangeAtr(UIntPtr slf, ItemConditionSlot slot, int changeAtr);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getChangeValue(UIntPtr slf, ItemConditionSlot slot);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setChangeValue(UIntPtr slf, ItemConditionSlot slot, int changeValue);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getOnState(UIntPtr slf, ItemStateSlot slot);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setOnState(UIntPtr slf, ItemStateSlot slot, int onState);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkItemInstance_getText(UIntPtr slf, ItemTextSlot slot);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemInstance_setText(UIntPtr slf, ItemTextSlot slot, string text);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemInstance_getCount(UIntPtr slf, ItemTextSlot slot);
@@ -2790,836 +3838,1688 @@ namespace ZenKit
 		public static extern float ZkFocusInstance_getNpcLongrange(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setNpcLongrange(UIntPtr slf, float npcLongrange);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getNpcRange1(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setNpcRange1(UIntPtr slf, float npcRange1);
 
 		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getNpcRange2(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setNpcRange2(UIntPtr slf, float npcRange2);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getNpcAzi(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setNpcAzi(UIntPtr slf, float npcAzi);
 
 		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getNpcElevdo(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setNpcElevdo(UIntPtr slf, float npcElevdo);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getNpcElevup(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setNpcElevup(UIntPtr slf, float npcElevup);
 
 		[DllImport(DllName)]
 		public static extern int ZkFocusInstance_getNpcPrio(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setNpcPrio(UIntPtr slf, int npcPrio);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getItemRange1(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setItemRange1(UIntPtr slf, float itemRange1);
 
 		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getItemRange2(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setItemRange2(UIntPtr slf, float itemRange2);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getItemAzi(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setItemAzi(UIntPtr slf, float itemAzi);
 
 		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getItemElevdo(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setItemElevdo(UIntPtr slf, float itemElevdo);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getItemElevup(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setItemElevup(UIntPtr slf, float itemElevup);
 
 		[DllImport(DllName)]
 		public static extern int ZkFocusInstance_getItemPrio(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setItemPrio(UIntPtr slf, int itemPrio);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getMobRange1(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setMobRange1(UIntPtr slf, float mobRange1);
 
 		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getMobRange2(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setMobRange2(UIntPtr slf, float mobRange2);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getMobAzi(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setMobAzi(UIntPtr slf, float mobAzi);
 
 		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getMobElevdo(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setMobElevdo(UIntPtr slf, float mobElevdo);
+
+		[DllImport(DllName)]
 		public static extern float ZkFocusInstance_getMobElevup(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setMobElevup(UIntPtr slf, float mobElevup);
 
 		[DllImport(DllName)]
 		public static extern int ZkFocusInstance_getMobPrio(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkFocusInstance_setMobPrio(UIntPtr slf, int mobPrio);
+
+		[DllImport(DllName)]
 		public static extern int ZkInfoInstance_getNpc(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setNpc(UIntPtr slf, int npc);
 
 		[DllImport(DllName)]
 		public static extern int ZkInfoInstance_getNr(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setNr(UIntPtr slf, int nr);
+
+		[DllImport(DllName)]
 		public static extern int ZkInfoInstance_getImportant(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setImportant(UIntPtr slf, int important);
 
 		[DllImport(DllName)]
 		public static extern int ZkInfoInstance_getCondition(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setCondition(UIntPtr slf, int condition);
+
+		[DllImport(DllName)]
 		public static extern int ZkInfoInstance_getInformation(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setInformation(UIntPtr slf, int information);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkInfoInstance_getDescription(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setDescription(UIntPtr slf, string description);
+
+		[DllImport(DllName)]
 		public static extern int ZkInfoInstance_getTrade(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setTrade(UIntPtr slf, int trade);
 
 		[DllImport(DllName)]
 		public static extern int ZkInfoInstance_getPermanent(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkInfoInstance_setPermanent(UIntPtr slf, int permanent);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemReactInstance_getNpc(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemReactInstance_setNpc(UIntPtr slf, int npc);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemReactInstance_getTradeItem(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemReactInstance_setTradeItem(UIntPtr slf, int tradeItem);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemReactInstance_getTradeAmount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemReactInstance_setTradeAmount(UIntPtr slf, int tradeAmount);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemReactInstance_getRequestedCategory(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemReactInstance_setRequestedCategory(UIntPtr slf, int requestedCategory);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemReactInstance_getRequestedItem(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemReactInstance_setRequestedItem(UIntPtr slf, int requestedItem);
 
 		[DllImport(DllName)]
 		public static extern int ZkItemReactInstance_getRequestedAmount(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkItemReactInstance_setRequestedAmount(UIntPtr slf, int requestedAmount);
+
+		[DllImport(DllName)]
 		public static extern int ZkItemReactInstance_getReaction(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItemReactInstance_setReaction(UIntPtr slf, int reaction);
 
 		[DllImport(DllName)]
 		public static extern float ZkSpellInstance_getTimePerMana(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setTimePerMana(UIntPtr slf, float timePerMana);
+
+		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getDamagePerLevel(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setDamagePerLevel(UIntPtr slf, int damagePerLevel);
 
 		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getDamageType(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setDamageType(UIntPtr slf, int damageType);
+
+		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getSpellType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setSpellType(UIntPtr slf, int spellType);
 
 		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getCanTurnDuringInvest(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setCanTurnDuringInvest(UIntPtr slf, int canTurnDuringInvest);
+
+		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getCanChangeTargetDuringInvest(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setCanChangeTargetDuringInvest(UIntPtr slf,
+			int canChangeTargetDuringInvest);
 
 		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getIsMultiEffect(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setIsMultiEffect(UIntPtr slf, int isMultiEffect);
+
+		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getTargetCollectAlgo(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setTargetCollectAlgo(UIntPtr slf, int targetCollectAlgo);
 
 		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getTargetCollectType(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setTargetCollectType(UIntPtr slf, int targetCollectType);
+
+		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getTargetCollectRange(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setTargetCollectRange(UIntPtr slf, int targetCollectRange);
 
 		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getTargetCollectAzi(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setTargetCollectAzi(UIntPtr slf, int targetCollectAzi);
+
+		[DllImport(DllName)]
 		public static extern int ZkSpellInstance_getTargetCollectElevation(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSpellInstance_setTargetCollectElevation(UIntPtr slf, int targetCollectElevation);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuInstance_getBackPic(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setBackPic(UIntPtr slf, string backPic);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuInstance_getBackWorld(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setBackWorld(UIntPtr slf, string backWorld);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getPosX(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setPosX(UIntPtr slf, int posX);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getPosY(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setPosY(UIntPtr slf, int posY);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getDimX(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setDimX(UIntPtr slf, int dimX);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getDimY(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setDimY(UIntPtr slf, int dimY);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getAlpha(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setAlpha(UIntPtr slf, int alpha);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuInstance_getMusicTheme(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setMusicTheme(UIntPtr slf, string musicTheme);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getEventTimerMsec(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setEventTimerMsec(UIntPtr slf, int eventTimerMsec);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getFlags(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setFlags(UIntPtr slf, int flags);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getDefaultOutgame(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setDefaultOutgame(UIntPtr slf, int defaultOutgame);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getDefaultIngame(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setDefaultIngame(UIntPtr slf, int defaultIngame);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuInstance_getItem(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuInstance_setItem(UIntPtr slf, ulong i, string item);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getFontName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setFontName(UIntPtr slf, string fontName);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getBackpic(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setBackpic(UIntPtr slf, string backpic);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getAlphaMode(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setAlphaMode(UIntPtr slf, string alphaMode);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getAlpha(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setAlpha(UIntPtr slf, int alpha);
+
+		[DllImport(DllName)]
 		public static extern MenuItemType ZkMenuItemInstance_getType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setType(UIntPtr slf, MenuItemType type);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getOnChgSetOption(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setOnChgSetOption(UIntPtr slf, string onChgSetOption);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getOnChgSetOptionSection(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void
+			ZkMenuItemInstance_setOnChgSetOptionSection(UIntPtr slf, string onChgSetOptionSection);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getPosX(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setPosX(UIntPtr slf, int posX);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getPosY(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setPosY(UIntPtr slf, int posY);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getDimX(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setDimX(UIntPtr slf, int dimX);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getDimY(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setDimY(UIntPtr slf, int dimY);
 
 		[DllImport(DllName)]
 		public static extern float ZkMenuItemInstance_getSizeStartScale(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setSizeStartScale(UIntPtr slf, float sizeStartScale);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getFlags(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setFlags(UIntPtr slf, int flags);
 
 		[DllImport(DllName)]
 		public static extern float ZkMenuItemInstance_getOpenDelayTime(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setOpenDelayTime(UIntPtr slf, float openDelayTime);
+
+		[DllImport(DllName)]
 		public static extern float ZkMenuItemInstance_getOpenDuration(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setOpenDuration(UIntPtr slf, float openDuration);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getFramePosX(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setFramePosX(UIntPtr slf, int framePosX);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getFramePosY(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setFramePosY(UIntPtr slf, int framePosY);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getFrameSizeX(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setFrameSizeX(UIntPtr slf, int frameSizeX);
+
+		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getFrameSizeY(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setFrameSizeY(UIntPtr slf, int frameSizeY);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getHideIfOptionSectionSet(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setHideIfOptionSectionSet(UIntPtr slf,
+			string hideIfOptionSectionSet);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getHideIfOptionSet(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setHideIfOptionSet(UIntPtr slf, string hideIfOptionSet);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getHideOnValue(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setHideOnValue(UIntPtr slf, int hideOnValue);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getText(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setText(UIntPtr slf, ulong i, string text);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getOnSelAction(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setOnSelAction(UIntPtr slf, ulong i, int onSelAction);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getOnSelActionS(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setOnSelActionS(UIntPtr slf, ulong i, string onSelActionS);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuItemInstance_getOnEventAction(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setOnEventAction(UIntPtr slf, ulong i, int onEventAction);
+
+		[DllImport(DllName)]
 		public static extern float ZkMenuItemInstance_getUserFloat(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setUserFloat(UIntPtr slf, ulong i, float userFloat);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMenuItemInstance_getUserString(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkMenuItemInstance_setUserString(UIntPtr slf, ulong i, string userString);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getBestRange(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setBestRange(UIntPtr slf, float bestRange);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMinRange(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMinRange(UIntPtr slf, float minRange);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMaxRange(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMaxRange(UIntPtr slf, float maxRange);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getBestElevation(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setBestElevation(UIntPtr slf, float bestElevation);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMinElevation(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMinElevation(UIntPtr slf, float minElevation);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMaxElevation(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMaxElevation(UIntPtr slf, float maxElevation);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getBestAzimuth(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setBestAzimuth(UIntPtr slf, float bestAzimuth);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMinAzimuth(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMinAzimuth(UIntPtr slf, float minAzimuth);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMaxAzimuth(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMaxAzimuth(UIntPtr slf, float maxAzimuth);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getBestRotZ(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setBestRotZ(UIntPtr slf, float bestRotZ);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMinRotZ(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMinRotZ(UIntPtr slf, float minRotZ);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getMaxRotZ(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setMaxRotZ(UIntPtr slf, float maxRotZ);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getRotOffsetX(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setRotOffsetX(UIntPtr slf, float rotOffsetX);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getRotOffsetY(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setRotOffsetY(UIntPtr slf, float rotOffsetY);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getRotOffsetZ(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setRotOffsetZ(UIntPtr slf, float rotOffsetZ);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getTargetOffsetX(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setTargetOffsetX(UIntPtr slf, float targetOffsetX);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getTargetOffsetY(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setTargetOffsetY(UIntPtr slf, float targetOffsetY);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getTargetOffsetZ(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setTargetOffsetZ(UIntPtr slf, float targetOffsetZ);
+
+		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getVeloTrans(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setVeloTrans(UIntPtr slf, float veloTrans);
 
 		[DllImport(DllName)]
 		public static extern float ZkCameraInstance_getVeloRot(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setVeloRot(UIntPtr slf, float veloRot);
+
+		[DllImport(DllName)]
 		public static extern int ZkCameraInstance_getTranslate(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setTranslate(UIntPtr slf, int translate);
 
 		[DllImport(DllName)]
 		public static extern int ZkCameraInstance_getRotate(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setRotate(UIntPtr slf, int rotate);
+
+		[DllImport(DllName)]
 		public static extern int ZkCameraInstance_getCollision(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCameraInstance_setCollision(UIntPtr slf, int collision);
 
 		[DllImport(DllName)]
 		public static extern float ZkMusicSystemInstance_getVolume(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicSystemInstance_setVolume(UIntPtr slf, float volume);
+
+		[DllImport(DllName)]
 		public static extern int ZkMusicSystemInstance_getBitResolution(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicSystemInstance_setBitResolution(UIntPtr slf, int bitResolution);
 
 		[DllImport(DllName)]
 		public static extern int ZkMusicSystemInstance_getGlobalReverbEnabled(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicSystemInstance_setGlobalReverbEnabled(UIntPtr slf, int globalReverbEnabled);
+
+		[DllImport(DllName)]
 		public static extern int ZkMusicSystemInstance_getSampleRate(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicSystemInstance_setSampleRate(UIntPtr slf, int sampleRate);
 
 		[DllImport(DllName)]
 		public static extern int ZkMusicSystemInstance_getNumChannels(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicSystemInstance_setNumChannels(UIntPtr slf, int numChannels);
+
+		[DllImport(DllName)]
 		public static extern int ZkMusicSystemInstance_getReverbBufferSize(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicSystemInstance_setReverbBufferSize(UIntPtr slf, int reverbBufferSize);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMusicThemeInstance_getFile(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicThemeInstance_setFile(UIntPtr slf, string file);
+
+		[DllImport(DllName)]
 		public static extern float ZkMusicThemeInstance_getVol(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicThemeInstance_setVol(UIntPtr slf, float vol);
 
 		[DllImport(DllName)]
 		public static extern int ZkMusicThemeInstance_getLoop(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicThemeInstance_setLoop(UIntPtr slf, int loop);
+
+		[DllImport(DllName)]
 		public static extern float ZkMusicThemeInstance_getReverbmix(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicThemeInstance_setReverbmix(UIntPtr slf, float reverbmix);
 
 		[DllImport(DllName)]
 		public static extern float ZkMusicThemeInstance_getReverbtime(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicThemeInstance_setReverbtime(UIntPtr slf, float reverbtime);
+
+		[DllImport(DllName)]
 		public static extern MusicTransitionEffect ZkMusicThemeInstance_getTranstype(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicThemeInstance_setTranstype(UIntPtr slf, MusicTransitionEffect transtype);
 
 		[DllImport(DllName)]
 		public static extern MusicTransitionType ZkMusicThemeInstance_getTranssubtype(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicThemeInstance_setTranssubtype(UIntPtr slf, MusicTransitionType transsubtype);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkMusicJingleInstance_getName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicJingleInstance_setName(UIntPtr slf, string name);
 
 		[DllImport(DllName)]
 		public static extern int ZkMusicJingleInstance_getLoop(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicJingleInstance_setLoop(UIntPtr slf, int loop);
+
+		[DllImport(DllName)]
 		public static extern float ZkMusicJingleInstance_getVol(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkMusicJingleInstance_setVol(UIntPtr slf, float vol);
 
 		[DllImport(DllName)]
 		public static extern int ZkMusicJingleInstance_getTranssubtype(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkMusicJingleInstance_setTranssubtype(UIntPtr slf, int transsubtype);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getPpsValue(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setPpsValue(UIntPtr slf, float ppsValue);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getPpsScaleKeysS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setPpsScaleKeysS(UIntPtr slf, string ppsScaleKeysS);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getPpsIsLooping(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setPpsIsLooping(UIntPtr slf, int ppsIsLooping);
 
 		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getPpsIsSmooth(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setPpsIsSmooth(UIntPtr slf, int ppsIsSmooth);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getPpsFps(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setPpsFps(UIntPtr slf, float ppsFps);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getPpsCreateEmS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setPpsCreateEmS(UIntPtr slf, string ppsCreateEmS);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getPpsCreateEmDelay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setPpsCreateEmDelay(UIntPtr slf, float ppsCreateEmDelay);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getShpTypeS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpTypeS(UIntPtr slf, string shpTypeS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getShpForS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpForS(UIntPtr slf, string shpForS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getShpOffsetVecS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpOffsetVecS(UIntPtr slf, string shpOffsetVecS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getShpDistribTypeS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpDistribTypeS(UIntPtr slf, string shpDistribTypeS);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getShpDistribWalkSpeed(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpDistribWalkSpeed(UIntPtr slf,
+			float shpDistribWalkSpeed);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getShpIsVolume(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpIsVolume(UIntPtr slf, int shpIsVolume);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getShpDimS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpDimS(UIntPtr slf, string shpDimS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getShpMeshS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpMeshS(UIntPtr slf, string shpMeshS);
 
 		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getShpMeshRenderB(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpMeshRenderB(UIntPtr slf, int shpMeshRenderB);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getShpScaleKeysS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpScaleKeysS(UIntPtr slf, string shpScaleKeysS);
 
 		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getShpScaleIsLooping(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpScaleIsLooping(UIntPtr slf, int shpScaleIsLooping);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getShpScaleIsSmooth(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpScaleIsSmooth(UIntPtr slf, int shpScaleIsSmooth);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getShpScaleFps(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setShpScaleFps(UIntPtr slf, float shpScaleFps);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getDirModeS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirModeS(UIntPtr slf, string dirModeS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getDirForS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirForS(UIntPtr slf, string dirForS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getDirModeTargetForS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirModeTargetForS(UIntPtr slf, string dirModeTargetForS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getDirModeTargetPosS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirModeTargetPosS(UIntPtr slf, string dirModeTargetPosS);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getDirAngleHead(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirAngleHead(UIntPtr slf, float dirAngleHead);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getDirAngleHeadVar(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirAngleHeadVar(UIntPtr slf, float dirAngleHeadVar);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getDirAngleElev(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirAngleElev(UIntPtr slf, float dirAngleElev);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getDirAngleElevVar(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setDirAngleElevVar(UIntPtr slf, float dirAngleElevVar);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getVelAvg(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVelAvg(UIntPtr slf, float velAvg);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getVelVar(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVelVar(UIntPtr slf, float velVar);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getLspPartAvg(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setLspPartAvg(UIntPtr slf, float lspPartAvg);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getLspPartVar(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setLspPartVar(UIntPtr slf, float lspPartVar);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getFlyGravityS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setFlyGravityS(UIntPtr slf, string flyGravityS);
 
 		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getFlyColldetB(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setFlyColldetB(UIntPtr slf, int flyColldetB);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getVisNameS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisNameS(UIntPtr slf, string visNameS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getVisOrientationS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisOrientationS(UIntPtr slf, string visOrientationS);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getVisTexIsQuadpoly(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisTexIsQuadpoly(UIntPtr slf, int visTexIsQuadpoly);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getVisTexAniFps(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisTexAniFps(UIntPtr slf, float visTexAniFps);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getVisTexAniIsLooping(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisTexAniIsLooping(UIntPtr slf, int visTexAniIsLooping);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getVisTexColorStartS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisTexColorStartS(UIntPtr slf, string visTexColorStartS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getVisTexColorEndS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisTexColorEndS(UIntPtr slf, string visTexColorEndS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getVisSizeStartS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisSizeStartS(UIntPtr slf, string visSizeStartS);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getVisSizeEndScale(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisSizeEndScale(UIntPtr slf, float visSizeEndScale);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getVisAlphaFuncS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisAlphaFuncS(UIntPtr slf, string visAlphaFuncS);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getVisAlphaStart(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisAlphaStart(UIntPtr slf, float visAlphaStart);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getVisAlphaEnd(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setVisAlphaEnd(UIntPtr slf, float visAlphaEnd);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getTrlFadeSpeed(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setTrlFadeSpeed(UIntPtr slf, float trlFadeSpeed);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getTrlTextureS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setTrlTextureS(UIntPtr slf, string trlTextureS);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getTrlWidth(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setTrlWidth(UIntPtr slf, float trlWidth);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getMrkFadesPeed(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setMrkFadesPeed(UIntPtr slf, float mrkFadesPeed);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getMrktExtureS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setMrktExtureS(UIntPtr slf, string mrktExtureS);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getMrkSize(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setMrkSize(UIntPtr slf, float mrkSize);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getFlockMode(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setFlockMode(UIntPtr slf, string flockMode);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectInstance_getFlockStrength(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setFlockStrength(UIntPtr slf, float flockStrength);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getUseEmittersFor(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setUseEmittersFor(UIntPtr slf, int useEmittersFor);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectInstance_getTimeStartEndS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setTimeStartEndS(UIntPtr slf, string timeStartEndS);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectInstance_getMBiasAmbientPfx(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectInstance_setMBiasAmbientPfx(UIntPtr slf, int mBiasAmbientPfx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getVisNameS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setVisNameS(UIntPtr slf, string visNameS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getVisSizeS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setVisSizeS(UIntPtr slf, string visSizeS);
 
 		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getVisAlpha(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setVisAlpha(UIntPtr slf, float visAlpha);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getVisAlphaBlendFuncS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setVisAlphaBlendFuncS(UIntPtr slf, string visAlphaBlendFuncS);
 
 		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getVisTexAniFps(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setVisTexAniFps(UIntPtr slf, float visTexAniFps);
+
+		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getVisTexAniIsLooping(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setVisTexAniIsLooping(UIntPtr slf, int visTexAniIsLooping);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmTrjModeS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjModeS(UIntPtr slf, string emTrjModeS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmTrjOriginNode(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjOriginNode(UIntPtr slf, string emTrjOriginNode);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmTrjTargetNode(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjTargetNode(UIntPtr slf, string emTrjTargetNode);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjTargetRange(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjTargetRange(UIntPtr slf, float emTrjTargetRange);
 
 		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjTargetAzi(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjTargetAzi(UIntPtr slf, float emTrjTargetAzi);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjTargetElev(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjTargetElev(UIntPtr slf, float emTrjTargetElev);
 
 		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getEmTrjNumKeys(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjNumKeys(UIntPtr slf, int emTrjNumKeys);
+
+		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getEmTrjNumKeysVar(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjNumKeysVar(UIntPtr slf, int emTrjNumKeysVar);
 
 		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjAngleElevVar(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjAngleElevVar(UIntPtr slf, float emTrjAngleElevVar);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjAngleHeadVar(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjAngleHeadVar(UIntPtr slf, float emTrjAngleHeadVar);
 
 		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjKeyDistVar(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjKeyDistVar(UIntPtr slf, float emTrjKeyDistVar);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmTrjLoopModeS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjLoopModeS(UIntPtr slf, string emTrjLoopModeS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmTrjEaseFuncS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjEaseFuncS(UIntPtr slf, string emTrjEaseFuncS);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjEaseVel(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjEaseVel(UIntPtr slf, float emTrjEaseVel);
 
 		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmTrjDynUpdateDelay(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjDynUpdateDelay(UIntPtr slf, float emTrjDynUpdateDelay);
+
+		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getEmTrjDynUpdateTargetOnly(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmTrjDynUpdateTargetOnly(UIntPtr slf,
+			int emTrjDynUpdateTargetOnly);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxCreateS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxCreateS(UIntPtr slf, string emFxCreateS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxInvestOriginS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxInvestOriginS(UIntPtr slf, string emFxInvestOriginS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxInvestTargetS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxInvestTargetS(UIntPtr slf, string emFxInvestTargetS);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmFxTriggerDelay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxTriggerDelay(UIntPtr slf, float emFxTriggerDelay);
 
 		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getEmFxCreateDownTrj(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxCreateDownTrj(UIntPtr slf, int emFxCreateDownTrj);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmActionCollDynS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmActionCollDynS(UIntPtr slf, string emActionCollDynS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmActionCollStatS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmActionCollStatS(UIntPtr slf, string emActionCollStatS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxCollStatS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxCollStatS(UIntPtr slf, string emFxCollStatS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxCollDynS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxCollDynS(UIntPtr slf, string emFxCollDynS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxCollStatAlignS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxCollStatAlignS(UIntPtr slf, string emFxCollStatAlignS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxCollDynAlignS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxCollDynAlignS(UIntPtr slf, string emFxCollDynAlignS);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmFxLifespan(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxLifespan(UIntPtr slf, float emFxLifespan);
 
 		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getEmCheckCollision(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmCheckCollision(UIntPtr slf, int emCheckCollision);
+
+		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getEmAdjustShpToOrigin(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmAdjustShpToOrigin(UIntPtr slf, int emAdjustShpToOrigin);
 
 		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmInvestNextKeyDuration(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmInvestNextKeyDuration(UIntPtr slf,
+			float emInvestNextKeyDuration);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getEmFlyGravity(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFlyGravity(UIntPtr slf, float emFlyGravity);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmSelfRotVelS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmSelfRotVelS(UIntPtr slf, string emSelfRotVelS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getLightPresetName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setLightPresetName(UIntPtr slf, string lightPresetName);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getSfxId(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setSfxId(UIntPtr slf, string sfxId);
+
+		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getSfxIsAmbient(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setSfxIsAmbient(UIntPtr slf, int sfxIsAmbient);
 
 		[DllImport(DllName)]
 		public static extern int ZkEffectBaseInstance_getSendAssessMagic(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setSendAssessMagic(UIntPtr slf, int sendAssessMagic);
+
+		[DllImport(DllName)]
 		public static extern float ZkEffectBaseInstance_getSecsPerDamage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setSecsPerDamage(UIntPtr slf, float secsPerDamage);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getEmFxCollDynPercS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setEmFxCollDynPercS(UIntPtr slf, string emFxCollDynPercS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkEffectBaseInstance_getUserString(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkEffectBaseInstance_setUserString(UIntPtr slf, ulong i, string userString);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getVisNameS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setVisNameS(UIntPtr slf, string visNameS);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getVisSizeScale(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setVisSizeScale(UIntPtr slf, float visSizeScale);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getScaleDuration(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setScaleDuration(UIntPtr slf, float scaleDuration);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getPfxPpsValue(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxPpsValue(UIntPtr slf, float pfxPpsValue);
 
 		[DllImport(DllName)]
 		public static extern int ZkParticleEffectEmitKeyInstance_getPfxPpsIsSmoothChg(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxPpsIsSmoothChg(UIntPtr slf,
+			int pfxPpsIsSmoothChg);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectEmitKeyInstance_getPfxPpsIsLoopingChg(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxPpsIsLoopingChg(UIntPtr slf,
+			int pfxPpsIsLoopingChg);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getPfxScTime(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxScTime(UIntPtr slf, float pfxScTime);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxFlyGravityS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxFlyGravityS(UIntPtr slf, string pfxFlyGravityS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxShpDimS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxShpDimS(UIntPtr slf, string pfxShpDimS);
+
+		[DllImport(DllName)]
 		public static extern int ZkParticleEffectEmitKeyInstance_getPfxShpIsVolumeChg(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxShpIsVolumeChg(UIntPtr slf,
+			int pfxShpIsVolumeChg);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getPfxShpScaleFps(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxShpScaleFps(UIntPtr slf, float pfxShpScaleFps);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getPfxShpDistribWalksPeed(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxShpDistribWalksPeed(UIntPtr slf,
+			float pfxShpDistribWalksPeed);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxShpOffsetVecS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxShpOffsetVecS(UIntPtr slf,
+			string pfxShpOffsetVecS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxShpDistribTypeS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxShpDistribTypeS(UIntPtr slf,
+			string pfxShpDistribTypeS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxDirModeS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxDirModeS(UIntPtr slf, string pfxDirModeS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxDirForS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxDirForS(UIntPtr slf, string pfxDirForS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxDirModeTargetForS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxDirModeTargetForS(UIntPtr slf,
+			string pfxDirModeTargetForS);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getPfxDirModeTargetPosS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxDirModeTargetPosS(UIntPtr slf,
+			string pfxDirModeTargetPosS);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getPfxVelAvg(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxVelAvg(UIntPtr slf, float pfxVelAvg);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getPfxLspPartAvg(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxLspPartAvg(UIntPtr slf, float pfxLspPartAvg);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getPfxVisAlphaStart(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setPfxVisAlphaStart(UIntPtr slf,
+			float pfxVisAlphaStart);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getLightPresetName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setLightPresetName(UIntPtr slf,
+			string lightPresetName);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getLightRange(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setLightRange(UIntPtr slf, float lightRange);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getSfxId(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setSfxId(UIntPtr slf, string sfxId);
 
 		[DllImport(DllName)]
 		public static extern int ZkParticleEffectEmitKeyInstance_getSfxIsAmbient(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setSfxIsAmbient(UIntPtr slf, int sfxIsAmbient);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getEmCreateFxId(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setEmCreateFxId(UIntPtr slf, string emCreateFxId);
 
 		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getEmFlyGravity(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setEmFlyGravity(UIntPtr slf, float emFlyGravity);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getEmSelfRotVelS(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setEmSelfRotVelS(UIntPtr slf, string emSelfRotVelS);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkParticleEffectEmitKeyInstance_getEmTrjModeS(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setEmTrjModeS(UIntPtr slf, string emTrjModeS);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getEmTrjEaseVel(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setEmTrjEaseVel(UIntPtr slf, float emTrjEaseVel);
 
 		[DllImport(DllName)]
 		public static extern int ZkParticleEffectEmitKeyInstance_getEmCheckCollision(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void
+			ZkParticleEffectEmitKeyInstance_setEmCheckCollision(UIntPtr slf, int emCheckCollision);
+
+		[DllImport(DllName)]
 		public static extern float ZkParticleEffectEmitKeyInstance_getEmFxLifespan(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkParticleEffectEmitKeyInstance_setEmFxLifespan(UIntPtr slf, float emFxLifespan);
 
 		[DllImport(DllName)]
 		public static extern FightAiMove ZkFightAiInstance_getMove(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkFightAiInstance_setMove(UIntPtr slf, ulong i, FightAiMove move);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkSoundEffectInstance_getFile(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setFile(UIntPtr slf, string file);
 
 		[DllImport(DllName)]
 		public static extern int ZkSoundEffectInstance_getPitchOff(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setPitchOff(UIntPtr slf, int pitchOff);
+
+		[DllImport(DllName)]
 		public static extern int ZkSoundEffectInstance_getPitchVar(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setPitchVar(UIntPtr slf, int pitchVar);
 
 		[DllImport(DllName)]
 		public static extern int ZkSoundEffectInstance_getVolume(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setVolume(UIntPtr slf, int volume);
+
+		[DllImport(DllName)]
 		public static extern int ZkSoundEffectInstance_getLoop(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setLoop(UIntPtr slf, int loop);
 
 		[DllImport(DllName)]
 		public static extern int ZkSoundEffectInstance_getLoopStartOffset(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setLoopStartOffset(UIntPtr slf, int loopStartOffset);
+
+		[DllImport(DllName)]
 		public static extern int ZkSoundEffectInstance_getLoopEndOffset(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setLoopEndOffset(UIntPtr slf, int loopEndOffset);
 
 		[DllImport(DllName)]
 		public static extern float ZkSoundEffectInstance_getReverbLevel(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setReverbLevel(UIntPtr slf, float reverbLevel);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkSoundEffectInstance_getPfxName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundEffectInstance_setPfxName(UIntPtr slf, string pfxName);
 
 		[DllImport(DllName)]
 		public static extern float ZkSoundSystemInstance_getVolume(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundSystemInstance_setVolume(UIntPtr slf, float volume);
+
+		[DllImport(DllName)]
 		public static extern int ZkSoundSystemInstance_getBitResolution(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundSystemInstance_setBitResolution(UIntPtr slf, int bitResolution);
 
 		[DllImport(DllName)]
 		public static extern int ZkSoundSystemInstance_getSampleRate(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundSystemInstance_setSampleRate(UIntPtr slf, int sampleRate);
+
+		[DllImport(DllName)]
 		public static extern int ZkSoundSystemInstance_getUseStereo(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoundSystemInstance_setUseStereo(UIntPtr slf, int useStereo);
 
 		[DllImport(DllName)]
 		public static extern int ZkSoundSystemInstance_getNumSfxChannels(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern void ZkSoundSystemInstance_setNumSfxChannels(UIntPtr slf, int numSfxChannels);
+
+		[DllImport(DllName)]
 		public static extern IntPtr ZkSoundSystemInstance_getUsed3DProviderName(UIntPtr slf);
 
+		[DllImport(DllName)]
+		public static extern void ZkSoundSystemInstance_setUsed3DProviderName(UIntPtr slf, string used3DProviderName);
+
+// =================
 		public class Callbacks
 		{
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -3744,6 +5644,14 @@ namespace ZenKit
 				[FieldOffset(2)] public byte B;
 				[FieldOffset(3)] public byte A;
 
+				public ZkColor(Color c)
+				{
+					R = c.R;
+					G = c.G;
+					B = c.B;
+					A = c.A;
+				}
+
 				public Color ToColor()
 				{
 					return Color.FromArgb(A, R, G, B);
@@ -3773,6 +5681,20 @@ namespace ZenKit
 					m20,
 					m21,
 					m22;
+
+				public ZkMat3x3(Quaternion quat)
+				{
+					var mat = Matrix4x4.CreateFromQuaternion(quat);
+					m00 = mat.M11;
+					m10 = mat.M12;
+					m20 = mat.M13;
+					m01 = mat.M21;
+					m11 = mat.M22;
+					m21 = mat.M23;
+					m02 = mat.M31;
+					m12 = mat.M32;
+					m22 = mat.M33;
+				}
 
 				public Quaternion ToQuaternion()
 				{
@@ -3818,6 +5740,26 @@ namespace ZenKit
 					m31,
 					m32,
 					m33;
+
+				public ZkMat4x4(Matrix4x4 v)
+				{
+					m00 = v.M11;
+					m01 = v.M21;
+					m02 = v.M31;
+					m03 = v.M41;
+					m10 = v.M12;
+					m11 = v.M22;
+					m12 = v.M32;
+					m13 = v.M42;
+					m20 = v.M13;
+					m21 = v.M23;
+					m22 = v.M33;
+					m23 = v.M43;
+					m30 = v.M14;
+					m31 = v.M24;
+					m32 = v.M34;
+					m33 = v.M44;
+				}
 
 				public Matrix4x4 ToCSharp()
 				{

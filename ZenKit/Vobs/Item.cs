@@ -18,8 +18,12 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public string Instance => Native.ZkItem_getInstance(Handle).MarshalAsString() ??
-		                          throw new Exception("Failed to load item instance");
+		public string Instance
+		{
+			get => Native.ZkItem_getInstance(Handle).MarshalAsString() ??
+			       throw new Exception("Failed to load item instance");
+			set => Native.ZkItem_setInstance(Handle, value);
+		}
 
 		protected override void Delete()
 		{
