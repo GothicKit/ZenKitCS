@@ -47,7 +47,7 @@ namespace ZenKit
 		[Serializable]
 		public struct Mesh
 		{
-			public DateTime SourceDate;
+			public DateTime? SourceDate;
 			public string Name;
 			public AxisAlignedBoundingBox BoundingBox;
 			public OrientedBoundingBox OrientedBoundingBox;
@@ -166,7 +166,7 @@ namespace ZenKit
 			_delete = false;
 		}
 
-		public DateTime SourceDate => Native.ZkMesh_getSourceDate(_handle).AsDateTime();
+		public DateTime? SourceDate => Native.ZkMesh_getSourceDate(_handle).AsDateTime();
 
 		public string Name => Native.ZkMesh_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load mesh name");

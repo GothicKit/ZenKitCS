@@ -25,7 +25,7 @@ namespace ZenKit
 		public struct MorphSource
 		{
 			public string FileName;
-			public DateTime FileDate;
+			public DateTime? FileDate;
 		}
 
 		[Serializable]
@@ -94,7 +94,7 @@ namespace ZenKit
 		public string FileName => Native.ZkMorphSource_getFileName(_handle).MarshalAsString() ??
 		                          throw new Exception("Failed to load morph source file name");
 
-		public DateTime FileDate => Native.ZkMorphSource_getFileDate(_handle).AsDateTime();
+		public DateTime? FileDate => Native.ZkMorphSource_getFileDate(_handle).AsDateTime();
 
 		public Materialized.MorphSource Materialize()
 		{

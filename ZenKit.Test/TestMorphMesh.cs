@@ -67,12 +67,12 @@ public class TestMorphMesh
 		Assert.That(sources, Has.Count.EqualTo(4));
 
 		var source = sources[1];
-		Assert.That(source.FileDate.Year, Is.EqualTo(2000));
-		Assert.That(source.FileDate.Month, Is.EqualTo(5));
-		Assert.That(source.FileDate.Day, Is.EqualTo(8));
-		Assert.That(source.FileDate.Hour, Is.EqualTo(9));
-		Assert.That(source.FileDate.Minute, Is.EqualTo(13));
-		Assert.That(source.FileDate.Second, Is.EqualTo(58));
+		Assert.That(source.FileDate?.Year, Is.EqualTo(2000));
+		Assert.That(source.FileDate?.Month, Is.EqualTo(5));
+		Assert.That(source.FileDate?.Day, Is.EqualTo(8));
+		Assert.That(source.FileDate?.Hour, Is.EqualTo(9));
+		Assert.That(source.FileDate?.Minute, Is.EqualTo(13));
+		Assert.That(source.FileDate?.Second, Is.EqualTo(58));
 		Assert.That(source.FileName, Is.EqualTo("ITRWSMALLBOWSHOOT.ASC"));
 	}
 }

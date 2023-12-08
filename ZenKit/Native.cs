@@ -6734,9 +6734,16 @@ namespace ZenKit
 				[MarshalAs(UnmanagedType.U2)] public ushort minute;
 				[MarshalAs(UnmanagedType.U2)] public ushort second;
 
-				public DateTime AsDateTime()
+				public DateTime? AsDateTime()
 				{
-					return new DateTime((int)year, month, day, hour, minute, second);
+					try
+					{
+						return new DateTime((int)year, month, day, hour, minute, second);
+					}
+					catch (Exception)
+					{
+						return null;
+					}
 				}
 			}
 

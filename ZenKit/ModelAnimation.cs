@@ -29,7 +29,7 @@ namespace ZenKit
 			public AxisAlignedBoundingBox BoundingBox;
 			public uint Checksum;
 			public string SourcePath;
-			public DateTime SourceDate;
+			public DateTime? SourceDate;
 			public string SourceScript;
 			public List<AnimationSample> Samples;
 			public uint[] NodeIndices;
@@ -75,7 +75,7 @@ namespace ZenKit
 		public string SourcePath => Native.ZkModelAnimation_getSourcePath(_handle).MarshalAsString() ??
 		                            throw new Exception("Failed to load model animation source path");
 
-		public DateTime SourceDate => Native.ZkModelAnimation_getSourceDate(_handle).AsDateTime();
+		public DateTime? SourceDate => Native.ZkModelAnimation_getSourceDate(_handle).AsDateTime();
 
 		public string SourceScript => Native.ZkModelAnimation_getSourceScript(_handle).MarshalAsString() ??
 		                              throw new Exception("Failed to load model animation source script");

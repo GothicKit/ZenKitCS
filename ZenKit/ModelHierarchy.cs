@@ -23,7 +23,7 @@ namespace ZenKit
 			public AxisAlignedBoundingBox CollisionBoundingBox;
 			public Vector3 RootTranslation;
 			public uint Checksum;
-			public DateTime SourceDate;
+			public DateTime? SourceDate;
 			public string SourcePath;
 			public List<ModelHierarchyNode> Nodes;
 		}
@@ -86,7 +86,8 @@ namespace ZenKit
 		public AxisAlignedBoundingBox CollisionBoundingBox => Native.ZkModelHierarchy_getCollisionBbox(_handle);
 		public Vector3 RootTranslation => Native.ZkModelHierarchy_getRootTranslation(_handle);
 		public uint Checksum => Native.ZkModelHierarchy_getChecksum(_handle);
-		public DateTime SourceDate => Native.ZkModelHierarchy_getSourceDate(_handle).AsDateTime();
+
+		public DateTime? SourceDate => Native.ZkModelHierarchy_getSourceDate(_handle).AsDateTime();
 
 		public string SourcePath => Native.ZkModelHierarchy_getSourcePath(_handle).MarshalAsString() ??
 		                            throw new Exception("Failed to load model hierarchy source path");
