@@ -27,14 +27,14 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - name: 'Build'
-        run: 'dotnet pack -c Release -o ./__publish/ -v detailed ZenKit'
+        run: 'dotnet build ZenKit -c Release -o __build && dotnet pack -c Release -o ./__publish/ -v detailed ZenKit'
       - name: 'Publish'
         uses: 'actions/upload-artifact@v3'
         with:
           name: 'NuGet Package'
           path: '__publish'
       - name: 'Copy Artifacts'
-        run: 'mkdir Artifacts && mv ZenKit/runtimes Artifacts/ && cp ZenKit/bin/**/*.dll Artifacts/ && echo "Copy the native library for your OS from the `runtime` folder into the same folder `ZenKit.dll` is in." > Artifacts/README.md'
+        run: 'mkdir Artifacts && mv ZenKit/runtimes Artifacts/ && cp __build/ZenKit.dll Artifacts/ && echo "Copy the native library for your OS from the `runtime` folder into the same folder `ZenKit.dll` is in." > Artifacts/README.md'
       - name: 'Publish'
         uses: 'actions/upload-artifact@v3'
         with:
