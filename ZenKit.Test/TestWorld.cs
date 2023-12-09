@@ -26,7 +26,7 @@ public class TestWorld
 
 		var mesh = wld.Mesh;
 		Assert.That(mesh.Positions, Has.Length.EqualTo(55439));
-		Assert.That(mesh.Vertices, Has.Length.EqualTo(419936));
+		Assert.That(mesh.Features, Has.Length.EqualTo(419936));
 		Assert.That(mesh.Materials, Has.Count.EqualTo(2263));
 		Assert.That(mesh.Name, Is.EqualTo(""));
 
@@ -47,7 +47,7 @@ public class TestWorld
 		Assert.Multiple(() => CheckVec3(verts[500], 44263.8203f, 708.517822f, 6841.18262f));
 		Assert.Multiple(() => CheckVec3(verts[501], 45672.6094f, 640.436157f, 6877.81543f));
 
-		var feats = mesh.Vertices;
+		var feats = mesh.Features;
 		Assert.Multiple(() => CheckVec2(feats[0].Texture, 1.11193848f, 2.64415169f));
 		Assert.Multiple(() => CheckVec3(feats[0].Normal, 0.0000220107158f, 1, -0.000121058853f));
 		Assert.That(feats[0].Light, Is.EqualTo(4292927712));

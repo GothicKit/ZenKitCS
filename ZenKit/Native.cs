@@ -842,7 +842,7 @@ namespace ZenKit
 		public static extern IntPtr ZkPolygon_getPositionIndices(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkPolygon_getPolygonIndices(UIntPtr slf, out ulong count);
+		public static extern IntPtr ZkPolygon_getFeatureIndices(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
 		public static extern bool ZkPolygon_getIsPortal(UIntPtr slf);

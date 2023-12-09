@@ -31,7 +31,7 @@ namespace ZenKit
 			public uint MaterialIndex;
 			public int LightMapIndex;
 			public uint[] PositionIndices;
-			public uint[] PolygonIndices;
+			public uint[] FeatureIndices;
 			public bool IsPortal;
 			public bool IsOccluder;
 			public bool IsSector;
@@ -53,7 +53,7 @@ namespace ZenKit
 			public OrientedBoundingBox OrientedBoundingBox;
 			public List<Material> Materials;
 			public Vector3[] Positions;
-			public Vertex[] Vertices;
+			public Vertex[] Features;
 			public List<LightMap> LightMap;
 			public List<Polygon> Polygons;
 		}
@@ -100,8 +100,8 @@ namespace ZenKit
 		public uint[] PositionIndices =>
 			Native.ZkPolygon_getPositionIndices(_handle, out var count).MarshalAsArray<uint>(count);
 
-		public uint[] PolygonIndices =>
-			Native.ZkPolygon_getPolygonIndices(_handle, out var count).MarshalAsArray<uint>(count);
+		public uint[] FeatureIndices =>
+			Native.ZkPolygon_getFeatureIndices(_handle, out var count).MarshalAsArray<uint>(count);
 
 		public bool IsPortal => Native.ZkPolygon_getIsPortal(_handle);
 		public bool IsOccluder => Native.ZkPolygon_getIsOccluder(_handle);
@@ -121,7 +121,7 @@ namespace ZenKit
 				MaterialIndex = MaterialIndex,
 				LightMapIndex = LightMapIndex,
 				PositionIndices = PositionIndices,
-				PolygonIndices = PolygonIndices,
+				FeatureIndices = FeatureIndices,
 				IsPortal = IsPortal,
 				IsOccluder = IsOccluder,
 				IsSector = IsSector,
@@ -195,7 +195,7 @@ namespace ZenKit
 		}
 
 		public Vector3[] Positions => Native.ZkMesh_getPositions(_handle, out var count).MarshalAsArray<Vector3>(count);
-		public Vertex[] Vertices => Native.ZkMesh_getVertices(_handle, out var count).MarshalAsArray<Vertex>(count);
+		public Vertex[] Features => Native.ZkMesh_getVertices(_handle, out var count).MarshalAsArray<Vertex>(count);
 
 		public ulong LightMapCount => Native.ZkMesh_getLightMapCount(_handle);
 
@@ -243,7 +243,7 @@ namespace ZenKit
 				OrientedBoundingBox = OrientedBoundingBox.Materialize(),
 				Materials = Materials.ConvertAll(mat => mat.Materialize()),
 				Positions = Positions,
-				Vertices = Vertices,
+				Features = Features,
 				LightMap = LightMap.ConvertAll(lm => lm.Materialize()),
 				Polygons = Polygons.ConvertAll(polygon => polygon.Materialize())
 			};
