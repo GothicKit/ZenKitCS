@@ -16,8 +16,8 @@ namespace ZenKit
 		float Speed { get; }
 		byte Flags { get; }
 		uint FrameCount { get; }
-		uint[] Vertices { get; }
-		Vector3[] Samples { get; }
+		List<uint> Vertices { get; }
+		List<Vector3> Samples { get; }
 	}
 
 	[Serializable]
@@ -31,8 +31,8 @@ namespace ZenKit
 		public float Speed { get; set; }
 		public byte Flags { get; set; }
 		public uint FrameCount { get; set; }
-		public uint[] Vertices { get; set; }
-		public Vector3[] Samples { get; set; }
+		public List<uint> Vertices { get; set; }
+		public List<Vector3> Samples { get; set; }
 
 		public IMorphAnimation Cache()
 		{
@@ -65,11 +65,11 @@ namespace ZenKit
 		public byte Flags => Native.ZkMorphAnimation_getFlags(_handle);
 		public uint FrameCount => Native.ZkMorphAnimation_getFrameCount(_handle);
 
-		public uint[] Vertices =>
-			Native.ZkMorphAnimation_getVertices(_handle, out var count).MarshalAsArray<uint>(count);
+		public List<uint> Vertices =>
+			Native.ZkMorphAnimation_getVertices(_handle, out var count).MarshalAsList<uint>(count);
 
-		public Vector3[] Samples =>
-			Native.ZkMorphAnimation_getSamples(_handle, out var count).MarshalAsArray<Vector3>(count);
+		public List<Vector3> Samples =>
+			Native.ZkMorphAnimation_getSamples(_handle, out var count).MarshalAsList<Vector3>(count);
 
 		public IMorphAnimation Cache()
 		{
@@ -149,7 +149,7 @@ namespace ZenKit
 	{
 		string Name { get; }
 		IMultiResolutionMesh Mesh { get; }
-		Vector3[] MorphPositions { get; }
+		List<Vector3> MorphPositions { get; }
 		ulong AnimationCount { get; }
 		List<IMorphAnimation> Animations { get; }
 		ulong SourceCount { get; }
@@ -163,7 +163,7 @@ namespace ZenKit
 	{
 		public string Name { get; set; }
 		public IMultiResolutionMesh Mesh { get; set; }
-		public Vector3[] MorphPositions { get; set; }
+		public List<Vector3> MorphPositions { get; set; }
 		public ulong AnimationCount => (ulong)Animations.LongCount();
 		public List<IMorphAnimation> Animations { get; set; }
 		public ulong SourceCount => (ulong)Sources.LongCount();
@@ -217,8 +217,8 @@ namespace ZenKit
 
 		public IMultiResolutionMesh Mesh => new MultiResolutionMesh(Native.ZkMorphMesh_getMesh(_handle));
 
-		public Vector3[] MorphPositions =>
-			Native.ZkMorphMesh_getMorphPositions(_handle, out var count).MarshalAsArray<Vector3>(count);
+		public List<Vector3> MorphPositions =>
+			Native.ZkMorphMesh_getMorphPositions(_handle, out var count).MarshalAsList<Vector3>(count);
 
 		public ulong AnimationCount => Native.ZkMorphMesh_getAnimationCount(_handle);
 

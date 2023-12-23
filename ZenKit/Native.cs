@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -37,7 +39,6 @@ namespace ZenKit
 			return _encoding.GetString(bytes);
 		}
 	}
-
 
 	internal static class Marshalling
 	{
@@ -91,6 +92,11 @@ namespace ZenKit
 			}
 
 			return array;
+		}
+
+		public static List<T> MarshalAsList<T>(this IntPtr ptr, ulong size)
+		{
+			return MarshalAsArray<T>(ptr, size).ToList();
 		}
 	}
 

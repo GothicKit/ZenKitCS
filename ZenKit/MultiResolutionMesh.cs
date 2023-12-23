@@ -49,30 +49,30 @@ namespace ZenKit
 	public interface IMultiResolutionSubMesh : ICacheable<IMultiResolutionSubMesh>
 	{
 		IMaterial Material { get; }
-		MeshTriangle[] Triangles { get; }
-		MeshWedge[] Wedges { get; }
-		float[] Colors { get; }
-		ushort[] TrianglePlaneIndices { get; }
-		MeshPlane[] TrianglePlanes { get; }
-		MeshTriangleEdge[] TriangleEdges { get; }
-		MeshEdge[] Edges { get; }
-		float[] EdgeScores { get; }
-		ushort[] WedgeMap { get; }
+		List<MeshTriangle> Triangles { get; }
+		List<MeshWedge> Wedges { get; }
+		List<float> Colors { get; }
+		List<ushort> TrianglePlaneIndices { get; }
+		List<MeshPlane> TrianglePlanes { get; }
+		List<MeshTriangleEdge> TriangleEdges { get; }
+		List<MeshEdge> Edges { get; }
+		List<float> EdgeScores { get; }
+		List<ushort> WedgeMap { get; }
 	}
 
 	[Serializable]
 	public class CachedMultiResolutionSubMesh : IMultiResolutionSubMesh
 	{
 		public IMaterial Material { get; set; }
-		public MeshTriangle[] Triangles { get; set; }
-		public MeshWedge[] Wedges { get; set; }
-		public float[] Colors { get; set; }
-		public ushort[] TrianglePlaneIndices { get; set; }
-		public MeshPlane[] TrianglePlanes { get; set; }
-		public MeshTriangleEdge[] TriangleEdges { get; set; }
-		public MeshEdge[] Edges { get; set; }
-		public float[] EdgeScores { get; set; }
-		public ushort[] WedgeMap { get; set; }
+		public List<MeshTriangle> Triangles { get; set; }
+		public List<MeshWedge> Wedges { get; set; }
+		public List<float> Colors { get; set; }
+		public List<ushort> TrianglePlaneIndices { get; set; }
+		public List<MeshPlane> TrianglePlanes { get; set; }
+		public List<MeshTriangleEdge> TriangleEdges { get; set; }
+		public List<MeshEdge> Edges { get; set; }
+		public List<float> EdgeScores { get; set; }
+		public List<ushort> WedgeMap { get; set; }
 
 		public IMultiResolutionSubMesh Cache()
 		{
@@ -96,29 +96,30 @@ namespace ZenKit
 
 		public IMaterial Material => new Material(Native.ZkSubMesh_getMaterial(_handle));
 
-		public MeshTriangle[] Triangles =>
-			Native.ZkSubMesh_getTriangles(_handle, out var count).MarshalAsArray<MeshTriangle>(count);
+		public List<MeshTriangle> Triangles =>
+			Native.ZkSubMesh_getTriangles(_handle, out var count).MarshalAsList<MeshTriangle>(count);
 
-		public MeshWedge[] Wedges =>
-			Native.ZkSubMesh_getWedges(_handle, out var count).MarshalAsArray<MeshWedge>(count);
+		public List<MeshWedge> Wedges =>
+			Native.ZkSubMesh_getWedges(_handle, out var count).MarshalAsList<MeshWedge>(count);
 
-		public float[] Colors => Native.ZkSubMesh_getColors(_handle, out var count).MarshalAsArray<float>(count);
+		public List<float> Colors => Native.ZkSubMesh_getColors(_handle, out var count).MarshalAsList<float>(count);
 
-		public ushort[] TrianglePlaneIndices => Native.ZkSubMesh_getTrianglePlaneIndices(_handle, out var count)
-			.MarshalAsArray<ushort>(count);
+		public List<ushort> TrianglePlaneIndices => Native.ZkSubMesh_getTrianglePlaneIndices(_handle, out var count)
+			.MarshalAsList<ushort>(count);
 
-		public MeshPlane[] TrianglePlanes =>
-			Native.ZkSubMesh_getTrianglePlanes(_handle, out var count).MarshalAsArray<MeshPlane>(count);
+		public List<MeshPlane> TrianglePlanes =>
+			Native.ZkSubMesh_getTrianglePlanes(_handle, out var count).MarshalAsList<MeshPlane>(count);
 
-		public MeshTriangleEdge[] TriangleEdges => Native.ZkSubMesh_getTriangleEdges(_handle, out var count)
-			.MarshalAsArray<MeshTriangleEdge>(count);
+		public List<MeshTriangleEdge> TriangleEdges => Native.ZkSubMesh_getTriangleEdges(_handle, out var count)
+			.MarshalAsList<MeshTriangleEdge>(count);
 
-		public MeshEdge[] Edges => Native.ZkSubMesh_getEdges(_handle, out var count).MarshalAsArray<MeshEdge>(count);
+		public List<MeshEdge> Edges => Native.ZkSubMesh_getEdges(_handle, out var count).MarshalAsList<MeshEdge>(count);
 
-		public float[] EdgeScores =>
-			Native.ZkSubMesh_getEdgeScores(_handle, out var count).MarshalAsArray<float>(count);
+		public List<float> EdgeScores =>
+			Native.ZkSubMesh_getEdgeScores(_handle, out var count).MarshalAsList<float>(count);
 
-		public ushort[] WedgeMap => Native.ZkSubMesh_getWedgeMap(_handle, out var count).MarshalAsArray<ushort>(count);
+		public List<ushort> WedgeMap =>
+			Native.ZkSubMesh_getWedgeMap(_handle, out var count).MarshalAsList<ushort>(count);
 
 		public IMultiResolutionSubMesh Cache()
 		{
@@ -145,8 +146,8 @@ namespace ZenKit
 
 	public interface IMultiResolutionMesh : ICacheable<IMultiResolutionMesh>
 	{
-		Vector3[] Positions { get; }
-		Vector3[] Normals { get; }
+		List<Vector3> Positions { get; }
+		List<Vector3> Normals { get; }
 		ulong SubMeshCount { get; }
 		List<IMultiResolutionSubMesh> SubMeshes { get; }
 		ulong MaterialCount { get; }
@@ -161,8 +162,8 @@ namespace ZenKit
 	[Serializable]
 	public class CachedMultiResolutionMesh : IMultiResolutionMesh
 	{
-		public Vector3[] Positions { get; set; }
-		public Vector3[] Normals { get; set; }
+		public List<Vector3> Positions { get; set; }
+		public List<Vector3> Normals { get; set; }
 		public ulong SubMeshCount => (ulong)SubMeshes.LongCount();
 		public List<IMultiResolutionSubMesh> SubMeshes { get; set; }
 		public ulong MaterialCount => (ulong)Materials.LongCount();
@@ -221,11 +222,11 @@ namespace ZenKit
 			_delete = false;
 		}
 
-		public Vector3[] Positions =>
-			Native.ZkMultiResolutionMesh_getPositions(_handle, out var count).MarshalAsArray<Vector3>(count);
+		public List<Vector3> Positions =>
+			Native.ZkMultiResolutionMesh_getPositions(_handle, out var count).MarshalAsList<Vector3>(count);
 
-		public Vector3[] Normals =>
-			Native.ZkMultiResolutionMesh_getNormals(_handle, out var count).MarshalAsArray<Vector3>(count);
+		public List<Vector3> Normals =>
+			Native.ZkMultiResolutionMesh_getNormals(_handle, out var count).MarshalAsList<Vector3>(count);
 
 		public ulong SubMeshCount => Native.ZkMultiResolutionMesh_getSubMeshCount(_handle);
 

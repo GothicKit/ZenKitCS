@@ -20,7 +20,7 @@ public class TestMorphMesh
 		Assert.That(mmb.Name, Is.EqualTo("ITRWSMALLBOW"));
 
 		var positions = mmb.MorphPositions;
-		Assert.That(positions, Has.Length.EqualTo(28));
+		Assert.That(positions, Has.Count.EqualTo(28));
 		Assert.Multiple(() =>
 		{
 			Assert.That(positions[0].X, Is.EqualTo(-40.9461403f));
@@ -46,13 +46,13 @@ public class TestMorphMesh
 		Assert.That(ani.FrameCount, Is.EqualTo(10));
 
 		var vertices = ani.Vertices;
-		Assert.That(vertices, Has.Length.EqualTo(3));
+		Assert.That(vertices, Has.Count.EqualTo(3));
 		Assert.That(vertices[0], Is.EqualTo(25));
 		Assert.That(vertices[1], Is.EqualTo(26));
 		Assert.That(vertices[2], Is.EqualTo(27));
 
 		var samples = ani.Samples;
-		Assert.That(samples, Has.Length.EqualTo(30));
+		Assert.That(samples, Has.Count.EqualTo(30));
 		Assert.That(samples[0].X, Is.EqualTo(0.519770026f));
 		Assert.That(samples[0].Y, Is.EqualTo(0));
 		Assert.That(samples[0].Z, Is.EqualTo(1.27206039f));

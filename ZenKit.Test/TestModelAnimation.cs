@@ -59,7 +59,7 @@ public class TestModelAnimation
 		{
 			var nodeIndices = ani.NodeIndices;
 			Assert.That(ani.NodeCount, Is.EqualTo(25));
-			Assert.That(nodeIndices, Has.Length.EqualTo(25));
+			Assert.That(nodeIndices, Has.Count.EqualTo(25));
 			Assert.That(nodeIndices, Is.EqualTo(NodeIndicesG1));
 		});
 
@@ -113,7 +113,7 @@ public class TestModelAnimation
 		{
 			var nodeIndices = ani.NodeIndices;
 			Assert.That(ani.NodeCount, Is.EqualTo(25));
-			Assert.That(nodeIndices, Has.Length.EqualTo(25));
+			Assert.That(nodeIndices, Has.Count.EqualTo(25));
 			Assert.That(nodeIndices, Is.EqualTo(NodeIndicesG1));
 		});
 

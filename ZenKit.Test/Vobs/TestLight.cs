@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using NUnit.Framework;
 using ZenKit.Vobs;
 
@@ -69,9 +70,9 @@ public class TestLight
 		vob.LightStatic = false;
 		vob.Quality = LightQuality.Low;
 		vob.LensflareFx = "";
-		vob.RangeAnimationScale = G1LightRangeAnimationScale;
+		vob.RangeAnimationScale = G1LightRangeAnimationScale.ToList();
 		vob.RangeAnimationFps = 0.0f;
-		vob.ColorAnimationList = G1LightColorAnimationList;
+		vob.ColorAnimationList = G1LightColorAnimationList.ToList();
 		vob.ColorAnimationFps = 11.0000067f;
 		vob.On = true;
 		vob.RangeAnimationSmooth = false;

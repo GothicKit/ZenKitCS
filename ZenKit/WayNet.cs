@@ -84,7 +84,7 @@ namespace ZenKit
 
 	public interface IWayNet : ICacheable<IWayNet>
 	{
-		public WayEdge[] Edges { get; }
+		public List<WayEdge> Edges { get; }
 		public List<IWayPoint> Points { get; }
 		public ulong PointCount { get; }
 		public IWayPoint GetPoint(ulong i);
@@ -93,7 +93,7 @@ namespace ZenKit
 	[Serializable]
 	public class CachedWayNet : IWayNet
 	{
-		public WayEdge[] Edges { get; set; }
+		public List<WayEdge> Edges { get; set; }
 		public List<IWayPoint> Points { get; set; }
 		public ulong PointCount => (ulong)Points.LongCount();
 
@@ -122,7 +122,7 @@ namespace ZenKit
 			_handle = handle;
 		}
 
-		public WayEdge[] Edges => Native.ZkWayNet_getEdges(_handle, out var count).MarshalAsArray<WayEdge>(count);
+		public List<WayEdge> Edges => Native.ZkWayNet_getEdges(_handle, out var count).MarshalAsList<WayEdge>(count);
 		public ulong PointCount => Native.ZkWayNet_getPointCount(_handle);
 
 		public List<IWayPoint> Points

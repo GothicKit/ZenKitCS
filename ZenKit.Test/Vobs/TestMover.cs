@@ -1,5 +1,4 @@
 using System;
-using System.Numerics;
 using NUnit.Framework;
 using ZenKit.Vobs;
 
@@ -18,7 +17,7 @@ public class TestMover
 		Assert.That(vob.Speed, Is.EqualTo(0.0500000007f));
 		Assert.That(vob.LerpType, Is.EqualTo(MoverLerpType.Curve));
 		Assert.That(vob.SpeedType, Is.EqualTo(MoverSpeedType.SlowStartEnd));
-		Assert.That(vob.Keyframes, Has.Length.EqualTo(2));
+		Assert.That(vob.Keyframes, Has.Count.EqualTo(2));
 		Assert.That(vob.Keyframes[0].Position.X, Is.EqualTo(29785.9609f));
 		Assert.That(vob.Keyframes[0].Position.Y, Is.EqualTo(5140.81982f));
 		Assert.That(vob.Keyframes[0].Position.Z, Is.EqualTo(-16279.8477f));
@@ -50,8 +49,6 @@ public class TestMover
 		vob.Speed = 0.0500000007f;
 		vob.LerpType = MoverLerpType.Curve;
 		vob.SpeedType = MoverSpeedType.SlowStartEnd;
-		vob.Keyframes[0].Position = new Vector3(29785.9609f, 5140.81982f, -16279.8477f);
-		vob.Keyframes[0].Rotation = new Quaternion(-0.000760567724f, 0.0174517576f, 0.00869333092f, 0.999809802f);
 		vob.SfxOpenStart = "GATE_START";
 		vob.SfxOpenEnd = "GATE_STOP";
 		vob.SfxTransitioning = "GATE_LOOP";

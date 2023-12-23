@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ZenKit.Vobs
 {
@@ -99,8 +100,8 @@ namespace ZenKit.Vobs
 		}
 
 
-		public AnimationSample[] Keyframes =>
-			Native.ZkMover_getKeyframes(Handle, out var count).MarshalAsArray<AnimationSample>(count);
+		public List<AnimationSample> Keyframes =>
+			Native.ZkMover_getKeyframes(Handle, out var count).MarshalAsList<AnimationSample>(count);
 
 
 		public string SfxOpenStart

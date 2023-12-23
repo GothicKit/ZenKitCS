@@ -31,7 +31,7 @@ namespace ZenKit
 		string SourceScript { get; }
 		ulong SampleCount { get; }
 		List<AnimationSample> Samples { get; }
-		uint[] NodeIndices { get; }
+		List<uint> NodeIndices { get; }
 		AnimationSample GetSample(ulong i);
 	}
 
@@ -52,7 +52,7 @@ namespace ZenKit
 		public string SourceScript { get; set; }
 		public ulong SampleCount => (ulong)Samples.LongCount();
 		public List<AnimationSample> Samples { get; set; }
-		public uint[] NodeIndices { get; set; }
+		public List<uint> NodeIndices { get; set; }
 
 		public AnimationSample GetSample(ulong i)
 		{
@@ -132,8 +132,8 @@ namespace ZenKit
 			}
 		}
 
-		public uint[] NodeIndices =>
-			Native.ZkModelAnimation_getNodeIndices(_handle, out var size).MarshalAsArray<uint>(size);
+		public List<uint> NodeIndices =>
+			Native.ZkModelAnimation_getNodeIndices(_handle, out var size).MarshalAsList<uint>(size);
 
 		public IModelAnimation Cache()
 		{

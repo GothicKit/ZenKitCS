@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace ZenKit.Vobs
 {
@@ -99,12 +101,12 @@ namespace ZenKit.Vobs
 			set => Native.ZkLightPreset_setOn(_handle, value);
 		}
 
-		public float[] RangeAnimationScale
+		public IReadOnlyList<float> RangeAnimationScale
 		{
 			get =>
 				Native.ZkLightPreset_getRangeAnimationScale(_handle, out var count)
-					.MarshalAsArray<float>(count);
-			set => Native.ZkLightPreset_setRangeAnimationScale(_handle, value, (ulong)value.Length);
+					.MarshalAsList<float>(count);
+			set => Native.ZkLightPreset_setRangeAnimationScale(_handle, value.ToArray(), (ulong)value.Count);
 		}
 
 		public float RangeAnimationFps
@@ -119,14 +121,13 @@ namespace ZenKit.Vobs
 			set => Native.ZkLightPreset_setRangeAnimationSmooth(_handle, value);
 		}
 
-		public Color[] ColorAnimationList
+		public List<Color> ColorAnimationList
 		{
 			get =>
-				Array.ConvertAll(
-					Native.ZkLightPreset_getColorAnimationList(_handle, out var count)
-						.MarshalAsArray<Native.Structs.ZkColor>(count), i => i.ToColor());
+				Native.ZkLightPreset_getColorAnimationList(_handle, out var count)
+					.MarshalAsList<Native.Structs.ZkColor>(count).ConvertAll(i => i.ToColor());
 			set => Native.ZkLightPreset_setColorAnimationList(_handle,
-				Array.ConvertAll(value, c => new Native.Structs.ZkColor(c)), (ulong)value.Length);
+				Array.ConvertAll(value.ToArray(), c => new Native.Structs.ZkColor(c)), (ulong)value.Count);
 		}
 
 
@@ -232,12 +233,12 @@ namespace ZenKit.Vobs
 		}
 
 
-		public float[] RangeAnimationScale
+		public List<float> RangeAnimationScale
 		{
 			get =>
 				Native.ZkLight_getRangeAnimationScale(Handle, out var count)
-					.MarshalAsArray<float>(count);
-			set => Native.ZkLight_setRangeAnimationScale(Handle, value, (ulong)value.Length);
+					.MarshalAsList<float>(count);
+			set => Native.ZkLight_setRangeAnimationScale(Handle, value.ToArray(), (ulong)value.Count);
 		}
 
 
@@ -253,14 +254,13 @@ namespace ZenKit.Vobs
 			set => Native.ZkLight_setRangeAnimationSmooth(Handle, value);
 		}
 
-		public Color[] ColorAnimationList
+		public List<Color> ColorAnimationList
 		{
 			get =>
-				Array.ConvertAll(
-					Native.ZkLight_getColorAnimationList(Handle, out var count)
-						.MarshalAsArray<Native.Structs.ZkColor>(count), i => i.ToColor());
+				Native.ZkLight_getColorAnimationList(Handle, out var count)
+					.MarshalAsList<Native.Structs.ZkColor>(count).ConvertAll(i => i.ToColor());
 			set => Native.ZkLight_setColorAnimationList(Handle,
-				Array.ConvertAll(value, c => new Native.Structs.ZkColor(c)), (ulong)value.Length);
+				Array.ConvertAll(value.ToArray(), c => new Native.Structs.ZkColor(c)), (ulong)value.Count);
 		}
 
 

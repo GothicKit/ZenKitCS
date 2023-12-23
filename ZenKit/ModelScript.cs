@@ -1116,7 +1116,7 @@ namespace ZenKit
 		EventType Type { get; }
 		Tuple<string, string> Slots { get; }
 		string Item { get; }
-		uint[] Frames { get; }
+		List<uint> Frames { get; }
 		FightMode FightMode { get; }
 		bool Attached { get; }
 	}
@@ -1128,7 +1128,7 @@ namespace ZenKit
 		public EventType Type { get; set; }
 		public Tuple<string, string> Slots { get; set; }
 		public string Item { get; set; }
-		public uint[] Frames { get; set; }
+		public List<uint> Frames { get; set; }
 		public FightMode FightMode { get; set; }
 		public bool Attached { get; set; }
 
@@ -1167,7 +1167,7 @@ namespace ZenKit
 		public string Item => Native.ZkEventTag_getItem(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load event tag item");
 
-		public uint[] Frames => Native.ZkEventTag_getFrames(_handle, out var count).MarshalAsArray<uint>(count);
+		public List<uint> Frames => Native.ZkEventTag_getFrames(_handle, out var count).MarshalAsList<uint>(count);
 
 		public FightMode FightMode => Native.ZkEventTag_getFightMode(_handle);
 

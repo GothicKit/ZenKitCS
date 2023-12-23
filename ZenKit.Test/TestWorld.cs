@@ -25,8 +25,8 @@ public class TestWorld
 		var wld = new World("./Samples/world.proprietary.zen");
 
 		var mesh = wld.Mesh;
-		Assert.That(mesh.Positions, Has.Length.EqualTo(55439));
-		Assert.That(mesh.Features, Has.Length.EqualTo(419936));
+		Assert.That(mesh.Positions, Has.Count.EqualTo(55439));
+		Assert.That(mesh.Features, Has.Count.EqualTo(419936));
 		Assert.That(mesh.Materials, Has.Count.EqualTo(2263));
 		Assert.That(mesh.Name, Is.EqualTo(""));
 
@@ -81,7 +81,7 @@ public class TestWorld
 		Assert.That(tree.Type, Is.EqualTo(BspTreeType.Outdoor));
 
 		var treePolys = tree.PolygonIndices;
-		Assert.That(treePolys, Has.Length.EqualTo(480135));
+		Assert.That(treePolys, Has.Count.EqualTo(480135));
 		Assert.That(treePolys[0], Is.EqualTo(0));
 		Assert.That(treePolys[1], Is.EqualTo(1));
 		Assert.That(treePolys[2], Is.EqualTo(2));
@@ -90,7 +90,7 @@ public class TestWorld
 		Assert.That(treePolys[152], Is.EqualTo(92));
 
 		var nodes = tree.Nodes;
-		Assert.That(nodes, Has.Length.EqualTo(6644));
+		Assert.That(nodes, Has.Count.EqualTo(6644));
 		Assert.That(nodes[0].Plane.X, Is.EqualTo(1));
 		Assert.That(nodes[0].Plane.Y, Is.EqualTo(0));
 		Assert.That(nodes[0].Plane.Z, Is.EqualTo(0));
@@ -116,7 +116,7 @@ public class TestWorld
 		Assert.Multiple(() => CheckVec3(nodes[1].BoundingBox.Max, 108999.992f, 19502.1973f, 67399.9921f));
 
 		var leaves = tree.LeafNodeIndices;
-		Assert.That(leaves, Has.Length.EqualTo(3318));
+		Assert.That(leaves, Has.Count.EqualTo(3318));
 		Assert.That(leaves[0], Is.EqualTo(5));
 		Assert.That(leaves[10], Is.EqualTo(26));
 
@@ -124,17 +124,17 @@ public class TestWorld
 		Assert.That(sectors, Has.Count.EqualTo(299));
 
 		Assert.That(sectors[0].Name, Is.EqualTo("WALD11"));
-		Assert.That(sectors[0].NodeIndices, Has.Length.EqualTo(9));
-		Assert.That(sectors[0].PortalPolygonIndices, Has.Length.EqualTo(24));
+		Assert.That(sectors[0].NodeIndices, Has.Count.EqualTo(9));
+		Assert.That(sectors[0].PortalPolygonIndices, Has.Count.EqualTo(24));
 
 		Assert.That(sectors[50].Name, Is.EqualTo("OWCAVE01"));
-		Assert.That(sectors[50].NodeIndices, Has.Length.EqualTo(4));
-		Assert.That(sectors[50].PortalPolygonIndices, Has.Length.EqualTo(2));
+		Assert.That(sectors[50].NodeIndices, Has.Count.EqualTo(4));
+		Assert.That(sectors[50].PortalPolygonIndices, Has.Count.EqualTo(2));
 
 		var portalPolys = tree.PortalPolygonIndices;
-		Assert.That(portalPolys, Has.Length.EqualTo(0));
+		Assert.That(portalPolys, Has.Count.EqualTo(0));
 
-		Assert.That(tree.LightPoints, Has.Length.EqualTo(3318));
+		Assert.That(tree.LightPoints, Has.Count.EqualTo(3318));
 		Assert.Multiple(() => CheckVec3(tree.LightPoints[0], -99, -99, -99));
 
 		// TODO(lmichaelis): Check the VOb tree
@@ -265,7 +265,7 @@ public class TestWorld
 		var waynet = wld.WayNet;
 		var points = waynet.Points;
 		Assert.That(points, Has.Count.EqualTo(2784));
-		Assert.That(waynet.Edges, Has.Length.EqualTo(3500));
+		Assert.That(waynet.Edges, Has.Count.EqualTo(3500));
 
 		var wp0 = points[0];
 		var wp100 = points[100];

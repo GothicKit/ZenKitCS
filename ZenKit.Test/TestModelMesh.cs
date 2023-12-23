@@ -31,11 +31,11 @@ public class TestModelMesh
 		Assert.That(mdm.AttachmentCount, Is.EqualTo(1));
 
 		Assert.That(attachments.ContainsKey("BIP01 DOOR"), Is.Not.EqualTo(null));
-		Assert.That(attachments["BIP01 DOOR"].Positions, Has.Length.EqualTo(8));
+		Assert.That(attachments["BIP01 DOOR"].Positions, Has.Count.EqualTo(8));
 
 		var fromNative = mdm.GetAttachment("BIP01 DOOR");
 		Assert.That(fromNative, Is.Not.EqualTo(null));
-		Assert.That(fromNative!.Positions, Has.Length.EqualTo(8));
+		Assert.That(fromNative!.Positions, Has.Count.EqualTo(8));
 	}
 
 	[Test]
@@ -47,32 +47,32 @@ public class TestModelMesh
 		Assert.That(meshes, Has.Count.EqualTo(1));
 
 		var rawMesh = meshes[0].Mesh;
-		Assert.That(rawMesh.Positions, Has.Length.EqualTo(115));
-		Assert.That(rawMesh.Normals, Has.Length.EqualTo(115));
+		Assert.That(rawMesh.Positions, Has.Count.EqualTo(115));
+		Assert.That(rawMesh.Normals, Has.Count.EqualTo(115));
 		Assert.That(rawMesh.Materials, Has.Count.EqualTo(1));
 		Assert.That(rawMesh.SubMeshes, Has.Count.EqualTo(1));
 
 		var weights = meshes[0].Weights;
 		Assert.That(weights, Has.Count.EqualTo(115));
-		Assert.That(weights[0], Has.Length.EqualTo(1));
+		Assert.That(weights[0], Has.Count.EqualTo(1));
 		Assert.That(weights[0][0].Weight, Is.EqualTo(1.0f));
 		Assert.Multiple(() => CheckVec3(weights[0][0].Position, -5.49776077f, 35.086731f, -2.64756012f));
 		Assert.That(weights[0][0].NodeIndex, Is.EqualTo(0));
 
-		Assert.That(weights[62], Has.Length.EqualTo(1));
+		Assert.That(weights[62], Has.Count.EqualTo(1));
 		Assert.That(weights[62][0].Weight, Is.EqualTo(1.0f));
 		Assert.Multiple(() => CheckVec3(weights[62][0].Position, 0.260997772f, 18.0412712f, -23.9048882f));
 		Assert.That(weights[62][0].NodeIndex, Is.EqualTo(4));
 
-		Assert.That(weights[114], Has.Length.EqualTo(1));
+		Assert.That(weights[114], Has.Count.EqualTo(1));
 		Assert.That(weights[114][0].Weight, Is.EqualTo(1.0f));
 		Assert.Multiple(() => CheckVec3(weights[114][0].Position, 1.05304337f, 71.0284958f, 1.32049942f));
 		Assert.That(weights[114][0].NodeIndex, Is.EqualTo(0));
 
-		Assert.That(meshes[0].WedgeNormals, Has.Length.EqualTo(0));
+		Assert.That(meshes[0].WedgeNormals, Has.Count.EqualTo(0));
 
 		var nodes = meshes[0].Nodes;
-		Assert.That(nodes, Has.Length.EqualTo(6));
+		Assert.That(nodes, Has.Count.EqualTo(6));
 		Assert.That(nodes[0], Is.EqualTo(0));
 		Assert.That(nodes[1], Is.EqualTo(5));
 		Assert.That(nodes[2], Is.EqualTo(3));
