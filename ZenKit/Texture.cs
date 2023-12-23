@@ -25,24 +25,71 @@ namespace ZenKit
 		Dxt5 = 0xE
 	}
 
-	namespace Materialized
+	public interface ITexture : ICacheable<ITexture>
 	{
-		[Serializable]
-		public struct Texture
+		public TextureFormat Format { get; }
+		public uint Width { get; }
+		public uint Height { get; }
+		public uint WidthRef { get; }
+		public uint HeightRef { get; }
+		public uint MipmapCount { get; }
+		public Color AverageColor { get; }
+		public Color[]? Palette { get; }
+		public List<byte[]> AllMipmapsRgba { get; }
+		public List<byte[]> AllMipmapsRaw { get; }
+
+		public byte[] GetMipmapRaw(ulong level);
+		public byte[] GetMipmapRgba(ulong level);
+		public uint GetWidth(ulong level);
+		public uint GetHeight(ulong level);
+	}
+
+	[Serializable]
+	public struct CachedTexture : ITexture
+	{
+		public TextureFormat Format { get; set; }
+		public uint Width { get; set; }
+		public uint Height { get; set; }
+		public uint WidthRef { get; set; }
+		public uint HeightRef { get; set; }
+		public uint MipmapCount { get; set; }
+		public Color AverageColor { get; set; }
+		public Color[]? Palette { get; set; }
+		public List<byte[]> AllMipmapsRgba { get; set; }
+		public List<byte[]> AllMipmapsRaw { get; set; }
+
+		public ITexture Cache()
 		{
-			public TextureFormat Format;
-			public uint Width;
-			public uint Height;
-			public uint WidthRef;
-			public uint HeightRef;
-			public uint MipmapCount;
-			public Color AverageColor;
-			public Color[]? Palette;
-			public List<byte[]> AllMipmapsRgba;
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+
+		public byte[] GetMipmapRaw(ulong level)
+		{
+			return AllMipmapsRaw[(int)level];
+		}
+
+		public byte[] GetMipmapRgba(ulong level)
+		{
+			return AllMipmapsRaw[(int)level];
+		}
+
+		public uint GetWidth(ulong level)
+		{
+			return Width >> (int)level;
+		}
+
+		public uint GetHeight(ulong level)
+		{
+			return Height >> (int)level;
 		}
 	}
 
-	public class Texture : IMaterializing<Materialized.Texture>
+	public class Texture : ITexture
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -137,9 +184,9 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.Texture Materialize()
+		public ITexture Cache()
 		{
-			return new Materialized.Texture
+			return new CachedTexture
 			{
 				Format = Format,
 				Width = Width,
@@ -149,13 +196,14 @@ namespace ZenKit
 				MipmapCount = MipmapCount,
 				AverageColor = AverageColor,
 				Palette = Palette,
-				AllMipmapsRgba = AllMipmapsRgba
+				AllMipmapsRgba = AllMipmapsRgba,
+				AllMipmapsRaw = AllMipmapsRaw
 			};
 		}
 
-		~Texture()
+		public bool IsCached()
 		{
-			if (_delete) Native.ZkTexture_del(_handle);
+			return false;
 		}
 
 		public byte[] GetMipmapRaw(ulong level)
@@ -178,6 +226,11 @@ namespace ZenKit
 		public uint GetHeight(ulong level)
 		{
 			return Native.ZkTexture_getHeightMipmap(_handle, level);
+		}
+
+		~Texture()
+		{
+			if (_delete) Native.ZkTexture_del(_handle);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -44,37 +45,47 @@ namespace ZenKit
 		public Vector3 Normal;
 	}
 
-	namespace Materialized
+
+	public interface IMultiResolutionSubMesh : ICacheable<IMultiResolutionSubMesh>
 	{
-		[Serializable]
-		public struct MultiResolutionSubMesh
+		IMaterial Material { get; }
+		MeshTriangle[] Triangles { get; }
+		MeshWedge[] Wedges { get; }
+		float[] Colors { get; }
+		ushort[] TrianglePlaneIndices { get; }
+		MeshPlane[] TrianglePlanes { get; }
+		MeshTriangleEdge[] TriangleEdges { get; }
+		MeshEdge[] Edges { get; }
+		float[] EdgeScores { get; }
+		ushort[] WedgeMap { get; }
+	}
+
+	[Serializable]
+	public class CachedMultiResolutionSubMesh : IMultiResolutionSubMesh
+	{
+		public IMaterial Material { get; set; }
+		public MeshTriangle[] Triangles { get; set; }
+		public MeshWedge[] Wedges { get; set; }
+		public float[] Colors { get; set; }
+		public ushort[] TrianglePlaneIndices { get; set; }
+		public MeshPlane[] TrianglePlanes { get; set; }
+		public MeshTriangleEdge[] TriangleEdges { get; set; }
+		public MeshEdge[] Edges { get; set; }
+		public float[] EdgeScores { get; set; }
+		public ushort[] WedgeMap { get; set; }
+
+		public IMultiResolutionSubMesh Cache()
 		{
-			public Material Material;
-			public MeshTriangle[] Triangles;
-			public MeshWedge[] Wedges;
-			public float[] Colors;
-			public ushort[] TrianglePlaneIndices;
-			public MeshPlane[] TrianglePlanes;
-			public MeshTriangleEdge[] TriangleEdges;
-			public MeshEdge[] Edges;
-			public float[] EdgeScores;
-			public ushort[] WedgeMap;
+			return this;
 		}
 
-		[Serializable]
-		public struct MultiResolutionMesh
+		public bool IsCached()
 		{
-			public Vector3[] Positions;
-			public Vector3[] Normals;
-			public List<MultiResolutionSubMesh> SubMeshes;
-			public List<Material> Materials;
-			public bool AlphaTest;
-			public AxisAlignedBoundingBox BoundingBox;
-			public OrientedBoundingBox OrientedBoundingBox;
+			return true;
 		}
 	}
 
-	public class MultiResolutionSubMesh : IMaterializing<Materialized.MultiResolutionSubMesh>
+	public class MultiResolutionSubMesh : IMultiResolutionSubMesh
 	{
 		private readonly UIntPtr _handle;
 
@@ -83,7 +94,7 @@ namespace ZenKit
 			_handle = handle;
 		}
 
-		public Material Material => new Material(Native.ZkSubMesh_getMaterial(_handle));
+		public IMaterial Material => new Material(Native.ZkSubMesh_getMaterial(_handle));
 
 		public MeshTriangle[] Triangles =>
 			Native.ZkSubMesh_getTriangles(_handle, out var count).MarshalAsArray<MeshTriangle>(count);
@@ -109,11 +120,11 @@ namespace ZenKit
 
 		public ushort[] WedgeMap => Native.ZkSubMesh_getWedgeMap(_handle, out var count).MarshalAsArray<ushort>(count);
 
-		public Materialized.MultiResolutionSubMesh Materialize()
+		public IMultiResolutionSubMesh Cache()
 		{
-			return new Materialized.MultiResolutionSubMesh
+			return new CachedMultiResolutionSubMesh
 			{
-				Material = Material.Materialize(),
+				Material = Material.Cache(),
 				Triangles = Triangles,
 				Wedges = Wedges,
 				Colors = Colors,
@@ -125,9 +136,63 @@ namespace ZenKit
 				WedgeMap = WedgeMap
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class MultiResolutionMesh : IMaterializing<Materialized.MultiResolutionMesh>
+	public interface IMultiResolutionMesh : ICacheable<IMultiResolutionMesh>
+	{
+		Vector3[] Positions { get; }
+		Vector3[] Normals { get; }
+		ulong SubMeshCount { get; }
+		List<IMultiResolutionSubMesh> SubMeshes { get; }
+		ulong MaterialCount { get; }
+		List<IMaterial> Materials { get; }
+		bool AlphaTest { get; }
+		AxisAlignedBoundingBox BoundingBox { get; }
+		IOrientedBoundingBox OrientedBoundingBox { get; }
+		IMultiResolutionSubMesh? GetSubMesh(ulong i);
+		IMaterial? GetMaterial(ulong i);
+	}
+
+	[Serializable]
+	public class CachedMultiResolutionMesh : IMultiResolutionMesh
+	{
+		public Vector3[] Positions { get; set; }
+		public Vector3[] Normals { get; set; }
+		public ulong SubMeshCount => (ulong)SubMeshes.LongCount();
+		public List<IMultiResolutionSubMesh> SubMeshes { get; set; }
+		public ulong MaterialCount => (ulong)Materials.LongCount();
+		public List<IMaterial> Materials { get; set; }
+		public bool AlphaTest { get; set; }
+		public AxisAlignedBoundingBox BoundingBox { get; set; }
+		public IOrientedBoundingBox OrientedBoundingBox { get; set; }
+
+		public IMultiResolutionSubMesh? GetSubMesh(ulong i)
+		{
+			return SubMeshes[(int)i];
+		}
+
+		public IMaterial? GetMaterial(ulong i)
+		{
+			return Materials[(int)i];
+		}
+
+		public IMultiResolutionMesh Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class MultiResolutionMesh : IMultiResolutionMesh
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -164,11 +229,11 @@ namespace ZenKit
 
 		public ulong SubMeshCount => Native.ZkMultiResolutionMesh_getSubMeshCount(_handle);
 
-		public List<MultiResolutionSubMesh> SubMeshes
+		public List<IMultiResolutionSubMesh> SubMeshes
 		{
 			get
 			{
-				var meshes = new List<MultiResolutionSubMesh>();
+				var meshes = new List<IMultiResolutionSubMesh>();
 
 				Native.ZkMultiResolutionMesh_enumerateSubMeshes(_handle, (_, mesh) =>
 				{
@@ -182,11 +247,11 @@ namespace ZenKit
 
 		public ulong MaterialCount => Native.ZkMultiResolutionMesh_getMaterialCount(_handle);
 
-		public List<Material> Materials
+		public List<IMaterial> Materials
 		{
 			get
 			{
-				var materials = new List<Material>();
+				var materials = new List<IMaterial>();
 
 				Native.ZkMultiResolutionMesh_enumerateMaterials(_handle, (_, mat) =>
 				{
@@ -201,38 +266,43 @@ namespace ZenKit
 		public bool AlphaTest => Native.ZkMultiResolutionMesh_getAlphaTest(_handle);
 		public AxisAlignedBoundingBox BoundingBox => Native.ZkMultiResolutionMesh_getBbox(_handle);
 
-		public OrientedBoundingBox OrientedBoundingBox =>
+		public IOrientedBoundingBox OrientedBoundingBox =>
 			new OrientedBoundingBox(Native.ZkMultiResolutionMesh_getOrientedBbox(_handle));
 
-		public Materialized.MultiResolutionMesh Materialize()
+		public IMultiResolutionMesh Cache()
 		{
-			return new Materialized.MultiResolutionMesh
+			return new CachedMultiResolutionMesh
 			{
 				Positions = Positions,
 				Normals = Normals,
-				SubMeshes = SubMeshes.ConvertAll(sm => sm.Materialize()),
-				Materials = Materials.ConvertAll(mat => mat.Materialize()),
+				SubMeshes = SubMeshes.ConvertAll(sm => sm.Cache()),
+				Materials = Materials.ConvertAll(mat => mat.Cache()),
 				AlphaTest = AlphaTest,
 				BoundingBox = BoundingBox,
-				OrientedBoundingBox = OrientedBoundingBox.Materialize()
+				OrientedBoundingBox = OrientedBoundingBox.Cache()
 			};
 		}
 
-		~MultiResolutionMesh()
+		public bool IsCached()
 		{
-			if (_delete) Native.ZkMultiResolutionMesh_del(_handle);
+			return false;
 		}
 
-		public MultiResolutionSubMesh? GetSubMesh(ulong i)
+		public IMultiResolutionSubMesh? GetSubMesh(ulong i)
 		{
 			var mesh = Native.ZkMultiResolutionMesh_getSubMesh(_handle, i);
 			return mesh == UIntPtr.Zero ? null : new MultiResolutionSubMesh(mesh);
 		}
 
-		public Material? GetMaterial(ulong i)
+		public IMaterial? GetMaterial(ulong i)
 		{
 			var mesh = Native.ZkMultiResolutionMesh_getMaterial(_handle, i);
 			return mesh == UIntPtr.Zero ? null : new Material(mesh);
+		}
+
+		~MultiResolutionMesh()
+		{
+			if (_delete) Native.ZkMultiResolutionMesh_del(_handle);
 		}
 	}
 }

@@ -31,17 +31,31 @@ namespace ZenKit
 		Invalid = 21
 	}
 
-	namespace Materialized
+	public interface IDaedalusInstance : ICacheable<IDaedalusInstance>
 	{
-		[Serializable]
-		public struct DaedalusInstance
+		public DaedalusInstanceType Type { get; }
+		public uint Index { get; }
+	}
+
+	[Serializable]
+	public class CachedDaedalusInstance : IDaedalusInstance
+	{
+		public DaedalusInstanceType Type { get; set; }
+		public uint Index { get; set; }
+
+		public IDaedalusInstance Cache()
 		{
-			public DaedalusInstanceType Type;
-			public uint Index;
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
 		}
 	}
 
-	public class DaedalusInstance : IMaterializing<Materialized.DaedalusInstance>
+
+	public class DaedalusInstance : IDaedalusInstance
 	{
 		protected DaedalusInstance(UIntPtr handle)
 		{
@@ -53,13 +67,18 @@ namespace ZenKit
 		public DaedalusInstanceType Type => Native.ZkDaedalusInstance_getType(Handle);
 		public uint Index => Native.ZkDaedalusInstance_getIndex(Handle);
 
-		public Materialized.DaedalusInstance Materialize()
+		public IDaedalusInstance Cache()
 		{
-			return new Materialized.DaedalusInstance
+			return new CachedDaedalusInstance
 			{
 				Type = Type,
 				Index = Index
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
 		}
 
 		public static DaedalusInstance? FromNative(UIntPtr handle)

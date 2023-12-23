@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -14,29 +15,62 @@ namespace ZenKit
 		public Quaternion Rotation;
 	}
 
-	namespace Materialized
+	public interface IModelAnimation : ICacheable<IModelAnimation>
 	{
-		[Serializable]
-		public struct ModelAnimation
+		string Name { get; }
+		string Next { get; }
+		uint Layer { get; }
+		uint FrameCount { get; }
+		uint NodeCount { get; }
+		float Fps { get; }
+		float FpsSource { get; }
+		AxisAlignedBoundingBox BoundingBox { get; }
+		uint Checksum { get; }
+		string SourcePath { get; }
+		DateTime? SourceDate { get; }
+		string SourceScript { get; }
+		ulong SampleCount { get; }
+		List<AnimationSample> Samples { get; }
+		uint[] NodeIndices { get; }
+		AnimationSample GetSample(ulong i);
+	}
+
+	[Serializable]
+	public class CachedModelAnimation : IModelAnimation
+	{
+		public string Name { get; set; }
+		public string Next { get; set; }
+		public uint Layer { get; set; }
+		public uint FrameCount { get; set; }
+		public uint NodeCount { get; set; }
+		public float Fps { get; set; }
+		public float FpsSource { get; set; }
+		public AxisAlignedBoundingBox BoundingBox { get; set; }
+		public uint Checksum { get; set; }
+		public string SourcePath { get; set; }
+		public DateTime? SourceDate { get; set; }
+		public string SourceScript { get; set; }
+		public ulong SampleCount => (ulong)Samples.LongCount();
+		public List<AnimationSample> Samples { get; set; }
+		public uint[] NodeIndices { get; set; }
+
+		public AnimationSample GetSample(ulong i)
 		{
-			public string Name;
-			public string Next;
-			public uint Layer;
-			public uint FrameCount;
-			public uint NodeCount;
-			public float Fps;
-			public float FpsSource;
-			public AxisAlignedBoundingBox BoundingBox;
-			public uint Checksum;
-			public string SourcePath;
-			public DateTime? SourceDate;
-			public string SourceScript;
-			public List<AnimationSample> Samples;
-			public uint[] NodeIndices;
+			return Samples[(int)i];
+		}
+
+		public IModelAnimation Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
 		}
 	}
 
-	public class ModelAnimation : IMaterializing<Materialized.ModelAnimation>
+	public class ModelAnimation : IModelAnimation
 	{
 		private readonly UIntPtr _handle;
 
@@ -101,9 +135,9 @@ namespace ZenKit
 		public uint[] NodeIndices =>
 			Native.ZkModelAnimation_getNodeIndices(_handle, out var size).MarshalAsArray<uint>(size);
 
-		public Materialized.ModelAnimation Materialize()
+		public IModelAnimation Cache()
 		{
-			return new Materialized.ModelAnimation
+			return new CachedModelAnimation
 			{
 				Name = Name,
 				Next = Next,
@@ -122,14 +156,19 @@ namespace ZenKit
 			};
 		}
 
-		~ModelAnimation()
+		public bool IsCached()
 		{
-			Native.ZkModelAnimation_del(_handle);
+			return false;
 		}
 
 		public AnimationSample GetSample(ulong i)
 		{
 			return Native.ZkModelAnimation_getSample(_handle, i);
+		}
+
+		~ModelAnimation()
+		{
+			Native.ZkModelAnimation_del(_handle);
 		}
 	}
 }

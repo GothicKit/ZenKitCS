@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -15,51 +16,32 @@ namespace ZenKit
 		public Vector3 Normal;
 	}
 
-	namespace Materialized
+	public interface ILightMap : ICacheable<ILightMap>
 	{
-		[Serializable]
-		public struct LightMap
+		public ITexture Image { get; }
+		public Vector3 Origin { get; }
+		public Tuple<Vector3, Vector3> Normals { get; }
+	}
+
+	[Serializable]
+	public class CachedLightMap : ILightMap
+	{
+		public ITexture Image { get; set; }
+		public Vector3 Origin { get; set; }
+		public Tuple<Vector3, Vector3> Normals { get; set; }
+
+		public ILightMap Cache()
 		{
-			public Texture Image;
-			public Vector3 Origin;
-			public Tuple<Vector3, Vector3> Normals;
+			return this;
 		}
 
-		[Serializable]
-		public struct Polygon
+		public bool IsCached()
 		{
-			public uint MaterialIndex;
-			public int LightMapIndex;
-			public uint[] PositionIndices;
-			public uint[] FeatureIndices;
-			public bool IsPortal;
-			public bool IsOccluder;
-			public bool IsSector;
-			public bool ShouldRelight;
-			public bool IsOutdoor;
-			public bool IsGhostOccluder;
-			public bool IsDynamicallyLit;
-			public bool IsLod;
-			public byte NormalAxis;
-			public short SectorIndex;
-		}
-
-		[Serializable]
-		public struct Mesh
-		{
-			public DateTime? SourceDate;
-			public string Name;
-			public AxisAlignedBoundingBox BoundingBox;
-			public OrientedBoundingBox OrientedBoundingBox;
-			public List<Material> Materials;
-			public Vector3[] Positions;
-			public Vertex[] Features;
-			public List<LightMap> LightMap;
-			public List<Polygon> Polygons;
+			return true;
 		}
 	}
 
-	public class LightMap : IMaterializing<Materialized.LightMap>
+	public class LightMap : ILightMap
 	{
 		private readonly UIntPtr _handle;
 
@@ -68,24 +50,76 @@ namespace ZenKit
 			_handle = handle;
 		}
 
-		public Texture Image => new Texture(Native.ZkLightMap_getImage(_handle));
+		public ITexture Image => new Texture(Native.ZkLightMap_getImage(_handle));
 		public Vector3 Origin => Native.ZkLightMap_getOrigin(_handle);
 
 		public Tuple<Vector3, Vector3> Normals => new Tuple<Vector3, Vector3>(Native.ZkLightMap_getNormal(_handle, 0),
 			Native.ZkLightMap_getNormal(_handle, 1));
 
-		public Materialized.LightMap Materialize()
+		public ILightMap Cache()
 		{
-			return new Materialized.LightMap
+			return new CachedLightMap
 			{
-				Image = Image.Materialize(),
+				Image = Image.Cache(),
 				Origin = Origin,
 				Normals = Normals
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class Polygon : IMaterializing<Materialized.Polygon>
+	public interface IPolygon : ICacheable<IPolygon>
+	{
+		public uint MaterialIndex { get; }
+		public int LightMapIndex { get; }
+		public uint[] PositionIndices { get; }
+		public uint[] FeatureIndices { get; }
+		public bool IsPortal { get; }
+		public bool IsOccluder { get; }
+		public bool IsSector { get; }
+		public bool ShouldRelight { get; }
+		public bool IsOutdoor { get; }
+		public bool IsGhostOccluder { get; }
+		public bool IsDynamicallyLit { get; }
+		public bool IsLod { get; }
+		public byte NormalAxis { get; }
+		public short SectorIndex { get; }
+	}
+
+	[Serializable]
+	public class CachedPolygon : IPolygon
+	{
+		public uint MaterialIndex { get; set; }
+		public int LightMapIndex { get; set; }
+		public uint[] PositionIndices { get; set; }
+		public uint[] FeatureIndices { get; set; }
+		public bool IsPortal { get; set; }
+		public bool IsOccluder { get; set; }
+		public bool IsSector { get; set; }
+		public bool ShouldRelight { get; set; }
+		public bool IsOutdoor { get; set; }
+		public bool IsGhostOccluder { get; set; }
+		public bool IsDynamicallyLit { get; set; }
+		public bool IsLod { get; set; }
+		public byte NormalAxis { get; set; }
+		public short SectorIndex { get; set; }
+
+		public IPolygon Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class Polygon : IPolygon
 	{
 		private readonly UIntPtr _handle;
 
@@ -114,9 +148,9 @@ namespace ZenKit
 		public byte NormalAxis => Native.ZkPolygon_getNormalAxis(_handle);
 		public short SectorIndex => Native.ZkPolygon_getSectorIndex(_handle);
 
-		public Materialized.Polygon Materialize()
+		public IPolygon Cache()
 		{
-			return new Materialized.Polygon
+			return new CachedPolygon
 			{
 				MaterialIndex = MaterialIndex,
 				LightMapIndex = LightMapIndex,
@@ -134,9 +168,80 @@ namespace ZenKit
 				SectorIndex = SectorIndex
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class Mesh : IMaterializing<Materialized.Mesh>
+
+	public interface IMesh : ICacheable<IMesh>
+	{
+		public DateTime? SourceDate { get; }
+		public string Name { get; }
+		public AxisAlignedBoundingBox BoundingBox { get; }
+		public IOrientedBoundingBox OrientedBoundingBox { get; }
+		public List<IMaterial> Materials { get; }
+		public ulong MaterialCount { get; }
+		public Vector3[] Positions { get; }
+		public Vertex[] Features { get; }
+		public List<ILightMap> LightMap { get; }
+		public ulong LightMapCount { get; }
+		public List<IPolygon> Polygons { get; }
+		public ulong PolygonCount { get; }
+
+		public IMaterial GetMaterial(ulong i);
+
+		public ILightMap GetLightMap(ulong i);
+
+		public IPolygon GetPolygon(ulong i);
+	}
+
+
+	[Serializable]
+	public class CachedMesh : IMesh
+	{
+		public DateTime? SourceDate { get; set; }
+		public string Name { get; set; }
+		public AxisAlignedBoundingBox BoundingBox { get; set; }
+		public IOrientedBoundingBox OrientedBoundingBox { get; set; }
+		public List<IMaterial> Materials { get; set; }
+		public ulong MaterialCount => (ulong)Materials.LongCount();
+		public Vector3[] Positions { get; set; }
+		public Vertex[] Features { get; set; }
+		public List<ILightMap> LightMap { get; set; }
+		public ulong LightMapCount => (ulong)LightMap.LongCount();
+		public List<IPolygon> Polygons { get; set; }
+		public ulong PolygonCount => (ulong)Polygons.LongCount();
+
+		public IMesh Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+
+		public IMaterial GetMaterial(ulong i)
+		{
+			return Materials[(int)i];
+		}
+
+		public ILightMap GetLightMap(ulong i)
+		{
+			return LightMap[(int)i];
+		}
+
+		public IPolygon GetPolygon(ulong i)
+		{
+			return Polygons[(int)i];
+		}
+	}
+
+	public class Mesh : IMesh
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -173,16 +278,16 @@ namespace ZenKit
 
 		public AxisAlignedBoundingBox BoundingBox => Native.ZkMesh_getBoundingBox(_handle);
 
-		public OrientedBoundingBox OrientedBoundingBox =>
+		public IOrientedBoundingBox OrientedBoundingBox =>
 			new OrientedBoundingBox(Native.ZkMesh_getOrientedBoundingBox(_handle));
 
 		public ulong MaterialCount => Native.ZkMesh_getMaterialCount(_handle);
 
-		public List<Material> Materials
+		public List<IMaterial> Materials
 		{
 			get
 			{
-				var materials = new List<Material>();
+				var materials = new List<IMaterial>();
 
 				Native.ZkMesh_enumerateMaterials(_handle, (_, material) =>
 				{
@@ -199,11 +304,11 @@ namespace ZenKit
 
 		public ulong LightMapCount => Native.ZkMesh_getLightMapCount(_handle);
 
-		public List<LightMap> LightMap
+		public List<ILightMap> LightMap
 		{
 			get
 			{
-				var lightMaps = new List<LightMap>();
+				var lightMaps = new List<ILightMap>();
 
 				Native.ZkMesh_enumerateLightMaps(_handle, (_, lm) =>
 				{
@@ -217,11 +322,11 @@ namespace ZenKit
 
 		public ulong PolygonCount => Native.ZkMesh_getPolygonCount(_handle);
 
-		public List<Polygon> Polygons
+		public List<IPolygon> Polygons
 		{
 			get
 			{
-				var polygons = new List<Polygon>();
+				var polygons = new List<IPolygon>();
 
 				Native.ZkMesh_enumeratePolygons(_handle, (_, poly) =>
 				{
@@ -233,40 +338,45 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.Mesh Materialize()
+		public IMesh Cache()
 		{
-			return new Materialized.Mesh
+			return new CachedMesh
 			{
 				SourceDate = SourceDate,
 				Name = Name,
 				BoundingBox = BoundingBox,
-				OrientedBoundingBox = OrientedBoundingBox.Materialize(),
-				Materials = Materials.ConvertAll(mat => mat.Materialize()),
+				OrientedBoundingBox = OrientedBoundingBox.Cache(),
+				Materials = Materials.ConvertAll(mat => mat.Cache()),
 				Positions = Positions,
 				Features = Features,
-				LightMap = LightMap.ConvertAll(lm => lm.Materialize()),
-				Polygons = Polygons.ConvertAll(polygon => polygon.Materialize())
+				LightMap = LightMap.ConvertAll(lm => lm.Cache()),
+				Polygons = Polygons.ConvertAll(polygon => polygon.Cache())
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public IMaterial GetMaterial(ulong i)
+		{
+			return new Material(Native.ZkMesh_getMaterial(_handle, i));
+		}
+
+		public ILightMap GetLightMap(ulong i)
+		{
+			return new LightMap(Native.ZkMesh_getLightMap(_handle, i));
+		}
+
+		public IPolygon GetPolygon(ulong i)
+		{
+			return new Polygon(Native.ZkMesh_getPolygon(_handle, i));
 		}
 
 		~Mesh()
 		{
 			if (_delete) Native.ZkMesh_del(_handle);
-		}
-
-		public Material GetMaterial(ulong i)
-		{
-			return new Material(Native.ZkMesh_getMaterial(_handle, i));
-		}
-
-		public LightMap GetLightMap(ulong i)
-		{
-			return new LightMap(Native.ZkMesh_getLightMap(_handle, i));
-		}
-
-		public Polygon GetPolygon(ulong i)
-		{
-			return new Polygon(Native.ZkMesh_getPolygon(_handle, i));
 		}
 	}
 }

@@ -5,18 +5,48 @@ using ZenKit.Util;
 
 namespace ZenKit
 {
-	namespace Materialized
+	public interface IModelMesh : ICacheable<IModelMesh>
 	{
-		[Serializable]
-		public struct ModelMesh
+		ulong MeshCount { get; }
+		List<ISoftSkinMesh> Meshes { get; }
+		ulong AttachmentCount { get; }
+		Dictionary<string, IMultiResolutionMesh> Attachments { get; }
+		uint Checksum { get; }
+		ISoftSkinMesh GetMesh(ulong i);
+		IMultiResolutionMesh? GetAttachment(string name);
+	}
+
+	[Serializable]
+	public class CachedModelMesh : IModelMesh
+	{
+		public ulong MeshCount => (ulong)Meshes.LongCount();
+		public List<ISoftSkinMesh> Meshes { get; set; }
+		public ulong AttachmentCount => (ulong)Attachments.LongCount();
+		public Dictionary<string, IMultiResolutionMesh> Attachments { get; set; }
+		public uint Checksum { get; set; }
+
+		public ISoftSkinMesh GetMesh(ulong i)
 		{
-			public List<SoftSkinMesh> Meshes;
-			public Dictionary<string, MultiResolutionMesh> Attachments;
-			public uint Checksum;
+			return Meshes[(int)i];
+		}
+
+		public IMultiResolutionMesh? GetAttachment(string name)
+		{
+			return Attachments[name];
+		}
+
+		public IModelMesh Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
 		}
 	}
 
-	public class ModelMesh : IMaterializing<Materialized.ModelMesh>
+	public class ModelMesh : IModelMesh
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -47,11 +77,11 @@ namespace ZenKit
 
 		public ulong MeshCount => Native.ZkModelMesh_getMeshCount(_handle);
 
-		public List<SoftSkinMesh> Meshes
+		public List<ISoftSkinMesh> Meshes
 		{
 			get
 			{
-				var meshes = new List<SoftSkinMesh>();
+				var meshes = new List<ISoftSkinMesh>();
 
 				Native.ZkModelMesh_enumerateMeshes(_handle, (_, mesh) =>
 				{
@@ -65,11 +95,11 @@ namespace ZenKit
 
 		public ulong AttachmentCount => Native.ZkModelMesh_getAttachmentCount(_handle);
 
-		public Dictionary<string, MultiResolutionMesh> Attachments
+		public Dictionary<string, IMultiResolutionMesh> Attachments
 		{
 			get
 			{
-				var attachments = new Dictionary<string, MultiResolutionMesh>();
+				var attachments = new Dictionary<string, IMultiResolutionMesh>();
 
 				Native.ZkModelMesh_enumerateAttachments(_handle, (_, namePtr, mesh) =>
 				{
@@ -86,29 +116,34 @@ namespace ZenKit
 
 		public uint Checksum => Native.ZkModelMesh_getChecksum(_handle);
 
-		public Materialized.ModelMesh Materialize()
+		public IModelMesh Cache()
 		{
-			return new Materialized.ModelMesh
+			return new CachedModelMesh
 			{
-				Meshes = Meshes.ConvertAll(mesh => mesh.Materialize()),
-				Attachments = Attachments.ToDictionary(p => p.Key, p => p.Value.Materialize())
+				Meshes = Meshes.ConvertAll(mesh => mesh.Cache()),
+				Attachments = Attachments.ToDictionary(p => p.Key, p => p.Value.Cache())
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public ISoftSkinMesh GetMesh(ulong i)
+		{
+			return new SoftSkinMesh(Native.ZkModelMesh_getMesh(_handle, i));
+		}
+
+		public IMultiResolutionMesh? GetAttachment(string name)
+		{
+			var attachment = Native.ZkModelMesh_getAttachment(_handle, name);
+			return attachment == UIntPtr.Zero ? null : new MultiResolutionMesh(attachment);
 		}
 
 		~ModelMesh()
 		{
 			if (_delete) Native.ZkModelMesh_del(_handle);
-		}
-
-		public SoftSkinMesh GetMesh(ulong i)
-		{
-			return new SoftSkinMesh(Native.ZkModelMesh_getMesh(_handle, i));
-		}
-
-		public MultiResolutionMesh? GetAttachment(string name)
-		{
-			var attachment = Native.ZkModelMesh_getAttachment(_handle, name);
-			return attachment == UIntPtr.Zero ? null : new MultiResolutionMesh(attachment);
 		}
 	}
 }

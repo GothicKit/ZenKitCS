@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -13,28 +14,38 @@ namespace ZenKit
 		public uint A, B;
 	}
 
-	namespace Materialized
+	public interface IWayPoint : ICacheable<IWayPoint>
 	{
-		[Serializable]
-		public struct WayPoint
+		public string Name { get; }
+		public int WaterDepth { get; }
+		public bool UnderWater { get; }
+		public Vector3 Position { get; }
+		public Vector3 Direction { get; }
+		public bool FreePoint { get; }
+	}
+
+	[Serializable]
+	public class CachedWayPoint : IWayPoint
+	{
+		public string Name { get; set; }
+		public int WaterDepth { get; set; }
+		public bool UnderWater { get; set; }
+		public Vector3 Position { get; set; }
+		public Vector3 Direction { get; set; }
+		public bool FreePoint { get; set; }
+
+		public IWayPoint Cache()
 		{
-			public string Name;
-			public int WaterDepth;
-			public bool UnderWater;
-			public Vector3 Position;
-			public Vector3 Direction;
-			public bool FreePoint;
+			return this;
 		}
 
-		[Serializable]
-		public struct WayNet
+		public bool IsCached()
 		{
-			public WayEdge[] Edges;
-			public List<WayPoint> Points;
+			return true;
 		}
 	}
 
-	public class WayPoint : IMaterializing<Materialized.WayPoint>
+	public class WayPoint : IWayPoint
 	{
 		private readonly UIntPtr _handle;
 
@@ -52,9 +63,9 @@ namespace ZenKit
 		public Vector3 Direction => Native.ZkWayPoint_getDirection(_handle);
 		public bool FreePoint => Native.ZkWayPoint_getFreePoint(_handle);
 
-		public Materialized.WayPoint Materialize()
+		public IWayPoint Cache()
 		{
-			return new Materialized.WayPoint
+			return new CachedWayPoint
 			{
 				Name = Name,
 				WaterDepth = WaterDepth,
@@ -64,9 +75,45 @@ namespace ZenKit
 				FreePoint = FreePoint
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class WayNet : IMaterializing<Materialized.WayNet>
+	public interface IWayNet : ICacheable<IWayNet>
+	{
+		public WayEdge[] Edges { get; }
+		public List<IWayPoint> Points { get; }
+		public ulong PointCount { get; }
+		public IWayPoint GetPoint(ulong i);
+	}
+
+	[Serializable]
+	public class CachedWayNet : IWayNet
+	{
+		public WayEdge[] Edges { get; set; }
+		public List<IWayPoint> Points { get; set; }
+		public ulong PointCount => (ulong)Points.LongCount();
+
+		public IWayPoint GetPoint(ulong i)
+		{
+			return Points[(int)i];
+		}
+
+		public IWayNet Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class WayNet : IWayNet
 	{
 		private readonly UIntPtr _handle;
 
@@ -78,11 +125,11 @@ namespace ZenKit
 		public WayEdge[] Edges => Native.ZkWayNet_getEdges(_handle, out var count).MarshalAsArray<WayEdge>(count);
 		public ulong PointCount => Native.ZkWayNet_getPointCount(_handle);
 
-		public List<WayPoint> Points
+		public List<IWayPoint> Points
 		{
 			get
 			{
-				var points = new List<WayPoint>();
+				var points = new List<IWayPoint>();
 
 				Native.ZkWayNet_enumeratePoints(_handle, (_, point) =>
 				{
@@ -94,16 +141,21 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.WayNet Materialize()
+		public IWayNet Cache()
 		{
-			return new Materialized.WayNet
+			return new CachedWayNet
 			{
-				Points = Points.ConvertAll(point => point.Materialize()),
+				Points = Points.ConvertAll(point => point.Cache()),
 				Edges = Edges
 			};
 		}
 
-		public WayPoint GetPoint(ulong i)
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public IWayPoint GetPoint(ulong i)
 		{
 			return new WayPoint(Native.ZkWayNet_getPoint(_handle, i));
 		}

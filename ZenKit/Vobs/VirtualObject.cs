@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Numerics;
 using ZenKit.Util;
 
@@ -94,85 +95,30 @@ namespace ZenKit.Vobs
 		Unknown = 7
 	}
 
-	namespace Materialized
+	public interface IVisual : ICacheable<IVisual>
 	{
-		[Serializable]
-		public class Visual
+		public string Name { get; set; }
+		public VisualType Type { get; }
+	}
+
+	[Serializable]
+	public class CachedVisual : IVisual
+	{
+		public string Name { get; set; }
+		public VisualType Type { get; set; }
+
+		public IVisual Cache()
 		{
-			public string Name;
-			public VisualType Type;
+			return this;
 		}
 
-		[Serializable]
-		public class VisualDecal : Visual
+		public bool IsCached()
 		{
-			public AlphaFunction AlphaFunction;
-			public byte AlphaWeight;
-			public string DecalName;
-			public Vector2 Dimension;
-			public bool IgnoreDaylight;
-			public Vector2 Offset;
-			public float TextureAnimationFps;
-			public bool TwoSided;
-		}
-
-		[Serializable]
-		public class VirtualObject
-		{
-			public bool Ambient;
-			public float AnimationStrength;
-			public AnimationType AnimationType;
-			public int Bias;
-			public AxisAlignedBoundingBox BoundingBox;
-			public bool CdDynamic;
-			public bool CdStatic;
-			public List<VirtualObject> Children;
-			public ShadowType DynamicShadows;
-			public float FarClipScale;
-			public uint Id;
-			public string Name;
-			public bool PhysicsEnabled;
-			public Vector3 Position;
-			public string PresetName;
-			public Quaternion Rotation;
-			public bool ShowVisual;
-			public SpriteAlignment SpriteCameraFacingMode;
-			public bool Static;
-			public VirtualObjectType Type;
-			public Visual? Visual;
-			public string VisualName;
-			public VisualType VisualType;
-
-			internal virtual VirtualObject MaterializeFrom(Vobs.VirtualObject orig)
-			{
-				Type = orig.Type;
-				Id = orig.Id;
-				BoundingBox = orig.BoundingBox;
-				Position = orig.Position;
-				Rotation = orig.Rotation;
-				ShowVisual = orig.ShowVisual;
-				SpriteCameraFacingMode = orig.SpriteCameraFacingMode;
-				CdStatic = orig.CdStatic;
-				CdDynamic = orig.CdDynamic;
-				Static = orig.Static;
-				DynamicShadows = orig.DynamicShadows;
-				PhysicsEnabled = orig.PhysicsEnabled;
-				AnimationType = orig.AnimationType;
-				Bias = orig.Bias;
-				Ambient = orig.Ambient;
-				AnimationStrength = orig.AnimationStrength;
-				FarClipScale = orig.FarClipScale;
-				PresetName = orig.PresetName;
-				Name = orig.Name;
-				Visual = orig.Visual?.Materialize();
-				Children = orig.Children.ConvertAll(child => child.Materialize());
-				return this;
-			}
+			return true;
 		}
 	}
 
-
-	public class Visual : IMaterializing<Materialized.Visual>
+	public class Visual : IVisual
 	{
 		protected readonly UIntPtr Handle;
 
@@ -191,13 +137,18 @@ namespace ZenKit.Vobs
 
 		public VisualType Type => Native.ZkVisual_getType(Handle);
 
-		public Materialized.Visual Materialize()
+		public virtual IVisual Cache()
 		{
-			return new Materialized.Visual
+			return new CachedVisual
 			{
 				Name = Name,
 				Type = Type
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
 		}
 
 		public static Visual? FromNative(UIntPtr ptr)
@@ -260,7 +211,32 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualDecal : Visual
+	public interface IVisualDecal : IVisual
+	{
+		public AlphaFunction AlphaFunction { get; set; }
+		public byte AlphaWeight { get; set; }
+		public string DecalName { get; set; }
+		public Vector2 Dimension { get; set; }
+		public bool IgnoreDaylight { get; set; }
+		public Vector2 Offset { get; set; }
+		public float TextureAnimationFps { get; set; }
+		public bool TwoSided { get; set; }
+	}
+
+	[Serializable]
+	public class CachedVisualDecal : CachedVisual, IVisualDecal
+	{
+		public AlphaFunction AlphaFunction { get; set; }
+		public byte AlphaWeight { get; set; }
+		public string DecalName { get; set; }
+		public Vector2 Dimension { get; set; }
+		public bool IgnoreDaylight { get; set; }
+		public Vector2 Offset { get; set; }
+		public float TextureAnimationFps { get; set; }
+		public bool TwoSided { get; set; }
+	}
+
+	public class VisualDecal : Visual, IVisualDecal
 	{
 		internal VisualDecal(UIntPtr handle) : base(handle)
 		{
@@ -316,9 +292,9 @@ namespace ZenKit.Vobs
 			set => Native.ZkVisualDecal_setIgnoreDaylight(Handle, value);
 		}
 
-		public Materialized.VisualDecal Materialize()
+		public IVisual Cache()
 		{
-			return new Materialized.VisualDecal
+			return new CachedVisualDecal
 			{
 				Name = Name,
 				Type = Type,
@@ -334,7 +310,137 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VirtualObject : IMaterializing<Materialized.VirtualObject>
+	public interface IVirtualObject : ICacheable<IVirtualObject>
+	{
+		public bool Ambient { get; set; }
+		public float AnimationStrength { get; set; }
+		public AnimationType AnimationType { get; set; }
+		public int Bias { get; set; }
+		public AxisAlignedBoundingBox BoundingBox { get; set; }
+		public bool CdDynamic { get; set; }
+		public bool CdStatic { get; set; }
+		public List<IVirtualObject> Children { get; }
+		public ulong ChildCount { get; }
+		public ShadowType DynamicShadows { get; set; }
+		public float FarClipScale { get; set; }
+		public uint Id { get; }
+		public string Name { get; set; }
+		public bool PhysicsEnabled { get; set; }
+		public Vector3 Position { get; set; }
+		public string PresetName { get; set; }
+		public Quaternion Rotation { get; set; }
+		public bool ShowVisual { get; set; }
+		public SpriteAlignment SpriteCameraFacingMode { get; set; }
+		public bool Static { get; set; }
+		public VirtualObjectType Type { get; }
+		public IVisual? Visual { get; }
+
+		public IVirtualObject GetChild(ulong i);
+
+		public T AddChild<T>() where T : IVirtualObject;
+
+		public void RemoveChild(ulong i);
+
+		public void RemoveChildren(Predicate<IVirtualObject> pred);
+
+		public void ResetVisual();
+		public T ResetVisual<T>() where T : IVisual;
+	}
+
+
+	[Serializable]
+	public class CachedVirtualObject : IVirtualObject
+	{
+		public bool Ambient { get; set; }
+		public float AnimationStrength { get; set; }
+		public AnimationType AnimationType { get; set; }
+		public int Bias { get; set; }
+		public AxisAlignedBoundingBox BoundingBox { get; set; }
+		public bool CdDynamic { get; set; }
+		public bool CdStatic { get; set; }
+		public List<IVirtualObject> Children { get; set; }
+		public ulong ChildCount => (ulong)Children.LongCount();
+		public ShadowType DynamicShadows { get; set; }
+		public float FarClipScale { get; set; }
+		public uint Id { get; set; }
+		public string Name { get; set; }
+		public bool PhysicsEnabled { get; set; }
+		public Vector3 Position { get; set; }
+		public string PresetName { get; set; }
+		public Quaternion Rotation { get; set; }
+		public bool ShowVisual { get; set; }
+		public SpriteAlignment SpriteCameraFacingMode { get; set; }
+		public bool Static { get; set; }
+		public VirtualObjectType Type { get; set; }
+		public IVisual? Visual { get; set; }
+
+		public IVirtualObject Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+
+		public IVirtualObject GetChild(ulong i)
+		{
+			return Children[(int)i];
+		}
+
+		public T AddChild<T>() where T : IVirtualObject
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RemoveChild(ulong i)
+		{
+			Children.RemoveAt((int)i);
+		}
+
+		public void RemoveChildren(Predicate<IVirtualObject> pred)
+		{
+			Children.RemoveAll(pred);
+		}
+
+		public void ResetVisual()
+		{
+		}
+
+		public T ResetVisual<T>() where T : IVisual
+		{
+			throw new NotImplementedException();
+		}
+
+		internal virtual CachedVirtualObject CacheFrom(IVirtualObject orig)
+		{
+			Type = orig.Type;
+			Id = orig.Id;
+			BoundingBox = orig.BoundingBox;
+			Position = orig.Position;
+			Rotation = orig.Rotation;
+			ShowVisual = orig.ShowVisual;
+			SpriteCameraFacingMode = orig.SpriteCameraFacingMode;
+			CdStatic = orig.CdStatic;
+			CdDynamic = orig.CdDynamic;
+			Static = orig.Static;
+			DynamicShadows = orig.DynamicShadows;
+			PhysicsEnabled = orig.PhysicsEnabled;
+			AnimationType = orig.AnimationType;
+			Bias = orig.Bias;
+			Ambient = orig.Ambient;
+			AnimationStrength = orig.AnimationStrength;
+			FarClipScale = orig.FarClipScale;
+			PresetName = orig.PresetName;
+			Name = orig.Name;
+			Visual = orig.Visual?.Cache();
+			Children = orig.Children.ConvertAll(child => child.Cache());
+			return this;
+		}
+	}
+
+	public class VirtualObject : IVirtualObject
 	{
 		private readonly bool _delete;
 		protected readonly UIntPtr Handle;
@@ -470,22 +576,22 @@ namespace ZenKit.Vobs
 		}
 
 
-		public Visual? Visual
+		public IVisual? Visual
 		{
 			get
 			{
 				var val = Native.ZkVirtualObject_getVisual(Handle);
-				return Visual.FromNative(val);
+				return Vobs.Visual.FromNative(val);
 			}
 		}
 
 		public ulong ChildCount => Native.ZkVirtualObject_getChildCount(Handle);
 
-		public List<VirtualObject> Children
+		public List<IVirtualObject> Children
 		{
 			get
 			{
-				var children = new List<VirtualObject>();
+				var children = new List<IVirtualObject>();
 
 				Native.ZkVirtualObject_enumerateChildren(Handle, (_, vob) =>
 				{
@@ -497,27 +603,22 @@ namespace ZenKit.Vobs
 			}
 		}
 
-		public virtual Materialized.VirtualObject Materialize()
+		public virtual IVirtualObject Cache()
 		{
-			return new Materialized.VirtualObject().MaterializeFrom(this);
+			return new CachedVirtualObject().CacheFrom(this);
 		}
 
-		protected virtual void Delete()
+		public bool IsCached()
 		{
-			Native.ZkVirtualObject_del(Handle);
+			return false;
 		}
 
-		~VirtualObject()
-		{
-			if (_delete) Delete();
-		}
-
-		public VirtualObject GetChild(ulong i)
+		public IVirtualObject GetChild(ulong i)
 		{
 			return FromNative(Native.ZkVirtualObject_getChild(Handle, i));
 		}
 
-		public T AddChild<T>()
+		public T AddChild<T>() where T : IVirtualObject
 		{
 			VirtualObjectType type;
 			if (typeof(T) == typeof(VirtualObject)) type = VirtualObjectType.zCVob;
@@ -571,7 +672,7 @@ namespace ZenKit.Vobs
 			Native.ZkVirtualObject_removeChild(Handle, i);
 		}
 
-		public void RemoveChildren(Predicate<VirtualObject> pred)
+		public void RemoveChildren(Predicate<IVirtualObject> pred)
 		{
 			Native.ZkVirtualObject_removeChildren(Handle, (_, vob) => pred(FromNative(vob)), UIntPtr.Zero);
 		}
@@ -581,7 +682,7 @@ namespace ZenKit.Vobs
 			Native.ZkVirtualObject_setVisual(Handle, VisualType.Unknown);
 		}
 
-		public T ResetVisual<T>()
+		public T ResetVisual<T>() where T : IVisual
 		{
 			VisualType type;
 			if (typeof(T) == typeof(VisualCamera)) type = VisualType.Camera;
@@ -593,7 +694,17 @@ namespace ZenKit.Vobs
 			else if (typeof(T) == typeof(VisualDecal)) type = VisualType.ParticleEffect;
 			else throw new NotSupportedException("Only Visuals are supported");
 
-			return (T)(object)Visual.FromNative(Native.ZkVirtualObject_setVisual(Handle, type))!;
+			return (T)(object)Vobs.Visual.FromNative(Native.ZkVirtualObject_setVisual(Handle, type))!;
+		}
+
+		protected virtual void Delete()
+		{
+			Native.ZkVirtualObject_del(Handle);
+		}
+
+		~VirtualObject()
+		{
+			if (_delete) Delete();
 		}
 
 		public static VirtualObject FromNative(UIntPtr ptr)

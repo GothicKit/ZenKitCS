@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -26,31 +27,32 @@ namespace ZenKit
 		public int ParentIndex;
 	}
 
-	namespace Materialized
+	public interface IBspSector : ICacheable<IBspSector>
 	{
-		[Serializable]
-		public struct BspSector
+		public string Name { get; }
+		public uint[] NodeIndices { get; }
+		public uint[] PortalPolygonIndices { get; }
+	}
+
+	[Serializable]
+	public class CachedBspSector : IBspSector
+	{
+		public string Name { get; set; }
+		public uint[] NodeIndices { get; set; }
+		public uint[] PortalPolygonIndices { get; set; }
+
+		public IBspSector Cache()
 		{
-			public string Name;
-			public uint[] NodeIndices;
-			public uint[] PortalPolygonIndices;
+			return this;
 		}
 
-		[Serializable]
-		public struct BspTree
+		public bool IsCached()
 		{
-			public BspTreeType Type;
-			public uint[] PolygonIndices;
-			public uint[] LeafPolygonIndices;
-			public uint[] PortalPolygonIndices;
-			public Vector3[] LightPoints;
-			public ulong[] LeafNodeIndices;
-			public BspNode[] Nodes;
-			public List<BspSector> Sectors;
+			return true;
 		}
 	}
 
-	public class BspSector : IMaterializing<Materialized.BspSector>
+	public class BspSector : IBspSector
 	{
 		private readonly UIntPtr _handle;
 
@@ -73,18 +75,66 @@ namespace ZenKit
 		///     from the underlying native implementation.
 		/// </summary>
 		/// <returns>This native object in a pure C# representation.</returns>
-		public Materialized.BspSector Materialize()
+		public IBspSector Cache()
 		{
-			return new Materialized.BspSector
+			return new CachedBspSector
 			{
 				Name = Name,
 				NodeIndices = NodeIndices,
 				PortalPolygonIndices = PortalPolygonIndices
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class BspTree : IMaterializing<Materialized.BspTree>
+	public interface IBspTree : ICacheable<IBspTree>
+	{
+		public BspTreeType Type { get; }
+		public uint[] PolygonIndices { get; }
+		public uint[] LeafPolygonIndices { get; }
+		public uint[] PortalPolygonIndices { get; }
+		public Vector3[] LightPoints { get; }
+		public ulong[] LeafNodeIndices { get; }
+		public BspNode[] Nodes { get; }
+		public List<IBspSector> Sectors { get; }
+
+		public ulong SectorCount { get; }
+
+		public IBspSector GetSector(ulong i)
+		{
+			return Sectors[(int)i];
+		}
+	}
+
+	[Serializable]
+	public class CachedBspTree : IBspTree
+	{
+		public BspTreeType Type { get; set; }
+		public uint[] PolygonIndices { get; set; }
+		public uint[] LeafPolygonIndices { get; set; }
+		public uint[] PortalPolygonIndices { get; set; }
+		public Vector3[] LightPoints { get; set; }
+		public ulong[] LeafNodeIndices { get; set; }
+		public BspNode[] Nodes { get; set; }
+		public List<IBspSector> Sectors { get; set; }
+		public ulong SectorCount => (ulong)Sectors.LongCount();
+
+		public IBspTree Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class BspTree : IBspTree
 	{
 		private readonly UIntPtr _handle;
 
@@ -113,11 +163,11 @@ namespace ZenKit
 		public BspNode[] Nodes => Native.ZkBspTree_getNodes(_handle, out var count).MarshalAsArray<BspNode>(count);
 		public ulong SectorCount => Native.ZkBspTree_getSectorCount(_handle);
 
-		public List<BspSector> Sectors
+		public List<IBspSector> Sectors
 		{
 			get
 			{
-				var sectors = new List<BspSector>();
+				var sectors = new List<IBspSector>();
 
 				Native.ZkBspTree_enumerateSectors(_handle, (_, sector) =>
 				{
@@ -134,9 +184,9 @@ namespace ZenKit
 		///     from the underlying native implementation.
 		/// </summary>
 		/// <returns>This native object in a pure C# representation.</returns>
-		public Materialized.BspTree Materialize()
+		public IBspTree Cache()
 		{
-			return new Materialized.BspTree
+			return new CachedBspTree
 			{
 				Type = Type,
 				PolygonIndices = PolygonIndices,
@@ -145,8 +195,13 @@ namespace ZenKit
 				LightPoints = LightPoints,
 				LeafNodeIndices = LeafNodeIndices,
 				Nodes = Nodes,
-				Sectors = Sectors.ConvertAll(sector => sector.Materialize())
+				Sectors = Sectors.ConvertAll(sector => sector.Cache())
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
 		}
 
 		public BspSector GetSector(ulong i)

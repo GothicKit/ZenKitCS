@@ -3,20 +3,32 @@ using ZenKit.Util;
 
 namespace ZenKit
 {
-	namespace Materialized
+	public interface IModel : ICacheable<IModel>
 	{
-		[Serializable]
-		public struct Model
+		IModelHierarchy Hierarchy { get; }
+		IModelMesh Mesh { get; }
+	}
+
+	[Serializable]
+	public class CachedModel : IModel
+	{
+		public IModelHierarchy Hierarchy { get; set; }
+		public IModelMesh Mesh { get; set; }
+
+		public IModel Cache()
 		{
-			public ModelHierarchy Hierarchy;
-			public ModelMesh Mesh;
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
 		}
 	}
 
-	public class Model : IMaterializing<Materialized.Model>
+	public class Model : IModel
 	{
 		private readonly UIntPtr _handle;
-
 
 		public Model(string path)
 		{
@@ -36,16 +48,21 @@ namespace ZenKit
 			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load model");
 		}
 
-		public ModelHierarchy Hierarchy => new ModelHierarchy(Native.ZkModel_getHierarchy(_handle));
-		public ModelMesh Mesh => new ModelMesh(Native.ZkModel_getMesh(_handle));
+		public IModelHierarchy Hierarchy => new ModelHierarchy(Native.ZkModel_getHierarchy(_handle));
+		public IModelMesh Mesh => new ModelMesh(Native.ZkModel_getMesh(_handle));
 
-		public Materialized.Model Materialize()
+		public IModel Cache()
 		{
-			return new Materialized.Model
+			return new CachedModel
 			{
-				Hierarchy = Hierarchy.Materialize(),
-				Mesh = Mesh.Materialize()
+				Hierarchy = Hierarchy.Cache(),
+				Mesh = Mesh.Cache()
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
 		}
 
 		~Model()

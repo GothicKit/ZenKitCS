@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -15,18 +16,41 @@ namespace ZenKit
 		public Vector2 bottomRight;
 	}
 
-	namespace Materialized
+	public interface IFont : ICacheable<IFont>
 	{
-		[Serializable]
-		public struct Font
+		public string Name { get; }
+		public uint Height { get; }
+		public List<FontGlyph> Glyphs { get; }
+		public ulong GlyphCount { get; }
+
+		public FontGlyph GetGlyph(ulong index);
+	}
+
+	[Serializable]
+	public class CachedFont : IFont
+	{
+		public string Name { get; set; }
+		public uint Height { get; set; }
+		public List<FontGlyph> Glyphs { get; set; }
+		public ulong GlyphCount => (ulong)Glyphs.LongCount();
+
+		public IFont Cache()
 		{
-			public string Name;
-			public uint Height;
-			public List<FontGlyph> Glyphs;
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+
+		public FontGlyph GetGlyph(ulong index)
+		{
+			return Glyphs[(int)index];
 		}
 	}
 
-	public class Font : IMaterializing<Materialized.Font>
+	public class Font : IFont
 	{
 		private readonly UIntPtr _handle;
 
@@ -71,9 +95,9 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.Font Materialize()
+		public IFont Cache()
 		{
-			return new Materialized.Font
+			return new CachedFont
 			{
 				Name = Name,
 				Height = Height,
@@ -81,14 +105,19 @@ namespace ZenKit
 			};
 		}
 
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public FontGlyph GetGlyph(ulong index)
+		{
+			return Native.ZkFont_getGlyph(_handle, index);
+		}
+
 		~Font()
 		{
 			Native.ZkFont_del(_handle);
-		}
-
-		public FontGlyph GetGlyph(uint index)
-		{
-			return Native.ZkFont_getGlyph(_handle, index);
 		}
 	}
 }

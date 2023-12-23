@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -14,22 +15,54 @@ namespace ZenKit
 		public Vector3 Max;
 	}
 
-	namespace Materialized
+	public interface IOrientedBoundingBox : ICacheable<IOrientedBoundingBox>
 	{
-		[Serializable]
-		public struct OrientedBoundingBox
+		public Vector3 Center { get; }
+		public Tuple<Vector3, Vector3, Vector3> Axes { get; }
+		public Vector3 HalfWidth { get; }
+		public List<IOrientedBoundingBox> Children { get; }
+		public ulong ChildCount { get; }
+
+		public IOrientedBoundingBox GetChild(ulong i);
+
+		public AxisAlignedBoundingBox ToAabb();
+	}
+
+	[Serializable]
+	public class CachedOrientedBoundingBox : IOrientedBoundingBox
+	{
+		public Vector3 Center { get; set; }
+		public Tuple<Vector3, Vector3, Vector3> Axes { get; set; }
+		public Vector3 HalfWidth { get; set; }
+		public List<IOrientedBoundingBox> Children { get; set; }
+
+		public ulong ChildCount => (ulong)Children.LongCount();
+
+		public IOrientedBoundingBox Cache()
 		{
-			public Vector3 Center;
-			public Tuple<Vector3, Vector3, Vector3> Axes;
-			public Vector3 HalfWidth;
-			public List<OrientedBoundingBox> Children;
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+
+		public IOrientedBoundingBox GetChild(ulong i)
+		{
+			return Children[(int)i];
+		}
+
+		public AxisAlignedBoundingBox ToAabb()
+		{
+			throw new NotImplementedException();
 		}
 	}
 
 	/// <summary>
 	///     The interface to native oriented bounding boxes.
 	/// </summary>
-	public class OrientedBoundingBox : IMaterializing<Materialized.OrientedBoundingBox>
+	public class OrientedBoundingBox : IOrientedBoundingBox
 	{
 		private readonly UIntPtr _handle;
 
@@ -49,11 +82,11 @@ namespace ZenKit
 		public Vector3 HalfWidth => Native.ZkOrientedBoundingBox_getHalfWidth(_handle);
 		public ulong ChildCount => Native.ZkOrientedBoundingBox_getChildCount(_handle);
 
-		public List<OrientedBoundingBox> Children
+		public List<IOrientedBoundingBox> Children
 		{
 			get
 			{
-				var children = new List<OrientedBoundingBox>();
+				var children = new List<IOrientedBoundingBox>();
 
 				Native.ZkOrientedBoundingBox_enumerateChildren(_handle, (_, box) =>
 				{
@@ -70,18 +103,23 @@ namespace ZenKit
 		///     from the underlying native implementation.
 		/// </summary>
 		/// <returns>This native object in a pure C# representation.</returns>
-		public Materialized.OrientedBoundingBox Materialize()
+		public IOrientedBoundingBox Cache()
 		{
-			return new Materialized.OrientedBoundingBox
+			return new CachedOrientedBoundingBox
 			{
 				Center = Center,
 				HalfWidth = HalfWidth,
 				Axes = Axes,
-				Children = Children.ConvertAll(obb => obb.Materialize())
+				Children = Children.ConvertAll(obb => obb.Cache())
 			};
 		}
 
-		public OrientedBoundingBox GetChild(ulong i)
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public IOrientedBoundingBox GetChild(ulong i)
 		{
 			var handle = Native.ZkOrientedBoundingBox_getChild(_handle, i);
 			if (handle == UIntPtr.Zero) throw new Exception("Failed to load oriented bounding box child");

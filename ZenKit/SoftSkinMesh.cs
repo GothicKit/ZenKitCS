@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -23,20 +24,50 @@ namespace ZenKit
 		public byte NodeIndex;
 	}
 
-	namespace Materialized
+	public interface ISoftSkinMesh : ICacheable<ISoftSkinMesh>
 	{
-		[Serializable]
-		public struct SoftSkinMesh
+		ulong NodeCount { get; }
+		IMultiResolutionMesh Mesh { get; }
+		SoftSkinWedgeNormal[] WedgeNormals { get; }
+		int[] Nodes { get; }
+		List<IOrientedBoundingBox> BoundingBoxes { get; }
+		List<SoftSkinWeightEntry[]> Weights { get; }
+		IOrientedBoundingBox GetBoundingBox(ulong node);
+		SoftSkinWeightEntry[] GetWeights(ulong node);
+	}
+
+	[Serializable]
+	public class CachedSoftSkinMesh : ISoftSkinMesh
+	{
+		public ulong NodeCount => (ulong)Nodes.LongCount();
+		public IMultiResolutionMesh Mesh { get; set; }
+		public SoftSkinWedgeNormal[] WedgeNormals { get; set; }
+		public int[] Nodes { get; set; }
+		public List<IOrientedBoundingBox> BoundingBoxes { get; set; }
+		public List<SoftSkinWeightEntry[]> Weights { get; set; }
+
+		public IOrientedBoundingBox GetBoundingBox(ulong node)
 		{
-			public MultiResolutionMesh Mesh;
-			public SoftSkinWedgeNormal[] WedgeNormals;
-			public int[] Nodes;
-			public List<OrientedBoundingBox> BoundingBoxes;
-			public List<SoftSkinWeightEntry[]> Weights;
+			return BoundingBoxes[(int)node];
+		}
+
+		public SoftSkinWeightEntry[] GetWeights(ulong node)
+		{
+			return Weights[(int)node];
+		}
+
+		public ISoftSkinMesh Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
 		}
 	}
 
-	public class SoftSkinMesh : IMaterializing<Materialized.SoftSkinMesh>
+	public class SoftSkinMesh : ISoftSkinMesh
 	{
 		private readonly UIntPtr _handle;
 
@@ -46,18 +77,18 @@ namespace ZenKit
 		}
 
 		public ulong NodeCount => Native.ZkSoftSkinMesh_getNodeCount(_handle);
-		public MultiResolutionMesh Mesh => new MultiResolutionMesh(Native.ZkSoftSkinMesh_getMesh(_handle));
+		public IMultiResolutionMesh Mesh => new MultiResolutionMesh(Native.ZkSoftSkinMesh_getMesh(_handle));
 
 		public SoftSkinWedgeNormal[] WedgeNormals => Native.ZkSoftSkinMesh_getWedgeNormals(_handle, out var count)
 			.MarshalAsArray<SoftSkinWedgeNormal>(count);
 
 		public int[] Nodes => Native.ZkSoftSkinMesh_getNodes(_handle, out var count).MarshalAsArray<int>(count);
 
-		public List<OrientedBoundingBox> BoundingBoxes
+		public List<IOrientedBoundingBox> BoundingBoxes
 		{
 			get
 			{
-				var bboxes = new List<OrientedBoundingBox>();
+				var bboxes = new List<IOrientedBoundingBox>();
 
 				Native.ZkSoftSkinMesh_enumerateBoundingBoxes(_handle, (_, box) =>
 				{
@@ -85,19 +116,24 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.SoftSkinMesh Materialize()
+		public ISoftSkinMesh Cache()
 		{
-			return new Materialized.SoftSkinMesh
+			return new CachedSoftSkinMesh
 			{
-				Mesh = Mesh.Materialize(),
+				Mesh = Mesh.Cache(),
 				WedgeNormals = WedgeNormals,
 				Nodes = Nodes,
-				BoundingBoxes = BoundingBoxes.ConvertAll(obb => obb.Materialize()),
+				BoundingBoxes = BoundingBoxes.ConvertAll(obb => obb.Cache()),
 				Weights = Weights
 			};
 		}
 
-		public OrientedBoundingBox GetBoundingBox(ulong node)
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public IOrientedBoundingBox GetBoundingBox(ulong node)
 		{
 			return new OrientedBoundingBox(Native.ZkSoftSkinMesh_getBbox(_handle, node));
 		}

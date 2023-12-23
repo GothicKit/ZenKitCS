@@ -1,34 +1,36 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ZenKit.Util;
 
 namespace ZenKit
 {
-	namespace Materialized
+	public interface ICutsceneMessage : ICacheable<ICutsceneMessage>
 	{
-		[Serializable]
-		public struct CutsceneMessage
+		public uint Type { get; }
+		public string Text { get; }
+		public string Name { get; }
+	}
+
+	[Serializable]
+	public class CachedCutsceneMessage : ICutsceneMessage
+	{
+		public uint Type { get; set; }
+		public string Text { get; set; }
+		public string Name { get; set; }
+
+		public ICutsceneMessage Cache()
 		{
-			public uint Type;
-			public string Text;
-			public string Name;
+			return this;
 		}
 
-		[Serializable]
-		public struct CutsceneBlock
+		public bool IsCached()
 		{
-			public string Name;
-			public CutsceneMessage Message;
-		}
-
-		[Serializable]
-		public struct CutsceneLibrary
-		{
-			public List<CutsceneBlock> Blocks;
+			return true;
 		}
 	}
 
-	public class CutsceneMessage : IMaterializing<Materialized.CutsceneMessage>
+	public class CutsceneMessage : ICutsceneMessage
 	{
 		private readonly UIntPtr _handle;
 
@@ -45,18 +47,47 @@ namespace ZenKit
 		public string Name => Native.ZkCutsceneMessage_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to get cutscene message name");
 
-		public Materialized.CutsceneMessage Materialize()
+		public ICutsceneMessage Cache()
 		{
-			return new Materialized.CutsceneMessage
+			return new CachedCutsceneMessage
 			{
 				Type = Type,
 				Text = Text,
 				Name = Name
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class CutsceneBlock : IMaterializing<Materialized.CutsceneBlock>
+
+	public interface ICutsceneBlock : ICacheable<ICutsceneBlock>
+	{
+		public string Name { get; }
+		public ICutsceneMessage Message { get; }
+	}
+
+	[Serializable]
+	public class CachedCutsceneBlock : ICutsceneBlock
+	{
+		public string Name { get; set; }
+		public ICutsceneMessage Message { get; set; }
+
+		public ICutsceneBlock Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class CutsceneBlock : ICutsceneBlock
 	{
 		private readonly UIntPtr _handle;
 
@@ -68,7 +99,7 @@ namespace ZenKit
 		public string Name => Native.ZkCutsceneBlock_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to get cutscene block name");
 
-		public CutsceneMessage Message
+		public ICutsceneMessage Message
 		{
 			get
 			{
@@ -79,17 +110,49 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.CutsceneBlock Materialize()
+		public ICutsceneBlock Cache()
 		{
-			return new Materialized.CutsceneBlock
+			return new CachedCutsceneBlock
 			{
 				Name = Name,
-				Message = Message.Materialize()
+				Message = Message.Cache()
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
 		}
 	}
 
-	public class CutsceneLibrary : IMaterializing<Materialized.CutsceneLibrary>
+	public interface ICutsceneLibrary : ICacheable<ICutsceneLibrary>
+	{
+		public List<ICutsceneBlock> Blocks { get; }
+		public ICutsceneBlock? GetBlock(string name);
+	}
+
+	[Serializable]
+	public struct CachedCutsceneLibrary : ICutsceneLibrary
+	{
+		public List<ICutsceneBlock> Blocks { get; set; }
+
+		public ICutsceneBlock? GetBlock(string name)
+		{
+			return Blocks.FirstOrDefault(block => block.Name == name);
+		}
+
+		public ICutsceneLibrary Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class CutsceneLibrary : ICutsceneLibrary
 	{
 		private readonly UIntPtr _handle;
 
@@ -111,11 +174,11 @@ namespace ZenKit
 			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load cutscene library");
 		}
 
-		public List<CutsceneBlock> Blocks
+		public List<ICutsceneBlock> Blocks
 		{
 			get
 			{
-				var blocks = new List<CutsceneBlock>();
+				var blocks = new List<ICutsceneBlock>();
 
 				Native.ZkCutsceneLibrary_enumerateBlocks(_handle, (_, block) =>
 				{
@@ -127,23 +190,28 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.CutsceneLibrary Materialize()
+		public ICutsceneLibrary Cache()
 		{
-			return new Materialized.CutsceneLibrary
+			return new CachedCutsceneLibrary
 			{
-				Blocks = Blocks.ConvertAll(block => block.Materialize())
+				Blocks = Blocks.ConvertAll(block => block.Cache())
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public ICutsceneBlock? GetBlock(string name)
+		{
+			var block = Native.ZkCutsceneLibrary_getBlock(_handle, name);
+			return block == UIntPtr.Zero ? null : new CutsceneBlock(block);
 		}
 
 		~CutsceneLibrary()
 		{
 			Native.ZkCutsceneLibrary_del(_handle);
-		}
-
-		public CutsceneBlock? GetBlock(string name)
-		{
-			var block = Native.ZkCutsceneLibrary_getBlock(_handle, name);
-			return block == UIntPtr.Zero ? null : new CutsceneBlock(block);
 		}
 	}
 }

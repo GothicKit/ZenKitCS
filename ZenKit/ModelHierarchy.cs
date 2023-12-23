@@ -1,38 +1,42 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
 
 namespace ZenKit
 {
-	namespace Materialized
+	public interface IModelHierarchyNode : ICacheable<IModelHierarchyNode>
 	{
-		[Serializable]
-		public struct ModelHierarchyNode
+		short ParentIndex { get; }
+		string Name { get; }
+		Matrix4x4 Transform { get; }
+	}
+
+	[Serializable]
+	public class CachedModelHierarchyNode : IModelHierarchyNode
+	{
+		public short ParentIndex { get; set; }
+		public string Name { get; set; }
+		public Matrix4x4 Transform { get; set; }
+
+		public IModelHierarchyNode Cache()
 		{
-			public short ParentIndex;
-			public string Name;
-			public Matrix4x4 Transform;
+			return this;
 		}
 
-		[Serializable]
-		public struct ModelHierarchy
+		public bool IsCached()
 		{
-			public AxisAlignedBoundingBox BoundingBox;
-			public AxisAlignedBoundingBox CollisionBoundingBox;
-			public Vector3 RootTranslation;
-			public uint Checksum;
-			public DateTime? SourceDate;
-			public string SourcePath;
-			public List<ModelHierarchyNode> Nodes;
+			return true;
 		}
 	}
 
+
 	[StructLayout(LayoutKind.Sequential)]
-	public struct ModelHierarchyNode : IMaterializing<Materialized.ModelHierarchyNode>
+	public struct ModelHierarchyNode : IModelHierarchyNode
 	{
-		public short ParentIndex;
+		public short ParentIndex { get; }
 		private IntPtr _name;
 		private Native.Structs.ZkMat4x4 _transform;
 
@@ -41,18 +45,64 @@ namespace ZenKit
 
 		public Matrix4x4 Transform => _transform.ToCSharp();
 
-		public Materialized.ModelHierarchyNode Materialize()
+		public IModelHierarchyNode Cache()
 		{
-			return new Materialized.ModelHierarchyNode
+			return new CachedModelHierarchyNode
 			{
 				ParentIndex = ParentIndex,
 				Name = Name,
 				Transform = Transform
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class ModelHierarchy : IMaterializing<Materialized.ModelHierarchy>
+	public interface IModelHierarchy : ICacheable<IModelHierarchy>
+	{
+		ulong NodeCount { get; }
+		AxisAlignedBoundingBox BoundingBox { get; }
+		AxisAlignedBoundingBox CollisionBoundingBox { get; }
+		Vector3 RootTranslation { get; }
+		uint Checksum { get; }
+		DateTime? SourceDate { get; }
+		string SourcePath { get; }
+		List<IModelHierarchyNode> Nodes { get; }
+		IModelHierarchyNode GetNode(ulong i);
+	}
+
+	[Serializable]
+	public class CachedModelHierarchy : IModelHierarchy
+	{
+		public ulong NodeCount => (ulong)Nodes.LongCount();
+		public AxisAlignedBoundingBox BoundingBox { get; set; }
+		public AxisAlignedBoundingBox CollisionBoundingBox { get; set; }
+		public Vector3 RootTranslation { get; set; }
+		public uint Checksum { get; set; }
+		public DateTime? SourceDate { get; set; }
+		public string SourcePath { get; set; }
+		public List<IModelHierarchyNode> Nodes { get; set; }
+
+		public IModelHierarchyNode GetNode(ulong i)
+		{
+			return Nodes[(int)i];
+		}
+
+		public IModelHierarchy Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class ModelHierarchy : IModelHierarchy
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -92,11 +142,11 @@ namespace ZenKit
 		public string SourcePath => Native.ZkModelHierarchy_getSourcePath(_handle).MarshalAsString() ??
 		                            throw new Exception("Failed to load model hierarchy source path");
 
-		public List<ModelHierarchyNode> Nodes
+		public List<IModelHierarchyNode> Nodes
 		{
 			get
 			{
-				var nodes = new List<ModelHierarchyNode>();
+				var nodes = new List<IModelHierarchyNode>();
 
 				Native.ZkModelHierarchy_enumerateNodes(_handle, (_, node) =>
 				{
@@ -108,9 +158,9 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.ModelHierarchy Materialize()
+		public IModelHierarchy Cache()
 		{
-			return new Materialized.ModelHierarchy
+			return new CachedModelHierarchy
 			{
 				BoundingBox = BoundingBox,
 				CollisionBoundingBox = CollisionBoundingBox,
@@ -118,18 +168,23 @@ namespace ZenKit
 				Checksum = Checksum,
 				SourceDate = SourceDate,
 				SourcePath = SourcePath,
-				Nodes = Nodes.ConvertAll(node => node.Materialize())
+				Nodes = Nodes.ConvertAll(node => node.Cache())
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public IModelHierarchyNode GetNode(ulong i)
+		{
+			return Native.ZkModelHierarchy_getNode(_handle, i);
 		}
 
 		~ModelHierarchy()
 		{
 			if (_delete) Native.ZkModelHierarchy_del(_handle);
-		}
-
-		public ModelHierarchyNode GetNode(ulong i)
-		{
-			return Native.ZkModelHierarchy_getNode(_handle, i);
 		}
 	}
 }

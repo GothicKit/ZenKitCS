@@ -1,26 +1,50 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ZenKit.Util;
-using ZenKit.Vobs.Materialized;
+using ZenKit.Vobs;
 
 namespace ZenKit
 {
-	namespace Materialized
+	public interface IWorld : ICacheable<IWorld>
 	{
-		[Serializable]
-		public struct World
+		public IMesh Mesh { get; }
+		public IBspTree BspTree { get; }
+		public IWayNet WayNet { get; }
+		public List<IVirtualObject> RootObjects { get; }
+		public ulong RootObjectCount { get; }
+
+		public IVirtualObject GetRootObject(ulong i);
+	}
+
+	[Serializable]
+	public class CachedWorld : IWorld
+	{
+		public IMesh Mesh { get; set; }
+		public IBspTree BspTree { get; set; }
+		public IWayNet WayNet { get; set; }
+		public List<IVirtualObject> RootObjects { get; set; }
+		public ulong RootObjectCount => (ulong)RootObjects.LongCount();
+
+		public IVirtualObject GetRootObject(ulong i)
 		{
-			public Mesh Mesh;
-			public BspTree BspTree;
-			public WayNet WayNet;
-			public List<VirtualObject> RootObjects;
+			return RootObjects[(int)i];
+		}
+
+		public IWorld Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
 		}
 	}
 
-	public class World : IMaterializing<Materialized.World>
+	public class World : IWorld
 	{
 		private readonly UIntPtr _handle;
-
 
 		public World(string path)
 		{
@@ -40,20 +64,20 @@ namespace ZenKit
 			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load world");
 		}
 
-		public Mesh Mesh => new Mesh(Native.ZkWorld_getMesh(_handle));
-		public BspTree BspTree => new BspTree(Native.ZkWorld_getBspTree(_handle));
-		public WayNet WayNet => new WayNet(Native.ZkWorld_getWayNet(_handle));
+		public IMesh Mesh => new Mesh(Native.ZkWorld_getMesh(_handle));
+		public IBspTree BspTree => new BspTree(Native.ZkWorld_getBspTree(_handle));
+		public IWayNet WayNet => new WayNet(Native.ZkWorld_getWayNet(_handle));
 		public ulong RootObjectCount => Native.ZkWorld_getRootObjectCount(_handle);
 
-		public List<Vobs.VirtualObject> RootObjects
+		public List<IVirtualObject> RootObjects
 		{
 			get
 			{
-				var objects = new List<Vobs.VirtualObject>();
+				var objects = new List<IVirtualObject>();
 
 				Native.ZkWorld_enumerateRootObjects(_handle, (_, vob) =>
 				{
-					objects.Add(Vobs.VirtualObject.FromNative(vob));
+					objects.Add(VirtualObject.FromNative(vob));
 					return false;
 				}, UIntPtr.Zero);
 
@@ -61,25 +85,30 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.World Materialize()
+		public IWorld Cache()
 		{
-			return new Materialized.World
+			return new CachedWorld
 			{
-				Mesh = Mesh.Materialize(),
-				BspTree = BspTree.Materialize(),
-				WayNet = WayNet.Materialize(),
-				RootObjects = RootObjects.ConvertAll(obj => obj.Materialize())
+				Mesh = Mesh.Cache(),
+				BspTree = BspTree.Cache(),
+				WayNet = WayNet.Cache(),
+				RootObjects = RootObjects.ConvertAll(obj => obj.Cache())
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
+
+		public IVirtualObject GetRootObject(ulong i)
+		{
+			return VirtualObject.FromNative(Native.ZkWorld_getRootObject(_handle, i));
 		}
 
 		~World()
 		{
 			Native.ZkWorld_del(_handle);
-		}
-
-		public Vobs.VirtualObject GetRootObject(ulong i)
-		{
-			return Vobs.VirtualObject.FromNative(Native.ZkWorld_getRootObject(_handle, i));
 		}
 	}
 }

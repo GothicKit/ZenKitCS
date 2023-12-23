@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ZenKit.Util;
 
 namespace ZenKit
@@ -64,149 +65,101 @@ namespace ZenKit
 		Invalid = 0xFF
 	}
 
-	namespace Materialized
+	public interface IModelScript : ICacheable<IModelScript>
 	{
-		[Serializable]
-		public struct ModelScript
+		string SkeletonName { get; }
+		bool SkeletonMeshDisabled { get; }
+		ulong MeshCount { get; }
+		ulong DisabledAnimationsCount { get; }
+		ulong AnimationCombineCount { get; }
+		ulong AnimationBlendCount { get; }
+		ulong AnimationAliasCount { get; }
+		ulong ModelTagCount { get; }
+		ulong AnimationCount { get; }
+		List<IAnimationCombine> AnimationCombines { get; }
+		List<string> Meshes { get; }
+		List<string> DisabledAnimations { get; }
+		List<IAnimationBlend> AnimationBlends { get; }
+		List<IAnimationAlias> AnimationAliases { get; }
+		List<string> ModelTags { get; }
+		List<IAnimation> Animations { get; }
+		string GetDisabledAnimation(long i);
+		string GetMesh(long i);
+		IAnimationCombine GetAnimationCombine(long i);
+		IAnimationBlend GetAnimationBlend(long i);
+		IAnimationAlias GetAnimationAlias(long i);
+		string GetModelTag(long i);
+		IAnimation GetAnimation(long i);
+	}
+
+	[Serializable]
+	public class CachedModelScript : IModelScript
+	{
+		public string SkeletonName { get; set; }
+		public bool SkeletonMeshDisabled { get; set; }
+		public ulong MeshCount => (ulong)Meshes.LongCount();
+		public ulong DisabledAnimationsCount => (ulong)DisabledAnimations.LongCount();
+		public ulong AnimationCombineCount => (ulong)AnimationCombines.LongCount();
+		public ulong AnimationBlendCount => (ulong)AnimationBlends.LongCount();
+		public ulong AnimationAliasCount => (ulong)AnimationAliases.LongCount();
+		public ulong ModelTagCount => (ulong)ModelTags.LongCount();
+		public ulong AnimationCount => (ulong)Animations.LongCount();
+		public List<IAnimationCombine> AnimationCombines { get; set; }
+		public List<string> Meshes { get; set; }
+		public List<string> DisabledAnimations { get; set; }
+		public List<IAnimationBlend> AnimationBlends { get; set; }
+		public List<IAnimationAlias> AnimationAliases { get; set; }
+		public List<string> ModelTags { get; set; }
+		public List<IAnimation> Animations { get; set; }
+
+		public string GetDisabledAnimation(long i)
 		{
-			public string SkeletonName;
-			public bool SkeletonMeshDisabled;
-			public List<AnimationCombine> AnimationCombines;
-			public List<string> Meshes;
-			public List<string> DisabledAnimations;
-			public List<AnimationBlend> AnimationBlends;
-			public List<AnimationAlias> AnimationAliases;
-			public List<string> ModelTags;
-			public List<Animation> Animations;
+			return DisabledAnimations[(int)i];
 		}
 
-		[Serializable]
-		public struct Animation
+		public string GetMesh(long i)
 		{
-			public string Name;
-			public uint Layer;
-			public string Next;
-			public float BlendIn;
-			public float BlendOut;
-			public int Flags;
-			public string Model;
-			public AnimationDirection Direction;
-			public int FirstFrame;
-			public int LastFrame;
-			public float Fps;
-			public float Speed;
-			public float CollisionVolumeScale;
-			public List<EventTag> EventTags;
-			public List<EventParticleEffect> ParticleEffects;
-			public List<EventParticleEffectStop> ParticleEffectsStop;
-			public List<EventSoundEffect> SoundEffects;
-			public List<EventSoundEffectGround> SoundEffectsGround;
-			public List<EventMorphAnimation> MorphAnimations;
-			public List<EventCameraTremor> CameraTremors;
+			return Meshes[(int)i];
 		}
 
-		[Serializable]
-		public struct EventMorphAnimation
+		public IAnimationCombine GetAnimationCombine(long i)
 		{
-			public int Frame;
-			public string Animation;
-			public string Node;
+			return AnimationCombines[(int)i];
 		}
 
-		[Serializable]
-		public struct EventCameraTremor
+		public IAnimationBlend GetAnimationBlend(long i)
 		{
-			public int Frame;
-			public int Field1;
-			public int Field2;
-			public int Field3;
-			public int Field4;
+			return AnimationBlends[(int)i];
 		}
 
-		[Serializable]
-		public struct EventSoundEffectGround
+		public IAnimationAlias GetAnimationAlias(long i)
 		{
-			public int Frame;
-			public string Name;
-			public float Range;
-			public bool EmptySlot;
+			return AnimationAliases[(int)i];
 		}
 
-		[Serializable]
-		public struct EventSoundEffect
+		public string GetModelTag(long i)
 		{
-			public int Frame;
-			public string Name;
-			public float Range;
-			public bool EmptySlot;
+			return ModelTags[(int)i];
 		}
 
-		[Serializable]
-		public struct EventParticleEffectStop
+		public IAnimation GetAnimation(long i)
 		{
-			public int Frame;
-			public int Index;
+			return Animations[(int)i];
 		}
 
-		[Serializable]
-		public struct EventParticleEffect
+		public IModelScript Cache()
 		{
-			public int Frame;
-			public int Index;
-			public string Name;
-			public string Position;
-			public bool Attached;
+			return this;
 		}
 
-		[Serializable]
-		public struct EventTag
+		public bool IsCached()
 		{
-			public int Frame;
-			public EventType Type;
-			public Tuple<string, string> Slots;
-			public string Item;
-			public uint[] Frames;
-			public FightMode FightMode;
-			public bool Attached;
-		}
-
-		[Serializable]
-		public struct AnimationAlias
-		{
-			public string Name;
-			public uint Layer;
-			public string Next;
-			public float BlendIn;
-			public float BlendOut;
-			public uint Flags;
-			public string Alias;
-			public AnimationDirection Direction;
-		}
-
-		[Serializable]
-		public struct AnimationBlend
-		{
-			public string Name;
-			public string Next;
-			public float BlendIn;
-			public float BlendOut;
-		}
-
-		[Serializable]
-		public struct AnimationCombine
-		{
-			public string Name;
-			public uint Layer;
-			public string Next;
-			public float BlendIn;
-			public float BlendOut;
-			public uint Flags;
-			public string Model;
-			public int LastFrame;
+			return true;
 		}
 	}
 
-	public class ModelScript : IMaterializing<Materialized.ModelScript>
+
+	public class ModelScript : IModelScript
 	{
 		private readonly UIntPtr _handle;
 
@@ -247,11 +200,11 @@ namespace ZenKit
 
 		public ulong AnimationCount => Native.ZkModelScript_getAnimationCount(_handle);
 
-		public List<AnimationCombine> AnimationCombines
+		public List<IAnimationCombine> AnimationCombines
 		{
 			get
 			{
-				var arr = new List<AnimationCombine>();
+				var arr = new List<IAnimationCombine>();
 
 				Native.ZkModelScript_enumerateAnimationCombines(_handle, (_, v) =>
 				{
@@ -296,11 +249,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<AnimationBlend> AnimationBlends
+		public List<IAnimationBlend> AnimationBlends
 		{
 			get
 			{
-				var arr = new List<AnimationBlend>();
+				var arr = new List<IAnimationBlend>();
 
 				Native.ZkModelScript_enumerateAnimationBlends(_handle, (_, v) =>
 				{
@@ -312,11 +265,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<AnimationAlias> AnimationAliases
+		public List<IAnimationAlias> AnimationAliases
 		{
 			get
 			{
-				var arr = new List<AnimationAlias>();
+				var arr = new List<IAnimationAlias>();
 
 				Native.ZkModelScript_enumerateAnimationAliases(_handle, (_, v) =>
 				{
@@ -344,11 +297,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<Animation> Animations
+		public List<IAnimation> Animations
 		{
 			get
 			{
-				var arr = new List<Animation>();
+				var arr = new List<IAnimation>();
 
 				Native.ZkModelScript_enumerateAnimations(_handle, (_, v) =>
 				{
@@ -361,25 +314,25 @@ namespace ZenKit
 		}
 
 
-		public Materialized.ModelScript Materialize()
+		public IModelScript Cache()
 		{
-			return new Materialized.ModelScript
+			return new CachedModelScript
 			{
 				SkeletonName = SkeletonName,
 				SkeletonMeshDisabled = SkeletonMeshDisabled,
-				AnimationCombines = AnimationCombines.ConvertAll(obj => obj.Materialize()),
+				AnimationCombines = AnimationCombines.ConvertAll(obj => obj.Cache()),
 				Meshes = Meshes,
 				DisabledAnimations = DisabledAnimations,
-				AnimationBlends = AnimationBlends.ConvertAll(obj => obj.Materialize()),
-				AnimationAliases = AnimationAliases.ConvertAll(obj => obj.Materialize()),
+				AnimationBlends = AnimationBlends.ConvertAll(obj => obj.Cache()),
+				AnimationAliases = AnimationAliases.ConvertAll(obj => obj.Cache()),
 				ModelTags = ModelTags,
-				Animations = Animations.ConvertAll(obj => obj.Materialize())
+				Animations = Animations.ConvertAll(obj => obj.Cache())
 			};
 		}
 
-		~ModelScript()
+		public bool IsCached()
 		{
-			Native.ZkModelScript_del(_handle);
+			return false;
 		}
 
 		public string GetDisabledAnimation(long i)
@@ -394,17 +347,17 @@ namespace ZenKit
 			       throw new Exception("Failed to load model script mesh");
 		}
 
-		public AnimationCombine GetAnimationCombine(long i)
+		public IAnimationCombine GetAnimationCombine(long i)
 		{
 			return new AnimationCombine(Native.ZkModelScript_getAnimationCombine(_handle, i));
 		}
 
-		public AnimationBlend GetAnimationBlend(long i)
+		public IAnimationBlend GetAnimationBlend(long i)
 		{
 			return new AnimationBlend(Native.ZkModelScript_getAnimationBlend(_handle, i));
 		}
 
-		public AnimationAlias GetAnimationAlias(long i)
+		public IAnimationAlias GetAnimationAlias(long i)
 		{
 			return new AnimationAlias(Native.ZkModelScript_getAnimationAlias(_handle, i));
 		}
@@ -415,13 +368,142 @@ namespace ZenKit
 			       throw new Exception("Failed to load model script model tag");
 		}
 
-		public Animation GetAnimation(long i)
+		public IAnimation GetAnimation(long i)
 		{
 			return new Animation(Native.ZkModelScript_getAnimation(_handle, i));
 		}
+
+		~ModelScript()
+		{
+			Native.ZkModelScript_del(_handle);
+		}
 	}
 
-	public class Animation : IMaterializing<Materialized.Animation>
+	public interface IAnimation : ICacheable<IAnimation>
+	{
+		string Name { get; }
+		uint Layer { get; }
+		string Next { get; }
+		float BlendIn { get; }
+		float BlendOut { get; }
+		int Flags { get; }
+		string Model { get; }
+		AnimationDirection Direction { get; }
+		int FirstFrame { get; }
+		int LastFrame { get; }
+		float Fps { get; }
+		float Speed { get; }
+		float CollisionVolumeScale { get; }
+		ulong EventTagCount { get; }
+		ulong ParticleEffectCount { get; }
+		ulong ParticleEffectStopCount { get; }
+		ulong SoundEffectCount { get; }
+		ulong SoundEffectGroundCount { get; }
+		ulong MorphAnimationCount { get; }
+		ulong CameraTremorCount { get; }
+		List<IEventTag> EventTags { get; }
+		List<IEventParticleEffect> ParticleEffects { get; }
+		List<IEventParticleEffectStop> ParticleEffectsStop { get; }
+		List<IEventSoundEffect> SoundEffects { get; }
+		List<IEventSoundEffectGround> SoundEffectsGround { get; }
+		List<IEventMorphAnimation> MorphAnimations { get; }
+		List<IEventCameraTremor> CameraTremors { get; }
+		IEventTag GetEventTag(ulong i);
+		IEventParticleEffect GetParticleEffect(ulong i);
+		IEventParticleEffectStop GetParticleEffectStop(ulong i);
+		IEventSoundEffect GetSoundEffect(ulong i);
+		IEventSoundEffectGround GetSoundEffectGround(ulong i);
+		IEventMorphAnimation GetMorphAnimation(ulong i);
+		IEventCameraTremor GetCameraTremor(ulong i);
+	}
+
+	[Serializable]
+	public class CachedAnimation : IAnimation
+	{
+		public string Name { get; set; }
+		public uint Layer { get; set; }
+		public string Next { get; set; }
+		public float BlendIn { get; set; }
+		public float BlendOut { get; set; }
+		public int Flags { get; set; }
+		public string Model { get; set; }
+		public AnimationDirection Direction { get; set; }
+		public int FirstFrame { get; set; }
+		public int LastFrame { get; set; }
+		public float Fps { get; set; }
+		public float Speed { get; set; }
+		public float CollisionVolumeScale { get; set; }
+
+		public ulong EventTagCount => (ulong)EventTags.LongCount();
+
+		public ulong ParticleEffectCount => (ulong)ParticleEffects.LongCount();
+
+		public ulong ParticleEffectStopCount => (ulong)ParticleEffectsStop.LongCount();
+
+		public ulong SoundEffectCount => (ulong)SoundEffects.LongCount();
+
+		public ulong SoundEffectGroundCount => (ulong)SoundEffectsGround.LongCount();
+
+		public ulong MorphAnimationCount => (ulong)MorphAnimations.LongCount();
+
+		public ulong CameraTremorCount => (ulong)CameraTremors.LongCount();
+
+		public List<IEventTag> EventTags { get; set; }
+		public List<IEventParticleEffect> ParticleEffects { get; set; }
+		public List<IEventParticleEffectStop> ParticleEffectsStop { get; set; }
+		public List<IEventSoundEffect> SoundEffects { get; set; }
+		public List<IEventSoundEffectGround> SoundEffectsGround { get; set; }
+		public List<IEventMorphAnimation> MorphAnimations { get; set; }
+		public List<IEventCameraTremor> CameraTremors { get; set; }
+
+		public IEventTag GetEventTag(ulong i)
+		{
+			return EventTags[(int)i];
+		}
+
+		public IEventParticleEffect GetParticleEffect(ulong i)
+		{
+			return ParticleEffects[(int)i];
+		}
+
+		public IEventParticleEffectStop GetParticleEffectStop(ulong i)
+		{
+			return ParticleEffectsStop[(int)i];
+		}
+
+		public IEventSoundEffect GetSoundEffect(ulong i)
+		{
+			return SoundEffects[(int)i];
+		}
+
+		public IEventSoundEffectGround GetSoundEffectGround(ulong i)
+		{
+			return SoundEffectsGround[(int)i];
+		}
+
+		public IEventMorphAnimation GetMorphAnimation(ulong i)
+		{
+			return MorphAnimations[(int)i];
+		}
+
+		public IEventCameraTremor GetCameraTremor(ulong i)
+		{
+			return CameraTremors[(int)i];
+		}
+
+		public IAnimation Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+
+	public class Animation : IAnimation
 	{
 		private readonly UIntPtr _handle;
 
@@ -473,11 +555,11 @@ namespace ZenKit
 
 		public ulong CameraTremorCount => Native.ZkAnimation_getCameraTremorCount(_handle);
 
-		public List<EventTag> EventTags
+		public List<IEventTag> EventTags
 		{
 			get
 			{
-				var arr = new List<EventTag>();
+				var arr = new List<IEventTag>();
 
 				Native.ZkAnimation_enumerateEventTags(_handle, (_, evt) =>
 					{
@@ -490,11 +572,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<EventParticleEffect> ParticleEffects
+		public List<IEventParticleEffect> ParticleEffects
 		{
 			get
 			{
-				var arr = new List<EventParticleEffect>();
+				var arr = new List<IEventParticleEffect>();
 
 				Native.ZkAnimation_enumerateParticleEffects(_handle, (_, evt) =>
 					{
@@ -507,11 +589,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<EventParticleEffectStop> ParticleEffectsStop
+		public List<IEventParticleEffectStop> ParticleEffectsStop
 		{
 			get
 			{
-				var arr = new List<EventParticleEffectStop>();
+				var arr = new List<IEventParticleEffectStop>();
 
 				Native.ZkAnimation_enumerateParticleEffectStops(_handle, (_, evt) =>
 					{
@@ -524,11 +606,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<EventSoundEffect> SoundEffects
+		public List<IEventSoundEffect> SoundEffects
 		{
 			get
 			{
-				var arr = new List<EventSoundEffect>();
+				var arr = new List<IEventSoundEffect>();
 
 				Native.ZkAnimation_enumerateSoundEffects(_handle, (_, evt) =>
 					{
@@ -541,11 +623,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<EventSoundEffectGround> SoundEffectsGround
+		public List<IEventSoundEffectGround> SoundEffectsGround
 		{
 			get
 			{
-				var arr = new List<EventSoundEffectGround>();
+				var arr = new List<IEventSoundEffectGround>();
 
 				Native.ZkAnimation_enumerateSoundEffectGrounds(_handle, (_, evt) =>
 					{
@@ -558,11 +640,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<EventMorphAnimation> MorphAnimations
+		public List<IEventMorphAnimation> MorphAnimations
 		{
 			get
 			{
-				var arr = new List<EventMorphAnimation>();
+				var arr = new List<IEventMorphAnimation>();
 
 				Native.ZkAnimation_enumerateMorphAnimations(_handle, (_, evt) =>
 					{
@@ -575,11 +657,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<EventCameraTremor> CameraTremors
+		public List<IEventCameraTremor> CameraTremors
 		{
 			get
 			{
-				var arr = new List<EventCameraTremor>();
+				var arr = new List<IEventCameraTremor>();
 
 				Native.ZkAnimation_enumerateCameraTremors(_handle, (_, evt) =>
 					{
@@ -592,9 +674,9 @@ namespace ZenKit
 			}
 		}
 
-		public Materialized.Animation Materialize()
+		public IAnimation Cache()
 		{
-			return new Materialized.Animation
+			return new CachedAnimation
 			{
 				Name = Name,
 				Layer = Layer,
@@ -609,54 +691,83 @@ namespace ZenKit
 				Fps = Fps,
 				Speed = Speed,
 				CollisionVolumeScale = CollisionVolumeScale,
-				EventTags = EventTags.ConvertAll(evt => evt.Materialize()),
-				ParticleEffects = ParticleEffects.ConvertAll(evt => evt.Materialize()),
-				ParticleEffectsStop = ParticleEffectsStop.ConvertAll(evt => evt.Materialize()),
-				SoundEffects = SoundEffects.ConvertAll(evt => evt.Materialize()),
-				SoundEffectsGround = SoundEffectsGround.ConvertAll(evt => evt.Materialize()),
-				MorphAnimations = MorphAnimations.ConvertAll(evt => evt.Materialize()),
-				CameraTremors = CameraTremors.ConvertAll(evt => evt.Materialize())
+				EventTags = EventTags.ConvertAll(evt => evt.Cache()),
+				ParticleEffects = ParticleEffects.ConvertAll(evt => evt.Cache()),
+				ParticleEffectsStop = ParticleEffectsStop.ConvertAll(evt => evt.Cache()),
+				SoundEffects = SoundEffects.ConvertAll(evt => evt.Cache()),
+				SoundEffectsGround = SoundEffectsGround.ConvertAll(evt => evt.Cache()),
+				MorphAnimations = MorphAnimations.ConvertAll(evt => evt.Cache()),
+				CameraTremors = CameraTremors.ConvertAll(evt => evt.Cache())
 			};
 		}
 
+		public bool IsCached()
+		{
+			return false;
+		}
 
-		public EventTag GetEventTag(ulong i)
+		public IEventTag GetEventTag(ulong i)
 		{
 			return new EventTag(Native.ZkAnimation_getEventTag(_handle, i));
 		}
 
-		public EventParticleEffect GetParticleEffect(ulong i)
+		public IEventParticleEffect GetParticleEffect(ulong i)
 		{
 			return new EventParticleEffect(Native.ZkAnimation_getParticleEffect(_handle, i));
 		}
 
-		public EventParticleEffectStop GetParticleEffectStop(ulong i)
+		public IEventParticleEffectStop GetParticleEffectStop(ulong i)
 		{
 			return new EventParticleEffectStop(Native.ZkAnimation_getParticleEffectStop(_handle, i));
 		}
 
-		public EventSoundEffect GetSoundEffect(ulong i)
+		public IEventSoundEffect GetSoundEffect(ulong i)
 		{
 			return new EventSoundEffect(Native.ZkAnimation_getSoundEffect(_handle, i));
 		}
 
-		public EventSoundEffectGround GetSoundEffectGround(ulong i)
+		public IEventSoundEffectGround GetSoundEffectGround(ulong i)
 		{
 			return new EventSoundEffectGround(Native.ZkAnimation_getSoundEffectGround(_handle, i));
 		}
 
-		public EventMorphAnimation GetMorphAnimation(ulong i)
+		public IEventMorphAnimation GetMorphAnimation(ulong i)
 		{
 			return new EventMorphAnimation(Native.ZkAnimation_getMorphAnimation(_handle, i));
 		}
 
-		public EventCameraTremor GetCameraTremor(ulong i)
+		public IEventCameraTremor GetCameraTremor(ulong i)
 		{
 			return new EventCameraTremor(Native.ZkAnimation_getCameraTremor(_handle, i));
 		}
 	}
 
-	public class EventMorphAnimation : IMaterializing<Materialized.EventMorphAnimation>
+	public interface IEventMorphAnimation : ICacheable<IEventMorphAnimation>
+	{
+		int Frame { get; }
+		string Animation { get; }
+		string Node { get; }
+	}
+
+	[Serializable]
+	public class CachedEventMorphAnimation : IEventMorphAnimation
+	{
+		public int Frame { get; set; }
+		public string Animation { get; set; }
+		public string Node { get; set; }
+
+		public IEventMorphAnimation Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class EventMorphAnimation : IEventMorphAnimation
 	{
 		private readonly UIntPtr _handle;
 
@@ -673,18 +784,52 @@ namespace ZenKit
 		public string Node => Native.ZkMorphAnimation_getNode(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load event morph animation node");
 
-		public Materialized.EventMorphAnimation Materialize()
+		public IEventMorphAnimation Cache()
 		{
-			return new Materialized.EventMorphAnimation
+			return new CachedEventMorphAnimation
 			{
 				Frame = Frame,
 				Animation = Animation,
 				Node = Node
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class EventCameraTremor : IMaterializing<Materialized.EventCameraTremor>
+	public interface IEventCameraTremor : ICacheable<IEventCameraTremor>
+	{
+		int Frame { get; }
+		int Field1 { get; }
+		int Field2 { get; }
+		int Field3 { get; }
+		int Field4 { get; }
+	}
+
+	[Serializable]
+	public class CachedEventCameraTremor : IEventCameraTremor
+	{
+		public int Frame { get; set; }
+		public int Field1 { get; set; }
+		public int Field2 { get; set; }
+		public int Field3 { get; set; }
+		public int Field4 { get; set; }
+
+		public IEventCameraTremor Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class EventCameraTremor : IEventCameraTremor
 	{
 		private readonly UIntPtr _handle;
 
@@ -703,9 +848,9 @@ namespace ZenKit
 
 		public int Field4 => Native.ZkEventCameraTremor_getField4(_handle);
 
-		public Materialized.EventCameraTremor Materialize()
+		public IEventCameraTremor Cache()
 		{
-			return new Materialized.EventCameraTremor
+			return new CachedEventCameraTremor
 			{
 				Frame = Frame,
 				Field1 = Field1,
@@ -714,9 +859,41 @@ namespace ZenKit
 				Field4 = Field4
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class EventSoundEffectGround : IMaterializing<Materialized.EventSoundEffectGround>
+	public interface IEventSoundEffectGround : ICacheable<IEventSoundEffectGround>
+	{
+		int Frame { get; }
+		string Name { get; }
+		float Range { get; }
+		bool EmptySlot { get; }
+	}
+
+	[Serializable]
+	public class CachedEventSoundEffectGround : IEventSoundEffectGround
+	{
+		public int Frame { get; set; }
+		public string Name { get; set; }
+		public float Range { get; set; }
+		public bool EmptySlot { get; set; }
+
+		public IEventSoundEffectGround Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class EventSoundEffectGround : IEventSoundEffectGround
 	{
 		private readonly UIntPtr _handle;
 
@@ -734,9 +911,9 @@ namespace ZenKit
 
 		public bool EmptySlot => Native.ZkEventSoundEffectGround_getEmptySlot(_handle);
 
-		public Materialized.EventSoundEffectGround Materialize()
+		public IEventSoundEffectGround Cache()
 		{
-			return new Materialized.EventSoundEffectGround
+			return new CachedEventSoundEffectGround
 			{
 				Frame = Frame,
 				Name = Name,
@@ -744,9 +921,42 @@ namespace ZenKit
 				EmptySlot = EmptySlot
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class EventSoundEffect : IMaterializing<Materialized.EventSoundEffect>
+	public interface IEventSoundEffect : ICacheable<IEventSoundEffect>
+	{
+		int Frame { get; }
+		string Name { get; }
+		float Range { get; }
+		bool EmptySlot { get; }
+	}
+
+
+	[Serializable]
+	public class CachedEventSoundEffect : IEventSoundEffect
+	{
+		public int Frame { get; set; }
+		public string Name { get; set; }
+		public float Range { get; set; }
+		public bool EmptySlot { get; set; }
+
+		public IEventSoundEffect Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class EventSoundEffect : IEventSoundEffect
 	{
 		private readonly UIntPtr _handle;
 
@@ -764,9 +974,9 @@ namespace ZenKit
 
 		public bool EmptySlot => Native.ZkEventSoundEffect_getEmptySlot(_handle);
 
-		public Materialized.EventSoundEffect Materialize()
+		public IEventSoundEffect Cache()
 		{
-			return new Materialized.EventSoundEffect
+			return new CachedEventSoundEffect
 			{
 				Frame = Frame,
 				Name = Name,
@@ -774,9 +984,37 @@ namespace ZenKit
 				EmptySlot = EmptySlot
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class EventParticleEffectStop : IMaterializing<Materialized.EventParticleEffectStop>
+	public interface IEventParticleEffectStop : ICacheable<IEventParticleEffectStop>
+	{
+		int Frame { get; }
+		int Index { get; }
+	}
+
+	[Serializable]
+	public class CachedEventParticleEffectStop : IEventParticleEffectStop
+	{
+		public int Frame { get; set; }
+		public int Index { get; set; }
+
+		public IEventParticleEffectStop Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class EventParticleEffectStop : IEventParticleEffectStop
 	{
 		private readonly UIntPtr _handle;
 
@@ -789,17 +1027,51 @@ namespace ZenKit
 
 		public int Index => Native.ZkEventParticleEffectStop_getIndex(_handle);
 
-		public Materialized.EventParticleEffectStop Materialize()
+		public IEventParticleEffectStop Cache()
 		{
-			return new Materialized.EventParticleEffectStop
+			return new CachedEventParticleEffectStop
 			{
 				Frame = Frame,
 				Index = Index
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class EventParticleEffect : IMaterializing<Materialized.EventParticleEffect>
+	public interface IEventParticleEffect : ICacheable<IEventParticleEffect>
+	{
+		int Frame { get; }
+		int Index { get; }
+		string Name { get; }
+		string Position { get; }
+		bool Attached { get; }
+	}
+
+	[Serializable]
+	public class CachedEventParticleEffect : IEventParticleEffect
+	{
+		public int Frame { get; set; }
+		public int Index { get; set; }
+		public string Name { get; set; }
+		public string Position { get; set; }
+		public bool Attached { get; set; }
+
+		public IEventParticleEffect Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class EventParticleEffect : IEventParticleEffect
 	{
 		private readonly UIntPtr _handle;
 
@@ -820,9 +1092,9 @@ namespace ZenKit
 
 		public bool Attached => Native.ZkEventParticleEffect_getIsAttached(_handle);
 
-		public Materialized.EventParticleEffect Materialize()
+		public IEventParticleEffect Cache()
 		{
-			return new Materialized.EventParticleEffect
+			return new CachedEventParticleEffect
 			{
 				Frame = Frame,
 				Index = Index,
@@ -831,9 +1103,47 @@ namespace ZenKit
 				Attached = Attached
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class EventTag : IMaterializing<Materialized.EventTag>
+	public interface IEventTag : ICacheable<IEventTag>
+	{
+		int Frame { get; }
+		EventType Type { get; }
+		Tuple<string, string> Slots { get; }
+		string Item { get; }
+		uint[] Frames { get; }
+		FightMode FightMode { get; }
+		bool Attached { get; }
+	}
+
+	[Serializable]
+	public class CachedEventTag : IEventTag
+	{
+		public int Frame { get; set; }
+		public EventType Type { get; set; }
+		public Tuple<string, string> Slots { get; set; }
+		public string Item { get; set; }
+		public uint[] Frames { get; set; }
+		public FightMode FightMode { get; set; }
+		public bool Attached { get; set; }
+
+		public IEventTag Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class EventTag : IEventTag
 	{
 		private readonly UIntPtr _handle;
 
@@ -863,9 +1173,9 @@ namespace ZenKit
 
 		public bool Attached => Native.ZkEventTag_getIsAttached(_handle);
 
-		public Materialized.EventTag Materialize()
+		public IEventTag Cache()
 		{
-			return new Materialized.EventTag
+			return new CachedEventTag
 			{
 				Frame = Frame,
 				Type = Type,
@@ -876,9 +1186,49 @@ namespace ZenKit
 				Attached = Attached
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class AnimationAlias : IMaterializing<Materialized.AnimationAlias>
+	public interface IAnimationAlias : ICacheable<IAnimationAlias>
+	{
+		string Name { get; }
+		uint Layer { get; }
+		string Next { get; }
+		float BlendIn { get; }
+		float BlendOut { get; }
+		uint Flags { get; }
+		string Alias { get; }
+		AnimationDirection Direction { get; }
+	}
+
+	[Serializable]
+	public class CachedAnimationAlias : IAnimationAlias
+	{
+		public string Name { get; set; }
+		public uint Layer { get; set; }
+		public string Next { get; set; }
+		public float BlendIn { get; set; }
+		public float BlendOut { get; set; }
+		public uint Flags { get; set; }
+		public string Alias { get; set; }
+		public AnimationDirection Direction { get; set; }
+
+		public IAnimationAlias Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class AnimationAlias : IAnimationAlias
 	{
 		private readonly UIntPtr _handle;
 
@@ -906,9 +1256,9 @@ namespace ZenKit
 
 		public AnimationDirection Direction => Native.ZkAnimationAlias_getDirection(_handle);
 
-		public Materialized.AnimationAlias Materialize()
+		public IAnimationAlias Cache()
 		{
-			return new Materialized.AnimationAlias
+			return new CachedAnimationAlias
 			{
 				Name = Name,
 				Layer = Layer,
@@ -920,9 +1270,41 @@ namespace ZenKit
 				Direction = Direction
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class AnimationBlend : IMaterializing<Materialized.AnimationBlend>
+	public interface IAnimationBlend : ICacheable<IAnimationBlend>
+	{
+		string Name { get; }
+		string Next { get; }
+		float BlendIn { get; }
+		float BlendOut { get; }
+	}
+
+	[Serializable]
+	public class CachedAnimationBlend : IAnimationBlend
+	{
+		public string Name { get; set; }
+		public string Next { get; set; }
+		public float BlendIn { get; set; }
+		public float BlendOut { get; set; }
+
+		public IAnimationBlend Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class AnimationBlend : IAnimationBlend
 	{
 		private readonly UIntPtr _handle;
 
@@ -941,9 +1323,9 @@ namespace ZenKit
 
 		public float BlendOut => Native.ZkAnimationBlend_getBlendOut(_handle);
 
-		public Materialized.AnimationBlend Materialize()
+		public IAnimationBlend Cache()
 		{
-			return new Materialized.AnimationBlend
+			return new CachedAnimationBlend
 			{
 				Name = Name,
 				Next = Next,
@@ -951,9 +1333,50 @@ namespace ZenKit
 				BlendOut = BlendOut
 			};
 		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
 	}
 
-	public class AnimationCombine : IMaterializing<Materialized.AnimationCombine>
+	public interface IAnimationCombine : ICacheable<IAnimationCombine>
+	{
+		string Name { get; }
+		uint Layer { get; }
+		string Next { get; }
+		float BlendIn { get; }
+		float BlendOut { get; }
+		uint Flags { get; }
+		string Model { get; }
+		int LastFrame { get; }
+	}
+
+	[Serializable]
+	public class CachedAnimationCombine : IAnimationCombine
+	{
+		public string Name { get; set; }
+		public uint Layer { get; set; }
+		public string Next { get; set; }
+		public float BlendIn { get; set; }
+		public float BlendOut { get; set; }
+		public uint Flags { get; set; }
+		public string Model { get; set; }
+		public int LastFrame { get; set; }
+
+		public IAnimationCombine Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+
+	public class AnimationCombine : IAnimationCombine
 	{
 		private readonly UIntPtr _handle;
 
@@ -981,9 +1404,9 @@ namespace ZenKit
 
 		public int LastFrame => Native.ZkAnimationCombine_getLastFrame(_handle);
 
-		public Materialized.AnimationCombine Materialize()
+		public IAnimationCombine Cache()
 		{
-			return new Materialized.AnimationCombine
+			return new CachedAnimationCombine
 			{
 				Name = Name,
 				Layer = Layer,
@@ -994,6 +1417,11 @@ namespace ZenKit
 				Model = Model,
 				LastFrame = LastFrame
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
 		}
 	}
 }

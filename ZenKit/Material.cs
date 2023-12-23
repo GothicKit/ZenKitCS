@@ -58,39 +58,74 @@ namespace ZenKit
 		MultiplyAlt = 6
 	}
 
-	namespace Materialized
+	public interface IMaterial : ICacheable<IMaterial>
 	{
-		[Serializable]
-		public struct Material
+		public string Name { get; }
+		public MaterialGroup Group { get; }
+		public Color Color { get; }
+		public float SmoothAngle { get; }
+		public string Texture { get; }
+		public Vector2 TextureScale { get; }
+		public float TextureAnimationFps { get; }
+		public AnimationMapping TextureAnimationMapping { get; }
+		public Vector2 TextureAnimationMappingDirection { get; }
+		public bool DisableCollision { get; }
+		public bool DisableLightmap { get; }
+		public bool DontCollapse { get; }
+		public string DetailObject { get; }
+		public float DetailObjectScale { get; }
+		public bool ForceOccluder { get; }
+		public bool EnvironmentMapping { get; }
+		public float EnvironmentMappingStrength { get; }
+		public WaveMode WaveMode { get; }
+		public WaveSpeed WaveSpeed { get; }
+		public float WaveAmplitude { get; }
+		public float WaveGridSize { get; }
+		public bool IgnoreSun { get; }
+		public AlphaFunction AlphaFunction { get; }
+		public Vector2 DefaultMapping { get; }
+	}
+
+	[Serializable]
+	public class CachedMaterial : IMaterial
+	{
+		public string Name { get; set; }
+		public MaterialGroup Group { get; set; }
+		public Color Color { get; set; }
+		public float SmoothAngle { get; set; }
+		public string Texture { get; set; }
+		public Vector2 TextureScale { get; set; }
+		public float TextureAnimationFps { get; set; }
+		public AnimationMapping TextureAnimationMapping { get; set; }
+		public Vector2 TextureAnimationMappingDirection { get; set; }
+		public bool DisableCollision { get; set; }
+		public bool DisableLightmap { get; set; }
+		public bool DontCollapse { get; set; }
+		public string DetailObject { get; set; }
+		public float DetailObjectScale { get; set; }
+		public bool ForceOccluder { get; set; }
+		public bool EnvironmentMapping { get; set; }
+		public float EnvironmentMappingStrength { get; set; }
+		public WaveMode WaveMode { get; set; }
+		public WaveSpeed WaveSpeed { get; set; }
+		public float WaveAmplitude { get; set; }
+		public float WaveGridSize { get; set; }
+		public bool IgnoreSun { get; set; }
+		public AlphaFunction AlphaFunction { get; set; }
+		public Vector2 DefaultMapping { get; set; }
+
+		public IMaterial Cache()
 		{
-			public string Name;
-			public MaterialGroup Group;
-			public Color Color;
-			public float SmoothAngle;
-			public string Texture;
-			public Vector2 TextureScale;
-			public float TextureAnimationFps;
-			public AnimationMapping TextureAnimationMapping;
-			public Vector2 TextureAnimationMappingDirection;
-			public bool DisableCollision;
-			public bool DisableLightmap;
-			public bool DontCollapse;
-			public string DetailObject;
-			public float DetailObjectScale;
-			public bool ForceOccluder;
-			public bool EnvironmentMapping;
-			public float EnvironmentMappingStrength;
-			public WaveMode WaveMode;
-			public WaveSpeed WaveSpeed;
-			public float WaveAmplitude;
-			public float WaveGridSize;
-			public bool IgnoreSun;
-			public AlphaFunction AlphaFunction;
-			public Vector2 DefaultMapping;
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
 		}
 	}
 
-	public class Material : IMaterializing<Materialized.Material>
+	public class Material : IMaterial
 	{
 		private readonly bool _delete;
 		private readonly UIntPtr _handle;
@@ -151,9 +186,9 @@ namespace ZenKit
 		public AlphaFunction AlphaFunction => Native.ZkMaterial_getAlphaFunction(_handle);
 		public Vector2 DefaultMapping => Native.ZkMaterial_getDefaultMapping(_handle);
 
-		public Materialized.Material Materialize()
+		public IMaterial Cache()
 		{
-			return new Materialized.Material
+			return new CachedMaterial
 			{
 				Name = Name,
 				Group = Group,
@@ -180,6 +215,11 @@ namespace ZenKit
 				AlphaFunction = AlphaFunction,
 				DefaultMapping = DefaultMapping
 			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
 		}
 
 		~Material()
