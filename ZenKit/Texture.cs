@@ -142,13 +142,16 @@ namespace ZenKit
 			{
 				if (Format != TextureFormat.P8) return null;
 
-				var palette = Native.ZkTexture_getPalette(_handle, out var size);
-				var argb = palette.MarshalAsArray<Native.Structs.ZkColorArgb>(size);
+				var palette = new Color[Native.ZkTexture_getPaletteSize(_handle)];
+				var i = 0;
 
-				var colors = new Color[argb.Length];
-				for (var i = 0; i < argb.Length; i++) colors[i] = argb[i].ToColor();
+				Native.ZkTexture_enumeratePaletteItems(_handle, (_, c) =>
+				{
+					palette[i++] = c.ToColor();
+					return false;
+				}, UIntPtr.Zero);
 
-				return colors;
+				return palette;
 			}
 		}
 

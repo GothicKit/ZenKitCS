@@ -28,10 +28,12 @@ namespace ZenKit
 	{
 		ulong NodeCount { get; }
 		IMultiResolutionMesh Mesh { get; }
+		public ulong WedgeNormalCount { get; }
 		List<SoftSkinWedgeNormal> WedgeNormals { get; }
 		List<int> Nodes { get; }
 		List<IOrientedBoundingBox> BoundingBoxes { get; }
 		List<List<SoftSkinWeightEntry>> Weights { get; }
+		SoftSkinWedgeNormal GetWedgeNormal(ulong i);
 		IOrientedBoundingBox GetBoundingBox(ulong node);
 		List<SoftSkinWeightEntry> GetWeights(ulong node);
 	}
@@ -41,10 +43,18 @@ namespace ZenKit
 	{
 		public ulong NodeCount => (ulong)Nodes.LongCount();
 		public IMultiResolutionMesh Mesh { get; set; }
+
+		public ulong WedgeNormalCount => (ulong)WedgeNormals.LongCount();
+
 		public List<SoftSkinWedgeNormal> WedgeNormals { get; set; }
 		public List<int> Nodes { get; set; }
 		public List<IOrientedBoundingBox> BoundingBoxes { get; set; }
 		public List<List<SoftSkinWeightEntry>> Weights { get; set; }
+
+		public SoftSkinWedgeNormal GetWedgeNormal(ulong i)
+		{
+			return WedgeNormals[(int)i];
+		}
 
 		public IOrientedBoundingBox GetBoundingBox(ulong node)
 		{
@@ -79,8 +89,23 @@ namespace ZenKit
 		public ulong NodeCount => Native.ZkSoftSkinMesh_getNodeCount(_handle);
 		public IMultiResolutionMesh Mesh => new MultiResolutionMesh(Native.ZkSoftSkinMesh_getMesh(_handle));
 
-		public List<SoftSkinWedgeNormal> WedgeNormals => Native.ZkSoftSkinMesh_getWedgeNormals(_handle, out var count)
-			.MarshalAsList<SoftSkinWedgeNormal>(count);
+		public ulong WedgeNormalCount => Native.ZkSoftSkinMesh_getWedgeNormalCount(_handle);
+
+		public List<SoftSkinWedgeNormal> WedgeNormals
+		{
+			get
+			{
+				var normals = new List<SoftSkinWedgeNormal>();
+
+				Native.ZkSoftSkinMesh_enumerateWedgeNormals(_handle, (_, normal) =>
+				{
+					normals.Add(normal);
+					return false;
+				}, UIntPtr.Zero);
+
+				return normals;
+			}
+		}
 
 		public List<int> Nodes => Native.ZkSoftSkinMesh_getNodes(_handle, out var count).MarshalAsList<int>(count);
 
@@ -106,11 +131,10 @@ namespace ZenKit
 			{
 				var weights = new List<List<SoftSkinWeightEntry>>();
 
-				Native.ZkSoftSkinMesh_enumerateWeights(_handle, (_, ptr, count) =>
+				for (ulong i = 0; i < Native.ZkSoftSkinMesh_getWeightTotal(_handle); ++i)
 				{
-					weights.Add(ptr.MarshalAsList<SoftSkinWeightEntry>(count));
-					return false;
-				}, UIntPtr.Zero);
+					weights.Add(GetWeights(i));
+				}
 
 				return weights;
 			}
@@ -133,6 +157,11 @@ namespace ZenKit
 			return false;
 		}
 
+		public SoftSkinWedgeNormal GetWedgeNormal(ulong i)
+		{
+			return Native.ZkSoftSkinMesh_getWedgeNormal(_handle, i);
+		}
+
 		public IOrientedBoundingBox GetBoundingBox(ulong node)
 		{
 			return new OrientedBoundingBox(Native.ZkSoftSkinMesh_getBbox(_handle, node));
@@ -140,8 +169,15 @@ namespace ZenKit
 
 		public List<SoftSkinWeightEntry> GetWeights(ulong node)
 		{
-			return Native.ZkSoftSkinMesh_getWeights(_handle, node, out var count)
-				.MarshalAsList<SoftSkinWeightEntry>(count);
+			var weights = new List<SoftSkinWeightEntry>();
+
+			Native.ZkSoftSkinMesh_enumerateWeights(_handle, node, (_, ptr) =>
+			{
+				weights.Add(Marshal.PtrToStructure<SoftSkinWeightEntry>(ptr));
+				return false;
+			}, UIntPtr.Zero);
+
+			return weights;
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ZenKit.Daedalus;
 
 namespace ZenKit
@@ -205,10 +206,12 @@ namespace ZenKit
 			Call(name);
 		}
 
+		private Native.Callbacks.ZkDaedalusVmExternalDefaultCallback? _externalDefaultCallback = null;
+
 		public void RegisterExternalDefault(ExternalDefaultFunction cb)
 		{
-			Native.ZkDaedalusVm_registerExternalDefault(Handle, (_0, _1, sym) => cb(this, new DaedalusSymbol(sym)),
-				UIntPtr.Zero);
+			_externalDefaultCallback = (_0, _1, sym) => cb(this, new DaedalusSymbol(sym));
+			Native.ZkDaedalusVm_registerExternalDefault(Handle, _externalDefaultCallback, UIntPtr.Zero);
 		}
 
 		public void RegisterExternal<TR>(string name, ExternalFunc<TR> cb)
@@ -381,10 +384,15 @@ namespace ZenKit
 			RegisterExternalUnsafe(sym, cb);
 		}
 
+		private List<Native.Callbacks.ZkDaedalusVmExternalCallback> _externalCallbacks =
+			new List<Native.Callbacks.ZkDaedalusVmExternalCallback>();
 
 		private void RegisterExternalUnsafe(DaedalusSymbol sym, ExternalFunc cb)
 		{
-			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, (_0, _1) => cb(), UIntPtr.Zero);
+			Native.Callbacks.ZkDaedalusVmExternalCallback handle = (_0, _1) => cb();
+			_externalCallbacks.Add(handle);
+
+			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, handle, UIntPtr.Zero);
 		}
 
 		private delegate void ExternalFunc();

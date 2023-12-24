@@ -185,13 +185,17 @@ namespace ZenKit
 		public List<IMaterial> Materials { get; }
 		public ulong MaterialCount { get; }
 		public List<Vector3> Positions { get; }
+		public ulong PositionCount { get; }
 		public List<Vertex> Features { get; }
+		public ulong FeatureCount { get; }
 		public List<ILightMap> LightMap { get; }
 		public ulong LightMapCount { get; }
 		public List<IPolygon> Polygons { get; }
 		public ulong PolygonCount { get; }
 
 		public IMaterial GetMaterial(ulong i);
+		public Vector3 GetPosition(ulong i);
+		public Vertex GetFeature(ulong i);
 
 		public ILightMap GetLightMap(ulong i);
 
@@ -209,7 +213,9 @@ namespace ZenKit
 		public List<IMaterial> Materials { get; set; }
 		public ulong MaterialCount => (ulong)Materials.LongCount();
 		public List<Vector3> Positions { get; set; }
+		public ulong PositionCount => (ulong)Positions.LongCount();
 		public List<Vertex> Features { get; set; }
+		public ulong FeatureCount => (ulong)Features.LongCount();
 		public List<ILightMap> LightMap { get; set; }
 		public ulong LightMapCount => (ulong)LightMap.LongCount();
 		public List<IPolygon> Polygons { get; set; }
@@ -228,6 +234,16 @@ namespace ZenKit
 		public IMaterial GetMaterial(ulong i)
 		{
 			return Materials[(int)i];
+		}
+
+		public Vector3 GetPosition(ulong i)
+		{
+			return Positions[(int)i];
+		}
+
+		public Vertex GetFeature(ulong i)
+		{
+			return Features[(int)i];
 		}
 
 		public ILightMap GetLightMap(ulong i)
@@ -299,10 +315,41 @@ namespace ZenKit
 			}
 		}
 
-		public List<Vector3> Positions =>
-			Native.ZkMesh_getPositions(_handle, out var count).MarshalAsList<Vector3>(count);
+		public ulong PositionCount => Native.ZkMesh_getPositionCount(_handle);
 
-		public List<Vertex> Features => Native.ZkMesh_getVertices(_handle, out var count).MarshalAsList<Vertex>(count);
+		public List<Vector3> Positions
+		{
+			get
+			{
+				var positions = new List<Vector3>();
+
+				Native.ZkMesh_enumeratePositions(_handle, (_, v) =>
+				{
+					positions.Add(v);
+					return false;
+				}, UIntPtr.Zero);
+
+				return positions;
+			}
+		}
+
+		public ulong FeatureCount => Native.ZkMesh_getVertexCount(_handle);
+
+		public List<Vertex> Features
+		{
+			get
+			{
+				var features = new List<Vertex>();
+
+				Native.ZkMesh_enumerateVertices(_handle, (_, v) =>
+				{
+					features.Add(Marshal.PtrToStructure<Vertex>(v));
+					return false;
+				}, UIntPtr.Zero);
+
+				return features;
+			}
+		}
 
 		public ulong LightMapCount => Native.ZkMesh_getLightMapCount(_handle);
 
@@ -364,6 +411,16 @@ namespace ZenKit
 		public IMaterial GetMaterial(ulong i)
 		{
 			return new Material(Native.ZkMesh_getMaterial(_handle, i));
+		}
+
+		public Vector3 GetPosition(ulong i)
+		{
+			return Native.ZkMesh_getPosition(_handle, i);
+		}
+
+		public Vertex GetFeature(ulong i)
+		{
+			return Native.ZkMesh_getVertex(_handle, i);
 		}
 
 		public ILightMap GetLightMap(ulong i)
