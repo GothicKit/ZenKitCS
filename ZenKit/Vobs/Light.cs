@@ -20,7 +20,27 @@ namespace ZenKit.Vobs
 		Low = 2
 	}
 
-	public class LightPreset
+	public interface ILightPreset
+	{
+		public string Preset { get; set; }
+		public LightType LightType { get; set; }
+		public float Range { get; set; }
+		public Color Color { get; set; }
+		public float ConeAngle { get; set; }
+		public bool LightStatic { get; set; }
+		public LightQuality Quality { get; set; }
+		public string LensflareFx { get; set; }
+		public bool On { get; set; }
+		public List<float> RangeAnimationScale { get; set; }
+		public float RangeAnimationFps { get; set; }
+		public bool RangeAnimationSmooth { get; set; }
+		public List<Color> ColorAnimationList { get; set; }
+		public float ColorAnimationFps { get; set; }
+		public bool ColorAnimationSmooth { get; set; }
+		public bool CanMove { get; set; }
+	}
+
+	public class LightPreset : ILightPreset
 	{
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
@@ -101,7 +121,7 @@ namespace ZenKit.Vobs
 			set => Native.ZkLightPreset_setOn(_handle, value);
 		}
 
-		public IReadOnlyList<float> RangeAnimationScale
+		public List<float> RangeAnimationScale
 		{
 			get =>
 				Native.ZkLightPreset_getRangeAnimationScale(_handle, out var count)
@@ -156,7 +176,7 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Light : VirtualObject
+	public class Light : VirtualObject, ILightPreset
 	{
 		public Light(Read buf, GameVersion version) : base(Native.ZkLight_load(buf.Handle, version), true)
 		{
