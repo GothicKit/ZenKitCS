@@ -3206,7 +3206,14 @@ namespace ZenKit
 		public static extern void ZkDaedalusVm_callFunction(UIntPtr slf, UIntPtr sym);
 
 		[DllImport(DllName)]
+		public static extern UIntPtr ZkDaedalusVm_allocInstance(UIntPtr slf, UIntPtr sym, DaedalusInstanceType type);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkDaedalusVm_initInstance(UIntPtr slf, UIntPtr sym, DaedalusInstanceType type);
+        
+		[DllImport(DllName)]
+		public static extern void ZkDaedalusVm_initInstanceDirect(UIntPtr slf, UIntPtr instance);
+
 
 		[DllImport(DllName)]
 		public static extern void ZkDaedalusVm_registerExternal(UIntPtr slf, UIntPtr sym,

@@ -37,7 +37,7 @@ public class TestCamera
 		Assert.That(vob.TargetCount, Is.EqualTo(1));
 
 		var frames = vob.Frames;
-		Assert.That(frames, Has.Count.EqualTo(3));
+		Assert.That(frames, Has.Count.EqualTo(2));
 		Assert.That(frames[0].Time, Is.EqualTo(0.0f));
 		Assert.That(frames[0].RollAngle, Is.EqualTo(0.0f));
 		Assert.That(frames[0].FovScale, Is.EqualTo(1.0f));

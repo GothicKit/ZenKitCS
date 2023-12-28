@@ -123,6 +123,51 @@ namespace ZenKit
 		{
 			Native.ZkDaedalusVm_printStackTrace(Handle);
 		}
+		
+		public T AllocInstance<T>(string symbolName)
+		{
+			var sym = GetSymbolByName(symbolName);
+			if (sym == null) throw new Exception("Symbol not found");
+			return AllocInstance<T>(sym);
+		}
+		
+		public T AllocInstance<T>(DaedalusSymbol symbol)
+		{
+			DaedalusInstanceType type;
+
+			if (typeof(T) == typeof(GuildValuesInstance)) type = DaedalusInstanceType.GuildValues;
+			else if (typeof(T) == typeof(NpcInstance)) type = DaedalusInstanceType.Npc;
+			else if (typeof(T) == typeof(MissionInstance)) type = DaedalusInstanceType.Mission;
+			else if (typeof(T) == typeof(ItemInstance)) type = DaedalusInstanceType.Item;
+			else if (typeof(T) == typeof(FocusInstance)) type = DaedalusInstanceType.Focus;
+			else if (typeof(T) == typeof(InfoInstance)) type = DaedalusInstanceType.Info;
+			else if (typeof(T) == typeof(ItemReactInstance)) type = DaedalusInstanceType.ItemReact;
+			else if (typeof(T) == typeof(SpellInstance)) type = DaedalusInstanceType.Spell;
+			else if (typeof(T) == typeof(MenuInstance)) type = DaedalusInstanceType.Menu;
+			else if (typeof(T) == typeof(MenuItemInstance)) type = DaedalusInstanceType.MenuItem;
+			else if (typeof(T) == typeof(CameraInstance)) type = DaedalusInstanceType.Camera;
+			else if (typeof(T) == typeof(MusicSystemInstance)) type = DaedalusInstanceType.MusicSystem;
+			else if (typeof(T) == typeof(MusicThemeInstance)) type = DaedalusInstanceType.MusicTheme;
+			else if (typeof(T) == typeof(MusicJingleInstance)) type = DaedalusInstanceType.MusicJingle;
+			else if (typeof(T) == typeof(ParticleEffectInstance)) type = DaedalusInstanceType.ParticleEffect;
+			else if (typeof(T) == typeof(EffectBaseInstance)) type = DaedalusInstanceType.EffectBase;
+			else if (typeof(T) == typeof(ParticleEffectEmitKeyInstance))
+				type = DaedalusInstanceType.ParticleEffectEmitKey;
+			else if (typeof(T) == typeof(FightAiInstance)) type = DaedalusInstanceType.FightAi;
+			else if (typeof(T) == typeof(SoundEffectInstance)) type = DaedalusInstanceType.SoundEffect;
+			else if (typeof(T) == typeof(SoundSystemInstance)) type = DaedalusInstanceType.SoundSystem;
+			else if (typeof(T) == typeof(InvalidOperationException)) type = DaedalusInstanceType.Svm;
+			else throw new NotSupportedException("Must be DaedalusInstance");
+
+			var ptr = DaedalusInstance.FromNative(Native.ZkDaedalusVm_allocInstance(Handle, symbol.Handle, type)) ??
+			          throw new InvalidOperationException();
+			return (T)(object)ptr;
+		}
+		
+		public void InitInstance(DaedalusInstance instance)
+		{
+			Native.ZkDaedalusVm_initInstanceDirect(Handle, instance.Handle);
+		}
 
 		public T InitInstance<T>(string symbolName)
 		{
