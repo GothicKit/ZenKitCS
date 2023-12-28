@@ -215,10 +215,27 @@ namespace ZenKit
 			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
 			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
 		}
+		
+		public void Call(int symId)
+		{
+			var sym = GetSymbolByIndex((uint)symId);
+			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
+			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
+		}
 
 		public TR Call<TR>(string name)
 		{
 			var sym = GetSymbolByName(name);
+			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
+			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
+
+			if (!sym.HasReturn) throw new InvalidOperationException("The function does not return anything!");
+			return Pop<TR>();
+		}
+		
+		public TR Call<TR>(int symId)
+		{
+			var sym = GetSymbolByIndex((uint)symId);
 			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
 			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
 
@@ -256,34 +273,64 @@ namespace ZenKit
 			return Call<TR>(name);
 		}
 
-		public void Call<TP0>(string name, TP0 p0)
+		public TR Call<TR, TP0>(int symId, TP0 p0)
 		{
 			Push(p0);
-			Call(name);
+			return Call<TR>(symId);
 		}
 
-		public void Call<TP0, TP1>(string name, TP0 p0, TP1 p1)
+		public TR Call<TR, TP0, TP1>(int symId, TP0 p0, TP1 p1)
 		{
 			Push(p0);
 			Push(p1);
-			Call(name);
+			return Call<TR>(symId);
 		}
 
-		public void Call<TP0, TP1, TP2>(string name, TP0 p0, TP1 p1, TP2 p2)
+		public TR Call<TR, TP0, TP1, TP2>(int symId, TP0 p0, TP1 p1, TP2 p2)
 		{
 			Push(p0);
 			Push(p1);
 			Push(p2);
-			Call(name);
+			return Call<TR>(symId);
 		}
 
-		public void Call<TP0, TP1, TP2, TP3>(string name, TP0 p0, TP1 p1, TP2 p2, TP3 p3)
+		public TR Call<TR, TP0, TP1, TP2, TP3>(int symId, TP0 p0, TP1 p1, TP2 p2, TP3 p3)
 		{
 			Push(p0);
 			Push(p1);
 			Push(p2);
 			Push(p3);
-			Call(name);
+			return Call<TR>(symId);
+		}
+
+		public void Call<TP0>(int symId, TP0 p0)
+		{
+			Push(p0);
+			Call(symId);
+		}
+
+		public void Call<TP0, TP1>(int symId, TP0 p0, TP1 p1)
+		{
+			Push(p0);
+			Push(p1);
+			Call(symId);
+		}
+
+		public void Call<TP0, TP1, TP2>(int symId, TP0 p0, TP1 p1, TP2 p2)
+		{
+			Push(p0);
+			Push(p1);
+			Push(p2);
+			Call(symId);
+		}
+
+		public void Call<TP0, TP1, TP2, TP3>(int symId, TP0 p0, TP1 p1, TP2 p2, TP3 p3)
+		{
+			Push(p0);
+			Push(p1);
+			Push(p2);
+			Push(p3);
+			Call(symId);
 		}
 
 		public void RegisterExternalDefault(ExternalDefaultFunction cb)
