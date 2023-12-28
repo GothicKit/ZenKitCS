@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace ZenKit.Vobs
 {
@@ -99,9 +101,23 @@ namespace ZenKit.Vobs
 			set => Native.ZkMover_setSpeedType(Handle, value);
 		}
 
+		public ulong KeyframeCount => Native.ZkMover_getKeyframeCount(Handle);
 
-		public List<AnimationSample> Keyframes =>
-			Native.ZkMover_getKeyframes(Handle, out var count).MarshalAsList<AnimationSample>(count);
+		public List<AnimationSample> Keyframes
+		{
+			get
+			{
+				var samples = new List<AnimationSample>();
+
+				Native.ZkMover_enumerateKeyframes(Handle, (_, sample) =>
+				{
+					samples.Add(Marshal.PtrToStructure<AnimationSample>(sample));
+					return false;
+				}, UIntPtr.Zero);
+
+				return samples;
+			}
+		}
 
 
 		public string SfxOpenStart
@@ -156,6 +172,11 @@ namespace ZenKit.Vobs
 		protected override void Delete()
 		{
 			Native.ZkMover_del(Handle);
+		}
+
+		public AnimationSample GetKeyframe(ulong i)
+		{
+			return Native.ZkMover_getKeyframe(Handle, i);
 		}
 	}
 }

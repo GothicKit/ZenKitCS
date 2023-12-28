@@ -1,6 +1,5 @@
 using System;
 using ZenKit.Daedalus;
-using ZenKit.Util;
 
 namespace ZenKit
 {
@@ -31,31 +30,7 @@ namespace ZenKit
 		Invalid = 21
 	}
 
-	public interface IDaedalusInstance : ICacheable<IDaedalusInstance>
-	{
-		public DaedalusInstanceType Type { get; }
-		public uint Index { get; }
-	}
-
-	[Serializable]
-	public class CachedDaedalusInstance : IDaedalusInstance
-	{
-		public DaedalusInstanceType Type { get; set; }
-		public uint Index { get; set; }
-
-		public IDaedalusInstance Cache()
-		{
-			return this;
-		}
-
-		public bool IsCached()
-		{
-			return true;
-		}
-	}
-
-
-	public class DaedalusInstance : IDaedalusInstance
+	public class DaedalusInstance
 	{
 		protected DaedalusInstance(UIntPtr handle)
 		{
@@ -66,20 +41,6 @@ namespace ZenKit
 
 		public DaedalusInstanceType Type => Native.ZkDaedalusInstance_getType(Handle);
 		public uint Index => Native.ZkDaedalusInstance_getIndex(Handle);
-
-		public IDaedalusInstance Cache()
-		{
-			return new CachedDaedalusInstance
-			{
-				Type = Type,
-				Index = Index
-			};
-		}
-
-		public bool IsCached()
-		{
-			return false;
-		}
 
 		public static DaedalusInstance? FromNative(UIntPtr handle)
 		{

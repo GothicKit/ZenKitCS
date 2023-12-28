@@ -492,10 +492,24 @@ namespace ZenKit
 		public static extern void ZkMultiResolutionMesh_del(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkMultiResolutionMesh_getPositions(UIntPtr slf, out ulong count);
+		public static extern ulong ZkMultiResolutionMesh_getPositionCount(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkMultiResolutionMesh_getNormals(UIntPtr slf, out ulong count);
+		public static extern Vector3 ZkMultiResolutionMesh_getPosition(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void
+			ZkMultiResolutionMesh_enumeratePositions(UIntPtr slf, ZkVec3fEnumerator cb, UIntPtr ctx);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkMultiResolutionMesh_getNormalCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern Vector3 ZkMultiResolutionMesh_getNormal(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void
+			ZkMultiResolutionMesh_enumerateNormals(UIntPtr slf, ZkVec3fEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkMultiResolutionMesh_getSubMeshCount(UIntPtr slf);
@@ -534,7 +548,13 @@ namespace ZenKit
 		public static extern IntPtr ZkSubMesh_getTriangles(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkSubMesh_getWedges(UIntPtr slf, out ulong count);
+		public static extern ulong ZkSubMesh_getWedgeCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern MeshWedge ZkSubMesh_getWedge(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSubMesh_enumerateWedges(UIntPtr slf, ZkMeshWedgeEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkSubMesh_getColors(UIntPtr slf, out ulong count);
@@ -543,7 +563,13 @@ namespace ZenKit
 		public static extern IntPtr ZkSubMesh_getTrianglePlaneIndices(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkSubMesh_getTrianglePlanes(UIntPtr slf, out ulong count);
+		public static extern ulong ZkSubMesh_getTrianglePlaneCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern MeshPlane ZkSubMesh_getTrianglePlane(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSubMesh_enumerateTrianglePlanes(UIntPtr slf, ZkMeshPlaneEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkSubMesh_getTriangleEdges(UIntPtr slf, out ulong count);
@@ -572,14 +598,27 @@ namespace ZenKit
 			UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkSoftSkinMesh_getWeights(UIntPtr slf, ulong node, out ulong count);
+		public static extern ulong ZkSoftSkinMesh_getWeightTotal(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkSoftSkinMesh_enumerateWeights(UIntPtr slf, ZkSoftSkinWeightEnumerator cb,
-			UIntPtr node);
+		public static extern ulong ZkSoftSkinMesh_getWeightCount(UIntPtr slf, ulong node);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkSoftSkinMesh_getWedgeNormals(UIntPtr slf, out ulong count);
+		public static extern SoftSkinWeightEntry ZkSoftSkinMesh_getWeight(UIntPtr slf, ulong node, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoftSkinMesh_enumerateWeights(UIntPtr slf, ulong node,
+			ZkSoftSkinWeightEnumerator cb, UIntPtr ctx);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkSoftSkinMesh_getWedgeNormalCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern SoftSkinWedgeNormal ZkSoftSkinMesh_getWedgeNormal(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSoftSkinMesh_enumerateWedgeNormals(UIntPtr slf, SoftSkinWedgeNormalEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkSoftSkinMesh_getNodes(UIntPtr slf, out ulong count);
@@ -677,7 +716,13 @@ namespace ZenKit
 		public static extern uint ZkTexture_getAverageColor(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkTexture_getPalette(UIntPtr slf, out ulong size);
+		public static extern ulong ZkTexture_getPaletteSize(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern ZkColor ZkTexture_getPaletteItem(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkTexture_enumeratePaletteItems(UIntPtr slf, ZkColorEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkTexture_getMipmapRaw(UIntPtr slf, ulong level, out ulong size);
@@ -712,7 +757,13 @@ namespace ZenKit
 		public static extern UIntPtr ZkMorphMesh_getMesh(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkMorphMesh_getMorphPositions(UIntPtr slf, out ulong count);
+		public static extern ulong ZkMorphMesh_getMorphPositionCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern Vector3 ZkMorphMesh_getMorphPosition(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMorphMesh_enumerateMorphPositions(UIntPtr slf, ZkVec3fEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkMorphMesh_getAnimationCount(UIntPtr slf);
@@ -762,7 +813,13 @@ namespace ZenKit
 		public static extern IntPtr ZkMorphAnimation_getVertices(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkMorphAnimation_getSamples(UIntPtr slf, out ulong count);
+		public static extern ulong ZkMorphAnimation_getSampleCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern Vector3 ZkMorphAnimation_getSample(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMorphAnimation_enumerateSamples(UIntPtr slf, ZkVec3fEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMorphSource_getFileName(UIntPtr slf);
@@ -805,10 +862,22 @@ namespace ZenKit
 			ZkMesh_enumerateMaterials(UIntPtr slf, ZkMaterialEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkMesh_getPositions(UIntPtr slf, out ulong count);
+		public static extern ulong ZkMesh_getPositionCount(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkMesh_getVertices(UIntPtr slf, out ulong count);
+		public static extern Vector3 ZkMesh_getPosition(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMesh_enumeratePositions(UIntPtr slf, ZkVec3fEnumerator cb, UIntPtr ctx);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkMesh_getVertexCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern Vertex ZkMesh_getVertex(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMesh_enumerateVertices(UIntPtr slf, ZkVertexEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkMesh_getLightMapCount(UIntPtr slf);
@@ -1243,13 +1312,25 @@ namespace ZenKit
 		public static extern IntPtr ZkBspTree_getPortalPolygonIndices(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkBspTree_getLightPoints(UIntPtr slf, out ulong count);
+		public static extern ulong ZkBspTree_getLightPointCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern Vector3 ZkBspTree_getLightPoint(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkBspTree_enumerateLightPoints(UIntPtr slf, ZkVec3fEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkBspTree_getLeafNodeIndices(UIntPtr slf, out ulong count);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkBspTree_getNodes(UIntPtr slf, out ulong count);
+		public static extern ulong ZkBspTree_getNodeCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern BspNode ZkBspTree_getNode(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkBspTree_enumerateNodes(UIntPtr slf, ZkBspNodeEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern ulong ZkBspTree_getSectorCount(UIntPtr slf);
@@ -1815,8 +1896,16 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkLightPreset_setRangeAnimationSmooth(UIntPtr slf, bool rangeAnimationSmooth);
 
+
 		[DllImport(DllName)]
-		public static extern IntPtr ZkLightPreset_getColorAnimationList(UIntPtr slf, out ulong count);
+		public static extern ulong ZkLightPreset_getColorAnimationCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern ZkColor ZkLightPreset_getColorAnimationItem(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkLightPreset_enumerateColorAnimationItems(UIntPtr slf, ZkColorEnumerator cb,
+			UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void ZkLightPreset_setColorAnimationList(UIntPtr slf, ZkColor[] colorAnimationList,
@@ -1912,8 +2001,15 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkLight_setRangeAnimationSmooth(UIntPtr slf, bool rangeAnimationSmooth);
 
+
 		[DllImport(DllName)]
-		public static extern IntPtr ZkLight_getColorAnimationList(UIntPtr slf, out ulong count);
+		public static extern ulong ZkLight_getColorAnimationCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern ZkColor ZkLight_getColorAnimationItem(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkLight_enumerateColorAnimationItems(UIntPtr slf, ZkColorEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern void
@@ -2658,10 +2754,13 @@ namespace ZenKit
 		public static extern void ZkMover_setSpeedType(UIntPtr slf, MoverSpeedType speedType);
 
 		[DllImport(DllName)]
-		public static extern IntPtr ZkMover_getKeyframes(UIntPtr slf, out ulong count);
+		public static extern ulong ZkMover_getKeyframeCount(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkMover_setKeyframes(UIntPtr slf, out ulong count, string keyframes);
+		public static extern AnimationSample ZkMover_getKeyframe(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkMover_enumerateKeyframes(UIntPtr slf, ZkAnimationSampleEnumerator cb, UIntPtr ctx);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkMover_getSfxOpenStart(UIntPtr slf);
@@ -6556,7 +6655,10 @@ namespace ZenKit
 			public delegate bool ZkSoftSkinMeshEnumerator(UIntPtr ctx, UIntPtr mesh);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkSoftSkinWeightEnumerator(UIntPtr ctx, IntPtr entry, ulong count);
+			public delegate bool ZkSoftSkinWeightEnumerator(UIntPtr ctx, IntPtr entry);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool SoftSkinWedgeNormalEnumerator(UIntPtr ctx, SoftSkinWedgeNormal normal);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkStringEnumerator(UIntPtr ctx, IntPtr v);
@@ -6578,17 +6680,35 @@ namespace ZenKit
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkWayPointEnumerator(UIntPtr ctx, UIntPtr point);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkVec3fEnumerator(UIntPtr ctx, Vector3 v);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkColorEnumerator(UIntPtr ctx, ZkColor color);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkMeshWedgeEnumerator(UIntPtr ctx, IntPtr wedge);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkMeshPlaneEnumerator(UIntPtr ctx, IntPtr plane);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkVertexEnumerator(UIntPtr ctx, IntPtr vertex);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkBspNodeEnumerator(UIntPtr ctx, IntPtr node);
 		}
 
 		public class Structs
 		{
-			[StructLayout(LayoutKind.Explicit)]
+			[StructLayout(LayoutKind.Sequential, Size = 4)]
 			public struct ZkColor
 			{
-				[FieldOffset(0)] public byte R;
-				[FieldOffset(1)] public byte G;
-				[FieldOffset(2)] public byte B;
-				[FieldOffset(3)] public byte A;
+				public byte R;
+				public byte G;
+				public byte B;
+				public byte A;
 
 				public ZkColor(Color c)
 				{
@@ -6604,18 +6724,7 @@ namespace ZenKit
 				}
 			}
 
-			[StructLayout(LayoutKind.Sequential)]
-			public struct ZkColorArgb
-			{
-				public byte A, R, G, B;
-
-				public Color ToColor()
-				{
-					return Color.FromArgb(A, R, G, B);
-				}
-			}
-
-			[StructLayout(LayoutKind.Sequential)]
+			[StructLayout(LayoutKind.Sequential, Size = 4 * 9)]
 			public struct ZkMat3x3
 			{
 				public float m00,
@@ -6667,7 +6776,7 @@ namespace ZenKit
 				}
 			}
 
-			[StructLayout(LayoutKind.Sequential)]
+			[StructLayout(LayoutKind.Sequential, Size = 4 * 16)]
 			public struct ZkMat4x4
 			{
 				public float m00,
