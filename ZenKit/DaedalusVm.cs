@@ -21,6 +21,21 @@ namespace ZenKit
 		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4>(TP0 p0, TP1 p1, TP2 p2, TP3 p3,
 			TP4 p4);
 
+		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4, in TP5>(TP0 p0, TP1 p1, TP2 p2,
+			TP3 p3, TP4 p4, TP5 p5);
+
+		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6>(TP0 p0, TP1 p1,
+			TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6);
+
+		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7>(TP0 p0,
+			TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7);
+
+		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7, in TP8>(
+			TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8);
+
+		public delegate TR ExternalFunc<out TR, in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7, in TP8,
+			in TP9>(TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8, TP9 p9);
+
 		public delegate void ExternalFuncV();
 
 		public delegate void ExternalFuncV<in TP0>(TP0 p0);
@@ -33,6 +48,26 @@ namespace ZenKit
 
 		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4>(TP0 p0, TP1 p1, TP2 p2, TP3 p3,
 			TP4 p4);
+
+		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4, in TP5>(TP0 p0, TP1 p1, TP2 p2,
+			TP3 p3, TP4 p4, TP5 p5);
+
+		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6>(TP0 p0, TP1 p1,
+			TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6);
+
+		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7>(TP0 p0,
+			TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7);
+
+		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7, in TP8>(
+			TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8);
+
+		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7, in TP8,
+			in TP9>(TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8, TP9 p9);
+
+		private readonly List<Native.Callbacks.ZkDaedalusVmExternalCallback> _externalCallbacks =
+			new List<Native.Callbacks.ZkDaedalusVmExternalCallback>();
+
+		private Native.Callbacks.ZkDaedalusVmExternalDefaultCallback? _externalDefaultCallback;
 
 		public DaedalusVm(string path) : base(Native.ZkDaedalusVm_loadPath(path))
 		{
@@ -206,8 +241,6 @@ namespace ZenKit
 			Call(name);
 		}
 
-		private Native.Callbacks.ZkDaedalusVmExternalDefaultCallback? _externalDefaultCallback = null;
-
 		public void RegisterExternalDefault(ExternalDefaultFunction cb)
 		{
 			_externalDefaultCallback = (_0, _1, sym) => cb(this, new DaedalusSymbol(sym));
@@ -275,6 +308,90 @@ namespace ZenKit
 			});
 		}
 
+		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				Push(cb(p0, p1, p2, p3, p4, p5));
+			});
+		}
+
+		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				Push(cb(p0, p1, p2, p3, p4, p5, p6));
+			});
+		}
+
+		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p7 = Pop<TP7>();
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				Push(cb(p0, p1, p2, p3, p4, p5, p6, p7));
+			});
+		}
+
+		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p8 = Pop<TP8>();
+				var p7 = Pop<TP7>();
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8));
+			});
+		}
+
+		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p9 = Pop<TP9>();
+				var p8 = Pop<TP8>();
+				var p7 = Pop<TP7>();
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9));
+			});
+		}
 
 		public void RegisterExternal(string name, ExternalFuncV cb)
 		{
@@ -336,6 +453,91 @@ namespace ZenKit
 			});
 		}
 
+		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5);
+			});
+		}
+
+		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6);
+			});
+		}
+
+		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p7 = Pop<TP7>();
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6, p7);
+			});
+		}
+
+		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p8 = Pop<TP8>();
+				var p7 = Pop<TP7>();
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6, p7, p8);
+			});
+		}
+
+		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9> cb)
+		{
+			RegisterExternalUnsafe(name, () =>
+			{
+				var p9 = Pop<TP9>();
+				var p8 = Pop<TP8>();
+				var p7 = Pop<TP7>();
+				var p6 = Pop<TP6>();
+				var p5 = Pop<TP5>();
+				var p4 = Pop<TP4>();
+				var p3 = Pop<TP3>();
+				var p2 = Pop<TP2>();
+				var p1 = Pop<TP1>();
+				var p0 = Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+			});
+		}
+
 		private void Push<T>(T value)
 		{
 			switch (value)
@@ -383,9 +585,6 @@ namespace ZenKit
 			if (sym == null) throw new Exception("Symbol not found");
 			RegisterExternalUnsafe(sym, cb);
 		}
-
-		private List<Native.Callbacks.ZkDaedalusVmExternalCallback> _externalCallbacks =
-			new List<Native.Callbacks.ZkDaedalusVmExternalCallback>();
 
 		private void RegisterExternalUnsafe(DaedalusSymbol sym, ExternalFunc cb)
 		{
