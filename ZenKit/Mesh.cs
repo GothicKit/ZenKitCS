@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -74,10 +73,10 @@ namespace ZenKit
 
 	public interface IPolygon : ICacheable<IPolygon>
 	{
-		public uint MaterialIndex { get; }
+		public int MaterialIndex { get; }
 		public int LightMapIndex { get; }
-		public List<uint> PositionIndices { get; }
-		public List<uint> FeatureIndices { get; }
+		public List<int> PositionIndices { get; }
+		public List<int> FeatureIndices { get; }
 		public bool IsPortal { get; }
 		public bool IsOccluder { get; }
 		public bool IsSector { get; }
@@ -93,10 +92,10 @@ namespace ZenKit
 	[Serializable]
 	public class CachedPolygon : IPolygon
 	{
-		public uint MaterialIndex { get; set; }
+		public int MaterialIndex { get; set; }
 		public int LightMapIndex { get; set; }
-		public List<uint> PositionIndices { get; set; }
-		public List<uint> FeatureIndices { get; set; }
+		public List<int> PositionIndices { get; set; }
+		public List<int> FeatureIndices { get; set; }
 		public bool IsPortal { get; set; }
 		public bool IsOccluder { get; set; }
 		public bool IsSector { get; set; }
@@ -128,14 +127,14 @@ namespace ZenKit
 			_handle = handle;
 		}
 
-		public uint MaterialIndex => Native.ZkPolygon_getMaterialIndex(_handle);
+		public int MaterialIndex => (int)Native.ZkPolygon_getMaterialIndex(_handle);
 		public int LightMapIndex => Native.ZkPolygon_getLightMapIndex(_handle);
 
-		public List<uint> PositionIndices =>
-			Native.ZkPolygon_getPositionIndices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> PositionIndices =>
+			Native.ZkPolygon_getPositionIndices(_handle, out var count).MarshalAsList<int>(count);
 
-		public List<uint> FeatureIndices =>
-			Native.ZkPolygon_getFeatureIndices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> FeatureIndices =>
+			Native.ZkPolygon_getFeatureIndices(_handle, out var count).MarshalAsList<int>(count);
 
 		public bool IsPortal => Native.ZkPolygon_getIsPortal(_handle);
 		public bool IsOccluder => Native.ZkPolygon_getIsOccluder(_handle);
@@ -183,23 +182,23 @@ namespace ZenKit
 		public AxisAlignedBoundingBox BoundingBox { get; }
 		public IOrientedBoundingBox OrientedBoundingBox { get; }
 		public List<IMaterial> Materials { get; }
-		public ulong MaterialCount { get; }
+		public int MaterialCount { get; }
 		public List<Vector3> Positions { get; }
-		public ulong PositionCount { get; }
+		public int PositionCount { get; }
 		public List<Vertex> Features { get; }
-		public ulong FeatureCount { get; }
+		public int FeatureCount { get; }
 		public List<ILightMap> LightMap { get; }
-		public ulong LightMapCount { get; }
+		public int LightMapCount { get; }
 		public List<IPolygon> Polygons { get; }
-		public ulong PolygonCount { get; }
+		public int PolygonCount { get; }
 
-		public IMaterial GetMaterial(ulong i);
-		public Vector3 GetPosition(ulong i);
-		public Vertex GetFeature(ulong i);
+		public IMaterial GetMaterial(int i);
+		public Vector3 GetPosition(int i);
+		public Vertex GetFeature(int i);
 
-		public ILightMap GetLightMap(ulong i);
+		public ILightMap GetLightMap(int i);
 
-		public IPolygon GetPolygon(ulong i);
+		public IPolygon GetPolygon(int i);
 	}
 
 
@@ -211,15 +210,15 @@ namespace ZenKit
 		public AxisAlignedBoundingBox BoundingBox { get; set; }
 		public IOrientedBoundingBox OrientedBoundingBox { get; set; }
 		public List<IMaterial> Materials { get; set; }
-		public ulong MaterialCount => (ulong)Materials.LongCount();
+		public int MaterialCount => Materials.Count;
 		public List<Vector3> Positions { get; set; }
-		public ulong PositionCount => (ulong)Positions.LongCount();
+		public int PositionCount => Positions.Count;
 		public List<Vertex> Features { get; set; }
-		public ulong FeatureCount => (ulong)Features.LongCount();
+		public int FeatureCount => Features.Count;
 		public List<ILightMap> LightMap { get; set; }
-		public ulong LightMapCount => (ulong)LightMap.LongCount();
+		public int LightMapCount => LightMap.Count;
 		public List<IPolygon> Polygons { get; set; }
-		public ulong PolygonCount => (ulong)Polygons.LongCount();
+		public int PolygonCount => Polygons.Count;
 
 		public IMesh Cache()
 		{
@@ -231,29 +230,29 @@ namespace ZenKit
 			return true;
 		}
 
-		public IMaterial GetMaterial(ulong i)
+		public IMaterial GetMaterial(int i)
 		{
-			return Materials[(int)i];
+			return Materials[i];
 		}
 
-		public Vector3 GetPosition(ulong i)
+		public Vector3 GetPosition(int i)
 		{
-			return Positions[(int)i];
+			return Positions[i];
 		}
 
-		public Vertex GetFeature(ulong i)
+		public Vertex GetFeature(int i)
 		{
-			return Features[(int)i];
+			return Features[i];
 		}
 
-		public ILightMap GetLightMap(ulong i)
+		public ILightMap GetLightMap(int i)
 		{
-			return LightMap[(int)i];
+			return LightMap[i];
 		}
 
-		public IPolygon GetPolygon(ulong i)
+		public IPolygon GetPolygon(int i)
 		{
-			return Polygons[(int)i];
+			return Polygons[i];
 		}
 	}
 
@@ -297,7 +296,7 @@ namespace ZenKit
 		public IOrientedBoundingBox OrientedBoundingBox =>
 			new OrientedBoundingBox(Native.ZkMesh_getOrientedBoundingBox(_handle));
 
-		public ulong MaterialCount => Native.ZkMesh_getMaterialCount(_handle);
+		public int MaterialCount => (int)Native.ZkMesh_getMaterialCount(_handle);
 
 		public List<IMaterial> Materials
 		{
@@ -315,7 +314,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong PositionCount => Native.ZkMesh_getPositionCount(_handle);
+		public int PositionCount => (int)Native.ZkMesh_getPositionCount(_handle);
 
 		public List<Vector3> Positions
 		{
@@ -333,7 +332,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong FeatureCount => Native.ZkMesh_getVertexCount(_handle);
+		public int FeatureCount => (int)Native.ZkMesh_getVertexCount(_handle);
 
 		public List<Vertex> Features
 		{
@@ -351,7 +350,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong LightMapCount => Native.ZkMesh_getLightMapCount(_handle);
+		public int LightMapCount => (int)Native.ZkMesh_getLightMapCount(_handle);
 
 		public List<ILightMap> LightMap
 		{
@@ -369,7 +368,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong PolygonCount => Native.ZkMesh_getPolygonCount(_handle);
+		public int PolygonCount => (int)Native.ZkMesh_getPolygonCount(_handle);
 
 		public List<IPolygon> Polygons
 		{
@@ -408,29 +407,29 @@ namespace ZenKit
 			return false;
 		}
 
-		public IMaterial GetMaterial(ulong i)
+		public IMaterial GetMaterial(int i)
 		{
-			return new Material(Native.ZkMesh_getMaterial(_handle, i));
+			return new Material(Native.ZkMesh_getMaterial(_handle, (ulong)i));
 		}
 
-		public Vector3 GetPosition(ulong i)
+		public Vector3 GetPosition(int i)
 		{
-			return Native.ZkMesh_getPosition(_handle, i);
+			return Native.ZkMesh_getPosition(_handle, (ulong)i);
 		}
 
-		public Vertex GetFeature(ulong i)
+		public Vertex GetFeature(int i)
 		{
-			return Native.ZkMesh_getVertex(_handle, i);
+			return Native.ZkMesh_getVertex(_handle, (ulong)i);
 		}
 
-		public ILightMap GetLightMap(ulong i)
+		public ILightMap GetLightMap(int i)
 		{
-			return new LightMap(Native.ZkMesh_getLightMap(_handle, i));
+			return new LightMap(Native.ZkMesh_getLightMap(_handle, (ulong)i));
 		}
 
-		public IPolygon GetPolygon(ulong i)
+		public IPolygon GetPolygon(int i)
 		{
-			return new Polygon(Native.ZkMesh_getPolygon(_handle, i));
+			return new Polygon(Native.ZkMesh_getPolygon(_handle, (ulong)i));
 		}
 
 		~Mesh()

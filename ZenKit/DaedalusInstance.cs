@@ -40,7 +40,7 @@ namespace ZenKit
 		internal UIntPtr Handle { get; }
 
 		public DaedalusInstanceType Type => Native.ZkDaedalusInstance_getType(Handle);
-		public uint Index => Native.ZkDaedalusInstance_getIndex(Handle);
+		public int Index => (int)Native.ZkDaedalusInstance_getIndex(Handle);
 
 		public static DaedalusInstance? FromNative(UIntPtr handle)
 		{

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -11,7 +10,7 @@ namespace ZenKit
 	[StructLayout(LayoutKind.Sequential, Size = 8)]
 	public struct WayEdge
 	{
-		public uint A, B;
+		public int A, B;
 	}
 
 	public interface IWayPoint : ICacheable<IWayPoint>
@@ -86,8 +85,8 @@ namespace ZenKit
 	{
 		public List<WayEdge> Edges { get; }
 		public List<IWayPoint> Points { get; }
-		public ulong PointCount { get; }
-		public IWayPoint GetPoint(ulong i);
+		public int PointCount { get; }
+		public IWayPoint GetPoint(int i);
 	}
 
 	[Serializable]
@@ -95,11 +94,11 @@ namespace ZenKit
 	{
 		public List<WayEdge> Edges { get; set; }
 		public List<IWayPoint> Points { get; set; }
-		public ulong PointCount => (ulong)Points.LongCount();
+		public int PointCount => Points.Count;
 
-		public IWayPoint GetPoint(ulong i)
+		public IWayPoint GetPoint(int i)
 		{
-			return Points[(int)i];
+			return Points[i];
 		}
 
 		public IWayNet Cache()
@@ -123,7 +122,7 @@ namespace ZenKit
 		}
 
 		public List<WayEdge> Edges => Native.ZkWayNet_getEdges(_handle, out var count).MarshalAsList<WayEdge>(count);
-		public ulong PointCount => Native.ZkWayNet_getPointCount(_handle);
+		public int PointCount => (int)Native.ZkWayNet_getPointCount(_handle);
 
 		public List<IWayPoint> Points
 		{
@@ -155,9 +154,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public IWayPoint GetPoint(ulong i)
+		public IWayPoint GetPoint(int i)
 		{
-			return new WayPoint(Native.ZkWayNet_getPoint(_handle, i));
+			return new WayPoint(Native.ZkWayNet_getPoint(_handle, (ulong)i));
 		}
 	}
 }

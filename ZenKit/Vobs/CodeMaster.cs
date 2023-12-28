@@ -55,7 +55,7 @@ namespace ZenKit.Vobs
 			set => Native.ZkCodeMaster_setUntriggeredCancels(Handle, value);
 		}
 
-		public ulong SlaveCount => Native.ZkCodeMaster_getSlaveCount(Handle);
+		public int SlaveCount => (int)Native.ZkCodeMaster_getSlaveCount(Handle);
 
 		public List<string> Slaves
 		{
@@ -73,9 +73,9 @@ namespace ZenKit.Vobs
 			}
 		}
 
-		public string GetSlave(ulong i)
+		public string GetSlave(int i)
 		{
-			return Native.ZkCodeMaster_getSlave(Handle, i).MarshalAsString() ??
+			return Native.ZkCodeMaster_getSlave(Handle, (ulong)i).MarshalAsString() ??
 			       throw new Exception("Failed to load code master vob slave");
 		}
 
@@ -84,9 +84,9 @@ namespace ZenKit.Vobs
 			Native.ZkCodeMaster_addSlave(Handle, slave);
 		}
 
-		public void RemoveSlave(ulong i)
+		public void RemoveSlave(int i)
 		{
-			Native.ZkCodeMaster_removeSlave(Handle, i);
+			Native.ZkCodeMaster_removeSlave(Handle, (ulong)i);
 		}
 
 		public void RemoveSlaves(Predicate<string> pred)

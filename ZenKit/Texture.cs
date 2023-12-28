@@ -28,31 +28,31 @@ namespace ZenKit
 	public interface ITexture : ICacheable<ITexture>
 	{
 		public TextureFormat Format { get; }
-		public uint Width { get; }
-		public uint Height { get; }
-		public uint WidthRef { get; }
-		public uint HeightRef { get; }
-		public uint MipmapCount { get; }
+		public int Width { get; }
+		public int Height { get; }
+		public int WidthRef { get; }
+		public int HeightRef { get; }
+		public int MipmapCount { get; }
 		public Color AverageColor { get; }
 		public Color[]? Palette { get; }
 		public List<byte[]> AllMipmapsRgba { get; }
 		public List<byte[]> AllMipmapsRaw { get; }
 
-		public byte[] GetMipmapRaw(ulong level);
-		public byte[] GetMipmapRgba(ulong level);
-		public uint GetWidth(ulong level);
-		public uint GetHeight(ulong level);
+		public byte[] GetMipmapRaw(int level);
+		public byte[] GetMipmapRgba(int level);
+		public int GetWidth(int level);
+		public int GetHeight(int level);
 	}
 
 	[Serializable]
 	public struct CachedTexture : ITexture
 	{
 		public TextureFormat Format { get; set; }
-		public uint Width { get; set; }
-		public uint Height { get; set; }
-		public uint WidthRef { get; set; }
-		public uint HeightRef { get; set; }
-		public uint MipmapCount { get; set; }
+		public int Width { get; set; }
+		public int Height { get; set; }
+		public int WidthRef { get; set; }
+		public int HeightRef { get; set; }
+		public int MipmapCount { get; set; }
 		public Color AverageColor { get; set; }
 		public Color[]? Palette { get; set; }
 		public List<byte[]> AllMipmapsRgba { get; set; }
@@ -68,24 +68,24 @@ namespace ZenKit
 			return true;
 		}
 
-		public byte[] GetMipmapRaw(ulong level)
+		public byte[] GetMipmapRaw(int level)
 		{
-			return AllMipmapsRaw[(int)level];
+			return AllMipmapsRaw[level];
 		}
 
-		public byte[] GetMipmapRgba(ulong level)
+		public byte[] GetMipmapRgba(int level)
 		{
-			return AllMipmapsRaw[(int)level];
+			return AllMipmapsRaw[level];
 		}
 
-		public uint GetWidth(ulong level)
+		public int GetWidth(int level)
 		{
-			return Width >> (int)level;
+			return Width >> level;
 		}
 
-		public uint GetHeight(ulong level)
+		public int GetHeight(int level)
 		{
-			return Height >> (int)level;
+			return Height >> level;
 		}
 	}
 
@@ -119,11 +119,11 @@ namespace ZenKit
 		}
 
 		public TextureFormat Format => Native.ZkTexture_getFormat(_handle);
-		public uint Width => Native.ZkTexture_getWidth(_handle);
-		public uint Height => Native.ZkTexture_getHeight(_handle);
-		public uint WidthRef => Native.ZkTexture_getWidthRef(_handle);
-		public uint HeightRef => Native.ZkTexture_getHeightRef(_handle);
-		public uint MipmapCount => Native.ZkTexture_getMipmapCount(_handle);
+		public int Width => (int)Native.ZkTexture_getWidth(_handle);
+		public int Height => (int)Native.ZkTexture_getHeight(_handle);
+		public int WidthRef => (int)Native.ZkTexture_getWidthRef(_handle);
+		public int HeightRef => (int)Native.ZkTexture_getHeightRef(_handle);
+		public int MipmapCount => (int)Native.ZkTexture_getMipmapCount(_handle);
 
 		public Color AverageColor
 		{
@@ -209,26 +209,26 @@ namespace ZenKit
 			return false;
 		}
 
-		public byte[] GetMipmapRaw(ulong level)
+		public byte[] GetMipmapRaw(int level)
 		{
-			return Native.ZkTexture_getMipmapRaw(_handle, level, out var size).MarshalAsArray<byte>(size);
+			return Native.ZkTexture_getMipmapRaw(_handle, (ulong)level, out var size).MarshalAsArray<byte>(size);
 		}
 
-		public byte[] GetMipmapRgba(ulong level)
+		public byte[] GetMipmapRgba(int level)
 		{
 			var data = new byte[GetWidth(level) * GetHeight(level) * 4];
-			Native.ZkTexture_getMipmapRgba(_handle, level, data, (ulong)data.Length);
+			Native.ZkTexture_getMipmapRgba(_handle, (ulong)level, data, (ulong)data.Length);
 			return data;
 		}
 
-		public uint GetWidth(ulong level)
+		public int GetWidth(int level)
 		{
-			return Native.ZkTexture_getWidthMipmap(_handle, level);
+			return (int)Native.ZkTexture_getWidthMipmap(_handle, (ulong)level);
 		}
 
-		public uint GetHeight(ulong level)
+		public int GetHeight(int level)
 		{
-			return Native.ZkTexture_getHeightMipmap(_handle, level);
+			return (int)Native.ZkTexture_getHeightMipmap(_handle, (ulong)level);
 		}
 
 		~Texture()

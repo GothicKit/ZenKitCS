@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ZenKit.Util;
 
 namespace ZenKit
@@ -69,13 +68,13 @@ namespace ZenKit
 	{
 		string SkeletonName { get; }
 		bool SkeletonMeshDisabled { get; }
-		ulong MeshCount { get; }
-		ulong DisabledAnimationsCount { get; }
-		ulong AnimationCombineCount { get; }
-		ulong AnimationBlendCount { get; }
-		ulong AnimationAliasCount { get; }
-		ulong ModelTagCount { get; }
-		ulong AnimationCount { get; }
+		int MeshCount { get; }
+		int DisabledAnimationsCount { get; }
+		int AnimationCombineCount { get; }
+		int AnimationBlendCount { get; }
+		int AnimationAliasCount { get; }
+		int ModelTagCount { get; }
+		int AnimationCount { get; }
 		List<IAnimationCombine> AnimationCombines { get; }
 		List<string> Meshes { get; }
 		List<string> DisabledAnimations { get; }
@@ -83,13 +82,13 @@ namespace ZenKit
 		List<IAnimationAlias> AnimationAliases { get; }
 		List<string> ModelTags { get; }
 		List<IAnimation> Animations { get; }
-		string GetDisabledAnimation(long i);
-		string GetMesh(long i);
-		IAnimationCombine GetAnimationCombine(long i);
-		IAnimationBlend GetAnimationBlend(long i);
-		IAnimationAlias GetAnimationAlias(long i);
-		string GetModelTag(long i);
-		IAnimation GetAnimation(long i);
+		string GetDisabledAnimation(int i);
+		string GetMesh(int i);
+		IAnimationCombine GetAnimationCombine(int i);
+		IAnimationBlend GetAnimationBlend(int i);
+		IAnimationAlias GetAnimationAlias(int i);
+		string GetModelTag(int i);
+		IAnimation GetAnimation(int i);
 	}
 
 	[Serializable]
@@ -97,13 +96,13 @@ namespace ZenKit
 	{
 		public string SkeletonName { get; set; }
 		public bool SkeletonMeshDisabled { get; set; }
-		public ulong MeshCount => (ulong)Meshes.LongCount();
-		public ulong DisabledAnimationsCount => (ulong)DisabledAnimations.LongCount();
-		public ulong AnimationCombineCount => (ulong)AnimationCombines.LongCount();
-		public ulong AnimationBlendCount => (ulong)AnimationBlends.LongCount();
-		public ulong AnimationAliasCount => (ulong)AnimationAliases.LongCount();
-		public ulong ModelTagCount => (ulong)ModelTags.LongCount();
-		public ulong AnimationCount => (ulong)Animations.LongCount();
+		public int MeshCount => Meshes.Count;
+		public int DisabledAnimationsCount => DisabledAnimations.Count;
+		public int AnimationCombineCount => AnimationCombines.Count;
+		public int AnimationBlendCount => AnimationBlends.Count;
+		public int AnimationAliasCount => AnimationAliases.Count;
+		public int ModelTagCount => ModelTags.Count;
+		public int AnimationCount => Animations.Count;
 		public List<IAnimationCombine> AnimationCombines { get; set; }
 		public List<string> Meshes { get; set; }
 		public List<string> DisabledAnimations { get; set; }
@@ -112,39 +111,39 @@ namespace ZenKit
 		public List<string> ModelTags { get; set; }
 		public List<IAnimation> Animations { get; set; }
 
-		public string GetDisabledAnimation(long i)
+		public string GetDisabledAnimation(int i)
 		{
-			return DisabledAnimations[(int)i];
+			return DisabledAnimations[i];
 		}
 
-		public string GetMesh(long i)
+		public string GetMesh(int i)
 		{
-			return Meshes[(int)i];
+			return Meshes[i];
 		}
 
-		public IAnimationCombine GetAnimationCombine(long i)
+		public IAnimationCombine GetAnimationCombine(int i)
 		{
-			return AnimationCombines[(int)i];
+			return AnimationCombines[i];
 		}
 
-		public IAnimationBlend GetAnimationBlend(long i)
+		public IAnimationBlend GetAnimationBlend(int i)
 		{
-			return AnimationBlends[(int)i];
+			return AnimationBlends[i];
 		}
 
-		public IAnimationAlias GetAnimationAlias(long i)
+		public IAnimationAlias GetAnimationAlias(int i)
 		{
-			return AnimationAliases[(int)i];
+			return AnimationAliases[i];
 		}
 
-		public string GetModelTag(long i)
+		public string GetModelTag(int i)
 		{
-			return ModelTags[(int)i];
+			return ModelTags[i];
 		}
 
-		public IAnimation GetAnimation(long i)
+		public IAnimation GetAnimation(int i)
 		{
-			return Animations[(int)i];
+			return Animations[i];
 		}
 
 		public IModelScript Cache()
@@ -186,19 +185,19 @@ namespace ZenKit
 
 		public bool SkeletonMeshDisabled => Native.ZkModelScript_getSkeletonMeshDisabled(_handle);
 
-		public ulong MeshCount => Native.ZkModelScript_getMeshCount(_handle);
+		public int MeshCount => (int)Native.ZkModelScript_getMeshCount(_handle);
 
-		public ulong DisabledAnimationsCount => Native.ZkModelScript_getDisabledAnimationsCount(_handle);
+		public int DisabledAnimationsCount => (int)Native.ZkModelScript_getDisabledAnimationsCount(_handle);
 
-		public ulong AnimationCombineCount => Native.ZkModelScript_getAnimationCombineCount(_handle);
+		public int AnimationCombineCount => (int)Native.ZkModelScript_getAnimationCombineCount(_handle);
 
-		public ulong AnimationBlendCount => Native.ZkModelScript_getAnimationBlendCount(_handle);
+		public int AnimationBlendCount => (int)Native.ZkModelScript_getAnimationBlendCount(_handle);
 
-		public ulong AnimationAliasCount => Native.ZkModelScript_getAnimationAliasCount(_handle);
+		public int AnimationAliasCount => (int)Native.ZkModelScript_getAnimationAliasCount(_handle);
 
-		public ulong ModelTagCount => Native.ZkModelScript_getModelTagCount(_handle);
+		public int ModelTagCount => (int)Native.ZkModelScript_getModelTagCount(_handle);
 
-		public ulong AnimationCount => Native.ZkModelScript_getAnimationCount(_handle);
+		public int AnimationCount => (int)Native.ZkModelScript_getAnimationCount(_handle);
 
 		public List<IAnimationCombine> AnimationCombines
 		{
@@ -335,40 +334,40 @@ namespace ZenKit
 			return false;
 		}
 
-		public string GetDisabledAnimation(long i)
+		public string GetDisabledAnimation(int i)
 		{
 			return Native.ZkModelScript_getDisabledAnimation(_handle, i).MarshalAsString() ??
 			       throw new Exception("Failed to load model script disabled animation");
 		}
 
-		public string GetMesh(long i)
+		public string GetMesh(int i)
 		{
 			return Native.ZkModelScript_getMesh(_handle, i).MarshalAsString() ??
 			       throw new Exception("Failed to load model script mesh");
 		}
 
-		public IAnimationCombine GetAnimationCombine(long i)
+		public IAnimationCombine GetAnimationCombine(int i)
 		{
 			return new AnimationCombine(Native.ZkModelScript_getAnimationCombine(_handle, i));
 		}
 
-		public IAnimationBlend GetAnimationBlend(long i)
+		public IAnimationBlend GetAnimationBlend(int i)
 		{
 			return new AnimationBlend(Native.ZkModelScript_getAnimationBlend(_handle, i));
 		}
 
-		public IAnimationAlias GetAnimationAlias(long i)
+		public IAnimationAlias GetAnimationAlias(int i)
 		{
 			return new AnimationAlias(Native.ZkModelScript_getAnimationAlias(_handle, i));
 		}
 
-		public string GetModelTag(long i)
+		public string GetModelTag(int i)
 		{
 			return Native.ZkModelScript_getModelTag(_handle, i).MarshalAsString() ??
 			       throw new Exception("Failed to load model script model tag");
 		}
 
-		public IAnimation GetAnimation(long i)
+		public IAnimation GetAnimation(int i)
 		{
 			return new Animation(Native.ZkModelScript_getAnimation(_handle, i));
 		}
@@ -382,7 +381,7 @@ namespace ZenKit
 	public interface IAnimation : ICacheable<IAnimation>
 	{
 		string Name { get; }
-		uint Layer { get; }
+		int Layer { get; }
 		string Next { get; }
 		float BlendIn { get; }
 		float BlendOut { get; }
@@ -394,13 +393,13 @@ namespace ZenKit
 		float Fps { get; }
 		float Speed { get; }
 		float CollisionVolumeScale { get; }
-		ulong EventTagCount { get; }
-		ulong ParticleEffectCount { get; }
-		ulong ParticleEffectStopCount { get; }
-		ulong SoundEffectCount { get; }
-		ulong SoundEffectGroundCount { get; }
-		ulong MorphAnimationCount { get; }
-		ulong CameraTremorCount { get; }
+		int EventTagCount { get; }
+		int ParticleEffectCount { get; }
+		int ParticleEffectStopCount { get; }
+		int SoundEffectCount { get; }
+		int SoundEffectGroundCount { get; }
+		int MorphAnimationCount { get; }
+		int CameraTremorCount { get; }
 		List<IEventTag> EventTags { get; }
 		List<IEventParticleEffect> ParticleEffects { get; }
 		List<IEventParticleEffectStop> ParticleEffectsStop { get; }
@@ -408,20 +407,20 @@ namespace ZenKit
 		List<IEventSoundEffectGround> SoundEffectsGround { get; }
 		List<IEventMorphAnimation> MorphAnimations { get; }
 		List<IEventCameraTremor> CameraTremors { get; }
-		IEventTag GetEventTag(ulong i);
-		IEventParticleEffect GetParticleEffect(ulong i);
-		IEventParticleEffectStop GetParticleEffectStop(ulong i);
-		IEventSoundEffect GetSoundEffect(ulong i);
-		IEventSoundEffectGround GetSoundEffectGround(ulong i);
-		IEventMorphAnimation GetMorphAnimation(ulong i);
-		IEventCameraTremor GetCameraTremor(ulong i);
+		IEventTag GetEventTag(int i);
+		IEventParticleEffect GetParticleEffect(int i);
+		IEventParticleEffectStop GetParticleEffectStop(int i);
+		IEventSoundEffect GetSoundEffect(int i);
+		IEventSoundEffectGround GetSoundEffectGround(int i);
+		IEventMorphAnimation GetMorphAnimation(int i);
+		IEventCameraTremor GetCameraTremor(int i);
 	}
 
 	[Serializable]
 	public class CachedAnimation : IAnimation
 	{
 		public string Name { get; set; }
-		public uint Layer { get; set; }
+		public int Layer { get; set; }
 		public string Next { get; set; }
 		public float BlendIn { get; set; }
 		public float BlendOut { get; set; }
@@ -434,19 +433,19 @@ namespace ZenKit
 		public float Speed { get; set; }
 		public float CollisionVolumeScale { get; set; }
 
-		public ulong EventTagCount => (ulong)EventTags.LongCount();
+		public int EventTagCount => EventTags.Count;
 
-		public ulong ParticleEffectCount => (ulong)ParticleEffects.LongCount();
+		public int ParticleEffectCount => ParticleEffects.Count;
 
-		public ulong ParticleEffectStopCount => (ulong)ParticleEffectsStop.LongCount();
+		public int ParticleEffectStopCount => ParticleEffectsStop.Count;
 
-		public ulong SoundEffectCount => (ulong)SoundEffects.LongCount();
+		public int SoundEffectCount => SoundEffects.Count;
 
-		public ulong SoundEffectGroundCount => (ulong)SoundEffectsGround.LongCount();
+		public int SoundEffectGroundCount => SoundEffectsGround.Count;
 
-		public ulong MorphAnimationCount => (ulong)MorphAnimations.LongCount();
+		public int MorphAnimationCount => MorphAnimations.Count;
 
-		public ulong CameraTremorCount => (ulong)CameraTremors.LongCount();
+		public int CameraTremorCount => CameraTremors.Count;
 
 		public List<IEventTag> EventTags { get; set; }
 		public List<IEventParticleEffect> ParticleEffects { get; set; }
@@ -456,39 +455,39 @@ namespace ZenKit
 		public List<IEventMorphAnimation> MorphAnimations { get; set; }
 		public List<IEventCameraTremor> CameraTremors { get; set; }
 
-		public IEventTag GetEventTag(ulong i)
+		public IEventTag GetEventTag(int i)
 		{
-			return EventTags[(int)i];
+			return EventTags[i];
 		}
 
-		public IEventParticleEffect GetParticleEffect(ulong i)
+		public IEventParticleEffect GetParticleEffect(int i)
 		{
-			return ParticleEffects[(int)i];
+			return ParticleEffects[i];
 		}
 
-		public IEventParticleEffectStop GetParticleEffectStop(ulong i)
+		public IEventParticleEffectStop GetParticleEffectStop(int i)
 		{
-			return ParticleEffectsStop[(int)i];
+			return ParticleEffectsStop[i];
 		}
 
-		public IEventSoundEffect GetSoundEffect(ulong i)
+		public IEventSoundEffect GetSoundEffect(int i)
 		{
-			return SoundEffects[(int)i];
+			return SoundEffects[i];
 		}
 
-		public IEventSoundEffectGround GetSoundEffectGround(ulong i)
+		public IEventSoundEffectGround GetSoundEffectGround(int i)
 		{
-			return SoundEffectsGround[(int)i];
+			return SoundEffectsGround[i];
 		}
 
-		public IEventMorphAnimation GetMorphAnimation(ulong i)
+		public IEventMorphAnimation GetMorphAnimation(int i)
 		{
-			return MorphAnimations[(int)i];
+			return MorphAnimations[i];
 		}
 
-		public IEventCameraTremor GetCameraTremor(ulong i)
+		public IEventCameraTremor GetCameraTremor(int i)
 		{
-			return CameraTremors[(int)i];
+			return CameraTremors[i];
 		}
 
 		public IAnimation Cache()
@@ -515,7 +514,7 @@ namespace ZenKit
 		public string Name => Native.ZkAnimation_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load animation name");
 
-		public uint Layer => Native.ZkAnimation_getLayer(_handle);
+		public int Layer => (int)Native.ZkAnimation_getLayer(_handle);
 
 		public string Next => Native.ZkAnimation_getNext(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load animation next");
@@ -541,19 +540,19 @@ namespace ZenKit
 
 		public float CollisionVolumeScale => Native.ZkAnimation_getCollisionVolumeScale(_handle);
 
-		public ulong EventTagCount => Native.ZkAnimation_getEventTagCount(_handle);
+		public int EventTagCount => (int)Native.ZkAnimation_getEventTagCount(_handle);
 
-		public ulong ParticleEffectCount => Native.ZkAnimation_getParticleEffectCount(_handle);
+		public int ParticleEffectCount => (int)Native.ZkAnimation_getParticleEffectCount(_handle);
 
-		public ulong ParticleEffectStopCount => Native.ZkAnimation_getParticleEffectStopCount(_handle);
+		public int ParticleEffectStopCount => (int)Native.ZkAnimation_getParticleEffectStopCount(_handle);
 
-		public ulong SoundEffectCount => Native.ZkAnimation_getSoundEffectCount(_handle);
+		public int SoundEffectCount => (int)Native.ZkAnimation_getSoundEffectCount(_handle);
 
-		public ulong SoundEffectGroundCount => Native.ZkAnimation_getSoundEffectGroundCount(_handle);
+		public int SoundEffectGroundCount => (int)Native.ZkAnimation_getSoundEffectGroundCount(_handle);
 
-		public ulong MorphAnimationCount => Native.ZkAnimation_getMorphAnimationCount(_handle);
+		public int MorphAnimationCount => (int)Native.ZkAnimation_getMorphAnimationCount(_handle);
 
-		public ulong CameraTremorCount => Native.ZkAnimation_getCameraTremorCount(_handle);
+		public int CameraTremorCount => (int)Native.ZkAnimation_getCameraTremorCount(_handle);
 
 		public List<IEventTag> EventTags
 		{
@@ -706,39 +705,39 @@ namespace ZenKit
 			return false;
 		}
 
-		public IEventTag GetEventTag(ulong i)
+		public IEventTag GetEventTag(int i)
 		{
-			return new EventTag(Native.ZkAnimation_getEventTag(_handle, i));
+			return new EventTag(Native.ZkAnimation_getEventTag(_handle, (ulong)i));
 		}
 
-		public IEventParticleEffect GetParticleEffect(ulong i)
+		public IEventParticleEffect GetParticleEffect(int i)
 		{
-			return new EventParticleEffect(Native.ZkAnimation_getParticleEffect(_handle, i));
+			return new EventParticleEffect(Native.ZkAnimation_getParticleEffect(_handle, (ulong)i));
 		}
 
-		public IEventParticleEffectStop GetParticleEffectStop(ulong i)
+		public IEventParticleEffectStop GetParticleEffectStop(int i)
 		{
-			return new EventParticleEffectStop(Native.ZkAnimation_getParticleEffectStop(_handle, i));
+			return new EventParticleEffectStop(Native.ZkAnimation_getParticleEffectStop(_handle, (ulong)i));
 		}
 
-		public IEventSoundEffect GetSoundEffect(ulong i)
+		public IEventSoundEffect GetSoundEffect(int i)
 		{
-			return new EventSoundEffect(Native.ZkAnimation_getSoundEffect(_handle, i));
+			return new EventSoundEffect(Native.ZkAnimation_getSoundEffect(_handle, (ulong)i));
 		}
 
-		public IEventSoundEffectGround GetSoundEffectGround(ulong i)
+		public IEventSoundEffectGround GetSoundEffectGround(int i)
 		{
-			return new EventSoundEffectGround(Native.ZkAnimation_getSoundEffectGround(_handle, i));
+			return new EventSoundEffectGround(Native.ZkAnimation_getSoundEffectGround(_handle, (ulong)i));
 		}
 
-		public IEventMorphAnimation GetMorphAnimation(ulong i)
+		public IEventMorphAnimation GetMorphAnimation(int i)
 		{
-			return new EventMorphAnimation(Native.ZkAnimation_getMorphAnimation(_handle, i));
+			return new EventMorphAnimation(Native.ZkAnimation_getMorphAnimation(_handle, (ulong)i));
 		}
 
-		public IEventCameraTremor GetCameraTremor(ulong i)
+		public IEventCameraTremor GetCameraTremor(int i)
 		{
-			return new EventCameraTremor(Native.ZkAnimation_getCameraTremor(_handle, i));
+			return new EventCameraTremor(Native.ZkAnimation_getCameraTremor(_handle, (ulong)i));
 		}
 	}
 
@@ -1116,7 +1115,7 @@ namespace ZenKit
 		EventType Type { get; }
 		Tuple<string, string> Slots { get; }
 		string Item { get; }
-		List<uint> Frames { get; }
+		List<int> Frames { get; }
 		FightMode FightMode { get; }
 		bool Attached { get; }
 	}
@@ -1128,7 +1127,7 @@ namespace ZenKit
 		public EventType Type { get; set; }
 		public Tuple<string, string> Slots { get; set; }
 		public string Item { get; set; }
-		public List<uint> Frames { get; set; }
+		public List<int> Frames { get; set; }
 		public FightMode FightMode { get; set; }
 		public bool Attached { get; set; }
 
@@ -1167,7 +1166,7 @@ namespace ZenKit
 		public string Item => Native.ZkEventTag_getItem(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load event tag item");
 
-		public List<uint> Frames => Native.ZkEventTag_getFrames(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> Frames => Native.ZkEventTag_getFrames(_handle, out var count).MarshalAsList<int>(count);
 
 		public FightMode FightMode => Native.ZkEventTag_getFightMode(_handle);
 
@@ -1196,11 +1195,11 @@ namespace ZenKit
 	public interface IAnimationAlias : ICacheable<IAnimationAlias>
 	{
 		string Name { get; }
-		uint Layer { get; }
+		int Layer { get; }
 		string Next { get; }
 		float BlendIn { get; }
 		float BlendOut { get; }
-		uint Flags { get; }
+		int Flags { get; }
 		string Alias { get; }
 		AnimationDirection Direction { get; }
 	}
@@ -1209,11 +1208,11 @@ namespace ZenKit
 	public class CachedAnimationAlias : IAnimationAlias
 	{
 		public string Name { get; set; }
-		public uint Layer { get; set; }
+		public int Layer { get; set; }
 		public string Next { get; set; }
 		public float BlendIn { get; set; }
 		public float BlendOut { get; set; }
-		public uint Flags { get; set; }
+		public int Flags { get; set; }
 		public string Alias { get; set; }
 		public AnimationDirection Direction { get; set; }
 
@@ -1240,7 +1239,7 @@ namespace ZenKit
 		public string Name => Native.ZkAnimationAlias_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load animation alias name");
 
-		public uint Layer => Native.ZkAnimationAlias_getLayer(_handle);
+		public int Layer => (int)Native.ZkAnimationAlias_getLayer(_handle);
 
 		public string Next => Native.ZkAnimationAlias_getNext(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load animation alias next");
@@ -1249,7 +1248,7 @@ namespace ZenKit
 
 		public float BlendOut => Native.ZkAnimationAlias_getBlendOut(_handle);
 
-		public uint Flags => Native.ZkAnimationAlias_getFlags(_handle);
+		public int Flags => (int)Native.ZkAnimationAlias_getFlags(_handle);
 
 		public string Alias => Native.ZkAnimationAlias_getAlias(_handle).MarshalAsString() ??
 		                       throw new Exception("Failed to load animation alias alias");
@@ -1343,11 +1342,11 @@ namespace ZenKit
 	public interface IAnimationCombine : ICacheable<IAnimationCombine>
 	{
 		string Name { get; }
-		uint Layer { get; }
+		int Layer { get; }
 		string Next { get; }
 		float BlendIn { get; }
 		float BlendOut { get; }
-		uint Flags { get; }
+		int Flags { get; }
 		string Model { get; }
 		int LastFrame { get; }
 	}
@@ -1356,11 +1355,11 @@ namespace ZenKit
 	public class CachedAnimationCombine : IAnimationCombine
 	{
 		public string Name { get; set; }
-		public uint Layer { get; set; }
+		public int Layer { get; set; }
 		public string Next { get; set; }
 		public float BlendIn { get; set; }
 		public float BlendOut { get; set; }
-		public uint Flags { get; set; }
+		public int Flags { get; set; }
 		public string Model { get; set; }
 		public int LastFrame { get; set; }
 
@@ -1388,7 +1387,7 @@ namespace ZenKit
 		public string Name => Native.ZkAnimationCombine_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load animation combine name");
 
-		public uint Layer => Native.ZkAnimationCombine_getLayer(_handle);
+		public int Layer => (int)Native.ZkAnimationCombine_getLayer(_handle);
 
 		public string Next => Native.ZkAnimationCombine_getNext(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load animation combine next");
@@ -1397,7 +1396,7 @@ namespace ZenKit
 
 		public float BlendOut => Native.ZkAnimationCombine_getBlendOut(_handle);
 
-		public uint Flags => Native.ZkAnimationCombine_getFlags(_handle);
+		public int Flags => (int)Native.ZkAnimationCombine_getFlags(_handle);
 
 		public string Model => Native.ZkAnimationCombine_getModel(_handle).MarshalAsString() ??
 		                       throw new Exception("Failed to load animation combine model");

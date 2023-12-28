@@ -104,10 +104,10 @@ namespace ZenKit.Daedalus
 			set => Native.ZkNpcInstance_setType(Handle, value);
 		}
 
-		public uint Flags
+		public int Flags
 		{
-			get => Native.ZkNpcInstance_getFlags(Handle);
-			set => Native.ZkNpcInstance_setFlags(Handle, value);
+			get => (int)Native.ZkNpcInstance_getFlags(Handle);
+			set => Native.ZkNpcInstance_setFlags(Handle, (uint)value);
 		}
 
 		public int DamageType
@@ -260,9 +260,9 @@ namespace ZenKit.Daedalus
 			return Native.ZkNpcInstance_getDamage(Handle, type);
 		}
 
-		public int GetAiVar(ulong i)
+		public int GetAiVar(int i)
 		{
-			return Native.ZkNpcInstance_getAiVar(Handle, i);
+			return Native.ZkNpcInstance_getAiVar(Handle, (ulong)i);
 		}
 
 		public void SetName(NpcNameSlot slot, string v)
@@ -295,9 +295,9 @@ namespace ZenKit.Daedalus
 			Native.ZkNpcInstance_setDamage(Handle, type, v);
 		}
 
-		public void SetAiVar(ulong i, int v)
+		public void SetAiVar(int i, int v)
 		{
-			Native.ZkNpcInstance_setAiVar(Handle, i, v);
+			Native.ZkNpcInstance_setAiVar(Handle, (ulong)i, v);
 		}
 	}
 }

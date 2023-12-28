@@ -30,14 +30,14 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public FightAiMove GetMove(ulong i)
+		public FightAiMove GetMove(int i)
 		{
-			return Native.ZkFightAiInstance_getMove(Handle, i);
+			return Native.ZkFightAiInstance_getMove(Handle, (ulong)i);
 		}
 
-		public void SetMove(ulong i, FightAiMove move)
+		public void SetMove(int i, FightAiMove move)
 		{
-			Native.ZkFightAiInstance_setMove(Handle, i, move);
+			Native.ZkFightAiInstance_setMove(Handle, (ulong)i, move);
 		}
 	}
 }

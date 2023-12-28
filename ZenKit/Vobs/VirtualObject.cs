@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Numerics;
 using ZenKit.Util;
 
@@ -320,10 +319,10 @@ namespace ZenKit.Vobs
 		public bool CdDynamic { get; set; }
 		public bool CdStatic { get; set; }
 		public List<IVirtualObject> Children { get; }
-		public ulong ChildCount { get; }
+		public int ChildCount { get; }
 		public ShadowType DynamicShadows { get; set; }
 		public float FarClipScale { get; set; }
-		public uint Id { get; }
+		public int Id { get; }
 		public string Name { get; set; }
 		public bool PhysicsEnabled { get; set; }
 		public Vector3 Position { get; set; }
@@ -335,11 +334,11 @@ namespace ZenKit.Vobs
 		public VirtualObjectType Type { get; }
 		public IVisual? Visual { get; }
 
-		public IVirtualObject GetChild(ulong i);
+		public IVirtualObject GetChild(int i);
 
 		public T AddChild<T>() where T : IVirtualObject;
 
-		public void RemoveChild(ulong i);
+		public void RemoveChild(int i);
 
 		public void RemoveChildren(Predicate<IVirtualObject> pred);
 
@@ -359,10 +358,10 @@ namespace ZenKit.Vobs
 		public bool CdDynamic { get; set; }
 		public bool CdStatic { get; set; }
 		public List<IVirtualObject> Children { get; set; }
-		public ulong ChildCount => (ulong)Children.LongCount();
+		public int ChildCount => Children.Count;
 		public ShadowType DynamicShadows { get; set; }
 		public float FarClipScale { get; set; }
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string Name { get; set; }
 		public bool PhysicsEnabled { get; set; }
 		public Vector3 Position { get; set; }
@@ -384,9 +383,9 @@ namespace ZenKit.Vobs
 			return true;
 		}
 
-		public IVirtualObject GetChild(ulong i)
+		public IVirtualObject GetChild(int i)
 		{
-			return Children[(int)i];
+			return Children[i];
 		}
 
 		public T AddChild<T>() where T : IVirtualObject
@@ -394,9 +393,9 @@ namespace ZenKit.Vobs
 			throw new NotImplementedException();
 		}
 
-		public void RemoveChild(ulong i)
+		public void RemoveChild(int i)
 		{
-			Children.RemoveAt((int)i);
+			Children.RemoveAt(i);
 		}
 
 		public void RemoveChildren(Predicate<IVirtualObject> pred)
@@ -466,7 +465,7 @@ namespace ZenKit.Vobs
 		}
 
 		public VirtualObjectType Type => Native.ZkVirtualObject_getType(Handle);
-		public uint Id => Native.ZkVirtualObject_getId(Handle);
+		public int Id => (int)Native.ZkVirtualObject_getId(Handle);
 
 		public AxisAlignedBoundingBox BoundingBox
 		{
@@ -585,7 +584,7 @@ namespace ZenKit.Vobs
 			}
 		}
 
-		public ulong ChildCount => Native.ZkVirtualObject_getChildCount(Handle);
+		public int ChildCount => (int)Native.ZkVirtualObject_getChildCount(Handle);
 
 		public List<IVirtualObject> Children
 		{
@@ -613,9 +612,9 @@ namespace ZenKit.Vobs
 			return false;
 		}
 
-		public IVirtualObject GetChild(ulong i)
+		public IVirtualObject GetChild(int i)
 		{
-			return FromNative(Native.ZkVirtualObject_getChild(Handle, i));
+			return FromNative(Native.ZkVirtualObject_getChild(Handle, (ulong)i));
 		}
 
 		public T AddChild<T>() where T : IVirtualObject
@@ -667,9 +666,9 @@ namespace ZenKit.Vobs
 			return (T)(object)FromNative(Native.ZkVirtualObject_addChild(Handle, type));
 		}
 
-		public void RemoveChild(ulong i)
+		public void RemoveChild(int i)
 		{
-			Native.ZkVirtualObject_removeChild(Handle, i);
+			Native.ZkVirtualObject_removeChild(Handle, (ulong)i);
 		}
 
 		public void RemoveChildren(Predicate<IVirtualObject> pred)

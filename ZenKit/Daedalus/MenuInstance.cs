@@ -113,9 +113,9 @@ namespace ZenKit.Daedalus
 		}
 
 
-		public string GetItem(ulong i)
+		public string GetItem(int i)
 		{
-			return Native.ZkMenuInstance_getItem(Handle, i).MarshalAsString() ?? string.Empty;
+			return Native.ZkMenuInstance_getItem(Handle, (ulong)i).MarshalAsString() ?? string.Empty;
 		}
 	}
 
@@ -263,64 +263,64 @@ namespace ZenKit.Daedalus
 			set => Native.ZkMenuItemInstance_setHideOnValue(Handle, value);
 		}
 
-		public string GetText(ulong i)
+		public string GetText(int i)
 		{
-			return Native.ZkMenuItemInstance_getText(Handle, i).MarshalAsString() ?? string.Empty;
+			return Native.ZkMenuItemInstance_getText(Handle, (ulong)i).MarshalAsString() ?? string.Empty;
 		}
 
-		public int GetOnSelAction(ulong i)
+		public int GetOnSelAction(int i)
 		{
-			return Native.ZkMenuItemInstance_getOnSelAction(Handle, i);
+			return Native.ZkMenuItemInstance_getOnSelAction(Handle, (ulong)i);
 		}
 
-		public string GetOnSelActionS(ulong i)
+		public string GetOnSelActionS(int i)
 		{
-			return Native.ZkMenuItemInstance_getOnSelActionS(Handle, i).MarshalAsString() ?? string.Empty;
+			return Native.ZkMenuItemInstance_getOnSelActionS(Handle, (ulong)i).MarshalAsString() ?? string.Empty;
 		}
 
-		public int GetOnEventAction(ulong i)
+		public int GetOnEventAction(int i)
 		{
-			return Native.ZkMenuItemInstance_getOnEventAction(Handle, i);
+			return Native.ZkMenuItemInstance_getOnEventAction(Handle, (ulong)i);
 		}
 
-		public float GetUserFloat(ulong i)
+		public float GetUserFloat(int i)
 		{
-			return Native.ZkMenuItemInstance_getUserFloat(Handle, i);
+			return Native.ZkMenuItemInstance_getUserFloat(Handle, (ulong)i);
 		}
 
-		public string GetUserString(ulong i)
+		public string GetUserString(int i)
 		{
-			return Native.ZkMenuItemInstance_getUserString(Handle, i).MarshalAsString() ?? string.Empty;
+			return Native.ZkMenuItemInstance_getUserString(Handle, (ulong)i).MarshalAsString() ?? string.Empty;
 		}
 
-		public void SetText(ulong i, string v)
+		public void SetText(int i, string v)
 		{
-			Native.ZkMenuItemInstance_setText(Handle, i, v);
+			Native.ZkMenuItemInstance_setText(Handle, (ulong)i, v);
 		}
 
-		public void SetOnSelAction(ulong i, int v)
+		public void SetOnSelAction(int i, int v)
 		{
-			Native.ZkMenuItemInstance_setOnSelAction(Handle, i, v);
+			Native.ZkMenuItemInstance_setOnSelAction(Handle, (ulong)i, v);
 		}
 
-		public void SetOnSelActionS(ulong i, string v)
+		public void SetOnSelActionS(int i, string v)
 		{
-			Native.ZkMenuItemInstance_setOnSelActionS(Handle, i, v);
+			Native.ZkMenuItemInstance_setOnSelActionS(Handle, (ulong)i, v);
 		}
 
-		public void SetOnEventAction(ulong i, int v)
+		public void SetOnEventAction(int i, int v)
 		{
-			Native.ZkMenuItemInstance_setOnEventAction(Handle, i, v);
+			Native.ZkMenuItemInstance_setOnEventAction(Handle, (ulong)i, v);
 		}
 
-		public void SetUserFloat(ulong i, float v)
+		public void SetUserFloat(int i, float v)
 		{
-			Native.ZkMenuItemInstance_setUserFloat(Handle, i, v);
+			Native.ZkMenuItemInstance_setUserFloat(Handle, (ulong)i, v);
 		}
 
-		public void SetUserString(ulong i, string v)
+		public void SetUserString(int i, string v)
 		{
-			Native.ZkMenuItemInstance_setUserString(Handle, i, v);
+			Native.ZkMenuItemInstance_setUserString(Handle, (ulong)i, v);
 		}
 	}
 }

@@ -3210,7 +3210,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkDaedalusVm_initInstance(UIntPtr slf, UIntPtr sym, DaedalusInstanceType type);
-        
+
 		[DllImport(DllName)]
 		public static extern void ZkDaedalusVm_initInstanceDirect(UIntPtr slf, UIntPtr instance);
 
@@ -6575,6 +6575,9 @@ namespace ZenKit
 		public class Callbacks
 		{
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool SoftSkinWedgeNormalEnumerator(UIntPtr ctx, SoftSkinWedgeNormal normal);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkAnimationAliasEnumerator(UIntPtr ctx, UIntPtr v);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -6593,10 +6596,16 @@ namespace ZenKit
 			public delegate bool ZkAttachmentEnumerator(UIntPtr ctx, IntPtr name, UIntPtr mesh);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkBspNodeEnumerator(UIntPtr ctx, IntPtr node);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkBspSectorEnumerator(UIntPtr ctx, UIntPtr sector);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkCameraTrajectoryFrameEnumerator(UIntPtr ctx, UIntPtr frame);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkColorEnumerator(UIntPtr ctx, ZkColor color);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkCutsceneBlockEnumerator(UIntPtr ctx, UIntPtr block);
@@ -6644,6 +6653,12 @@ namespace ZenKit
 			public delegate bool ZkMaterialEnumerator(UIntPtr ctx, UIntPtr material);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkMeshPlaneEnumerator(UIntPtr ctx, IntPtr plane);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkMeshWedgeEnumerator(UIntPtr ctx, IntPtr wedge);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkModelHierarchyNodeEnumerator(UIntPtr ctx, IntPtr node);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -6665,9 +6680,6 @@ namespace ZenKit
 			public delegate bool ZkSoftSkinWeightEnumerator(UIntPtr ctx, IntPtr entry);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool SoftSkinWedgeNormalEnumerator(UIntPtr ctx, SoftSkinWedgeNormal normal);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkStringEnumerator(UIntPtr ctx, IntPtr v);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -6680,6 +6692,12 @@ namespace ZenKit
 			public delegate bool ZkTriggerListTargetEnumerator(UIntPtr ctx, UIntPtr target);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkVec3fEnumerator(UIntPtr ctx, Vector3 v);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkVertexEnumerator(UIntPtr ctx, IntPtr vertex);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkVfsNodeEnumerator(UIntPtr ctx, UIntPtr node);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -6687,24 +6705,6 @@ namespace ZenKit
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkWayPointEnumerator(UIntPtr ctx, UIntPtr point);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkVec3fEnumerator(UIntPtr ctx, Vector3 v);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkColorEnumerator(UIntPtr ctx, ZkColor color);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkMeshWedgeEnumerator(UIntPtr ctx, IntPtr wedge);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkMeshPlaneEnumerator(UIntPtr ctx, IntPtr plane);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkVertexEnumerator(UIntPtr ctx, IntPtr vertex);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkBspNodeEnumerator(UIntPtr ctx, IntPtr node);
 		}
 
 		public class Structs

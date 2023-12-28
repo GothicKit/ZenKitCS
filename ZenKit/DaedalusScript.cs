@@ -69,9 +69,9 @@ namespace ZenKit
 
 		[FieldOffset(4)] public byte size;
 
-		[FieldOffset(8)] private uint opAddress;
+		[FieldOffset(8)] private int opAddress;
 
-		[FieldOffset(8)] private uint opSymbol;
+		[FieldOffset(8)] private int opSymbol;
 
 		[FieldOffset(8)] private int opImmediateInt;
 
@@ -100,7 +100,7 @@ namespace ZenKit
 		public int Parent => Native.ZkDaedalusSymbol_getParent(Handle);
 		public int Size => Native.ZkDaedalusSymbol_getSize(Handle);
 		public DaedalusDataType Type => Native.ZkDaedalusSymbol_getType(Handle);
-		public uint Index => Native.ZkDaedalusSymbol_getIndex(Handle);
+		public int Index => (int)Native.ZkDaedalusSymbol_getIndex(Handle);
 		public DaedalusDataType ReturnType => Native.ZkDaedalusSymbol_getReturnType(Handle);
 
 		public string GetString(ushort index, DaedalusInstance? context = null)
@@ -163,7 +163,7 @@ namespace ZenKit
 			Handle = handle;
 		}
 
-		public uint SymbolCount => Native.ZkDaedalusScript_getSymbolCount(Handle);
+		public int SymbolCount => (int)Native.ZkDaedalusScript_getSymbolCount(Handle);
 
 		public List<DaedalusSymbol> Symbols
 		{
@@ -204,20 +204,20 @@ namespace ZenKit
 			return symbols;
 		}
 
-		public DaedalusInstruction GetInstruction(ulong address)
+		public DaedalusInstruction GetInstruction(int address)
 		{
-			return Native.ZkDaedalusScript_getInstruction(Handle, address);
+			return Native.ZkDaedalusScript_getInstruction(Handle, (ulong)address);
 		}
 
-		public DaedalusSymbol? GetSymbolByIndex(uint index)
+		public DaedalusSymbol? GetSymbolByIndex(int index)
 		{
-			var sym = Native.ZkDaedalusScript_getSymbolByIndex(Handle, index);
+			var sym = Native.ZkDaedalusScript_getSymbolByIndex(Handle, (uint)index);
 			return sym == UIntPtr.Zero ? null : new DaedalusSymbol(sym);
 		}
 
-		public DaedalusSymbol? GetSymbolByAddress(ulong address)
+		public DaedalusSymbol? GetSymbolByAddress(int address)
 		{
-			var sym = Native.ZkDaedalusScript_getSymbolByAddress(Handle, address);
+			var sym = Native.ZkDaedalusScript_getSymbolByAddress(Handle, (ulong)address);
 			return sym == UIntPtr.Zero ? null : new DaedalusSymbol(sym);
 		}
 

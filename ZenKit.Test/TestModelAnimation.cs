@@ -5,7 +5,7 @@ namespace ZenKit.Test;
 
 public class TestModelAnimation
 {
-	private static readonly uint[] NodeIndicesG1 =
+	private static readonly int[] NodeIndicesG1 =
 		{ 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 26, 27, 28, 29, 30, 31, 32, 33 };
 
 	[OneTimeSetUp]

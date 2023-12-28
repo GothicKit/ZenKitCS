@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ZenKit
 {
-	public enum LogLevel : uint
+	public enum LogLevel
 	{
 		Error = 0,
 		Warning = 1,
@@ -16,7 +16,7 @@ namespace ZenKit
 	{
 		public delegate void Callback(LogLevel level, string name, string message);
 
-		private static List<Native.Callbacks.ZkLogger> _callbacks = new List<Native.Callbacks.ZkLogger>();
+		private static readonly List<Native.Callbacks.ZkLogger> _callbacks = new List<Native.Callbacks.ZkLogger>();
 
 		public static void Set(LogLevel lvl, Callback callback)
 		{

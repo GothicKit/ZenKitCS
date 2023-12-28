@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -50,19 +49,19 @@ namespace ZenKit
 	{
 		IMaterial Material { get; }
 		List<MeshTriangle> Triangles { get; }
-		public ulong WedgeCount { get; }
+		public int WedgeCount { get; }
 		List<MeshWedge> Wedges { get; }
 		List<float> Colors { get; }
 		List<ushort> TrianglePlaneIndices { get; }
-		public ulong TrianglePlaneCount { get; }
+		public int TrianglePlaneCount { get; }
 		List<MeshPlane> TrianglePlanes { get; }
 		List<MeshTriangleEdge> TriangleEdges { get; }
 		List<MeshEdge> Edges { get; }
 		List<float> EdgeScores { get; }
 		List<ushort> WedgeMap { get; }
 
-		MeshWedge GetWedge(ulong i);
-		MeshPlane GetTrianglePlane(ulong i);
+		MeshWedge GetWedge(int i);
+		MeshPlane GetTrianglePlane(int i);
 	}
 
 	[Serializable]
@@ -71,13 +70,13 @@ namespace ZenKit
 		public IMaterial Material { get; set; }
 		public List<MeshTriangle> Triangles { get; set; }
 
-		public ulong WedgeCount => (ulong)Wedges.LongCount();
+		public int WedgeCount => Wedges.Count;
 
 		public List<MeshWedge> Wedges { get; set; }
 		public List<float> Colors { get; set; }
 		public List<ushort> TrianglePlaneIndices { get; set; }
 
-		public ulong TrianglePlaneCount => (ulong)TrianglePlanes.LongCount();
+		public int TrianglePlaneCount => TrianglePlanes.Count;
 
 		public List<MeshPlane> TrianglePlanes { get; set; }
 		public List<MeshTriangleEdge> TriangleEdges { get; set; }
@@ -85,14 +84,14 @@ namespace ZenKit
 		public List<float> EdgeScores { get; set; }
 		public List<ushort> WedgeMap { get; set; }
 
-		public MeshWedge GetWedge(ulong i)
+		public MeshWedge GetWedge(int i)
 		{
-			return Wedges[(int)i];
+			return Wedges[i];
 		}
 
-		public MeshPlane GetTrianglePlane(ulong i)
+		public MeshPlane GetTrianglePlane(int i)
 		{
-			return TrianglePlanes[(int)i];
+			return TrianglePlanes[i];
 		}
 
 		public IMultiResolutionSubMesh Cache()
@@ -120,7 +119,7 @@ namespace ZenKit
 		public List<MeshTriangle> Triangles =>
 			Native.ZkSubMesh_getTriangles(_handle, out var count).MarshalAsList<MeshTriangle>(count);
 
-		public ulong WedgeCount => Native.ZkSubMesh_getWedgeCount(_handle);
+		public int WedgeCount => (int)Native.ZkSubMesh_getWedgeCount(_handle);
 
 		public List<MeshWedge> Wedges
 		{
@@ -143,7 +142,7 @@ namespace ZenKit
 		public List<ushort> TrianglePlaneIndices => Native.ZkSubMesh_getTrianglePlaneIndices(_handle, out var count)
 			.MarshalAsList<ushort>(count);
 
-		public ulong TrianglePlaneCount => Native.ZkSubMesh_getTrianglePlaneCount(_handle);
+		public int TrianglePlaneCount => (int)Native.ZkSubMesh_getTrianglePlaneCount(_handle);
 
 		public List<MeshPlane> TrianglePlanes
 		{
@@ -194,69 +193,69 @@ namespace ZenKit
 			return false;
 		}
 
-		public MeshWedge GetWedge(ulong i)
+		public MeshWedge GetWedge(int i)
 		{
-			return Native.ZkSubMesh_getWedge(_handle, i);
+			return Native.ZkSubMesh_getWedge(_handle, (ulong)i);
 		}
 
-		public MeshPlane GetTrianglePlane(ulong i)
+		public MeshPlane GetTrianglePlane(int i)
 		{
-			return Native.ZkSubMesh_getTrianglePlane(_handle, i);
+			return Native.ZkSubMesh_getTrianglePlane(_handle, (ulong)i);
 		}
 	}
 
 	public interface IMultiResolutionMesh : ICacheable<IMultiResolutionMesh>
 	{
-		public ulong PositionCount { get; }
+		public int PositionCount { get; }
 		List<Vector3> Positions { get; }
-		public ulong NormalCount { get; }
+		public int NormalCount { get; }
 		List<Vector3> Normals { get; }
-		ulong SubMeshCount { get; }
+		int SubMeshCount { get; }
 		List<IMultiResolutionSubMesh> SubMeshes { get; }
-		ulong MaterialCount { get; }
+		int MaterialCount { get; }
 		List<IMaterial> Materials { get; }
 		bool AlphaTest { get; }
 		AxisAlignedBoundingBox BoundingBox { get; }
 		IOrientedBoundingBox OrientedBoundingBox { get; }
-		IMultiResolutionSubMesh? GetSubMesh(ulong i);
-		IMaterial? GetMaterial(ulong i);
-		Vector3 GetPosition(ulong i);
-		Vector3 GetNormal(ulong i);
+		IMultiResolutionSubMesh? GetSubMesh(int i);
+		IMaterial? GetMaterial(int i);
+		Vector3 GetPosition(int i);
+		Vector3 GetNormal(int i);
 	}
 
 	[Serializable]
 	public class CachedMultiResolutionMesh : IMultiResolutionMesh
 	{
-		public ulong PositionCount => (ulong)Positions.LongCount();
+		public int PositionCount => Positions.Count;
 		public List<Vector3> Positions { get; set; }
-		public ulong NormalCount => (ulong)Normals.LongCount();
+		public int NormalCount => Normals.Count;
 		public List<Vector3> Normals { get; set; }
-		public ulong SubMeshCount => (ulong)SubMeshes.LongCount();
+		public int SubMeshCount => SubMeshes.Count;
 		public List<IMultiResolutionSubMesh> SubMeshes { get; set; }
-		public ulong MaterialCount => (ulong)Materials.LongCount();
+		public int MaterialCount => Materials.Count;
 		public List<IMaterial> Materials { get; set; }
 		public bool AlphaTest { get; set; }
 		public AxisAlignedBoundingBox BoundingBox { get; set; }
 		public IOrientedBoundingBox OrientedBoundingBox { get; set; }
 
-		public IMultiResolutionSubMesh? GetSubMesh(ulong i)
+		public IMultiResolutionSubMesh? GetSubMesh(int i)
 		{
-			return SubMeshes[(int)i];
+			return SubMeshes[i];
 		}
 
-		public IMaterial? GetMaterial(ulong i)
+		public IMaterial? GetMaterial(int i)
 		{
-			return Materials[(int)i];
+			return Materials[i];
 		}
 
-		public Vector3 GetPosition(ulong i)
+		public Vector3 GetPosition(int i)
 		{
-			return Positions[(int)i];
+			return Positions[i];
 		}
 
-		public Vector3 GetNormal(ulong i)
+		public Vector3 GetNormal(int i)
 		{
-			return Normals[(int)i];
+			return Normals[i];
 		}
 
 		public IMultiResolutionMesh Cache()
@@ -299,7 +298,7 @@ namespace ZenKit
 			_delete = false;
 		}
 
-		public ulong PositionCount => Native.ZkMultiResolutionMesh_getPositionCount(_handle);
+		public int PositionCount => (int)Native.ZkMultiResolutionMesh_getPositionCount(_handle);
 
 		public List<Vector3> Positions
 		{
@@ -317,7 +316,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong NormalCount => Native.ZkMultiResolutionMesh_getNormalCount(_handle);
+		public int NormalCount => (int)Native.ZkMultiResolutionMesh_getNormalCount(_handle);
 
 		public List<Vector3> Normals
 		{
@@ -335,7 +334,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong SubMeshCount => Native.ZkMultiResolutionMesh_getSubMeshCount(_handle);
+		public int SubMeshCount => (int)Native.ZkMultiResolutionMesh_getSubMeshCount(_handle);
 
 		public List<IMultiResolutionSubMesh> SubMeshes
 		{
@@ -353,7 +352,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong MaterialCount => Native.ZkMultiResolutionMesh_getMaterialCount(_handle);
+		public int MaterialCount => (int)Native.ZkMultiResolutionMesh_getMaterialCount(_handle);
 
 		public List<IMaterial> Materials
 		{
@@ -396,26 +395,26 @@ namespace ZenKit
 			return false;
 		}
 
-		public IMultiResolutionSubMesh? GetSubMesh(ulong i)
+		public IMultiResolutionSubMesh? GetSubMesh(int i)
 		{
-			var mesh = Native.ZkMultiResolutionMesh_getSubMesh(_handle, i);
+			var mesh = Native.ZkMultiResolutionMesh_getSubMesh(_handle, (ulong)i);
 			return mesh == UIntPtr.Zero ? null : new MultiResolutionSubMesh(mesh);
 		}
 
-		public IMaterial? GetMaterial(ulong i)
+		public IMaterial? GetMaterial(int i)
 		{
-			var mesh = Native.ZkMultiResolutionMesh_getMaterial(_handle, i);
+			var mesh = Native.ZkMultiResolutionMesh_getMaterial(_handle, (ulong)i);
 			return mesh == UIntPtr.Zero ? null : new Material(mesh);
 		}
 
-		public Vector3 GetPosition(ulong i)
+		public Vector3 GetPosition(int i)
 		{
-			return Native.ZkMultiResolutionMesh_getPosition(_handle, i);
+			return Native.ZkMultiResolutionMesh_getPosition(_handle, (ulong)i);
 		}
 
-		public Vector3 GetNormal(ulong i)
+		public Vector3 GetNormal(int i)
 		{
-			return Native.ZkMultiResolutionMesh_getNormal(_handle, i);
+			return Native.ZkMultiResolutionMesh_getNormal(_handle, (ulong)i);
 		}
 
 		~MultiResolutionMesh()

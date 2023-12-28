@@ -11,9 +11,9 @@ namespace ZenKit
 
 	public interface IRead
 	{
-		ulong Read(IntPtr buf, ulong length);
-		ulong Seek(long off, Whence whence);
-		ulong Tell();
+		int Read(IntPtr buf, int length);
+		int Seek(int off, Whence whence);
+		int Tell();
 		bool Eof();
 	}
 
@@ -35,9 +35,9 @@ namespace ZenKit
 		public Read(IRead impl)
 		{
 			var ext = new Native.Structs.ZkReadExt();
-			ext.read = (_, buf, len) => impl.Read(buf, len);
-			ext.seek = (_, off, whence) => impl.Seek(off, Whence.Begin);
-			ext.tell = _ => impl.Tell();
+			ext.read = (_, buf, len) => (ulong)impl.Read(buf, (int)len);
+			ext.seek = (_, off, whence) => (ulong)impl.Seek((int)off, Whence.Begin);
+			ext.tell = _ => (ulong)impl.Tell();
 			ext.eof = _ => impl.Eof();
 			Handle = Native.ZkRead_newExt(ext, UIntPtr.Zero);
 		}

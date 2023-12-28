@@ -123,14 +123,14 @@ namespace ZenKit
 		{
 			Native.ZkDaedalusVm_printStackTrace(Handle);
 		}
-		
+
 		public T AllocInstance<T>(string symbolName)
 		{
 			var sym = GetSymbolByName(symbolName);
 			if (sym == null) throw new Exception("Symbol not found");
 			return AllocInstance<T>(sym);
 		}
-		
+
 		public T AllocInstance<T>(DaedalusSymbol symbol)
 		{
 			DaedalusInstanceType type;
@@ -163,7 +163,7 @@ namespace ZenKit
 			          throw new InvalidOperationException();
 			return (T)(object)ptr;
 		}
-		
+
 		public void InitInstance(DaedalusInstance instance)
 		{
 			Native.ZkDaedalusVm_initInstanceDirect(Handle, instance.Handle);
@@ -215,10 +215,10 @@ namespace ZenKit
 			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
 			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
 		}
-		
+
 		public void Call(int symId)
 		{
-			var sym = GetSymbolByIndex((uint)symId);
+			var sym = GetSymbolByIndex(symId);
 			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
 			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
 		}
@@ -232,10 +232,10 @@ namespace ZenKit
 			if (!sym.HasReturn) throw new InvalidOperationException("The function does not return anything!");
 			return Pop<TR>();
 		}
-		
+
 		public TR Call<TR>(int symId)
 		{
-			var sym = GetSymbolByIndex((uint)symId);
+			var sym = GetSymbolByIndex(symId);
 			if (!(sym is { Type: DaedalusDataType.Function })) throw new Exception("Symbol not found");
 			Native.ZkDaedalusVm_callFunction(Handle, sym.Handle);
 
@@ -636,9 +636,6 @@ namespace ZenKit
 			{
 				case string v:
 					Native.ZkDaedalusVm_pushString(Handle, v);
-					break;
-				case uint v:
-					Native.ZkDaedalusVm_pushInt(Handle, (int)v);
 					break;
 				case int v:
 					Native.ZkDaedalusVm_pushInt(Handle, v);

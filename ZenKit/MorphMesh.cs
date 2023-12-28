@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using ZenKit.Util;
 
@@ -15,12 +14,12 @@ namespace ZenKit
 		TimeSpan Duration { get; }
 		float Speed { get; }
 		byte Flags { get; }
-		uint FrameCount { get; }
-		List<uint> Vertices { get; }
-		public ulong SampleCount { get; }
+		int FrameCount { get; }
+		List<int> Vertices { get; }
+		public int SampleCount { get; }
 		List<Vector3> Samples { get; }
 
-		Vector3 GetSample(ulong i);
+		Vector3 GetSample(int i);
 	}
 
 	[Serializable]
@@ -33,16 +32,16 @@ namespace ZenKit
 		public TimeSpan Duration { get; set; }
 		public float Speed { get; set; }
 		public byte Flags { get; set; }
-		public uint FrameCount { get; set; }
-		public List<uint> Vertices { get; set; }
+		public int FrameCount { get; set; }
+		public List<int> Vertices { get; set; }
 
-		public ulong SampleCount => (ulong)Samples.LongCount();
+		public int SampleCount => Samples.Count;
 
 		public List<Vector3> Samples { get; set; }
 
-		public Vector3 GetSample(ulong i)
+		public Vector3 GetSample(int i)
 		{
-			return Samples[(int)i];
+			return Samples[i];
 		}
 
 		public IMorphAnimation Cache()
@@ -74,12 +73,12 @@ namespace ZenKit
 		public TimeSpan Duration => TimeSpan.FromMilliseconds(Native.ZkMorphAnimation_getDuration(_handle));
 		public float Speed => Native.ZkMorphAnimation_getSpeed(_handle);
 		public byte Flags => Native.ZkMorphAnimation_getFlags(_handle);
-		public uint FrameCount => Native.ZkMorphAnimation_getFrameCount(_handle);
+		public int FrameCount => (int)Native.ZkMorphAnimation_getFrameCount(_handle);
 
-		public List<uint> Vertices =>
-			Native.ZkMorphAnimation_getVertices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> Vertices =>
+			Native.ZkMorphAnimation_getVertices(_handle, out var count).MarshalAsList<int>(count);
 
-		public ulong SampleCount => Native.ZkMorphAnimation_getSampleCount(_handle);
+		public int SampleCount => (int)Native.ZkMorphAnimation_getSampleCount(_handle);
 
 		public List<Vector3> Samples
 		{
@@ -118,9 +117,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public Vector3 GetSample(ulong i)
+		public Vector3 GetSample(int i)
 		{
-			return Native.ZkMorphAnimation_getSample(_handle, i);
+			return Native.ZkMorphAnimation_getSample(_handle, (ulong)i);
 		}
 	}
 
@@ -180,15 +179,15 @@ namespace ZenKit
 	{
 		string Name { get; }
 		IMultiResolutionMesh Mesh { get; }
-		public ulong MorphPositionCount { get; }
+		public int MorphPositionCount { get; }
 		List<Vector3> MorphPositions { get; }
-		ulong AnimationCount { get; }
+		int AnimationCount { get; }
 		List<IMorphAnimation> Animations { get; }
-		ulong SourceCount { get; }
+		int SourceCount { get; }
 		List<IMorphSource> Sources { get; }
-		Vector3 GetMorphPosition(ulong i);
-		IMorphAnimation GetAnimation(ulong i);
-		IMorphSource GetSource(ulong i);
+		Vector3 GetMorphPosition(int i);
+		IMorphAnimation GetAnimation(int i);
+		IMorphSource GetSource(int i);
 	}
 
 	[Serializable]
@@ -197,27 +196,27 @@ namespace ZenKit
 		public string Name { get; set; }
 		public IMultiResolutionMesh Mesh { get; set; }
 
-		public ulong MorphPositionCount => (ulong)MorphPositions.LongCount();
+		public int MorphPositionCount => MorphPositions.Count;
 
 		public List<Vector3> MorphPositions { get; set; }
-		public ulong AnimationCount => (ulong)Animations.LongCount();
+		public int AnimationCount => Animations.Count;
 		public List<IMorphAnimation> Animations { get; set; }
-		public ulong SourceCount => (ulong)Sources.LongCount();
+		public int SourceCount => Sources.Count;
 		public List<IMorphSource> Sources { get; set; }
 
-		public Vector3 GetMorphPosition(ulong i)
+		public Vector3 GetMorphPosition(int i)
 		{
-			return MorphPositions[(int)i];
+			return MorphPositions[i];
 		}
 
-		public IMorphAnimation GetAnimation(ulong i)
+		public IMorphAnimation GetAnimation(int i)
 		{
-			return Animations[(int)i];
+			return Animations[i];
 		}
 
-		public IMorphSource GetSource(ulong i)
+		public IMorphSource GetSource(int i)
 		{
-			return Sources[(int)i];
+			return Sources[i];
 		}
 
 		public IMorphMesh Cache()
@@ -258,7 +257,7 @@ namespace ZenKit
 
 		public IMultiResolutionMesh Mesh => new MultiResolutionMesh(Native.ZkMorphMesh_getMesh(_handle));
 
-		public ulong MorphPositionCount => Native.ZkMorphMesh_getMorphPositionCount(_handle);
+		public int MorphPositionCount => (int)Native.ZkMorphMesh_getMorphPositionCount(_handle);
 
 		public List<Vector3> MorphPositions
 		{
@@ -276,7 +275,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong AnimationCount => Native.ZkMorphMesh_getAnimationCount(_handle);
+		public int AnimationCount => (int)Native.ZkMorphMesh_getAnimationCount(_handle);
 
 		public List<IMorphAnimation> Animations
 		{
@@ -294,7 +293,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong SourceCount => Native.ZkMorphMesh_getSourceCount(_handle);
+		public int SourceCount => (int)Native.ZkMorphMesh_getSourceCount(_handle);
 
 		public List<IMorphSource> Sources
 		{
@@ -329,19 +328,19 @@ namespace ZenKit
 			return false;
 		}
 
-		public Vector3 GetMorphPosition(ulong i)
+		public Vector3 GetMorphPosition(int i)
 		{
-			return Native.ZkMorphMesh_getMorphPosition(_handle, i);
+			return Native.ZkMorphMesh_getMorphPosition(_handle, (ulong)i);
 		}
 
-		public IMorphAnimation GetAnimation(ulong i)
+		public IMorphAnimation GetAnimation(int i)
 		{
-			return new MorphAnimation(Native.ZkMorphMesh_getAnimation(_handle, i));
+			return new MorphAnimation(Native.ZkMorphMesh_getAnimation(_handle, (ulong)i));
 		}
 
-		public IMorphSource GetSource(ulong i)
+		public IMorphSource GetSource(int i)
 		{
-			return new MorphSource(Native.ZkMorphMesh_getSource(_handle, i));
+			return new MorphSource(Native.ZkMorphMesh_getSource(_handle, (ulong)i));
 		}
 
 		~MorphMesh()

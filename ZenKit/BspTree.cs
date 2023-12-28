@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
 using ZenKit.Util;
 
 namespace ZenKit
@@ -21,8 +19,8 @@ namespace ZenKit
 	{
 		public Vector4 Plane;
 		public AxisAlignedBoundingBox BoundingBox;
-		public uint PolygonIndex;
-		public uint PolygonCount;
+		public int PolygonIndex;
+		public int PolygonCount;
 		public int FrontIndex;
 		public int BackIndex;
 		public int ParentIndex;
@@ -31,16 +29,16 @@ namespace ZenKit
 	public interface IBspSector : ICacheable<IBspSector>
 	{
 		public string Name { get; }
-		public List<uint> NodeIndices { get; }
-		public List<uint> PortalPolygonIndices { get; }
+		public List<int> NodeIndices { get; }
+		public List<int> PortalPolygonIndices { get; }
 	}
 
 	[Serializable]
 	public class CachedBspSector : IBspSector
 	{
 		public string Name { get; set; }
-		public List<uint> NodeIndices { get; set; }
-		public List<uint> PortalPolygonIndices { get; set; }
+		public List<int> NodeIndices { get; set; }
+		public List<int> PortalPolygonIndices { get; set; }
 
 		public IBspSector Cache()
 		{
@@ -65,11 +63,11 @@ namespace ZenKit
 		public string Name => Native.ZkBspSector_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load bsp sector name");
 
-		public List<uint> NodeIndices =>
-			Native.ZkBspSector_getNodeIndices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> NodeIndices =>
+			Native.ZkBspSector_getNodeIndices(_handle, out var count).MarshalAsList<int>(count);
 
-		public List<uint> PortalPolygonIndices =>
-			Native.ZkBspSector_getPortalPolygonIndices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> PortalPolygonIndices =>
+			Native.ZkBspSector_getPortalPolygonIndices(_handle, out var count).MarshalAsList<int>(count);
 
 		/// <summary>
 		///     Fully loads this native object into a C# serializable object, disassociated
@@ -95,56 +93,56 @@ namespace ZenKit
 	public interface IBspTree : ICacheable<IBspTree>
 	{
 		public BspTreeType Type { get; }
-		public List<uint> PolygonIndices { get; }
-		public List<uint> LeafPolygonIndices { get; }
-		public List<uint> PortalPolygonIndices { get; }
-		public ulong LightPointCount { get; }
+		public List<int> PolygonIndices { get; }
+		public List<int> LeafPolygonIndices { get; }
+		public List<int> PortalPolygonIndices { get; }
+		public int LightPointCount { get; }
 		public List<Vector3> LightPoints { get; }
-		public List<ulong> LeafNodeIndices { get; }
-		public ulong NodeCount { get; }
+		public List<int> LeafNodeIndices { get; }
+		public int NodeCount { get; }
 		public List<BspNode> Nodes { get; }
 		public List<IBspSector> Sectors { get; }
 
-		public ulong SectorCount { get; }
+		public int SectorCount { get; }
 
-		public IBspSector GetSector(ulong i);
+		public IBspSector GetSector(int i);
 
-		public Vector3 GetLightPoint(ulong i);
-		public BspNode GetNode(ulong i);
+		public Vector3 GetLightPoint(int i);
+		public BspNode GetNode(int i);
 	}
 
 	[Serializable]
 	public class CachedBspTree : IBspTree
 	{
 		public BspTreeType Type { get; set; }
-		public List<uint> PolygonIndices { get; set; }
-		public List<uint> LeafPolygonIndices { get; set; }
-		public List<uint> PortalPolygonIndices { get; set; }
+		public List<int> PolygonIndices { get; set; }
+		public List<int> LeafPolygonIndices { get; set; }
+		public List<int> PortalPolygonIndices { get; set; }
 
-		public ulong LightPointCount => (ulong)LightPoints.LongCount();
+		public int LightPointCount => LightPoints.Count;
 
 		public List<Vector3> LightPoints { get; set; }
-		public List<ulong> LeafNodeIndices { get; set; }
+		public List<int> LeafNodeIndices { get; set; }
 
-		public ulong NodeCount => (ulong)Nodes.LongCount();
+		public int NodeCount => Nodes.Count;
 
 		public List<BspNode> Nodes { get; set; }
 		public List<IBspSector> Sectors { get; set; }
-		public ulong SectorCount => (ulong)Sectors.LongCount();
+		public int SectorCount => Sectors.Count;
 
-		public IBspSector GetSector(ulong i)
+		public IBspSector GetSector(int i)
 		{
-			return Sectors[(int)i];
+			return Sectors[i];
 		}
 
-		public Vector3 GetLightPoint(ulong i)
+		public Vector3 GetLightPoint(int i)
 		{
-			return LightPoints[(int)i];
+			return LightPoints[i];
 		}
 
-		public BspNode GetNode(ulong i)
+		public BspNode GetNode(int i)
 		{
-			return Nodes[(int)i];
+			return Nodes[i];
 		}
 
 		public IBspTree Cache()
@@ -169,16 +167,16 @@ namespace ZenKit
 
 		public BspTreeType Type => Native.ZkBspTree_getType(_handle);
 
-		public List<uint> PolygonIndices =>
-			Native.ZkBspTree_getPolygonIndices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> PolygonIndices =>
+			Native.ZkBspTree_getPolygonIndices(_handle, out var count).MarshalAsList<int>(count);
 
-		public List<uint> LeafPolygonIndices =>
-			Native.ZkBspTree_getLeafPolygonIndices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> LeafPolygonIndices =>
+			Native.ZkBspTree_getLeafPolygonIndices(_handle, out var count).MarshalAsList<int>(count);
 
-		public List<uint> PortalPolygonIndices =>
-			Native.ZkBspTree_getPortalPolygonIndices(_handle, out var count).MarshalAsList<uint>(count);
+		public List<int> PortalPolygonIndices =>
+			Native.ZkBspTree_getPortalPolygonIndices(_handle, out var count).MarshalAsList<int>(count);
 
-		public ulong LightPointCount => Native.ZkBspTree_getLightPointCount(_handle);
+		public int LightPointCount => (int)Native.ZkBspTree_getLightPointCount(_handle);
 
 		public List<Vector3> LightPoints
 		{
@@ -196,10 +194,11 @@ namespace ZenKit
 			}
 		}
 
-		public List<ulong> LeafNodeIndices =>
-			Native.ZkBspTree_getLeafNodeIndices(_handle, out var count).MarshalAsList<ulong>(count);
+		public List<int> LeafNodeIndices =>
+			Native.ZkBspTree_getLeafNodeIndices(_handle, out var count).MarshalAsList<ulong>(count)
+				.ConvertAll(v => (int)v);
 
-		public ulong NodeCount => Native.ZkBspTree_getNodeCount(_handle);
+		public int NodeCount => (int)Native.ZkBspTree_getNodeCount(_handle);
 
 		public List<BspNode> Nodes
 		{
@@ -217,7 +216,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong SectorCount => Native.ZkBspTree_getSectorCount(_handle);
+		public int SectorCount => (int)Native.ZkBspTree_getSectorCount(_handle);
 
 		public List<IBspSector> Sectors
 		{
@@ -260,19 +259,19 @@ namespace ZenKit
 			return false;
 		}
 
-		public IBspSector GetSector(ulong i)
+		public IBspSector GetSector(int i)
 		{
-			return new BspSector(Native.ZkBspTree_getSector(_handle, i));
+			return new BspSector(Native.ZkBspTree_getSector(_handle, (ulong)i));
 		}
 
-		public Vector3 GetLightPoint(ulong i)
+		public Vector3 GetLightPoint(int i)
 		{
-			return Native.ZkBspTree_getLightPoint(_handle, i);
+			return Native.ZkBspTree_getLightPoint(_handle, (ulong)i);
 		}
 
-		public BspNode GetNode(ulong i)
+		public BspNode GetNode(int i)
 		{
-			return Native.ZkBspTree_getNode(_handle, i);
+			return Native.ZkBspTree_getNode(_handle, (ulong)i);
 		}
 	}
 }

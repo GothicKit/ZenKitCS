@@ -54,7 +54,7 @@ namespace ZenKit.Vobs
 			set => Native.ZkTriggerList_setMode(Handle, value);
 		}
 
-		public ulong TargetCount => Native.ZkTriggerList_getTargetCount(Handle);
+		public int TargetCount => (int)Native.ZkTriggerList_getTargetCount(Handle);
 
 		public List<TriggerListTarget> Targets
 		{
@@ -72,9 +72,9 @@ namespace ZenKit.Vobs
 			}
 		}
 
-		public TriggerListTarget GetTarget(ulong i)
+		public TriggerListTarget GetTarget(int i)
 		{
-			return new TriggerListTarget(Native.ZkTriggerList_getTarget(Handle, i));
+			return new TriggerListTarget(Native.ZkTriggerList_getTarget(Handle, (ulong)i));
 		}
 
 		public TriggerListTarget AddTarget()
@@ -82,9 +82,9 @@ namespace ZenKit.Vobs
 			return new TriggerListTarget(Native.ZkTriggerList_addTarget(Handle));
 		}
 
-		public void RemoveTarget(ulong i)
+		public void RemoveTarget(int i)
 		{
-			Native.ZkTriggerList_removeTarget(Handle, i);
+			Native.ZkTriggerList_removeTarget(Handle, (ulong)i);
 		}
 
 		public void RemoveTargets(Predicate<TriggerListTarget> pred)

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -63,32 +62,32 @@ namespace ZenKit
 
 	public interface IModelHierarchy : ICacheable<IModelHierarchy>
 	{
-		ulong NodeCount { get; }
+		int NodeCount { get; }
 		AxisAlignedBoundingBox BoundingBox { get; }
 		AxisAlignedBoundingBox CollisionBoundingBox { get; }
 		Vector3 RootTranslation { get; }
-		uint Checksum { get; }
+		int Checksum { get; }
 		DateTime? SourceDate { get; }
 		string SourcePath { get; }
 		List<IModelHierarchyNode> Nodes { get; }
-		IModelHierarchyNode GetNode(ulong i);
+		IModelHierarchyNode GetNode(int i);
 	}
 
 	[Serializable]
 	public class CachedModelHierarchy : IModelHierarchy
 	{
-		public ulong NodeCount => (ulong)Nodes.LongCount();
+		public int NodeCount => Nodes.Count;
 		public AxisAlignedBoundingBox BoundingBox { get; set; }
 		public AxisAlignedBoundingBox CollisionBoundingBox { get; set; }
 		public Vector3 RootTranslation { get; set; }
-		public uint Checksum { get; set; }
+		public int Checksum { get; set; }
 		public DateTime? SourceDate { get; set; }
 		public string SourcePath { get; set; }
 		public List<IModelHierarchyNode> Nodes { get; set; }
 
-		public IModelHierarchyNode GetNode(ulong i)
+		public IModelHierarchyNode GetNode(int i)
 		{
-			return Nodes[(int)i];
+			return Nodes[i];
 		}
 
 		public IModelHierarchy Cache()
@@ -131,11 +130,11 @@ namespace ZenKit
 			_delete = false;
 		}
 
-		public ulong NodeCount => Native.ZkModelHierarchy_getNodeCount(_handle);
+		public int NodeCount => (int)Native.ZkModelHierarchy_getNodeCount(_handle);
 		public AxisAlignedBoundingBox BoundingBox => Native.ZkModelHierarchy_getBbox(_handle);
 		public AxisAlignedBoundingBox CollisionBoundingBox => Native.ZkModelHierarchy_getCollisionBbox(_handle);
 		public Vector3 RootTranslation => Native.ZkModelHierarchy_getRootTranslation(_handle);
-		public uint Checksum => Native.ZkModelHierarchy_getChecksum(_handle);
+		public int Checksum => (int)Native.ZkModelHierarchy_getChecksum(_handle);
 
 		public DateTime? SourceDate => Native.ZkModelHierarchy_getSourceDate(_handle).AsDateTime();
 
@@ -177,9 +176,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public IModelHierarchyNode GetNode(ulong i)
+		public IModelHierarchyNode GetNode(int i)
 		{
-			return Native.ZkModelHierarchy_getNode(_handle, i);
+			return Native.ZkModelHierarchy_getNode(_handle, (ulong)i);
 		}
 
 		~ModelHierarchy()

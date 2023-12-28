@@ -21,9 +21,9 @@ public class TestDaedalusScript
 		var instanceSymbol = scr.GetSymbolByName("MENU_MAIN");
 		var functionSymbol = scr.GetSymbolByAddress(1877);
 
-		var nonexistentSymbol1 = scr.GetSymbolByIndex((uint)(syms.Count + 100));
+		var nonexistentSymbol1 = scr.GetSymbolByIndex(syms.Count + 100);
 		var nonexistentSymbol2 = scr.GetSymbolByName("nonexistent_lol");
-		var nonexistentSymbol3 = scr.GetSymbolByAddress(0xffffffaa);
+		var nonexistentSymbol3 = scr.GetSymbolByAddress(0xffffaa);
 
 		Assert.That(classSymbol, Is.Not.Null);
 		Assert.That(memberSymbol, Is.Not.Null);

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -19,20 +18,20 @@ namespace ZenKit
 	public interface IFont : ICacheable<IFont>
 	{
 		public string Name { get; }
-		public uint Height { get; }
+		public int Height { get; }
 		public List<FontGlyph> Glyphs { get; }
-		public ulong GlyphCount { get; }
+		public int GlyphCount { get; }
 
-		public FontGlyph GetGlyph(ulong index);
+		public FontGlyph GetGlyph(int index);
 	}
 
 	[Serializable]
 	public class CachedFont : IFont
 	{
 		public string Name { get; set; }
-		public uint Height { get; set; }
+		public int Height { get; set; }
 		public List<FontGlyph> Glyphs { get; set; }
-		public ulong GlyphCount => (ulong)Glyphs.LongCount();
+		public int GlyphCount => Glyphs.Count;
 
 		public IFont Cache()
 		{
@@ -44,9 +43,9 @@ namespace ZenKit
 			return true;
 		}
 
-		public FontGlyph GetGlyph(ulong index)
+		public FontGlyph GetGlyph(int index)
 		{
-			return Glyphs[(int)index];
+			return Glyphs[index];
 		}
 	}
 
@@ -75,9 +74,9 @@ namespace ZenKit
 		public string Name => Native.ZkFont_getName(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load font name");
 
-		public uint Height => Native.ZkFont_getHeight(_handle);
+		public int Height => (int)Native.ZkFont_getHeight(_handle);
 
-		public ulong GlyphCount => Native.ZkFont_getGlyphCount(_handle);
+		public int GlyphCount => (int)Native.ZkFont_getGlyphCount(_handle);
 
 		public List<FontGlyph> Glyphs
 		{
@@ -110,9 +109,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public FontGlyph GetGlyph(ulong index)
+		public FontGlyph GetGlyph(int index)
 		{
-			return Native.ZkFont_getGlyph(_handle, index);
+			return Native.ZkFont_getGlyph(_handle, (ulong)index);
 		}
 
 		~Font()

@@ -302,14 +302,14 @@ namespace ZenKit.Daedalus
 		}
 
 
-		public string GetUserString(ulong i)
+		public string GetUserString(int i)
 		{
-			return Native.ZkEffectBaseInstance_getUserString(Handle, i).MarshalAsString() ?? string.Empty;
+			return Native.ZkEffectBaseInstance_getUserString(Handle, (ulong)i).MarshalAsString() ?? string.Empty;
 		}
 
-		public void SetUserString(ulong i, string userString)
+		public void SetUserString(int i, string userString)
 		{
-			Native.ZkEffectBaseInstance_setUserString(Handle, i, userString);
+			Native.ZkEffectBaseInstance_setUserString(Handle, (ulong)i, userString);
 		}
 	}
 }

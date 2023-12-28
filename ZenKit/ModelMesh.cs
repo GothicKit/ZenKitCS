@@ -7,27 +7,27 @@ namespace ZenKit
 {
 	public interface IModelMesh : ICacheable<IModelMesh>
 	{
-		ulong MeshCount { get; }
+		int MeshCount { get; }
 		List<ISoftSkinMesh> Meshes { get; }
-		ulong AttachmentCount { get; }
+		int AttachmentCount { get; }
 		Dictionary<string, IMultiResolutionMesh> Attachments { get; }
-		uint Checksum { get; }
-		ISoftSkinMesh GetMesh(ulong i);
+		int Checksum { get; }
+		ISoftSkinMesh GetMesh(int i);
 		IMultiResolutionMesh? GetAttachment(string name);
 	}
 
 	[Serializable]
 	public class CachedModelMesh : IModelMesh
 	{
-		public ulong MeshCount => (ulong)Meshes.LongCount();
+		public int MeshCount => Meshes.Count;
 		public List<ISoftSkinMesh> Meshes { get; set; }
-		public ulong AttachmentCount => (ulong)Attachments.LongCount();
+		public int AttachmentCount => Attachments.Count;
 		public Dictionary<string, IMultiResolutionMesh> Attachments { get; set; }
-		public uint Checksum { get; set; }
+		public int Checksum { get; set; }
 
-		public ISoftSkinMesh GetMesh(ulong i)
+		public ISoftSkinMesh GetMesh(int i)
 		{
-			return Meshes[(int)i];
+			return Meshes[i];
 		}
 
 		public IMultiResolutionMesh? GetAttachment(string name)
@@ -75,7 +75,7 @@ namespace ZenKit
 			_delete = false;
 		}
 
-		public ulong MeshCount => Native.ZkModelMesh_getMeshCount(_handle);
+		public int MeshCount => (int)Native.ZkModelMesh_getMeshCount(_handle);
 
 		public List<ISoftSkinMesh> Meshes
 		{
@@ -93,7 +93,7 @@ namespace ZenKit
 			}
 		}
 
-		public ulong AttachmentCount => Native.ZkModelMesh_getAttachmentCount(_handle);
+		public int AttachmentCount => (int)Native.ZkModelMesh_getAttachmentCount(_handle);
 
 		public Dictionary<string, IMultiResolutionMesh> Attachments
 		{
@@ -114,7 +114,7 @@ namespace ZenKit
 			}
 		}
 
-		public uint Checksum => Native.ZkModelMesh_getChecksum(_handle);
+		public int Checksum => (int)Native.ZkModelMesh_getChecksum(_handle);
 
 		public IModelMesh Cache()
 		{
@@ -130,9 +130,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public ISoftSkinMesh GetMesh(ulong i)
+		public ISoftSkinMesh GetMesh(int i)
 		{
-			return new SoftSkinMesh(Native.ZkModelMesh_getMesh(_handle, i));
+			return new SoftSkinMesh(Native.ZkModelMesh_getMesh(_handle, (ulong)i));
 		}
 
 		public IMultiResolutionMesh? GetAttachment(string name)

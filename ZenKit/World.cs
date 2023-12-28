@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ZenKit.Util;
 using ZenKit.Vobs;
 
@@ -12,9 +11,9 @@ namespace ZenKit
 		public IBspTree BspTree { get; }
 		public IWayNet WayNet { get; }
 		public List<IVirtualObject> RootObjects { get; }
-		public ulong RootObjectCount { get; }
+		public int RootObjectCount { get; }
 
-		public IVirtualObject GetRootObject(ulong i);
+		public IVirtualObject GetRootObject(int i);
 	}
 
 	[Serializable]
@@ -24,11 +23,11 @@ namespace ZenKit
 		public IBspTree BspTree { get; set; }
 		public IWayNet WayNet { get; set; }
 		public List<IVirtualObject> RootObjects { get; set; }
-		public ulong RootObjectCount => (ulong)RootObjects.LongCount();
+		public int RootObjectCount => RootObjects.Count;
 
-		public IVirtualObject GetRootObject(ulong i)
+		public IVirtualObject GetRootObject(int i)
 		{
-			return RootObjects[(int)i];
+			return RootObjects[i];
 		}
 
 		public IWorld Cache()
@@ -67,7 +66,7 @@ namespace ZenKit
 		public IMesh Mesh => new Mesh(Native.ZkWorld_getMesh(_handle));
 		public IBspTree BspTree => new BspTree(Native.ZkWorld_getBspTree(_handle));
 		public IWayNet WayNet => new WayNet(Native.ZkWorld_getWayNet(_handle));
-		public ulong RootObjectCount => Native.ZkWorld_getRootObjectCount(_handle);
+		public int RootObjectCount => (int)Native.ZkWorld_getRootObjectCount(_handle);
 
 		public List<IVirtualObject> RootObjects
 		{
@@ -101,9 +100,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public IVirtualObject GetRootObject(ulong i)
+		public IVirtualObject GetRootObject(int i)
 		{
-			return VirtualObject.FromNative(Native.ZkWorld_getRootObject(_handle, i));
+			return VirtualObject.FromNative(Native.ZkWorld_getRootObject(_handle, (ulong)i));
 		}
 
 		~World()

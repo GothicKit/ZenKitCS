@@ -231,7 +231,7 @@ namespace ZenKit.Vobs
 
 		public int PositionCount => Native.ZkCutsceneCamera_getPositionCount(Handle);
 		public int TargetCount => Native.ZkCutsceneCamera_getTargetCount(Handle);
-		public ulong FrameCount => Native.ZkCutsceneCamera_getFrameCount(Handle);
+		public int FrameCount => (int)Native.ZkCutsceneCamera_getFrameCount(Handle);
 
 		public List<CameraTrajectoryFrame> Frames
 		{
@@ -254,9 +254,9 @@ namespace ZenKit.Vobs
 			Native.ZkCutsceneCamera_del(Handle);
 		}
 
-		public CameraTrajectoryFrame Frame(ulong i)
+		public CameraTrajectoryFrame Frame(int i)
 		{
-			return new CameraTrajectoryFrame(Native.ZkCutsceneCamera_getFrame(Handle, i), false);
+			return new CameraTrajectoryFrame(Native.ZkCutsceneCamera_getFrame(Handle, (ulong)i), false);
 		}
 	}
 }

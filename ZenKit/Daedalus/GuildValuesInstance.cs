@@ -8,314 +8,314 @@ namespace ZenKit.Daedalus
 		{
 		}
 
-		public int GetWaterDepthKnee(ulong i)
+		public int GetWaterDepthKnee(int i)
 		{
-			return Native.ZkGuildValuesInstance_getWaterDepthKnee(Handle, i);
+			return Native.ZkGuildValuesInstance_getWaterDepthKnee(Handle, (ulong)i);
 		}
 
-		public int GetWaterDepthChest(ulong i)
+		public int GetWaterDepthChest(int i)
 		{
-			return Native.ZkGuildValuesInstance_getWaterDepthChest(Handle, i);
+			return Native.ZkGuildValuesInstance_getWaterDepthChest(Handle, (ulong)i);
 		}
 
-		public int GetJumpUpHeight(ulong i)
+		public int GetJumpUpHeight(int i)
 		{
-			return Native.ZkGuildValuesInstance_getJumpUpHeight(Handle, i);
+			return Native.ZkGuildValuesInstance_getJumpUpHeight(Handle, (ulong)i);
 		}
 
-		public int GetSwimTime(ulong i)
+		public int GetSwimTime(int i)
 		{
-			return Native.ZkGuildValuesInstance_getSwimTime(Handle, i);
+			return Native.ZkGuildValuesInstance_getSwimTime(Handle, (ulong)i);
 		}
 
-		public int GetDiveTime(ulong i)
+		public int GetDiveTime(int i)
 		{
-			return Native.ZkGuildValuesInstance_getDiveTime(Handle, i);
+			return Native.ZkGuildValuesInstance_getDiveTime(Handle, (ulong)i);
 		}
 
-		public int GetStepHeight(ulong i)
+		public int GetStepHeight(int i)
 		{
-			return Native.ZkGuildValuesInstance_getStepHeight(Handle, i);
+			return Native.ZkGuildValuesInstance_getStepHeight(Handle, (ulong)i);
 		}
 
-		public int GetJumpLowHeight(ulong i)
+		public int GetJumpLowHeight(int i)
 		{
-			return Native.ZkGuildValuesInstance_getJumpLowHeight(Handle, i);
+			return Native.ZkGuildValuesInstance_getJumpLowHeight(Handle, (ulong)i);
 		}
 
-		public int GetJumpMidHeight(ulong i)
+		public int GetJumpMidHeight(int i)
 		{
-			return Native.ZkGuildValuesInstance_getJumpMidHeight(Handle, i);
+			return Native.ZkGuildValuesInstance_getJumpMidHeight(Handle, (ulong)i);
 		}
 
-		public int GetSlideAngle(ulong i)
+		public int GetSlideAngle(int i)
 		{
-			return Native.ZkGuildValuesInstance_getSlideAngle(Handle, i);
+			return Native.ZkGuildValuesInstance_getSlideAngle(Handle, (ulong)i);
 		}
 
-		public int GetSlideAngle2(ulong i)
+		public int GetSlideAngle2(int i)
 		{
-			return Native.ZkGuildValuesInstance_getSlideAngle2(Handle, i);
+			return Native.ZkGuildValuesInstance_getSlideAngle2(Handle, (ulong)i);
 		}
 
-		public int GetDisableAutoRoll(ulong i)
+		public int GetDisableAutoRoll(int i)
 		{
-			return Native.ZkGuildValuesInstance_getDisableAutoRoll(Handle, i);
+			return Native.ZkGuildValuesInstance_getDisableAutoRoll(Handle, (ulong)i);
 		}
 
-		public int GetSurfaceAlign(ulong i)
+		public int GetSurfaceAlign(int i)
 		{
-			return Native.ZkGuildValuesInstance_getSurfaceAlign(Handle, i);
+			return Native.ZkGuildValuesInstance_getSurfaceAlign(Handle, (ulong)i);
 		}
 
-		public int GetClimbHeadingAngle(ulong i)
+		public int GetClimbHeadingAngle(int i)
 		{
-			return Native.ZkGuildValuesInstance_getClimbHeadingAngle(Handle, i);
+			return Native.ZkGuildValuesInstance_getClimbHeadingAngle(Handle, (ulong)i);
 		}
 
-		public int GetClimbHorizAngle(ulong i)
+		public int GetClimbHorizAngle(int i)
 		{
-			return Native.ZkGuildValuesInstance_getClimbHorizAngle(Handle, i);
+			return Native.ZkGuildValuesInstance_getClimbHorizAngle(Handle, (ulong)i);
 		}
 
-		public int GetClimbGroundAngle(ulong i)
+		public int GetClimbGroundAngle(int i)
 		{
-			return Native.ZkGuildValuesInstance_getClimbGroundAngle(Handle, i);
+			return Native.ZkGuildValuesInstance_getClimbGroundAngle(Handle, (ulong)i);
 		}
 
-		public int GetFightRangeBase(ulong i)
+		public int GetFightRangeBase(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFightRangeBase(Handle, i);
+			return Native.ZkGuildValuesInstance_getFightRangeBase(Handle, (ulong)i);
 		}
 
-		public int GetFightRangeFist(ulong i)
+		public int GetFightRangeFist(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFightRangeFist(Handle, i);
+			return Native.ZkGuildValuesInstance_getFightRangeFist(Handle, (ulong)i);
 		}
 
-		public int GetFightRangeG(ulong i)
+		public int GetFightRangeG(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFightRangeG(Handle, i);
+			return Native.ZkGuildValuesInstance_getFightRangeG(Handle, (ulong)i);
 		}
 
-		public int GetFightRange1Hs(ulong i)
+		public int GetFightRange1Hs(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFightRange1Hs(Handle, i);
+			return Native.ZkGuildValuesInstance_getFightRange1Hs(Handle, (ulong)i);
 		}
 
-		public int GetFightRange1Ha(ulong i)
+		public int GetFightRange1Ha(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFightRange1Ha(Handle, i);
+			return Native.ZkGuildValuesInstance_getFightRange1Ha(Handle, (ulong)i);
 		}
 
-		public int GetFightRange2Hs(ulong i)
+		public int GetFightRange2Hs(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFightRange2Hs(Handle, i);
+			return Native.ZkGuildValuesInstance_getFightRange2Hs(Handle, (ulong)i);
 		}
 
-		public int GetFightRange2Ha(ulong i)
+		public int GetFightRange2Ha(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFightRange2Ha(Handle, i);
+			return Native.ZkGuildValuesInstance_getFightRange2Ha(Handle, (ulong)i);
 		}
 
-		public int GetFallDownHeight(ulong i)
+		public int GetFallDownHeight(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFallDownHeight(Handle, i);
+			return Native.ZkGuildValuesInstance_getFallDownHeight(Handle, (ulong)i);
 		}
 
-		public int GetFallDownDamage(ulong i)
+		public int GetFallDownDamage(int i)
 		{
-			return Native.ZkGuildValuesInstance_getFallDownDamage(Handle, i);
+			return Native.ZkGuildValuesInstance_getFallDownDamage(Handle, (ulong)i);
 		}
 
-		public int GetBloodDisabled(ulong i)
+		public int GetBloodDisabled(int i)
 		{
-			return Native.ZkGuildValuesInstance_getBloodDisabled(Handle, i);
+			return Native.ZkGuildValuesInstance_getBloodDisabled(Handle, (ulong)i);
 		}
 
-		public int GetBloodMaxDistance(ulong i)
+		public int GetBloodMaxDistance(int i)
 		{
-			return Native.ZkGuildValuesInstance_getBloodMaxDistance(Handle, i);
+			return Native.ZkGuildValuesInstance_getBloodMaxDistance(Handle, (ulong)i);
 		}
 
-		public int GetBloodAmount(ulong i)
+		public int GetBloodAmount(int i)
 		{
-			return Native.ZkGuildValuesInstance_getBloodAmount(Handle, i);
+			return Native.ZkGuildValuesInstance_getBloodAmount(Handle, (ulong)i);
 		}
 
-		public int GetBloodFlow(ulong i)
+		public int GetBloodFlow(int i)
 		{
-			return Native.ZkGuildValuesInstance_getBloodFlow(Handle, i);
+			return Native.ZkGuildValuesInstance_getBloodFlow(Handle, (ulong)i);
 		}
 
-		public int GetTurnSpeed(ulong i)
+		public int GetTurnSpeed(int i)
 		{
-			return Native.ZkGuildValuesInstance_getTurnSpeed(Handle, i);
+			return Native.ZkGuildValuesInstance_getTurnSpeed(Handle, (ulong)i);
 		}
 
-		public string GetBloodEmitter(ulong i)
+		public string GetBloodEmitter(int i)
 		{
-			return Native.ZkGuildValuesInstance_getBloodEmitter(Handle, i).MarshalAsString() ?? string.Empty;
+			return Native.ZkGuildValuesInstance_getBloodEmitter(Handle, (ulong)i).MarshalAsString() ?? string.Empty;
 		}
 
-		public string GetBloodTexture(ulong i, int v)
+		public string GetBloodTexture(int i, int v)
 		{
-			return Native.ZkGuildValuesInstance_getBloodTexture(Handle, i).MarshalAsString() ?? string.Empty;
+			return Native.ZkGuildValuesInstance_getBloodTexture(Handle, (ulong)i).MarshalAsString() ?? string.Empty;
 		}
 
-		public void SetWaterDepthKnee(ulong i, int v)
+		public void SetWaterDepthKnee(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setWaterDepthKnee(Handle, i, v);
+			Native.ZkGuildValuesInstance_setWaterDepthKnee(Handle, (ulong)i, v);
 		}
 
-		public void SetWaterDepthChest(ulong i, int v)
+		public void SetWaterDepthChest(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setWaterDepthChest(Handle, i, v);
+			Native.ZkGuildValuesInstance_setWaterDepthChest(Handle, (ulong)i, v);
 		}
 
-		public void SetJumpUpHeight(ulong i, int v)
+		public void SetJumpUpHeight(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setJumpUpHeight(Handle, i, v);
+			Native.ZkGuildValuesInstance_setJumpUpHeight(Handle, (ulong)i, v);
 		}
 
-		public void SetSwimTime(ulong i, int v)
+		public void SetSwimTime(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setSwimTime(Handle, i, v);
+			Native.ZkGuildValuesInstance_setSwimTime(Handle, (ulong)i, v);
 		}
 
-		public void SetDiveTime(ulong i, int v)
+		public void SetDiveTime(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setDiveTime(Handle, i, v);
+			Native.ZkGuildValuesInstance_setDiveTime(Handle, (ulong)i, v);
 		}
 
-		public void SetStepHeight(ulong i, int v)
+		public void SetStepHeight(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setStepHeight(Handle, i, v);
+			Native.ZkGuildValuesInstance_setStepHeight(Handle, (ulong)i, v);
 		}
 
-		public void SetJumpLowHeight(ulong i, int v)
+		public void SetJumpLowHeight(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setJumpLowHeight(Handle, i, v);
+			Native.ZkGuildValuesInstance_setJumpLowHeight(Handle, (ulong)i, v);
 		}
 
-		public void SetJumpMidHeight(ulong i, int v)
+		public void SetJumpMidHeight(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setJumpMidHeight(Handle, i, v);
+			Native.ZkGuildValuesInstance_setJumpMidHeight(Handle, (ulong)i, v);
 		}
 
-		public void SetSlideAngle(ulong i, int v)
+		public void SetSlideAngle(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setSlideAngle(Handle, i, v);
+			Native.ZkGuildValuesInstance_setSlideAngle(Handle, (ulong)i, v);
 		}
 
-		public void SetSlideAngle2(ulong i, int v)
+		public void SetSlideAngle2(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setSlideAngle2(Handle, i, v);
+			Native.ZkGuildValuesInstance_setSlideAngle2(Handle, (ulong)i, v);
 		}
 
-		public void SetDisableAutoRoll(ulong i, int v)
+		public void SetDisableAutoRoll(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setDisableAutoRoll(Handle, i, v);
+			Native.ZkGuildValuesInstance_setDisableAutoRoll(Handle, (ulong)i, v);
 		}
 
-		public void SetSurfaceAlign(ulong i, int v)
+		public void SetSurfaceAlign(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setSurfaceAlign(Handle, i, v);
+			Native.ZkGuildValuesInstance_setSurfaceAlign(Handle, (ulong)i, v);
 		}
 
-		public void SetClimbHeadingAngle(ulong i, int v)
+		public void SetClimbHeadingAngle(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setClimbHeadingAngle(Handle, i, v);
+			Native.ZkGuildValuesInstance_setClimbHeadingAngle(Handle, (ulong)i, v);
 		}
 
-		public void SetClimbHorizAngle(ulong i, int v)
+		public void SetClimbHorizAngle(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setClimbHorizAngle(Handle, i, v);
+			Native.ZkGuildValuesInstance_setClimbHorizAngle(Handle, (ulong)i, v);
 		}
 
-		public void SetClimbGroundAngle(ulong i, int v)
+		public void SetClimbGroundAngle(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setClimbGroundAngle(Handle, i, v);
+			Native.ZkGuildValuesInstance_setClimbGroundAngle(Handle, (ulong)i, v);
 		}
 
-		public void SetFightRangeBase(ulong i, int v)
+		public void SetFightRangeBase(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFightRangeBase(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFightRangeBase(Handle, (ulong)i, v);
 		}
 
-		public void SetFightRangeFist(ulong i, int v)
+		public void SetFightRangeFist(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFightRangeFist(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFightRangeFist(Handle, (ulong)i, v);
 		}
 
-		public void SetFightRangeG(ulong i, int v)
+		public void SetFightRangeG(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFightRangeG(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFightRangeG(Handle, (ulong)i, v);
 		}
 
-		public void SetFightRange1Hs(ulong i, int v)
+		public void SetFightRange1Hs(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFightRange1Hs(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFightRange1Hs(Handle, (ulong)i, v);
 		}
 
-		public void SetFightRange1Ha(ulong i, int v)
+		public void SetFightRange1Ha(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFightRange1Ha(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFightRange1Ha(Handle, (ulong)i, v);
 		}
 
-		public void SetFightRange2Hs(ulong i, int v)
+		public void SetFightRange2Hs(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFightRange2Hs(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFightRange2Hs(Handle, (ulong)i, v);
 		}
 
-		public void SetFightRange2Ha(ulong i, int v)
+		public void SetFightRange2Ha(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFightRange2Ha(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFightRange2Ha(Handle, (ulong)i, v);
 		}
 
-		public void SetFallDownHeight(ulong i, int v)
+		public void SetFallDownHeight(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFallDownHeight(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFallDownHeight(Handle, (ulong)i, v);
 		}
 
-		public void SetFallDownDamage(ulong i, int v)
+		public void SetFallDownDamage(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setFallDownDamage(Handle, i, v);
+			Native.ZkGuildValuesInstance_setFallDownDamage(Handle, (ulong)i, v);
 		}
 
-		public void SetBloodDisabled(ulong i, int v)
+		public void SetBloodDisabled(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setBloodDisabled(Handle, i, v);
+			Native.ZkGuildValuesInstance_setBloodDisabled(Handle, (ulong)i, v);
 		}
 
-		public void SetBloodMaxDistance(ulong i, int v)
+		public void SetBloodMaxDistance(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setBloodMaxDistance(Handle, i, v);
+			Native.ZkGuildValuesInstance_setBloodMaxDistance(Handle, (ulong)i, v);
 		}
 
-		public void SetBloodAmount(ulong i, int v)
+		public void SetBloodAmount(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setBloodAmount(Handle, i, v);
+			Native.ZkGuildValuesInstance_setBloodAmount(Handle, (ulong)i, v);
 		}
 
-		public void SetBloodFlow(ulong i, int v)
+		public void SetBloodFlow(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setBloodFlow(Handle, i, v);
+			Native.ZkGuildValuesInstance_setBloodFlow(Handle, (ulong)i, v);
 		}
 
-		public void SetTurnSpeed(ulong i, int v)
+		public void SetTurnSpeed(int i, int v)
 		{
-			Native.ZkGuildValuesInstance_setTurnSpeed(Handle, i, v);
+			Native.ZkGuildValuesInstance_setTurnSpeed(Handle, (ulong)i, v);
 		}
 
-		public void SetBloodEmitter(ulong i, string s)
+		public void SetBloodEmitter(int i, string s)
 		{
-			Native.ZkGuildValuesInstance_setBloodEmitter(Handle, i, s);
+			Native.ZkGuildValuesInstance_setBloodEmitter(Handle, (ulong)i, s);
 		}
 
-		public void SetBloodTexture(ulong i, string s)
+		public void SetBloodTexture(int i, string s)
 		{
-			Native.ZkGuildValuesInstance_setBloodTexture(Handle, i, s);
+			Native.ZkGuildValuesInstance_setBloodTexture(Handle, (ulong)i, s);
 		}
 	}
 }

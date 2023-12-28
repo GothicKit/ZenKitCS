@@ -7,7 +7,7 @@ namespace ZenKit
 {
 	public interface ICutsceneMessage : ICacheable<ICutsceneMessage>
 	{
-		public uint Type { get; }
+		public int Type { get; }
 		public string Text { get; }
 		public string Name { get; }
 	}
@@ -15,7 +15,7 @@ namespace ZenKit
 	[Serializable]
 	public class CachedCutsceneMessage : ICutsceneMessage
 	{
-		public uint Type { get; set; }
+		public int Type { get; set; }
 		public string Text { get; set; }
 		public string Name { get; set; }
 
@@ -39,7 +39,7 @@ namespace ZenKit
 			_handle = handle;
 		}
 
-		public uint Type => Native.ZkCutsceneMessage_getType(_handle);
+		public int Type => (int)Native.ZkCutsceneMessage_getType(_handle);
 
 		public string Text => Native.ZkCutsceneMessage_getText(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to get cutscene message text");

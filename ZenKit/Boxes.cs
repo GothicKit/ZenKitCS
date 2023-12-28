@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -21,9 +20,9 @@ namespace ZenKit
 		public Tuple<Vector3, Vector3, Vector3> Axes { get; }
 		public Vector3 HalfWidth { get; }
 		public List<IOrientedBoundingBox> Children { get; }
-		public ulong ChildCount { get; }
+		public int ChildCount { get; }
 
-		public IOrientedBoundingBox GetChild(ulong i);
+		public IOrientedBoundingBox GetChild(int i);
 
 		public AxisAlignedBoundingBox ToAabb();
 	}
@@ -36,7 +35,7 @@ namespace ZenKit
 		public Vector3 HalfWidth { get; set; }
 		public List<IOrientedBoundingBox> Children { get; set; }
 
-		public ulong ChildCount => (ulong)Children.LongCount();
+		public int ChildCount => Children.Count;
 
 		public IOrientedBoundingBox Cache()
 		{
@@ -48,9 +47,9 @@ namespace ZenKit
 			return true;
 		}
 
-		public IOrientedBoundingBox GetChild(ulong i)
+		public IOrientedBoundingBox GetChild(int i)
 		{
-			return Children[(int)i];
+			return Children[i];
 		}
 
 		public AxisAlignedBoundingBox ToAabb()
@@ -80,7 +79,7 @@ namespace ZenKit
 		);
 
 		public Vector3 HalfWidth => Native.ZkOrientedBoundingBox_getHalfWidth(_handle);
-		public ulong ChildCount => Native.ZkOrientedBoundingBox_getChildCount(_handle);
+		public int ChildCount => (int)Native.ZkOrientedBoundingBox_getChildCount(_handle);
 
 		public List<IOrientedBoundingBox> Children
 		{
@@ -119,9 +118,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public IOrientedBoundingBox GetChild(ulong i)
+		public IOrientedBoundingBox GetChild(int i)
 		{
-			var handle = Native.ZkOrientedBoundingBox_getChild(_handle, i);
+			var handle = Native.ZkOrientedBoundingBox_getChild(_handle, (ulong)i);
 			if (handle == UIntPtr.Zero) throw new Exception("Failed to load oriented bounding box child");
 			return new OrientedBoundingBox(handle);
 		}

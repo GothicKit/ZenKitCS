@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace ZenKit.Vobs
 {
@@ -101,7 +100,7 @@ namespace ZenKit.Vobs
 			set => Native.ZkMover_setSpeedType(Handle, value);
 		}
 
-		public ulong KeyframeCount => Native.ZkMover_getKeyframeCount(Handle);
+		public int KeyframeCount => (int)Native.ZkMover_getKeyframeCount(Handle);
 
 		public List<AnimationSample> Keyframes
 		{
@@ -174,9 +173,9 @@ namespace ZenKit.Vobs
 			Native.ZkMover_del(Handle);
 		}
 
-		public AnimationSample GetKeyframe(ulong i)
+		public AnimationSample GetKeyframe(int i)
 		{
-			return Native.ZkMover_getKeyframe(Handle, i);
+			return Native.ZkMover_getKeyframe(Handle, (ulong)i);
 		}
 	}
 }

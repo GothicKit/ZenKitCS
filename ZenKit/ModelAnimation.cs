@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
@@ -19,9 +18,9 @@ namespace ZenKit
 	{
 		string Name { get; }
 		string Next { get; }
-		uint Layer { get; }
-		uint FrameCount { get; }
-		uint NodeCount { get; }
+		int Layer { get; }
+		int FrameCount { get; }
+		int NodeCount { get; }
 		float Fps { get; }
 		float FpsSource { get; }
 		AxisAlignedBoundingBox BoundingBox { get; }
@@ -29,10 +28,10 @@ namespace ZenKit
 		string SourcePath { get; }
 		DateTime? SourceDate { get; }
 		string SourceScript { get; }
-		ulong SampleCount { get; }
+		int SampleCount { get; }
 		List<AnimationSample> Samples { get; }
-		List<uint> NodeIndices { get; }
-		AnimationSample GetSample(ulong i);
+		List<int> NodeIndices { get; }
+		AnimationSample GetSample(int i);
 	}
 
 	[Serializable]
@@ -40,9 +39,9 @@ namespace ZenKit
 	{
 		public string Name { get; set; }
 		public string Next { get; set; }
-		public uint Layer { get; set; }
-		public uint FrameCount { get; set; }
-		public uint NodeCount { get; set; }
+		public int Layer { get; set; }
+		public int FrameCount { get; set; }
+		public int NodeCount { get; set; }
 		public float Fps { get; set; }
 		public float FpsSource { get; set; }
 		public AxisAlignedBoundingBox BoundingBox { get; set; }
@@ -50,13 +49,13 @@ namespace ZenKit
 		public string SourcePath { get; set; }
 		public DateTime? SourceDate { get; set; }
 		public string SourceScript { get; set; }
-		public ulong SampleCount => (ulong)Samples.LongCount();
+		public int SampleCount => Samples.Count;
 		public List<AnimationSample> Samples { get; set; }
-		public List<uint> NodeIndices { get; set; }
+		public List<int> NodeIndices { get; set; }
 
-		public AnimationSample GetSample(ulong i)
+		public AnimationSample GetSample(int i)
 		{
-			return Samples[(int)i];
+			return Samples[i];
 		}
 
 		public IModelAnimation Cache()
@@ -98,9 +97,9 @@ namespace ZenKit
 		public string Next => Native.ZkModelAnimation_getNext(_handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load model animation next");
 
-		public uint Layer => Native.ZkModelAnimation_getLayer(_handle);
-		public uint FrameCount => Native.ZkModelAnimation_getFrameCount(_handle);
-		public uint NodeCount => Native.ZkModelAnimation_getNodeCount(_handle);
+		public int Layer => (int)Native.ZkModelAnimation_getLayer(_handle);
+		public int FrameCount => (int)Native.ZkModelAnimation_getFrameCount(_handle);
+		public int NodeCount => (int)Native.ZkModelAnimation_getNodeCount(_handle);
 		public float Fps => Native.ZkModelAnimation_getFps(_handle);
 		public float FpsSource => Native.ZkModelAnimation_getFpsSource(_handle);
 		public AxisAlignedBoundingBox BoundingBox => Native.ZkModelAnimation_getBbox(_handle);
@@ -114,7 +113,7 @@ namespace ZenKit
 		public string SourceScript => Native.ZkModelAnimation_getSourceScript(_handle).MarshalAsString() ??
 		                              throw new Exception("Failed to load model animation source script");
 
-		public ulong SampleCount => Native.ZkModelAnimation_getSampleCount(_handle);
+		public int SampleCount => (int)Native.ZkModelAnimation_getSampleCount(_handle);
 
 		public List<AnimationSample> Samples
 		{
@@ -132,8 +131,8 @@ namespace ZenKit
 			}
 		}
 
-		public List<uint> NodeIndices =>
-			Native.ZkModelAnimation_getNodeIndices(_handle, out var size).MarshalAsList<uint>(size);
+		public List<int> NodeIndices =>
+			Native.ZkModelAnimation_getNodeIndices(_handle, out var size).MarshalAsList<int>(size);
 
 		public IModelAnimation Cache()
 		{
@@ -161,9 +160,9 @@ namespace ZenKit
 			return false;
 		}
 
-		public AnimationSample GetSample(ulong i)
+		public AnimationSample GetSample(int i)
 		{
-			return Native.ZkModelAnimation_getSample(_handle, i);
+			return Native.ZkModelAnimation_getSample(_handle, (ulong)i);
 		}
 
 		~ModelAnimation()
