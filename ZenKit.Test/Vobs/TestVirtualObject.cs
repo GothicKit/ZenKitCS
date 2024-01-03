@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using NUnit.Framework;
+using ZenKit.Util;
 using ZenKit.Vobs;
 
 namespace ZenKit.Test.Vobs;
@@ -37,10 +38,15 @@ public class TestVirtualObject
 		Assert.Multiple(() => CheckVec3(vob.BoundingBox.Max, -18772.623f, -42.7076874f, 4567.23486f));
 		Assert.Multiple(() => CheckVec3(vob.Position, -18869.623f, -139.707687f, 4470.23486f));
 
-		Assert.That(vob.Rotation.X, Is.EqualTo(0));
-		Assert.That(vob.Rotation.Y, Is.EqualTo(0));
-		Assert.That(vob.Rotation.Z, Is.EqualTo(0));
-		Assert.That(vob.Rotation.W, Is.EqualTo(1.0f));
+		Assert.That(vob.Rotation.M11, Is.EqualTo(1));
+		Assert.That(vob.Rotation.M21, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M31, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M12, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M22, Is.EqualTo(1));
+		Assert.That(vob.Rotation.M32, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M13, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M23, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M33, Is.EqualTo(1));
 		Assert.That(vob.ShowVisual, Is.True);
 		Assert.That(vob.SpriteCameraFacingMode, Is.EqualTo(SpriteAlignment.None));
 		Assert.That(vob.CdStatic, Is.False);
@@ -68,10 +74,16 @@ public class TestVirtualObject
 		Assert.Multiple(() => CheckVec3(vob.BoundingBox.Max, 30929.8301f, 4836.17529f, -14817.3135f));
 		Assert.Multiple(() => CheckVec3(vob.Position, 30913.4668f, 4798.9751f, -14841.4434f));
 
-		Assert.That(vob.Rotation.X, Is.EqualTo(0));
-		Assert.That(vob.Rotation.Y, Is.EqualTo(-0.199367985f));
-		Assert.That(vob.Rotation.Z, Is.EqualTo(0));
-		Assert.That(vob.Rotation.W, Is.EqualTo(0.979924798f));
+		Assert.That(vob.Rotation.M11, Is.EqualTo(0.920505285f));
+		Assert.That(vob.Rotation.M21, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M31, Is.EqualTo(-0.390731275f));
+		Assert.That(vob.Rotation.M12, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M22, Is.EqualTo(1));
+		Assert.That(vob.Rotation.M32, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M13, Is.EqualTo(0.390731275f));
+		Assert.That(vob.Rotation.M23, Is.EqualTo(0));
+		Assert.That(vob.Rotation.M33, Is.EqualTo(0.920505285f));
+		
 		Assert.That(vob.ShowVisual, Is.True);
 		Assert.That(vob.SpriteCameraFacingMode, Is.EqualTo(SpriteAlignment.None));
 		Assert.That(vob.CdStatic, Is.False);
@@ -102,7 +114,7 @@ public class TestVirtualObject
 		};
 
 		vob.Position = new Vector3(30913.4668f, 4798.9751f, -14841.4434f);
-		vob.Rotation = new Quaternion(0, -0.199367985f, 0, 0.979924798f);
+		vob.Rotation = new Matrix3x3(1, 0, 0, 0, 1, 0, 0, 0, 1);
 		vob.ShowVisual = false;
 		vob.SpriteCameraFacingMode = SpriteAlignment.None;
 		vob.CdStatic = true;

@@ -327,7 +327,7 @@ namespace ZenKit.Vobs
 		public bool PhysicsEnabled { get; set; }
 		public Vector3 Position { get; set; }
 		public string PresetName { get; set; }
-		public Quaternion Rotation { get; set; }
+		public Matrix3x3 Rotation { get; set; }
 		public bool ShowVisual { get; set; }
 		public SpriteAlignment SpriteCameraFacingMode { get; set; }
 		public bool Static { get; set; }
@@ -366,7 +366,7 @@ namespace ZenKit.Vobs
 		public bool PhysicsEnabled { get; set; }
 		public Vector3 Position { get; set; }
 		public string PresetName { get; set; }
-		public Quaternion Rotation { get; set; }
+		public Matrix3x3 Rotation { get; set; }
 		public bool ShowVisual { get; set; }
 		public SpriteAlignment SpriteCameraFacingMode { get; set; }
 		public bool Static { get; set; }
@@ -479,10 +479,10 @@ namespace ZenKit.Vobs
 			set => Native.ZkVirtualObject_setPosition(Handle, value);
 		}
 
-		public Quaternion Rotation
+		public Matrix3x3 Rotation
 		{
-			get => Native.ZkVirtualObject_getRotation(Handle).ToQuaternion();
-			set => Native.ZkVirtualObject_setRotation(Handle, new Native.Structs.ZkMat3x3(value));
+			get => Native.ZkVirtualObject_getRotation(Handle).ToPublicMatrix();
+			set => Native.ZkVirtualObject_setRotation(Handle, Native.Structs.ZkMat3x3.FromPublicMatrix(value));
 		}
 
 		public bool ShowVisual

@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 using ZenKit.Daedalus;
+using ZenKit.Util;
 using ZenKit.Vobs;
 using static ZenKit.Native.Callbacks;
 using static ZenKit.Native.Structs;
@@ -6744,42 +6745,35 @@ namespace ZenKit
 					m21,
 					m22;
 
-				public ZkMat3x3(Quaternion quat)
+				public static ZkMat3x3 FromPublicMatrix(Matrix3x3 mat)
 				{
-					var mat = Matrix4x4.CreateFromQuaternion(quat);
-					m00 = mat.M11;
-					m10 = mat.M12;
-					m20 = mat.M13;
-					m01 = mat.M21;
-					m11 = mat.M22;
-					m21 = mat.M23;
-					m02 = mat.M31;
-					m12 = mat.M32;
-					m22 = mat.M33;
+					return new ZkMat3x3
+					{
+						m00 = mat.M11,
+						m10 = mat.M12,
+						m20 = mat.M13,
+						m01 = mat.M21,
+						m11 = mat.M22,
+						m21 = mat.M23,
+						m02 = mat.M31,
+						m12 = mat.M32,
+						m22 = mat.M33,
+					};
 				}
 
-				public Quaternion ToQuaternion()
+				public Matrix3x3 ToPublicMatrix()
 				{
-					// TODO(lmichaelis): Make this faster.
-					var mat = new Matrix4x4(
+					return new Matrix3x3(
 						m00,
 						m10,
 						m20,
-						0,
 						m01,
 						m11,
 						m21,
-						0,
 						m02,
 						m12,
-						m22,
-						0,
-						0,
-						0,
-						0,
-						1
+						m22
 					);
-					return Quaternion.CreateFromRotationMatrix(mat);
 				}
 			}
 
