@@ -11,8 +11,16 @@ public class TestTrigger
 	{
 		var vob = new Trigger("./Samples/G2/VOb/zCTrigger.zen", GameVersion.Gothic2);
 		Assert.That(vob.Target, Is.EqualTo(""));
-		Assert.That(vob.Flags, Is.EqualTo(3));
-		Assert.That(vob.FilterFlags, Is.EqualTo(0));
+		
+		Assert.That(vob.StartEnabled, Is.True);
+		Assert.That(vob.SendUntrigger, Is.False);
+		Assert.That(vob.ReactToOnTrigger, Is.False);
+		Assert.That(vob.ReactToOnTouch, Is.False);
+		Assert.That(vob.ReactToOnDamage, Is.False);
+		Assert.That(vob.RespondToObject, Is.False);
+		Assert.That(vob.RespondToPC, Is.False);
+		Assert.That(vob.RespondToNPC, Is.False);
+
 		Assert.That(vob.VobTarget, Is.EqualTo(""));
 		Assert.That(vob.MaxActivationCount, Is.EqualTo(-1));
 		Assert.That(vob.RetriggerDelay.TotalSeconds, Is.EqualTo(0.0f));
@@ -25,8 +33,16 @@ public class TestTrigger
 	{
 		var vob = new Trigger("./Samples/G2/VOb/zCTrigger.zen", GameVersion.Gothic2);
 		vob.Target = "";
-		vob.Flags = 3;
-		vob.FilterFlags = 0;
+		
+		vob.StartEnabled = true;
+		vob.SendUntrigger = true;
+		vob.ReactToOnTrigger = false;
+		vob.ReactToOnTouch = false;
+		vob.ReactToOnDamage = false;
+		vob.RespondToObject = false;
+		vob.RespondToPC = false;
+		vob.RespondToNPC = false;
+		
 		vob.VobTarget = "";
 		vob.MaxActivationCount = -1;
 		vob.RetriggerDelay = TimeSpan.FromSeconds(0.0f);

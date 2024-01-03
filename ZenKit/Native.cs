@@ -2650,16 +2650,52 @@ namespace ZenKit
 		public static extern void ZkTrigger_setTarget(UIntPtr slf, string target);
 
 		[DllImport(DllName)]
-		public static extern byte ZkTrigger_getFlags(UIntPtr slf);
+		public static extern bool ZkTrigger_getStartEnabled(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkTrigger_setFlags(UIntPtr slf, byte flags);
+		public static extern bool ZkTrigger_getSendUntrigger(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern byte ZkTrigger_getFilterFlags(UIntPtr slf);
+		public static extern bool ZkTrigger_getReactToOnTrigger(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkTrigger_setFilterFlags(UIntPtr slf, byte filterFlags);
+		public static extern bool ZkTrigger_getReactToOnTouch(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkTrigger_getReactToOnDamage(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkTrigger_getRespondToObject(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkTrigger_getRespondToPC(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkTrigger_getRespondToNPC(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setStartEnabled(UIntPtr slf, bool b);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setSendUntrigger(UIntPtr slf, bool b);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setReactToOnTrigger(UIntPtr slf, bool b);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setReactToOnTouch(UIntPtr slf, bool b);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setReactToOnDamage(UIntPtr slf, bool b);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setRespondToObject(UIntPtr slf, bool b);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setRespondToPC(UIntPtr slf, bool b);
+
+		[DllImport(DllName)]
+		public static extern void ZkTrigger_setRespondToNPC(UIntPtr slf, bool b);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkTrigger_getVobTarget(UIntPtr slf);

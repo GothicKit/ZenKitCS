@@ -24,16 +24,52 @@ namespace ZenKit.Vobs
 			set => Native.ZkTrigger_setTarget(Handle, value);
 		}
 
-		public byte Flags
+		public bool StartEnabled
 		{
-			get => Native.ZkTrigger_getFlags(Handle);
-			set => Native.ZkTrigger_setFlags(Handle, value);
+			get => Native.ZkTrigger_getStartEnabled(Handle);
+			set => Native.ZkTrigger_setStartEnabled(Handle, value);
 		}
 
-		public byte FilterFlags
+		public bool SendUntrigger
 		{
-			get => Native.ZkTrigger_getFilterFlags(Handle);
-			set => Native.ZkTrigger_setFilterFlags(Handle, value);
+			get => Native.ZkTrigger_getSendUntrigger(Handle);
+			set => Native.ZkTrigger_setSendUntrigger(Handle, value);
+		}
+
+		public bool ReactToOnTrigger
+		{
+			get => Native.ZkTrigger_getReactToOnTrigger(Handle);
+			set => Native.ZkTrigger_setReactToOnTrigger(Handle, value);
+		}
+
+		public bool ReactToOnTouch
+		{
+			get => Native.ZkTrigger_getReactToOnTouch(Handle);
+			set => Native.ZkTrigger_setReactToOnTouch(Handle, value);
+		}
+
+		public bool ReactToOnDamage
+		{
+			get => Native.ZkTrigger_getReactToOnDamage(Handle);
+			set => Native.ZkTrigger_setReactToOnDamage(Handle, value);
+		}
+
+		public bool RespondToObject
+		{
+			get => Native.ZkTrigger_getRespondToObject(Handle);
+			set => Native.ZkTrigger_setRespondToObject(Handle, value);
+		}
+
+		public bool RespondToPC
+		{
+			get => Native.ZkTrigger_getRespondToPC(Handle);
+			set => Native.ZkTrigger_setRespondToPC(Handle, value);
+		}
+
+		public bool RespondToNPC
+		{
+			get => Native.ZkTrigger_getRespondToNPC(Handle);
+			set => Native.ZkTrigger_setRespondToNPC(Handle, value);
 		}
 
 		public string VobTarget
