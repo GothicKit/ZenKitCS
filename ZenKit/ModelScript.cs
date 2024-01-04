@@ -204,7 +204,7 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IAnimationCombine>();
-				var count = AnimationCount;
+				var count = AnimationCombineCount;
 				for (var i = 0; i < count; ++i) arr.Add(GetAnimationCombine(i));
 				return arr;
 			}
