@@ -139,6 +139,7 @@ namespace ZenKit
 	public class DaedalusScript
 	{
 		internal readonly UIntPtr Handle;
+		internal readonly bool _delete;
 
 		public DaedalusScript(string path)
 		{
@@ -158,9 +159,10 @@ namespace ZenKit
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusScript");
 		}
 
-		internal DaedalusScript(UIntPtr handle)
+		internal DaedalusScript(UIntPtr handle, bool delete)
 		{
 			Handle = handle;
+			_delete = delete;
 		}
 
 		public int SymbolCount => (int)Native.ZkDaedalusScript_getSymbolCount(Handle);
@@ -188,7 +190,7 @@ namespace ZenKit
 
 		~DaedalusScript()
 		{
-			Delete();
+			if (_delete) Delete();
 		}
 
 		public List<DaedalusSymbol> GetInstanceSymbols(string className)

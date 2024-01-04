@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using ZenKit.Daedalus;
 
 namespace ZenKit
@@ -69,19 +70,23 @@ namespace ZenKit
 
 		private Native.Callbacks.ZkDaedalusVmExternalDefaultCallback? _externalDefaultCallback;
 
-		public DaedalusVm(string path) : base(Native.ZkDaedalusVm_loadPath(path))
+		public DaedalusVm(string path) : base(Native.ZkDaedalusVm_loadPath(path), true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
 		}
 
-		public DaedalusVm(Read r) : base(Native.ZkDaedalusVm_load(r.Handle))
+		public DaedalusVm(Read r) : base(Native.ZkDaedalusVm_load(r.Handle), true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
 		}
 
-		public DaedalusVm(Vfs vfs, string name) : base(Native.ZkDaedalusVm_loadVfs(vfs.Handle, name))
+		public DaedalusVm(Vfs vfs, string name) : base(Native.ZkDaedalusVm_loadVfs(vfs.Handle, name), true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
+		}
+
+		private DaedalusVm(UIntPtr handle) : base(handle, false)
+		{
 		}
 
 		public DaedalusInstance? GlobalSelf
@@ -335,212 +340,212 @@ namespace ZenKit
 
 		public void RegisterExternalDefault(ExternalDefaultFunction cb)
 		{
-			_externalDefaultCallback = (_0, _1, sym) => cb(this, new DaedalusSymbol(sym));
+			_externalDefaultCallback = (_0, vm, sym) => cb(new DaedalusVm(vm), new DaedalusSymbol(sym));
 			Native.ZkDaedalusVm_registerExternalDefault(Handle, _externalDefaultCallback, UIntPtr.Zero);
 		}
 
 		public void RegisterExternal<TR>(string name, ExternalFunc<TR> cb)
 		{
-			RegisterExternalUnsafe(name, () => Push(cb()));
+			RegisterExternalUnsafe(name, (vm) => vm.Push(cb()));
 		}
 
 		public void RegisterExternal<TR, TP0>(string name, ExternalFunc<TR, TP0> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p0 = Pop<TP0>();
-				Push(cb(p0));
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1>(string name, ExternalFunc<TR, TP0, TP1> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1));
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2>(string name, ExternalFunc<TR, TP0, TP1, TP2> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2));
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2, TP3>(string name, ExternalFunc<TR, TP0, TP1, TP2, TP3> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2, p3));
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4>(string name,
 			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2, p3, p4));
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5>(string name,
 			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2, p3, p4, p5));
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6>(string name,
 			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2, p3, p4, p5, p6));
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7>(string name,
 			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p7 = Pop<TP7>();
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2, p3, p4, p5, p6, p7));
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6, p7));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8>(string name,
 			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p8 = Pop<TP8>();
-				var p7 = Pop<TP7>();
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8));
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8));
 			});
 		}
 
 		public void RegisterExternal<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9>(string name,
 			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p9 = Pop<TP9>();
-				var p8 = Pop<TP8>();
-				var p7 = Pop<TP7>();
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
-				Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9));
+				var p9 = vm.Pop<TP9>();
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9));
 			});
 		}
 
 		public void RegisterExternal(string name, ExternalFuncV cb)
 		{
-			RegisterExternalUnsafe(name, () => cb());
+			RegisterExternalUnsafe(name, (_) => cb());
 		}
 
 		public void RegisterExternal<TP0>(string name, ExternalFuncV<TP0> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p0 = Pop<TP0>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0);
 			});
 		}
 
 		public void RegisterExternal<TP0, TP1>(string name, ExternalFuncV<TP0, TP1> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1);
 			});
 		}
 
 		public void RegisterExternal<TP0, TP1, TP2>(string name, ExternalFuncV<TP0, TP1, TP2> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2);
 			});
 		}
 
 		public void RegisterExternal<TP0, TP1, TP2, TP3>(string name, ExternalFuncV<TP0, TP1, TP2, TP3> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2, p3);
 			});
 		}
 
 		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4>(string name, ExternalFuncV<TP0, TP1, TP2, TP3, TP4> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2, p3, p4);
 			});
 		}
@@ -548,14 +553,14 @@ namespace ZenKit
 		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5>(string name,
 			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2, p3, p4, p5);
 			});
 		}
@@ -563,15 +568,15 @@ namespace ZenKit
 		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6>(string name,
 			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2, p3, p4, p5, p6);
 			});
 		}
@@ -579,16 +584,16 @@ namespace ZenKit
 		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7>(string name,
 			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p7 = Pop<TP7>();
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2, p3, p4, p5, p6, p7);
 			});
 		}
@@ -596,17 +601,17 @@ namespace ZenKit
 		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8>(string name,
 			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p8 = Pop<TP8>();
-				var p7 = Pop<TP7>();
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2, p3, p4, p5, p6, p7, p8);
 			});
 		}
@@ -614,18 +619,18 @@ namespace ZenKit
 		public void RegisterExternal<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9>(string name,
 			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9> cb)
 		{
-			RegisterExternalUnsafe(name, () =>
+			RegisterExternalUnsafe(name, (vm) =>
 			{
-				var p9 = Pop<TP9>();
-				var p8 = Pop<TP8>();
-				var p7 = Pop<TP7>();
-				var p6 = Pop<TP6>();
-				var p5 = Pop<TP5>();
-				var p4 = Pop<TP4>();
-				var p3 = Pop<TP3>();
-				var p2 = Pop<TP2>();
-				var p1 = Pop<TP1>();
-				var p0 = Pop<TP0>();
+				var p9 = vm.Pop<TP9>();
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
 				cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9);
 			});
 		}
@@ -677,12 +682,12 @@ namespace ZenKit
 
 		private void RegisterExternalUnsafe(DaedalusSymbol sym, ExternalFunc cb)
 		{
-			Native.Callbacks.ZkDaedalusVmExternalCallback handle = (_0, _1) => cb();
+			Native.Callbacks.ZkDaedalusVmExternalCallback handle = (_, vm) => cb(new DaedalusVm(vm));
 			_externalCallbacks.Add(handle);
 
 			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, handle, UIntPtr.Zero);
 		}
 
-		private delegate void ExternalFunc();
+		private delegate void ExternalFunc(DaedalusVm vm);
 	}
 }
