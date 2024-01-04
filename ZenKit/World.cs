@@ -73,13 +73,8 @@ namespace ZenKit
 			get
 			{
 				var objects = new List<IVirtualObject>();
-
-				Native.ZkWorld_enumerateRootObjects(_handle, (_, vob) =>
-				{
-					objects.Add(VirtualObject.FromNative(vob));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = RootObjectCount;
+				for (var i = 0;i < count; ++i) objects.Add(GetRootObject(i));
 				return objects;
 			}
 		}

@@ -208,13 +208,8 @@ namespace ZenKit
 			get
 			{
 				var glyphs = new List<FontGlyph>(GlyphCount);
-
-				Native.ZkFont_enumerateGlyphs(_handle, (_, glyph) =>
-				{
-					glyphs.Add(Marshal.PtrToStructure<FontGlyph>(glyph));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = GlyphCount;
+				for (var i = 0;i < count; ++i) glyphs.Add(GetGlyph(i));
 				return glyphs;
 			}
 		}

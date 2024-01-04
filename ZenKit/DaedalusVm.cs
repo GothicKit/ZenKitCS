@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using ZenKit.Daedalus;
+using ZenKit.Util;
 
 namespace ZenKit
 {
@@ -65,10 +66,13 @@ namespace ZenKit
 		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7, in TP8,
 			in TP9>(TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8, TP9 p9);
 
-		private readonly List<Native.Callbacks.ZkDaedalusVmExternalCallback> _externalCallbacks =
-			new List<Native.Callbacks.ZkDaedalusVmExternalCallback>();
+		private readonly List<GCHandle> _externalCallbacks = new List<GCHandle>();
 
-		private Native.Callbacks.ZkDaedalusVmExternalDefaultCallback? _externalDefaultCallback;
+		private readonly Native.Callbacks.ZkDaedalusVmExternalCallback _nativeExternalCallback =
+			_nativeExternalCallbackHandler;
+
+		private readonly Native.Callbacks.ZkDaedalusVmExternalDefaultCallback _nativeExternalCallbackDefault =
+			_nativeExternalCallbackDefaultHandle;
 
 		public DaedalusVm(string path) : base(Native.ZkDaedalusVm_loadPath(path), true)
 		{
@@ -121,6 +125,7 @@ namespace ZenKit
 
 		protected override void Delete()
 		{
+			_externalCallbacks.ForEach(handle => handle.Free());
 			Native.ZkDaedalusVm_del(Handle);
 		}
 
@@ -340,8 +345,10 @@ namespace ZenKit
 
 		public void RegisterExternalDefault(ExternalDefaultFunction cb)
 		{
-			_externalDefaultCallback = (_0, vm, sym) => cb(new DaedalusVm(vm), new DaedalusSymbol(sym));
-			Native.ZkDaedalusVm_registerExternalDefault(Handle, _externalDefaultCallback, UIntPtr.Zero);
+			var gcHandle = GCHandle.Alloc(cb);
+			_externalCallbacks.Add(gcHandle);
+			Native.ZkDaedalusVm_registerExternalDefault(Handle, _nativeExternalCallbackDefault,
+				GCHandle.ToIntPtr(gcHandle));
 		}
 
 		public void RegisterExternal<TR>(string name, ExternalFunc<TR> cb)
@@ -682,12 +689,28 @@ namespace ZenKit
 
 		private void RegisterExternalUnsafe(DaedalusSymbol sym, ExternalFunc cb)
 		{
-			Native.Callbacks.ZkDaedalusVmExternalCallback handle = (_, vm) => cb(new DaedalusVm(vm));
-			_externalCallbacks.Add(handle);
-
-			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, handle, UIntPtr.Zero);
+			var gcHandle = GCHandle.Alloc(cb);
+			_externalCallbacks.Add(gcHandle);
+			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, _nativeExternalCallback,
+				GCHandle.ToIntPtr(gcHandle));
 		}
 
 		private delegate void ExternalFunc(DaedalusVm vm);
+
+		[MonoPInvokeCallback]
+		private static void _nativeExternalCallbackHandler(IntPtr ctx, UIntPtr vm)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var cb = (ExternalFunc)gcHandle.Target;
+			cb(new DaedalusVm(vm));
+		}
+
+		[MonoPInvokeCallback]
+		private static void _nativeExternalCallbackDefaultHandle(IntPtr ctx, UIntPtr vm, UIntPtr sym)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var cb = (ExternalDefaultFunction)gcHandle.Target;
+			cb(new DaedalusVm(vm), new DaedalusSymbol(sym));
+		}
 	}
 }

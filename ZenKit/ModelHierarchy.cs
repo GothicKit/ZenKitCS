@@ -146,13 +146,8 @@ namespace ZenKit
 			get
 			{
 				var nodes = new List<IModelHierarchyNode>();
-
-				Native.ZkModelHierarchy_enumerateNodes(_handle, (_, node) =>
-				{
-					nodes.Add(Marshal.PtrToStructure<ModelHierarchyNode>(node));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = NodeCount;
+				for (var i = 0;i < count; ++i) nodes.Add(GetNode(i));
 				return nodes;
 			}
 		}

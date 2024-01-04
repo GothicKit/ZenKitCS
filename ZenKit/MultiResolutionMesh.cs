@@ -126,13 +126,8 @@ namespace ZenKit
 			get
 			{
 				var wedges = new List<MeshWedge>();
-
-				Native.ZkSubMesh_enumerateWedges(_handle, (_, wedge) =>
-				{
-					wedges.Add(Marshal.PtrToStructure<MeshWedge>(wedge));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = WedgeCount;
+				for (var i = 0;i < count; ++i) wedges.Add(GetWedge(i));
 				return wedges;
 			}
 		}
@@ -149,13 +144,8 @@ namespace ZenKit
 			get
 			{
 				var planes = new List<MeshPlane>();
-
-				Native.ZkSubMesh_enumerateTrianglePlanes(_handle, (_, plane) =>
-				{
-					planes.Add(Marshal.PtrToStructure<MeshPlane>(plane));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = TrianglePlaneCount;
+				for (var i = 0;i < count; ++i) planes.Add(GetTrianglePlane(i));
 				return planes;
 			}
 		}
@@ -305,13 +295,8 @@ namespace ZenKit
 			get
 			{
 				var positions = new List<Vector3>();
-
-				Native.ZkMultiResolutionMesh_enumeratePositions(_handle, (_, v) =>
-				{
-					positions.Add(v);
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = PositionCount;
+				for (var i = 0;i < count; ++i) positions.Add(GetPosition(i));
 				return positions;
 			}
 		}
@@ -323,13 +308,8 @@ namespace ZenKit
 			get
 			{
 				var positions = new List<Vector3>();
-
-				Native.ZkMultiResolutionMesh_enumerateNormals(_handle, (_, v) =>
-				{
-					positions.Add(v);
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = NormalCount;
+				for (var i = 0;i < count; ++i) positions.Add(GetNormal(i));
 				return positions;
 			}
 		}
@@ -341,13 +321,8 @@ namespace ZenKit
 			get
 			{
 				var meshes = new List<IMultiResolutionSubMesh>();
-
-				Native.ZkMultiResolutionMesh_enumerateSubMeshes(_handle, (_, mesh) =>
-				{
-					meshes.Add(new MultiResolutionSubMesh(mesh));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = SubMeshCount;
+				for (var i = 0;i < count; ++i) meshes.Add(GetSubMesh(i));
 				return meshes;
 			}
 		}
@@ -359,13 +334,8 @@ namespace ZenKit
 			get
 			{
 				var materials = new List<IMaterial>();
-
-				Native.ZkMultiResolutionMesh_enumerateMaterials(_handle, (_, mat) =>
-				{
-					materials.Add(new Material(mat));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = MaterialCount;
+				for (var i = 0;i < count; ++i) materials.Add(GetMaterial(i));
 				return materials;
 			}
 		}

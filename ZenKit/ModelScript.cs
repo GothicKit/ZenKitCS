@@ -204,13 +204,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IAnimationCombine>();
-
-				Native.ZkModelScript_enumerateAnimationCombines(_handle, (_, v) =>
-				{
-					arr.Add(new AnimationCombine(v));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = AnimationCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetAnimationCombine(i));
 				return arr;
 			}
 		}
@@ -220,13 +215,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<string>();
-
-				Native.ZkModelScript_enumerateMeshes(_handle, (_, v) =>
-				{
-					arr.Add(v.MarshalAsString() ?? throw new Exception("Failed to load model script mesh"));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = MeshCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetMesh(i));
 				return arr;
 			}
 		}
@@ -236,14 +226,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<string>();
-
-				Native.ZkModelScript_enumerateDisabledAnimations(_handle, (_, v) =>
-				{
-					arr.Add(
-						v.MarshalAsString() ?? throw new Exception("Failed to load model script disabled animation"));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = DisabledAnimationsCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetDisabledAnimation(i));
 				return arr;
 			}
 		}
@@ -253,13 +237,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IAnimationBlend>();
-
-				Native.ZkModelScript_enumerateAnimationBlends(_handle, (_, v) =>
-				{
-					arr.Add(new AnimationBlend(v));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = AnimationBlendCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetAnimationBlend(i));
 				return arr;
 			}
 		}
@@ -269,13 +248,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IAnimationAlias>();
-
-				Native.ZkModelScript_enumerateAnimationAliases(_handle, (_, v) =>
-				{
-					arr.Add(new AnimationAlias(v));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = AnimationAliasCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetAnimationAlias(i));
 				return arr;
 			}
 		}
@@ -285,13 +259,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<string>();
-
-				Native.ZkModelScript_enumerateModelTags(_handle, (_, v) =>
-				{
-					arr.Add(v.MarshalAsString() ?? throw new Exception("Failed to load model script model tag"));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = ModelTagCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetModelTag(i));
 				return arr;
 			}
 		}
@@ -301,13 +270,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IAnimation>();
-
-				Native.ZkModelScript_enumerateAnimations(_handle, (_, v) =>
-				{
-					arr.Add(new Animation(v));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = AnimationCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetAnimation(i));
 				return arr;
 			}
 		}
@@ -559,14 +523,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IEventTag>();
-
-				Native.ZkAnimation_enumerateEventTags(_handle, (_, evt) =>
-					{
-						arr.Add(new EventTag(evt));
-						return false;
-					},
-					UIntPtr.Zero);
-
+				var count = EventTagCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetEventTag(i));
 				return arr;
 			}
 		}
@@ -576,14 +534,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IEventParticleEffect>();
-
-				Native.ZkAnimation_enumerateParticleEffects(_handle, (_, evt) =>
-					{
-						arr.Add(new EventParticleEffect(evt));
-						return false;
-					},
-					UIntPtr.Zero);
-
+				var count = ParticleEffectCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetParticleEffect(i));
 				return arr;
 			}
 		}
@@ -593,14 +545,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IEventParticleEffectStop>();
-
-				Native.ZkAnimation_enumerateParticleEffectStops(_handle, (_, evt) =>
-					{
-						arr.Add(new EventParticleEffectStop(evt));
-						return false;
-					},
-					UIntPtr.Zero);
-
+				var count = ParticleEffectStopCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetParticleEffectStop(i));
 				return arr;
 			}
 		}
@@ -610,14 +556,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IEventSoundEffect>();
-
-				Native.ZkAnimation_enumerateSoundEffects(_handle, (_, evt) =>
-					{
-						arr.Add(new EventSoundEffect(evt));
-						return false;
-					},
-					UIntPtr.Zero);
-
+				var count = SoundEffectCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetSoundEffect(i));
 				return arr;
 			}
 		}
@@ -627,14 +567,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IEventSoundEffectGround>();
-
-				Native.ZkAnimation_enumerateSoundEffectGrounds(_handle, (_, evt) =>
-					{
-						arr.Add(new EventSoundEffectGround(evt));
-						return false;
-					},
-					UIntPtr.Zero);
-
+				var count = SoundEffectGroundCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetSoundEffectGround(i));
 				return arr;
 			}
 		}
@@ -644,14 +578,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IEventMorphAnimation>();
-
-				Native.ZkAnimation_enumerateMorphAnimations(_handle, (_, evt) =>
-					{
-						arr.Add(new EventMorphAnimation(evt));
-						return false;
-					},
-					UIntPtr.Zero);
-
+				var count = MorphAnimationCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetMorphAnimation(i));
 				return arr;
 			}
 		}
@@ -661,14 +589,8 @@ namespace ZenKit
 			get
 			{
 				var arr = new List<IEventCameraTremor>();
-
-				Native.ZkAnimation_enumerateCameraTremors(_handle, (_, evt) =>
-					{
-						arr.Add(new EventCameraTremor(evt));
-						return false;
-					},
-					UIntPtr.Zero);
-
+				var count = CameraTremorCount;
+				for (var i = 0;i < count; ++i) arr.Add(GetCameraTremor(i));
 				return arr;
 			}
 		}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
@@ -172,13 +173,7 @@ namespace ZenKit
 			get
 			{
 				var symbols = new List<DaedalusSymbol>();
-
-				Native.ZkDaedalusScript_enumerateSymbols(Handle, (_, symbol) =>
-				{
-					symbols.Add(new DaedalusSymbol(symbol));
-					return false;
-				}, UIntPtr.Zero);
-
+				for (var i = 0;i < SymbolCount; ++i) symbols.Add(GetSymbolByIndex(i)!);
 				return symbols;
 			}
 		}
@@ -197,11 +192,9 @@ namespace ZenKit
 		{
 			var symbols = new List<DaedalusSymbol>();
 
-			Native.ZkDaedalusScript_enumerateInstanceSymbols(Handle, className, (_, symbol) =>
-			{
-				symbols.Add(new DaedalusSymbol(symbol));
-				return false;
-			}, UIntPtr.Zero);
+			var gch = GCHandle.Alloc(symbols);
+			Native.ZkDaedalusScript_enumerateInstanceSymbols(Handle, className, InstanceSymbolsEnumerator, GCHandle.ToIntPtr(gch));
+			gch.Free();
 
 			return symbols;
 		}
@@ -227,6 +220,17 @@ namespace ZenKit
 		{
 			var sym = Native.ZkDaedalusScript_getSymbolByName(Handle, name);
 			return sym == UIntPtr.Zero ? null : new DaedalusSymbol(sym);
+		}
+		
+		
+		private static readonly Native.Callbacks.ZkDaedalusSymbolEnumerator InstanceSymbolsEnumerator = _enumerateInstanceSymbolsHandler;
+
+		[MonoPInvokeCallback]
+		private static bool _enumerateInstanceSymbolsHandler(IntPtr ctx, UIntPtr ptr)
+		{
+			var list = (List<DaedalusSymbol>)GCHandle.FromIntPtr(ctx).Target;
+			list.Add(new DaedalusSymbol(ptr));
+			return false;
 		}
 	}
 }

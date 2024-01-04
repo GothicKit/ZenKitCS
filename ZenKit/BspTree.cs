@@ -183,13 +183,7 @@ namespace ZenKit
 			get
 			{
 				var points = new List<Vector3>();
-
-				Native.ZkBspTree_enumerateLightPoints(_handle, (_, v) =>
-				{
-					points.Add(v);
-					return false;
-				}, UIntPtr.Zero);
-
+				for (var i = 0;i < LightPointCount; ++i) points.Add(GetLightPoint(i));
 				return points;
 			}
 		}
@@ -205,13 +199,8 @@ namespace ZenKit
 			get
 			{
 				var nodes = new List<BspNode>();
-
-				Native.ZkBspTree_enumerateNodes(_handle, (_, node) =>
-				{
-					nodes.Add(Marshal.PtrToStructure<BspNode>(node));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = NodeCount;
+				for (var i = 0;i < count; ++i) nodes.Add(GetNode(i));
 				return nodes;
 			}
 		}
@@ -223,13 +212,8 @@ namespace ZenKit
 			get
 			{
 				var sectors = new List<IBspSector>();
-
-				Native.ZkBspTree_enumerateSectors(_handle, (_, sector) =>
-				{
-					sectors.Add(new BspSector(sector));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = SectorCount;
+				for (var i = 0;i < count; ++i) sectors.Add(GetSector(i));
 				return sectors;
 			}
 		}

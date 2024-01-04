@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit.Vobs
 {
@@ -62,13 +64,8 @@ namespace ZenKit.Vobs
 			get
 			{
 				var slaves = new List<string>();
-
-				Native.ZkCodeMaster_enumerateSlaves(Handle, (_, v) =>
-				{
-					slaves.Add(v.MarshalAsString() ?? string.Empty);
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = SlaveCount;
+				for (var i = 0;i < count; ++i) slaves.Add(GetSlave(i));
 				return slaves;
 			}
 		}
@@ -91,12 +88,23 @@ namespace ZenKit.Vobs
 
 		public void RemoveSlaves(Predicate<string> pred)
 		{
-			Native.ZkCodeMaster_removeSlaves(Handle, (_, ptr) => pred(ptr.MarshalAsString()!), UIntPtr.Zero);
+			var gch = GCHandle.Alloc(pred);
+			Native.ZkCodeMaster_removeSlaves(Handle, RemoveSlavesEnumerator, GCHandle.ToIntPtr(gch));
+			gch.Free();
 		}
 
 		protected override void Delete()
 		{
 			Native.ZkCodeMaster_del(Handle);
+		}
+		
+		private static readonly Native.Callbacks.ZkStringEnumerator RemoveSlavesEnumerator = _enumerateSlavesHandler;
+
+		[MonoPInvokeCallback]
+		private static bool _enumerateSlavesHandler(IntPtr ctx, IntPtr ptr)
+		{
+			var cb = (Predicate<string>)GCHandle.FromIntPtr(ctx).Target;
+			return cb(ptr.MarshalAsString()!);
 		}
 	}
 }

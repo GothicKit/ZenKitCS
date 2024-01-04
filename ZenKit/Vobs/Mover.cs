@@ -107,13 +107,8 @@ namespace ZenKit.Vobs
 			get
 			{
 				var samples = new List<AnimationSample>();
-
-				Native.ZkMover_enumerateKeyframes(Handle, (_, sample) =>
-				{
-					samples.Add(Marshal.PtrToStructure<AnimationSample>(sample));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = KeyframeCount;
+				for (var i = 0;i < count; ++i) samples.Add(GetKeyframe(i));
 				return samples;
 			}
 		}

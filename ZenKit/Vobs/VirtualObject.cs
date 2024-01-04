@@ -591,13 +591,8 @@ namespace ZenKit.Vobs
 			get
 			{
 				var children = new List<IVirtualObject>();
-
-				Native.ZkVirtualObject_enumerateChildren(Handle, (_, vob) =>
-				{
-					children.Add(FromNative(vob));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = ChildCount;
+				for (var i = 0;i < count; ++i) children.Add(GetChild(i));
 				return children;
 			}
 		}

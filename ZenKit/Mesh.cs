@@ -303,13 +303,8 @@ namespace ZenKit
 			get
 			{
 				var materials = new List<IMaterial>();
-
-				Native.ZkMesh_enumerateMaterials(_handle, (_, material) =>
-				{
-					materials.Add(new Material(material));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = MaterialCount;
+				for (var i = 0;i < count; ++i) materials.Add(GetMaterial(i));
 				return materials;
 			}
 		}
@@ -321,13 +316,8 @@ namespace ZenKit
 			get
 			{
 				var positions = new List<Vector3>();
-
-				Native.ZkMesh_enumeratePositions(_handle, (_, v) =>
-				{
-					positions.Add(v);
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = PositionCount;
+				for (var i = 0;i < count; ++i) positions.Add(GetPosition(i));
 				return positions;
 			}
 		}
@@ -339,13 +329,8 @@ namespace ZenKit
 			get
 			{
 				var features = new List<Vertex>();
-
-				Native.ZkMesh_enumerateVertices(_handle, (_, v) =>
-				{
-					features.Add(Marshal.PtrToStructure<Vertex>(v));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = FeatureCount;
+				for (var i = 0;i < count; ++i) features.Add(GetFeature(i));
 				return features;
 			}
 		}
@@ -357,13 +342,8 @@ namespace ZenKit
 			get
 			{
 				var lightMaps = new List<ILightMap>();
-
-				Native.ZkMesh_enumerateLightMaps(_handle, (_, lm) =>
-				{
-					lightMaps.Add(new LightMap(lm));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = LightMapCount;
+				for (var i = 0;i < count; ++i) lightMaps.Add(GetLightMap(i));
 				return lightMaps;
 			}
 		}
@@ -375,13 +355,8 @@ namespace ZenKit
 			get
 			{
 				var polygons = new List<IPolygon>();
-
-				Native.ZkMesh_enumeratePolygons(_handle, (_, poly) =>
-				{
-					polygons.Add(new Polygon(poly));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = PolygonCount;
+				for (var i = 0;i < count; ++i) polygons.Add(GetPolygon(i));
 				return polygons;
 			}
 		}

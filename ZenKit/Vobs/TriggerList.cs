@@ -61,13 +61,8 @@ namespace ZenKit.Vobs
 			get
 			{
 				var targets = new List<TriggerListTarget>();
-
-				Native.ZkTriggerList_enumerateTargets(Handle, (_, target) =>
-				{
-					targets.Add(new TriggerListTarget(target));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = TargetCount;
+				for (var i = 0;i < count; ++i) targets.Add(GetTarget(i));
 				return targets;
 			}
 		}

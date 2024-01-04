@@ -145,13 +145,9 @@ namespace ZenKit.Vobs
 			get
 			{
 				var colors = new List<Color>();
-
-				Native.ZkLightPreset_enumerateColorAnimationItems(_handle, (_, c) =>
-				{
-					colors.Add(c.ToColor());
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = (int)Native.ZkLightPreset_getColorAnimationCount(_handle);
+				for (var i = 0; i < count; ++i)
+					colors.Add(Native.ZkLightPreset_getColorAnimationItem(_handle, (ulong)i).ToColor());
 				return colors;
 			}
 			set => Native.ZkLightPreset_setColorAnimationList(_handle,
@@ -287,13 +283,9 @@ namespace ZenKit.Vobs
 			get
 			{
 				var colors = new List<Color>();
-
-				Native.ZkLight_enumerateColorAnimationItems(Handle, (_, c) =>
-				{
-					colors.Add(c.ToColor());
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = (int)Native.ZkLight_getColorAnimationCount(Handle);
+				for (var i = 0; i < count; ++i)
+					colors.Add(Native.ZkLight_getColorAnimationItem(Handle, (ulong)i).ToColor());
 				return colors;
 			}
 			set => Native.ZkLight_setColorAnimationList(Handle,

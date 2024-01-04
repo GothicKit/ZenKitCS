@@ -238,13 +238,8 @@ namespace ZenKit.Vobs
 			get
 			{
 				var frames = new List<CameraTrajectoryFrame>();
-
-				Native.ZkCutsceneCamera_enumerateFrames(Handle, (_, frame) =>
-				{
-					frames.Add(new CameraTrajectoryFrame(frame, false));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = FrameCount;
+				for (var i = 0;i < count; ++i) frames.Add(GetFrame(i));
 				return frames;
 			}
 		}
@@ -254,7 +249,7 @@ namespace ZenKit.Vobs
 			Native.ZkCutsceneCamera_del(Handle);
 		}
 
-		public CameraTrajectoryFrame Frame(int i)
+		public CameraTrajectoryFrame GetFrame(int i)
 		{
 			return new CameraTrajectoryFrame(Native.ZkCutsceneCamera_getFrame(Handle, (ulong)i), false);
 		}

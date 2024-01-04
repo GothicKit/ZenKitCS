@@ -85,13 +85,7 @@ namespace ZenKit
 			get
 			{
 				var samples = new List<Vector3>();
-
-				Native.ZkMorphAnimation_enumerateSamples(_handle, (_, v) =>
-				{
-					samples.Add(v);
-					return false;
-				}, UIntPtr.Zero);
-
+				for (var i = 0;i < SampleCount; ++i) samples.Add(GetSample(i));
 				return samples;
 			}
 		}
@@ -264,13 +258,8 @@ namespace ZenKit
 			get
 			{
 				var positions = new List<Vector3>();
-
-				Native.ZkMorphMesh_enumerateMorphPositions(_handle, (_, v) =>
-				{
-					positions.Add(v);
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = MorphPositionCount;
+				for (var i = 0;i < count; ++i) positions.Add(GetMorphPosition(i));
 				return positions;
 			}
 		}
@@ -282,13 +271,8 @@ namespace ZenKit
 			get
 			{
 				var animation = new List<IMorphAnimation>();
-
-				Native.ZkMorphMesh_enumerateAnimations(_handle, (_, anim) =>
-				{
-					animation.Add(new MorphAnimation(anim));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = AnimationCount;
+				for (var i = 0;i < count; ++i) animation.Add(GetAnimation(i));
 				return animation;
 			}
 		}
@@ -300,13 +284,8 @@ namespace ZenKit
 			get
 			{
 				var sources = new List<IMorphSource>();
-
-				Native.ZkMorphMesh_enumerateSources(_handle, (_, src) =>
-				{
-					sources.Add(new MorphSource(src));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = SourceCount;
+				for (var i = 0;i < count; ++i) sources.Add(GetSource(i));
 				return sources;
 			}
 		}

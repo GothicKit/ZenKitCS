@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using ZenKit.Util;
 
 namespace ZenKit
@@ -82,13 +83,8 @@ namespace ZenKit
 			get
 			{
 				var meshes = new List<ISoftSkinMesh>();
-
-				Native.ZkModelMesh_enumerateMeshes(_handle, (_, mesh) =>
-				{
-					meshes.Add(new SoftSkinMesh(mesh));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = MeshCount;
+				for (var i = 0;i < count; ++i) meshes.Add(GetMesh(i));
 				return meshes;
 			}
 		}
@@ -100,18 +96,27 @@ namespace ZenKit
 			get
 			{
 				var attachments = new Dictionary<string, IMultiResolutionMesh>();
-
-				Native.ZkModelMesh_enumerateAttachments(_handle, (_, namePtr, mesh) =>
-				{
-					var name = namePtr.MarshalAsString();
-					if (name == null) return false;
-
-					attachments.Add(name, new MultiResolutionMesh(mesh));
-					return false;
-				}, UIntPtr.Zero);
-
+				
+				var gch = GCHandle.Alloc(attachments);
+				Native.ZkModelMesh_enumerateAttachments(_handle, AttachmentEnumerator, GCHandle.ToIntPtr(gch));
+				gch.Free();
+				
 				return attachments;
 			}
+		}
+		
+		
+		private static readonly Native.Callbacks.ZkAttachmentEnumerator AttachmentEnumerator = _enumerateAttachmentsHandler;
+
+		[MonoPInvokeCallback]
+		private static bool _enumerateAttachmentsHandler(IntPtr ctx, IntPtr namePtr, UIntPtr mesh)
+		{
+			var attachments = (Dictionary<string, IMultiResolutionMesh>)GCHandle.FromIntPtr(ctx).Target;
+			var name = namePtr.MarshalAsString();
+			if (name == null) return false;
+
+			attachments.Add(name, new MultiResolutionMesh(mesh));
+			return false;
 		}
 
 		public int Checksum => (int)Native.ZkModelMesh_getChecksum(_handle);

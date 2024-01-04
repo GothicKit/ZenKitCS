@@ -129,13 +129,8 @@ namespace ZenKit
 			get
 			{
 				var points = new List<IWayPoint>();
-
-				Native.ZkWayNet_enumeratePoints(_handle, (_, point) =>
-				{
-					points.Add(new WayPoint(point));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = PointCount;
+				for (var i = 0;i < count; ++i) points.Add(GetPoint(i));
 				return points;
 			}
 		}

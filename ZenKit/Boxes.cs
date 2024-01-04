@@ -86,13 +86,8 @@ namespace ZenKit
 			get
 			{
 				var children = new List<IOrientedBoundingBox>();
-
-				Native.ZkOrientedBoundingBox_enumerateChildren(_handle, (_, box) =>
-				{
-					children.Add(new OrientedBoundingBox(box));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = ChildCount;
+				for (var i = 0;i < count; ++i) children.Add(GetChild(i));
 				return children;
 			}
 		}

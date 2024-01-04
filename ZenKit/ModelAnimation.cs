@@ -120,13 +120,8 @@ namespace ZenKit
 			get
 			{
 				var samples = new List<AnimationSample>();
-
-				Native.ZkModelAnimation_enumerateSamples(_handle, (_, sample) =>
-				{
-					samples.Add(Marshal.PtrToStructure<AnimationSample>(sample));
-					return false;
-				}, UIntPtr.Zero);
-
+				var count = SampleCount;
+				for (var i = 0;i < count; ++i) samples.Add(GetSample(i));
 				return samples;
 			}
 		}

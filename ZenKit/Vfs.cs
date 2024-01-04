@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
+using ZenKit.Util;
 
 namespace ZenKit
 {
@@ -80,14 +82,12 @@ namespace ZenKit
 			get
 			{
 				var nodes = new List<VfsNode>();
-
-				if (IsDir())
-					Native.ZkVfsNode_enumerateChildren(Handle, (_, node) =>
-					{
-						nodes.Add(new VfsNode(node));
-						return false;
-					}, UIntPtr.Zero);
-
+				if (!IsDir()) return nodes;
+				
+				var gch = GCHandle.Alloc(nodes);
+				Native.ZkVfsNode_enumerateChildren(Handle, ChildEnumerator, GCHandle.ToIntPtr(gch));
+				gch.Free();
+				
 				return nodes;
 			}
 		}
@@ -117,7 +117,6 @@ namespace ZenKit
 		public VfsNode Create(VfsNode node)
 		{
 			if (!IsDir()) throw new Exception("Create() is only available for directory nodes!");
-
 			return new VfsNode(Native.ZkVfsNode_create(Handle, node.Handle));
 		}
 
@@ -125,6 +124,16 @@ namespace ZenKit
 		{
 			if (!IsDir()) return false;
 			return Native.ZkVfsNode_remove(Handle, name);
+		}
+		
+		private static readonly Native.Callbacks.ZkVfsNodeEnumerator ChildEnumerator = _enumerateChildrenHandler;
+
+		[MonoPInvokeCallback]
+		private static bool _enumerateChildrenHandler(IntPtr ctx, UIntPtr ptr)
+		{
+			var list = (List<VfsNode>)GCHandle.FromIntPtr(ctx).Target;
+			list.Add(new VfsNode(ptr));
+			return false;
 		}
 	}
 
