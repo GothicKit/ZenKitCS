@@ -209,7 +209,7 @@ namespace ZenKit
 			{
 				var glyphs = new List<FontGlyph>(GlyphCount);
 				var count = GlyphCount;
-				for (var i = 0;i < count; ++i) glyphs.Add(GetGlyph(i));
+				for (var i = 0; i < count; ++i) glyphs.Add(GetGlyph(i));
 				return glyphs;
 			}
 		}

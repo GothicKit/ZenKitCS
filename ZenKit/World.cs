@@ -74,7 +74,7 @@ namespace ZenKit
 			{
 				var objects = new List<IVirtualObject>();
 				var count = RootObjectCount;
-				for (var i = 0;i < count; ++i) objects.Add(GetRootObject(i));
+				for (var i = 0; i < count; ++i) objects.Add(GetRootObject(i));
 				return objects;
 			}
 		}

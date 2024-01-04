@@ -7,6 +7,8 @@ namespace ZenKit.Vobs
 {
 	public class CodeMaster : VirtualObject
 	{
+		private static readonly Native.Callbacks.ZkStringEnumerator RemoveSlavesEnumerator = _enumerateSlavesHandler;
+
 		public CodeMaster(Read buf, GameVersion version) : base(Native.ZkCodeMaster_load(buf.Handle, version), true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load code master vob");
@@ -65,7 +67,7 @@ namespace ZenKit.Vobs
 			{
 				var slaves = new List<string>();
 				var count = SlaveCount;
-				for (var i = 0;i < count; ++i) slaves.Add(GetSlave(i));
+				for (var i = 0; i < count; ++i) slaves.Add(GetSlave(i));
 				return slaves;
 			}
 		}
@@ -97,8 +99,6 @@ namespace ZenKit.Vobs
 		{
 			Native.ZkCodeMaster_del(Handle);
 		}
-		
-		private static readonly Native.Callbacks.ZkStringEnumerator RemoveSlavesEnumerator = _enumerateSlavesHandler;
 
 		[MonoPInvokeCallback]
 		private static bool _enumerateSlavesHandler(IntPtr ctx, IntPtr ptr)

@@ -49,6 +49,9 @@ namespace ZenKit
 
 	public class ModelMesh : IModelMesh
 	{
+		private static readonly Native.Callbacks.ZkAttachmentEnumerator AttachmentEnumerator =
+			_enumerateAttachmentsHandler;
+
 		private readonly bool _delete = true;
 		private readonly UIntPtr _handle;
 
@@ -84,7 +87,7 @@ namespace ZenKit
 			{
 				var meshes = new List<ISoftSkinMesh>();
 				var count = MeshCount;
-				for (var i = 0;i < count; ++i) meshes.Add(GetMesh(i));
+				for (var i = 0; i < count; ++i) meshes.Add(GetMesh(i));
 				return meshes;
 			}
 		}
@@ -96,27 +99,13 @@ namespace ZenKit
 			get
 			{
 				var attachments = new Dictionary<string, IMultiResolutionMesh>();
-				
+
 				var gch = GCHandle.Alloc(attachments);
 				Native.ZkModelMesh_enumerateAttachments(_handle, AttachmentEnumerator, GCHandle.ToIntPtr(gch));
 				gch.Free();
-				
+
 				return attachments;
 			}
-		}
-		
-		
-		private static readonly Native.Callbacks.ZkAttachmentEnumerator AttachmentEnumerator = _enumerateAttachmentsHandler;
-
-		[MonoPInvokeCallback]
-		private static bool _enumerateAttachmentsHandler(IntPtr ctx, IntPtr namePtr, UIntPtr mesh)
-		{
-			var attachments = (Dictionary<string, IMultiResolutionMesh>)GCHandle.FromIntPtr(ctx).Target;
-			var name = namePtr.MarshalAsString();
-			if (name == null) return false;
-
-			attachments.Add(name, new MultiResolutionMesh(mesh));
-			return false;
 		}
 
 		public int Checksum => (int)Native.ZkModelMesh_getChecksum(_handle);
@@ -144,6 +133,17 @@ namespace ZenKit
 		{
 			var attachment = Native.ZkModelMesh_getAttachment(_handle, name);
 			return attachment == UIntPtr.Zero ? null : new MultiResolutionMesh(attachment);
+		}
+
+		[MonoPInvokeCallback]
+		private static bool _enumerateAttachmentsHandler(IntPtr ctx, IntPtr namePtr, UIntPtr mesh)
+		{
+			var attachments = (Dictionary<string, IMultiResolutionMesh>)GCHandle.FromIntPtr(ctx).Target;
+			var name = namePtr.MarshalAsString();
+			if (name == null) return false;
+
+			attachments.Add(name, new MultiResolutionMesh(mesh));
+			return false;
 		}
 
 		~ModelMesh()

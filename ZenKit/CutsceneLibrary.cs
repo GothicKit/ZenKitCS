@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using ZenKit.Util;
 
 namespace ZenKit
@@ -180,7 +179,7 @@ namespace ZenKit
 			get
 			{
 				var blocks = new List<ICutsceneBlock>();
-				var count =(int)Native.ZkCutsceneLibrary_getBlockCount(_handle);
+				var count = (int)Native.ZkCutsceneLibrary_getBlockCount(_handle);
 				for (var i = 0; i < count; ++i)
 					blocks.Add(new CutsceneBlock(Native.ZkCutsceneLibrary_getBlockByIndex(_handle, (ulong)i)));
 				return blocks;

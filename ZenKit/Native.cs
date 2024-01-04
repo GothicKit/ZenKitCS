@@ -228,7 +228,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkCutsceneLibrary_getBlock(UIntPtr slf, string name);
-		
+
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkCutsceneLibrary_getBlockByIndex(UIntPtr slf, ulong i);
 
@@ -329,7 +329,7 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern AnimationSample ZkModelAnimation_getSample(UIntPtr slf,
 			[MarshalAs(UnmanagedType.U8)] ulong i);
-		
+
 		[DllImport(DllName)]
 		public static extern IntPtr ZkModelAnimation_getNodeIndices(UIntPtr slf, out ulong size);
 
@@ -573,7 +573,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern SoftSkinWedgeNormal ZkSoftSkinMesh_getWedgeNormal(UIntPtr slf, ulong i);
-		
+
 		[DllImport(DllName)]
 		public static extern IntPtr ZkSoftSkinMesh_getNodes(UIntPtr slf, out ulong count);
 
@@ -1716,7 +1716,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern void ZkLightPreset_setRangeAnimationSmooth(UIntPtr slf, bool rangeAnimationSmooth);
-		
+
 		[DllImport(DllName)]
 		public static extern ulong ZkLightPreset_getColorAnimationCount(UIntPtr slf);
 
@@ -1822,7 +1822,7 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern ZkColor ZkLight_getColorAnimationItem(UIntPtr slf, ulong i);
-		
+
 		[DllImport(DllName)]
 		public static extern void
 			ZkLight_setColorAnimationList(UIntPtr slf, ZkColor[] colorAnimationList, ulong count);
@@ -6404,22 +6404,25 @@ namespace ZenKit
 		public class Callbacks
 		{
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkAttachmentEnumerator(IntPtr ctx, IntPtr name, UIntPtr mesh);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkCutsceneBlockEnumerator(IntPtr ctx, UIntPtr block);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+			public delegate bool ZkDaedalusSymbolEnumerator(IntPtr ctx, UIntPtr symbol);
+
+			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate void ZkDaedalusVmExternalCallback(IntPtr ctx, UIntPtr vm);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate void ZkDaedalusVmExternalDefaultCallback(IntPtr ctx, UIntPtr vm, UIntPtr sym);
-			
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkCutsceneBlockEnumerator(IntPtr ctx, UIntPtr block);
-            
+
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate void ZkLogger(IntPtr ctx, LogLevel lvl, string name, string message);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkAttachmentEnumerator(IntPtr ctx, IntPtr name, UIntPtr mesh);
-
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkDaedalusSymbolEnumerator(IntPtr ctx, UIntPtr symbol);
+			public delegate bool ZkStringEnumerator(IntPtr ctx, IntPtr value);
 
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkTriggerListTargetEnumerator(UIntPtr ctx, UIntPtr target);
@@ -6427,8 +6430,6 @@ namespace ZenKit
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkVfsNodeEnumerator(IntPtr ctx, UIntPtr node);
 
-			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-			public delegate bool ZkStringEnumerator(IntPtr ctx, IntPtr value);
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 			public delegate bool ZkVirtualObjectEnumerator(UIntPtr ctx, UIntPtr vob);
 		}
@@ -6482,7 +6483,7 @@ namespace ZenKit
 						m21 = mat.M23,
 						m02 = mat.M31,
 						m12 = mat.M32,
-						m22 = mat.M33,
+						m22 = mat.M33
 					};
 				}
 

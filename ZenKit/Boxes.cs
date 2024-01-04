@@ -87,7 +87,7 @@ namespace ZenKit
 			{
 				var children = new List<IOrientedBoundingBox>();
 				var count = ChildCount;
-				for (var i = 0;i < count; ++i) children.Add(GetChild(i));
+				for (var i = 0; i < count; ++i) children.Add(GetChild(i));
 				return children;
 			}
 		}

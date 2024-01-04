@@ -62,7 +62,7 @@ namespace ZenKit.Vobs
 			{
 				var targets = new List<TriggerListTarget>();
 				var count = TargetCount;
-				for (var i = 0;i < count; ++i) targets.Add(GetTarget(i));
+				for (var i = 0; i < count; ++i) targets.Add(GetTarget(i));
 				return targets;
 			}
 		}

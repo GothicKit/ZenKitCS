@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace ZenKit.Vobs
 {
@@ -108,7 +107,7 @@ namespace ZenKit.Vobs
 			{
 				var samples = new List<AnimationSample>();
 				var count = KeyframeCount;
-				for (var i = 0;i < count; ++i) samples.Add(GetKeyframe(i));
+				for (var i = 0; i < count; ++i) samples.Add(GetKeyframe(i));
 				return samples;
 			}
 		}

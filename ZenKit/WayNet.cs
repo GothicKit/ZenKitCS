@@ -130,7 +130,7 @@ namespace ZenKit
 			{
 				var points = new List<IWayPoint>();
 				var count = PointCount;
-				for (var i = 0;i < count; ++i) points.Add(GetPoint(i));
+				for (var i = 0; i < count; ++i) points.Add(GetPoint(i));
 				return points;
 			}
 		}

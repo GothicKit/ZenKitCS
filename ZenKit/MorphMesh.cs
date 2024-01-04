@@ -85,7 +85,7 @@ namespace ZenKit
 			get
 			{
 				var samples = new List<Vector3>();
-				for (var i = 0;i < SampleCount; ++i) samples.Add(GetSample(i));
+				for (var i = 0; i < SampleCount; ++i) samples.Add(GetSample(i));
 				return samples;
 			}
 		}
@@ -259,7 +259,7 @@ namespace ZenKit
 			{
 				var positions = new List<Vector3>();
 				var count = MorphPositionCount;
-				for (var i = 0;i < count; ++i) positions.Add(GetMorphPosition(i));
+				for (var i = 0; i < count; ++i) positions.Add(GetMorphPosition(i));
 				return positions;
 			}
 		}
@@ -272,7 +272,7 @@ namespace ZenKit
 			{
 				var animation = new List<IMorphAnimation>();
 				var count = AnimationCount;
-				for (var i = 0;i < count; ++i) animation.Add(GetAnimation(i));
+				for (var i = 0; i < count; ++i) animation.Add(GetAnimation(i));
 				return animation;
 			}
 		}
@@ -285,7 +285,7 @@ namespace ZenKit
 			{
 				var sources = new List<IMorphSource>();
 				var count = SourceCount;
-				for (var i = 0;i < count; ++i) sources.Add(GetSource(i));
+				for (var i = 0; i < count; ++i) sources.Add(GetSource(i));
 				return sources;
 			}
 		}

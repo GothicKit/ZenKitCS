@@ -144,7 +144,8 @@ namespace ZenKit
 
 				var palette = new Color[Native.ZkTexture_getPaletteSize(_handle)];
 
-				for (var i = 0; i < palette.Length; ++i) palette[i] = Native.ZkTexture_getPaletteItem(_handle, (ulong)i).ToColor();
+				for (var i = 0; i < palette.Length; ++i)
+					palette[i] = Native.ZkTexture_getPaletteItem(_handle, (ulong)i).ToColor();
 				return palette;
 			}
 		}
@@ -155,7 +156,7 @@ namespace ZenKit
 			{
 				var mipmaps = new List<byte[]>();
 				var count = MipmapCount;
-				for (var i = 0;i < count; ++i) mipmaps.Add(GetMipmapRaw(i));
+				for (var i = 0; i < count; ++i) mipmaps.Add(GetMipmapRaw(i));
 				return mipmaps;
 			}
 		}
@@ -166,7 +167,7 @@ namespace ZenKit
 			{
 				var mipmaps = new List<byte[]>();
 				var count = MipmapCount;
-				for (var i = 0;i < count; ++i) mipmaps.Add(GetMipmapRgba(i));
+				for (var i = 0; i < count; ++i) mipmaps.Add(GetMipmapRgba(i));
 				return mipmaps;
 			}
 		}

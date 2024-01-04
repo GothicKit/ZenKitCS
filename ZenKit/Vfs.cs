@@ -31,6 +31,7 @@ namespace ZenKit
 
 	public class VfsNode
 	{
+		private static readonly Native.Callbacks.ZkVfsNodeEnumerator ChildEnumerator = _enumerateChildrenHandler;
 		private readonly byte[]? _data;
 		private readonly bool _delete;
 
@@ -83,11 +84,11 @@ namespace ZenKit
 			{
 				var nodes = new List<VfsNode>();
 				if (!IsDir()) return nodes;
-				
+
 				var gch = GCHandle.Alloc(nodes);
 				Native.ZkVfsNode_enumerateChildren(Handle, ChildEnumerator, GCHandle.ToIntPtr(gch));
 				gch.Free();
-				
+
 				return nodes;
 			}
 		}
@@ -125,8 +126,6 @@ namespace ZenKit
 			if (!IsDir()) return false;
 			return Native.ZkVfsNode_remove(Handle, name);
 		}
-		
-		private static readonly Native.Callbacks.ZkVfsNodeEnumerator ChildEnumerator = _enumerateChildrenHandler;
 
 		[MonoPInvokeCallback]
 		private static bool _enumerateChildrenHandler(IntPtr ctx, UIntPtr ptr)

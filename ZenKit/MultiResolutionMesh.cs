@@ -127,7 +127,7 @@ namespace ZenKit
 			{
 				var wedges = new List<MeshWedge>();
 				var count = WedgeCount;
-				for (var i = 0;i < count; ++i) wedges.Add(GetWedge(i));
+				for (var i = 0; i < count; ++i) wedges.Add(GetWedge(i));
 				return wedges;
 			}
 		}
@@ -145,7 +145,7 @@ namespace ZenKit
 			{
 				var planes = new List<MeshPlane>();
 				var count = TrianglePlaneCount;
-				for (var i = 0;i < count; ++i) planes.Add(GetTrianglePlane(i));
+				for (var i = 0; i < count; ++i) planes.Add(GetTrianglePlane(i));
 				return planes;
 			}
 		}
@@ -296,7 +296,7 @@ namespace ZenKit
 			{
 				var positions = new List<Vector3>();
 				var count = PositionCount;
-				for (var i = 0;i < count; ++i) positions.Add(GetPosition(i));
+				for (var i = 0; i < count; ++i) positions.Add(GetPosition(i));
 				return positions;
 			}
 		}
@@ -309,7 +309,7 @@ namespace ZenKit
 			{
 				var positions = new List<Vector3>();
 				var count = NormalCount;
-				for (var i = 0;i < count; ++i) positions.Add(GetNormal(i));
+				for (var i = 0; i < count; ++i) positions.Add(GetNormal(i));
 				return positions;
 			}
 		}
@@ -322,7 +322,7 @@ namespace ZenKit
 			{
 				var meshes = new List<IMultiResolutionSubMesh>();
 				var count = SubMeshCount;
-				for (var i = 0;i < count; ++i) meshes.Add(GetSubMesh(i));
+				for (var i = 0; i < count; ++i) meshes.Add(GetSubMesh(i));
 				return meshes;
 			}
 		}
@@ -335,7 +335,7 @@ namespace ZenKit
 			{
 				var materials = new List<IMaterial>();
 				var count = MaterialCount;
-				for (var i = 0;i < count; ++i) materials.Add(GetMaterial(i));
+				for (var i = 0; i < count; ++i) materials.Add(GetMaterial(i));
 				return materials;
 			}
 		}

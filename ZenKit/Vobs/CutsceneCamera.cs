@@ -239,7 +239,7 @@ namespace ZenKit.Vobs
 			{
 				var frames = new List<CameraTrajectoryFrame>();
 				var count = FrameCount;
-				for (var i = 0;i < count; ++i) frames.Add(GetFrame(i));
+				for (var i = 0; i < count; ++i) frames.Add(GetFrame(i));
 				return frames;
 			}
 		}

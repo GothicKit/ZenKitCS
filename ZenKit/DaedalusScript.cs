@@ -139,8 +139,11 @@ namespace ZenKit
 
 	public class DaedalusScript
 	{
-		internal readonly UIntPtr Handle;
+		private static readonly Native.Callbacks.ZkDaedalusSymbolEnumerator InstanceSymbolsEnumerator =
+			_enumerateInstanceSymbolsHandler;
+
 		internal readonly bool _delete;
+		internal readonly UIntPtr Handle;
 
 		public DaedalusScript(string path)
 		{
@@ -173,7 +176,7 @@ namespace ZenKit
 			get
 			{
 				var symbols = new List<DaedalusSymbol>();
-				for (var i = 0;i < SymbolCount; ++i) symbols.Add(GetSymbolByIndex(i)!);
+				for (var i = 0; i < SymbolCount; ++i) symbols.Add(GetSymbolByIndex(i)!);
 				return symbols;
 			}
 		}
@@ -193,7 +196,8 @@ namespace ZenKit
 			var symbols = new List<DaedalusSymbol>();
 
 			var gch = GCHandle.Alloc(symbols);
-			Native.ZkDaedalusScript_enumerateInstanceSymbols(Handle, className, InstanceSymbolsEnumerator, GCHandle.ToIntPtr(gch));
+			Native.ZkDaedalusScript_enumerateInstanceSymbols(Handle, className, InstanceSymbolsEnumerator,
+				GCHandle.ToIntPtr(gch));
 			gch.Free();
 
 			return symbols;
@@ -221,9 +225,6 @@ namespace ZenKit
 			var sym = Native.ZkDaedalusScript_getSymbolByName(Handle, name);
 			return sym == UIntPtr.Zero ? null : new DaedalusSymbol(sym);
 		}
-		
-		
-		private static readonly Native.Callbacks.ZkDaedalusSymbolEnumerator InstanceSymbolsEnumerator = _enumerateInstanceSymbolsHandler;
 
 		[MonoPInvokeCallback]
 		private static bool _enumerateInstanceSymbolsHandler(IntPtr ctx, UIntPtr ptr)

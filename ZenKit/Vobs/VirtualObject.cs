@@ -592,7 +592,7 @@ namespace ZenKit.Vobs
 			{
 				var children = new List<IVirtualObject>();
 				var count = ChildCount;
-				for (var i = 0;i < count; ++i) children.Add(GetChild(i));
+				for (var i = 0; i < count; ++i) children.Add(GetChild(i));
 				return children;
 			}
 		}

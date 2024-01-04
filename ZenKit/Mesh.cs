@@ -304,7 +304,7 @@ namespace ZenKit
 			{
 				var materials = new List<IMaterial>();
 				var count = MaterialCount;
-				for (var i = 0;i < count; ++i) materials.Add(GetMaterial(i));
+				for (var i = 0; i < count; ++i) materials.Add(GetMaterial(i));
 				return materials;
 			}
 		}
@@ -317,7 +317,7 @@ namespace ZenKit
 			{
 				var positions = new List<Vector3>();
 				var count = PositionCount;
-				for (var i = 0;i < count; ++i) positions.Add(GetPosition(i));
+				for (var i = 0; i < count; ++i) positions.Add(GetPosition(i));
 				return positions;
 			}
 		}
@@ -330,7 +330,7 @@ namespace ZenKit
 			{
 				var features = new List<Vertex>();
 				var count = FeatureCount;
-				for (var i = 0;i < count; ++i) features.Add(GetFeature(i));
+				for (var i = 0; i < count; ++i) features.Add(GetFeature(i));
 				return features;
 			}
 		}
@@ -343,7 +343,7 @@ namespace ZenKit
 			{
 				var lightMaps = new List<ILightMap>();
 				var count = LightMapCount;
-				for (var i = 0;i < count; ++i) lightMaps.Add(GetLightMap(i));
+				for (var i = 0; i < count; ++i) lightMaps.Add(GetLightMap(i));
 				return lightMaps;
 			}
 		}
@@ -356,7 +356,7 @@ namespace ZenKit
 			{
 				var polygons = new List<IPolygon>();
 				var count = PolygonCount;
-				for (var i = 0;i < count; ++i) polygons.Add(GetPolygon(i));
+				for (var i = 0; i < count; ++i) polygons.Add(GetPolygon(i));
 				return polygons;
 			}
 		}

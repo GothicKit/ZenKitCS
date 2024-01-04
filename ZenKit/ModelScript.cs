@@ -205,7 +205,7 @@ namespace ZenKit
 			{
 				var arr = new List<IAnimationCombine>();
 				var count = AnimationCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetAnimationCombine(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetAnimationCombine(i));
 				return arr;
 			}
 		}
@@ -216,7 +216,7 @@ namespace ZenKit
 			{
 				var arr = new List<string>();
 				var count = MeshCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetMesh(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetMesh(i));
 				return arr;
 			}
 		}
@@ -227,7 +227,7 @@ namespace ZenKit
 			{
 				var arr = new List<string>();
 				var count = DisabledAnimationsCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetDisabledAnimation(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetDisabledAnimation(i));
 				return arr;
 			}
 		}
@@ -238,7 +238,7 @@ namespace ZenKit
 			{
 				var arr = new List<IAnimationBlend>();
 				var count = AnimationBlendCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetAnimationBlend(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetAnimationBlend(i));
 				return arr;
 			}
 		}
@@ -249,7 +249,7 @@ namespace ZenKit
 			{
 				var arr = new List<IAnimationAlias>();
 				var count = AnimationAliasCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetAnimationAlias(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetAnimationAlias(i));
 				return arr;
 			}
 		}
@@ -260,7 +260,7 @@ namespace ZenKit
 			{
 				var arr = new List<string>();
 				var count = ModelTagCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetModelTag(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetModelTag(i));
 				return arr;
 			}
 		}
@@ -271,7 +271,7 @@ namespace ZenKit
 			{
 				var arr = new List<IAnimation>();
 				var count = AnimationCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetAnimation(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetAnimation(i));
 				return arr;
 			}
 		}
@@ -524,7 +524,7 @@ namespace ZenKit
 			{
 				var arr = new List<IEventTag>();
 				var count = EventTagCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetEventTag(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetEventTag(i));
 				return arr;
 			}
 		}
@@ -535,7 +535,7 @@ namespace ZenKit
 			{
 				var arr = new List<IEventParticleEffect>();
 				var count = ParticleEffectCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetParticleEffect(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetParticleEffect(i));
 				return arr;
 			}
 		}
@@ -546,7 +546,7 @@ namespace ZenKit
 			{
 				var arr = new List<IEventParticleEffectStop>();
 				var count = ParticleEffectStopCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetParticleEffectStop(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetParticleEffectStop(i));
 				return arr;
 			}
 		}
@@ -557,7 +557,7 @@ namespace ZenKit
 			{
 				var arr = new List<IEventSoundEffect>();
 				var count = SoundEffectCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetSoundEffect(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetSoundEffect(i));
 				return arr;
 			}
 		}
@@ -568,7 +568,7 @@ namespace ZenKit
 			{
 				var arr = new List<IEventSoundEffectGround>();
 				var count = SoundEffectGroundCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetSoundEffectGround(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetSoundEffectGround(i));
 				return arr;
 			}
 		}
@@ -579,7 +579,7 @@ namespace ZenKit
 			{
 				var arr = new List<IEventMorphAnimation>();
 				var count = MorphAnimationCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetMorphAnimation(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetMorphAnimation(i));
 				return arr;
 			}
 		}
@@ -590,7 +590,7 @@ namespace ZenKit
 			{
 				var arr = new List<IEventCameraTremor>();
 				var count = CameraTremorCount;
-				for (var i = 0;i < count; ++i) arr.Add(GetCameraTremor(i));
+				for (var i = 0; i < count; ++i) arr.Add(GetCameraTremor(i));
 				return arr;
 			}
 		}

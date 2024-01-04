@@ -121,7 +121,7 @@ namespace ZenKit
 			{
 				var samples = new List<AnimationSample>();
 				var count = SampleCount;
-				for (var i = 0;i < count; ++i) samples.Add(GetSample(i));
+				for (var i = 0; i < count; ++i) samples.Add(GetSample(i));
 				return samples;
 			}
 		}

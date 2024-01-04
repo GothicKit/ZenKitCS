@@ -147,7 +147,7 @@ namespace ZenKit
 			{
 				var nodes = new List<IModelHierarchyNode>();
 				var count = NodeCount;
-				for (var i = 0;i < count; ++i) nodes.Add(GetNode(i));
+				for (var i = 0; i < count; ++i) nodes.Add(GetNode(i));
 				return nodes;
 			}
 		}

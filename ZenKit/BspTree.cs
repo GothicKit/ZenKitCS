@@ -183,7 +183,7 @@ namespace ZenKit
 			get
 			{
 				var points = new List<Vector3>();
-				for (var i = 0;i < LightPointCount; ++i) points.Add(GetLightPoint(i));
+				for (var i = 0; i < LightPointCount; ++i) points.Add(GetLightPoint(i));
 				return points;
 			}
 		}
@@ -200,7 +200,7 @@ namespace ZenKit
 			{
 				var nodes = new List<BspNode>();
 				var count = NodeCount;
-				for (var i = 0;i < count; ++i) nodes.Add(GetNode(i));
+				for (var i = 0; i < count; ++i) nodes.Add(GetNode(i));
 				return nodes;
 			}
 		}
@@ -213,7 +213,7 @@ namespace ZenKit
 			{
 				var sectors = new List<IBspSector>();
 				var count = SectorCount;
-				for (var i = 0;i < count; ++i) sectors.Add(GetSector(i));
+				for (var i = 0; i < count; ++i) sectors.Add(GetSector(i));
 				return sectors;
 			}
 		}

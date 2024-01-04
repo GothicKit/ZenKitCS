@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using ZenKit.Util;
-using ZenKit.Vobs;
 
 namespace ZenKit
 {
@@ -19,14 +17,14 @@ namespace ZenKit
 	{
 		public delegate void Callback(LogLevel level, string name, string message);
 
-		private static GCHandle? _handler = null;
+		private static GCHandle? _handler;
 		private static readonly Native.Callbacks.ZkLogger NativeHandler = _nativeCallbackHandler;
 
 		public static void Set(LogLevel lvl, Callback callback)
 		{
 			var handler = GCHandle.Alloc(callback);
 			Native.ZkLogger_set(lvl, NativeHandler, GCHandle.ToIntPtr(handler));
-			
+
 			_handler?.Free();
 			_handler = handler;
 		}
