@@ -16,13 +16,9 @@ namespace ZenKit
 	{
 		public delegate void Callback(LogLevel level, string name, string message);
 
-		private static readonly List<Native.Callbacks.ZkLogger> _callbacks = new List<Native.Callbacks.ZkLogger>();
-
 		public static void Set(LogLevel lvl, Callback callback)
 		{
-			Native.Callbacks.ZkLogger cb = (_, level, name, message) => callback(level, name, message);
-			_callbacks.Add(cb);
-			Native.ZkLogger_set(lvl, cb, UIntPtr.Zero);
+			Native.ZkLogger_set(lvl, (_, level, name, message) => callback(level, name, message), UIntPtr.Zero);
 		}
 
 		public static void SetDefault(LogLevel level)

@@ -64,11 +64,6 @@ namespace ZenKit
 		public delegate void ExternalFuncV<in TP0, in TP1, in TP2, in TP3, in TP4, in TP5, in TP6, in TP7, in TP8,
 			in TP9>(TP0 p0, TP1 p1, TP2 p2, TP3 p3, TP4 p4, TP5 p5, TP6 p6, TP7 p7, TP8 p8, TP9 p9);
 
-		private readonly List<Native.Callbacks.ZkDaedalusVmExternalCallback> _externalCallbacks =
-			new List<Native.Callbacks.ZkDaedalusVmExternalCallback>();
-
-		private Native.Callbacks.ZkDaedalusVmExternalDefaultCallback? _externalDefaultCallback;
-
 		public DaedalusVm(string path) : base(Native.ZkDaedalusVm_loadPath(path))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
@@ -335,8 +330,7 @@ namespace ZenKit
 
 		public void RegisterExternalDefault(ExternalDefaultFunction cb)
 		{
-			_externalDefaultCallback = (_0, _1, sym) => cb(this, new DaedalusSymbol(sym));
-			Native.ZkDaedalusVm_registerExternalDefault(Handle, _externalDefaultCallback, UIntPtr.Zero);
+			Native.ZkDaedalusVm_registerExternalDefault(Handle, (_0, _1, sym) => cb(this, new DaedalusSymbol(sym)), UIntPtr.Zero);
 		}
 
 		public void RegisterExternal<TR>(string name, ExternalFunc<TR> cb)
@@ -677,10 +671,7 @@ namespace ZenKit
 
 		private void RegisterExternalUnsafe(DaedalusSymbol sym, ExternalFunc cb)
 		{
-			Native.Callbacks.ZkDaedalusVmExternalCallback handle = (_0, _1) => cb();
-			_externalCallbacks.Add(handle);
-
-			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, handle, UIntPtr.Zero);
+			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, (_0, _1) => cb(), UIntPtr.Zero);
 		}
 
 		private delegate void ExternalFunc();
