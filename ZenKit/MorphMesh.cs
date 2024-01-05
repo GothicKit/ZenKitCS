@@ -94,6 +94,7 @@ namespace ZenKit
 		{
 			return new CachedMorphAnimation
 			{
+				Name = Name,
 				Layer = Layer,
 				BlendIn = BlendIn,
 				BlendOut = BlendOut,
