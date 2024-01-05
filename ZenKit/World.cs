@@ -97,7 +97,8 @@ namespace ZenKit
 
 		public IVirtualObject GetRootObject(int i)
 		{
-			return VirtualObject.FromNative(Native.ZkWorld_getRootObject(_handle, (ulong)i));
+			var handle = Native.ZkWorld_getRootObject(_handle, (ulong)i);
+			return VirtualObject.FromNative(Native.ZkObject_takeRef(handle));
 		}
 
 		~World()

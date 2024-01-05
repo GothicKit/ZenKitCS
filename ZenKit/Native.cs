@@ -106,6 +106,9 @@ namespace ZenKit
 		private const string DllName = "zenkitcapi";
 
 		[DllImport(DllName)]
+		public static extern UIntPtr ZkObject_takeRef(UIntPtr slf);
+
+		[DllImport(DllName)]
 		public static extern float ZkAnimation_getFps(UIntPtr slf);
 
 		[DllImport(DllName)]
@@ -1382,6 +1385,9 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkVirtualObject_removeChildren(UIntPtr slf, ZkVirtualObjectEnumerator pred,
 			UIntPtr ctx);
+
+		[DllImport(DllName)]
+		public static extern void ZkVisual_del(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkVisual_getName(UIntPtr slf);

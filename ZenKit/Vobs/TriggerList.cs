@@ -34,17 +34,17 @@ namespace ZenKit.Vobs
 
 	public class TriggerList : Trigger
 	{
-		public TriggerList(Read buf, GameVersion version) : base(Native.ZkTriggerList_load(buf.Handle, version), true)
+		public TriggerList(Read buf, GameVersion version) : base(Native.ZkTriggerList_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerList vob");
 		}
 
-		public TriggerList(string path, GameVersion version) : base(Native.ZkTriggerList_loadPath(path, version), true)
+		public TriggerList(string path, GameVersion version) : base(Native.ZkTriggerList_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerList vob");
 		}
 
-		internal TriggerList(UIntPtr handle, bool delete) : base(handle, delete)
+		internal TriggerList(UIntPtr handle) : base(handle)
 		{
 		}
 

@@ -31,17 +31,17 @@ namespace ZenKit.Vobs
 
 	public class Mover : Trigger
 	{
-		public Mover(Read buf, GameVersion version) : base(Native.ZkMover_load(buf.Handle, version), true)
+		public Mover(Read buf, GameVersion version) : base(Native.ZkMover_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Mover vob");
 		}
 
-		public Mover(string path, GameVersion version) : base(Native.ZkMover_loadPath(path, version), true)
+		public Mover(string path, GameVersion version) : base(Native.ZkMover_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Mover vob");
 		}
 
-		internal Mover(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Mover(UIntPtr handle) : base(handle)
 		{
 		}
 

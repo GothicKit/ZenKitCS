@@ -5,19 +5,18 @@ namespace ZenKit.Vobs
 	public class TriggerWorldStart : VirtualObject
 	{
 		public TriggerWorldStart(Read buf, GameVersion version) : base(
-			Native.ZkTriggerWorldStart_load(buf.Handle, version),
-			true)
+			Native.ZkTriggerWorldStart_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerWorldStart vob");
 		}
 
 		public TriggerWorldStart(string path, GameVersion version) : base(
-			Native.ZkTriggerWorldStart_loadPath(path, version), true)
+			Native.ZkTriggerWorldStart_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerWorldStart vob");
 		}
 
-		internal TriggerWorldStart(UIntPtr handle, bool delete) : base(handle, delete)
+		internal TriggerWorldStart(UIntPtr handle) : base(handle)
 		{
 		}
 

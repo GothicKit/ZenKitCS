@@ -4,17 +4,17 @@ namespace ZenKit.Vobs
 {
 	public class Trigger : VirtualObject
 	{
-		public Trigger(Read buf, GameVersion version) : base(Native.ZkTrigger_load(buf.Handle, version), true)
+		public Trigger(Read buf, GameVersion version) : base(Native.ZkTrigger_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Trigger vob");
 		}
 
-		public Trigger(string path, GameVersion version) : base(Native.ZkTrigger_loadPath(path, version), true)
+		public Trigger(string path, GameVersion version) : base(Native.ZkTrigger_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Trigger vob");
 		}
 
-		internal Trigger(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Trigger(UIntPtr handle) : base(handle)
 		{
 		}
 
@@ -118,7 +118,7 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		internal CutsceneTrigger(UIntPtr handle, bool delete) : base(handle, delete)
+		internal CutsceneTrigger(UIntPtr handle) : base(handle)
 		{
 		}
 	}

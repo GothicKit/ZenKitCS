@@ -150,6 +150,11 @@ namespace ZenKit.Vobs
 			return false;
 		}
 
+		~Visual()
+		{
+			Native.ZkVisual_del(Handle);
+		}
+
 		public static Visual? FromNative(UIntPtr ptr)
 		{
 			if (ptr == UIntPtr.Zero) return null;
@@ -441,27 +446,23 @@ namespace ZenKit.Vobs
 
 	public class VirtualObject : IVirtualObject
 	{
-		private readonly bool _delete;
 		protected readonly UIntPtr Handle;
 
 		public VirtualObject(Read buf, GameVersion version)
 		{
 			Handle = Native.ZkVirtualObject_load(buf.Handle, version);
-			_delete = true;
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load virtual object");
 		}
 
 		public VirtualObject(string path, GameVersion version)
 		{
 			Handle = Native.ZkVirtualObject_loadPath(path, version);
-			_delete = true;
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load virtual object");
 		}
 
-		internal VirtualObject(UIntPtr handle, bool delete)
+		internal VirtualObject(UIntPtr handle)
 		{
 			Handle = handle;
-			_delete = delete;
 		}
 
 		public VirtualObjectType Type => Native.ZkVirtualObject_getType(Handle);
@@ -580,7 +581,7 @@ namespace ZenKit.Vobs
 			get
 			{
 				var val = Native.ZkVirtualObject_getVisual(Handle);
-				return Vobs.Visual.FromNative(val);
+				return Vobs.Visual.FromNative(Native.ZkObject_takeRef(val));
 			}
 		}
 
@@ -609,7 +610,8 @@ namespace ZenKit.Vobs
 
 		public IVirtualObject GetChild(int i)
 		{
-			return FromNative(Native.ZkVirtualObject_getChild(Handle, (ulong)i));
+			var handle = Native.ZkVirtualObject_getChild(Handle, (ulong)i);
+			return FromNative(Native.ZkObject_takeRef(handle));
 		}
 
 		public T AddChild<T>() where T : IVirtualObject
@@ -698,82 +700,82 @@ namespace ZenKit.Vobs
 
 		~VirtualObject()
 		{
-			if (_delete) Delete();
+			Delete();
 		}
 
 		public static VirtualObject FromNative(UIntPtr ptr)
 		{
 			return Native.ZkVirtualObject_getType(ptr) switch
 			{
-				VirtualObjectType.zCVobLevelCompo => new Level(ptr, false),
-				VirtualObjectType.zCVobSpot => new Spot(ptr, false),
-				VirtualObjectType.zCVobStair => new Stair(ptr, false),
-				VirtualObjectType.zCVobStartpoint => new StartPoint(ptr, false),
-				VirtualObjectType.zCCSCamera => new CutsceneCamera(ptr, false),
-				VirtualObjectType.zCVobLight => new Light(ptr, false),
-				VirtualObjectType.zCVobAnimate => new Animate(ptr, false),
-				VirtualObjectType.zCCodeMaster => new CodeMaster(ptr, false),
-				VirtualObjectType.zCEarthquake => new Earthquake(ptr, false),
-				VirtualObjectType.oCItem => new Item(ptr, false),
-				VirtualObjectType.zCVobLensFlare => new LensFlare(ptr, false),
-				VirtualObjectType.zCMessageFilter => new MessageFilter(ptr, false),
-				VirtualObjectType.zCMoverController => new MoverController(ptr, false),
-				VirtualObjectType.zCPFXController => new ParticleEffectController(ptr, false),
-				VirtualObjectType.oCTouchDamage => new TouchDamage(ptr, false),
-				VirtualObjectType.oCMobContainer => new Container(ptr, false),
-				VirtualObjectType.oCMobDoor => new Door(ptr, false),
-				VirtualObjectType.oCMobFire => new Fire(ptr, false),
-				VirtualObjectType.oCMobInter => new InteractiveObject(ptr, false),
-				VirtualObjectType.oCMobLadder => new Ladder(ptr, false),
-				VirtualObjectType.oCMobSwitch => new Switch(ptr, false),
-				VirtualObjectType.oCMobWheel => new Wheel(ptr, false),
-				VirtualObjectType.oCMobBed => new Bed(ptr, false),
-				VirtualObjectType.oCMOB => new MovableObject(ptr, false),
-				VirtualObjectType.zCVobSound => new Sound(ptr, false),
-				VirtualObjectType.zCVobSoundDaytime => new SoundDaytime(ptr, false),
-				VirtualObjectType.zCTrigger => new Trigger(ptr, false),
-				VirtualObjectType.oCCSTrigger => new CutsceneTrigger(ptr, false),
-				VirtualObjectType.zCTriggerList => new TriggerList(ptr, false),
-				VirtualObjectType.oCTriggerScript => new TriggerScript(ptr, false),
-				VirtualObjectType.zCMover => new Mover(ptr, false),
-				VirtualObjectType.oCTriggerChangeLevel => new TriggerChangeLevel(ptr, false),
-				VirtualObjectType.zCTriggerWorldStart => new TriggerWorldStart(ptr, false),
-				VirtualObjectType.zCTriggerUntouch => new TriggerUntouch(ptr, false),
-				VirtualObjectType.oCZoneMusic => new ZoneMusic(ptr, false),
-				VirtualObjectType.oCZoneMusicDefault => new ZoneMusicDefault(ptr, false),
-				VirtualObjectType.zCZoneZFog => new ZoneFog(ptr, false),
-				VirtualObjectType.zCZoneZFogDefault => new ZoneFogDefault(ptr, false),
-				VirtualObjectType.zCZoneVobFarPlane => new ZoneFarPlane(ptr, false),
-				VirtualObjectType.zCZoneVobFarPlaneDefault => new ZoneFarPlaneDefault(ptr, false),
-				_ => new VirtualObject(ptr, false)
+				VirtualObjectType.zCVobLevelCompo => new Level(ptr),
+				VirtualObjectType.zCVobSpot => new Spot(ptr),
+				VirtualObjectType.zCVobStair => new Stair(ptr),
+				VirtualObjectType.zCVobStartpoint => new StartPoint(ptr),
+				VirtualObjectType.zCCSCamera => new CutsceneCamera(ptr),
+				VirtualObjectType.zCVobLight => new Light(ptr),
+				VirtualObjectType.zCVobAnimate => new Animate(ptr),
+				VirtualObjectType.zCCodeMaster => new CodeMaster(ptr),
+				VirtualObjectType.zCEarthquake => new Earthquake(ptr),
+				VirtualObjectType.oCItem => new Item(ptr),
+				VirtualObjectType.zCVobLensFlare => new LensFlare(ptr),
+				VirtualObjectType.zCMessageFilter => new MessageFilter(ptr),
+				VirtualObjectType.zCMoverController => new MoverController(ptr),
+				VirtualObjectType.zCPFXController => new ParticleEffectController(ptr),
+				VirtualObjectType.oCTouchDamage => new TouchDamage(ptr),
+				VirtualObjectType.oCMobContainer => new Container(ptr),
+				VirtualObjectType.oCMobDoor => new Door(ptr),
+				VirtualObjectType.oCMobFire => new Fire(ptr),
+				VirtualObjectType.oCMobInter => new InteractiveObject(ptr),
+				VirtualObjectType.oCMobLadder => new Ladder(ptr),
+				VirtualObjectType.oCMobSwitch => new Switch(ptr),
+				VirtualObjectType.oCMobWheel => new Wheel(ptr),
+				VirtualObjectType.oCMobBed => new Bed(ptr),
+				VirtualObjectType.oCMOB => new MovableObject(ptr),
+				VirtualObjectType.zCVobSound => new Sound(ptr),
+				VirtualObjectType.zCVobSoundDaytime => new SoundDaytime(ptr),
+				VirtualObjectType.zCTrigger => new Trigger(ptr),
+				VirtualObjectType.oCCSTrigger => new CutsceneTrigger(ptr),
+				VirtualObjectType.zCTriggerList => new TriggerList(ptr),
+				VirtualObjectType.oCTriggerScript => new TriggerScript(ptr),
+				VirtualObjectType.zCMover => new Mover(ptr),
+				VirtualObjectType.oCTriggerChangeLevel => new TriggerChangeLevel(ptr),
+				VirtualObjectType.zCTriggerWorldStart => new TriggerWorldStart(ptr),
+				VirtualObjectType.zCTriggerUntouch => new TriggerUntouch(ptr),
+				VirtualObjectType.oCZoneMusic => new ZoneMusic(ptr),
+				VirtualObjectType.oCZoneMusicDefault => new ZoneMusicDefault(ptr),
+				VirtualObjectType.zCZoneZFog => new ZoneFog(ptr),
+				VirtualObjectType.zCZoneZFogDefault => new ZoneFogDefault(ptr),
+				VirtualObjectType.zCZoneVobFarPlane => new ZoneFarPlane(ptr),
+				VirtualObjectType.zCZoneVobFarPlaneDefault => new ZoneFarPlaneDefault(ptr),
+				_ => new VirtualObject(ptr)
 			};
 		}
 	}
 
 	public class Spot : VirtualObject
 	{
-		internal Spot(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Spot(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
 	public class Stair : VirtualObject
 	{
-		internal Stair(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Stair(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
 	public class StartPoint : VirtualObject
 	{
-		internal StartPoint(UIntPtr handle, bool delete) : base(handle, delete)
+		internal StartPoint(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
 	public class Level : VirtualObject
 	{
-		internal Level(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Level(UIntPtr handle) : base(handle)
 		{
 		}
 	}

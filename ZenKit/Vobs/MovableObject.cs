@@ -14,19 +14,17 @@ namespace ZenKit.Vobs
 
 	public class MovableObject : VirtualObject
 	{
-		public MovableObject(Read buf, GameVersion version) : base(Native.ZkMovableObject_load(buf.Handle, version),
-			true)
+		public MovableObject(Read buf, GameVersion version) : base(Native.ZkMovableObject_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load MovableObject vob");
 		}
 
-		public MovableObject(string path, GameVersion version) : base(Native.ZkMovableObject_loadPath(path, version),
-			true)
+		public MovableObject(string path, GameVersion version) : base(Native.ZkMovableObject_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load MovableObject vob");
 		}
 
-		internal MovableObject(UIntPtr handle, bool delete) : base(handle, delete)
+		internal MovableObject(UIntPtr handle) : base(handle)
 		{
 		}
 

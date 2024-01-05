@@ -4,17 +4,17 @@ namespace ZenKit.Vobs
 {
 	public class Door : InteractiveObject
 	{
-		public Door(Read buf, GameVersion version) : base(Native.ZkDoor_load(buf.Handle, version), true)
+		public Door(Read buf, GameVersion version) : base(Native.ZkDoor_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Door vob");
 		}
 
-		public Door(string path, GameVersion version) : base(Native.ZkDoor_loadPath(path, version), true)
+		public Door(string path, GameVersion version) : base(Native.ZkDoor_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Door vob");
 		}
 
-		internal Door(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Door(UIntPtr handle) : base(handle)
 		{
 		}
 

@@ -5,17 +5,17 @@ namespace ZenKit.Vobs
 {
 	public class Earthquake : VirtualObject
 	{
-		public Earthquake(Read buf, GameVersion version) : base(Native.ZkEarthquake_load(buf.Handle, version), true)
+		public Earthquake(Read buf, GameVersion version) : base(Native.ZkEarthquake_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load earthquake vob");
 		}
 
-		public Earthquake(string path, GameVersion version) : base(Native.ZkEarthquake_loadPath(path, version), true)
+		public Earthquake(string path, GameVersion version) : base(Native.ZkEarthquake_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load earthquake vob");
 		}
 
-		internal Earthquake(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Earthquake(UIntPtr handle) : base(handle)
 		{
 		}
 

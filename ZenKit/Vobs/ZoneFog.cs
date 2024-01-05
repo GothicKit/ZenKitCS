@@ -5,17 +5,17 @@ namespace ZenKit.Vobs
 {
 	public class ZoneFog : VirtualObject
 	{
-		public ZoneFog(Read buf, GameVersion version) : base(Native.ZkZoneFog_load(buf.Handle, version), true)
+		public ZoneFog(Read buf, GameVersion version) : base(Native.ZkZoneFog_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFog vob");
 		}
 
-		public ZoneFog(string path, GameVersion version) : base(Native.ZkZoneFog_loadPath(path, version), true)
+		public ZoneFog(string path, GameVersion version) : base(Native.ZkZoneFog_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFog vob");
 		}
 
-		internal ZoneFog(UIntPtr handle, bool delete) : base(handle, delete)
+		internal ZoneFog(UIntPtr handle) : base(handle)
 		{
 		}
 
@@ -65,7 +65,7 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		internal ZoneFogDefault(UIntPtr handle, bool delete) : base(handle, delete)
+		internal ZoneFogDefault(UIntPtr handle) : base(handle)
 		{
 		}
 	}

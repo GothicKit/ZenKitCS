@@ -5,18 +5,18 @@ namespace ZenKit.Vobs
 	public class ParticleEffectController : VirtualObject
 	{
 		public ParticleEffectController(Read buf, GameVersion version) : base(
-			Native.ZkParticleEffectController_load(buf.Handle, version), true)
+			Native.ZkParticleEffectController_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load particle effect controller vob");
 		}
 
 		public ParticleEffectController(string path, GameVersion version) : base(
-			Native.ZkParticleEffectController_loadPath(path, version), true)
+			Native.ZkParticleEffectController_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load particle effect controller vob");
 		}
 
-		internal ParticleEffectController(UIntPtr handle, bool delete) : base(handle, delete)
+		internal ParticleEffectController(UIntPtr handle) : base(handle)
 		{
 		}
 

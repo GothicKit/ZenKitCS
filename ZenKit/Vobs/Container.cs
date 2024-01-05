@@ -4,17 +4,17 @@ namespace ZenKit.Vobs
 {
 	public class Container : InteractiveObject
 	{
-		public Container(Read buf, GameVersion version) : base(Native.ZkContainer_load(buf.Handle, version), true)
+		public Container(Read buf, GameVersion version) : base(Native.ZkContainer_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Container vob");
 		}
 
-		public Container(string path, GameVersion version) : base(Native.ZkContainer_loadPath(path, version), true)
+		public Container(string path, GameVersion version) : base(Native.ZkContainer_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Container vob");
 		}
 
-		internal Container(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Container(UIntPtr handle) : base(handle)
 		{
 		}
 

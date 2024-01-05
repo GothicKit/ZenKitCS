@@ -4,17 +4,17 @@ namespace ZenKit.Vobs
 {
 	public class ZoneMusic : VirtualObject
 	{
-		public ZoneMusic(Read buf, GameVersion version) : base(Native.ZkZoneMusic_load(buf.Handle, version), true)
+		public ZoneMusic(Read buf, GameVersion version) : base(Native.ZkZoneMusic_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneMusic vob");
 		}
 
-		public ZoneMusic(string path, GameVersion version) : base(Native.ZkZoneMusic_loadPath(path, version), true)
+		public ZoneMusic(string path, GameVersion version) : base(Native.ZkZoneMusic_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneMusic vob");
 		}
 
-		internal ZoneMusic(UIntPtr handle, bool delete) : base(handle, delete)
+		internal ZoneMusic(UIntPtr handle) : base(handle)
 		{
 		}
 
@@ -70,7 +70,7 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		internal ZoneMusicDefault(UIntPtr handle, bool delete) : base(handle, delete)
+		internal ZoneMusicDefault(UIntPtr handle) : base(handle)
 		{
 		}
 	}

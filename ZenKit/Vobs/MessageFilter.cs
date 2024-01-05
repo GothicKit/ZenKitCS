@@ -14,19 +14,17 @@ namespace ZenKit.Vobs
 
 	public class MessageFilter : VirtualObject
 	{
-		public MessageFilter(Read buf, GameVersion version) : base(Native.ZkMessageFilter_load(buf.Handle, version),
-			true)
+		public MessageFilter(Read buf, GameVersion version) : base(Native.ZkMessageFilter_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load message filter vob");
 		}
 
-		public MessageFilter(string path, GameVersion version) : base(Native.ZkMessageFilter_loadPath(path, version),
-			true)
+		public MessageFilter(string path, GameVersion version) : base(Native.ZkMessageFilter_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load message filter vob");
 		}
 
-		internal MessageFilter(UIntPtr handle, bool delete) : base(handle, delete)
+		internal MessageFilter(UIntPtr handle) : base(handle)
 		{
 		}
 

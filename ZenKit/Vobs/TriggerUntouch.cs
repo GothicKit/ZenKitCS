@@ -4,19 +4,17 @@ namespace ZenKit.Vobs
 {
 	public class TriggerUntouch : VirtualObject
 	{
-		public TriggerUntouch(Read buf, GameVersion version) : base(Native.ZkTriggerUntouch_load(buf.Handle, version),
-			true)
+		public TriggerUntouch(Read buf, GameVersion version) : base(Native.ZkTriggerUntouch_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerUntouch vob");
 		}
 
-		public TriggerUntouch(string path, GameVersion version) : base(Native.ZkTriggerUntouch_loadPath(path, version),
-			true)
+		public TriggerUntouch(string path, GameVersion version) : base(Native.ZkTriggerUntouch_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerUntouch vob");
 		}
 
-		internal TriggerUntouch(UIntPtr handle, bool delete) : base(handle, delete)
+		internal TriggerUntouch(UIntPtr handle) : base(handle)
 		{
 		}
 

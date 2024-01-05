@@ -5,18 +5,18 @@ namespace ZenKit.Vobs
 	public class TriggerChangeLevel : Trigger
 	{
 		public TriggerChangeLevel(Read buf, GameVersion version) : base(
-			Native.ZkTriggerChangeLevel_load(buf.Handle, version), true)
+			Native.ZkTriggerChangeLevel_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerChangeLevel vob");
 		}
 
 		public TriggerChangeLevel(string path, GameVersion version) : base(
-			Native.ZkTriggerChangeLevel_loadPath(path, version), true)
+			Native.ZkTriggerChangeLevel_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerChangeLevel vob");
 		}
 
-		internal TriggerChangeLevel(UIntPtr handle, bool delete) : base(handle, delete)
+		internal TriggerChangeLevel(UIntPtr handle) : base(handle)
 		{
 		}
 

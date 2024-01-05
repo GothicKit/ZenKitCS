@@ -11,17 +11,17 @@ namespace ZenKit.Vobs
 
 	public class TouchDamage : VirtualObject
 	{
-		public TouchDamage(Read buf, GameVersion version) : base(Native.ZkTouchDamage_load(buf.Handle, version), true)
+		public TouchDamage(Read buf, GameVersion version) : base(Native.ZkTouchDamage_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load touch damage vob");
 		}
 
-		public TouchDamage(string path, GameVersion version) : base(Native.ZkTouchDamage_loadPath(path, version), true)
+		public TouchDamage(string path, GameVersion version) : base(Native.ZkTouchDamage_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load touch damage vob");
 		}
 
-		internal TouchDamage(UIntPtr handle, bool delete) : base(handle, delete)
+		internal TouchDamage(UIntPtr handle) : base(handle)
 		{
 		}
 

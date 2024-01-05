@@ -4,18 +4,17 @@ namespace ZenKit.Vobs
 {
 	public class ZoneFarPlane : VirtualObject
 	{
-		public ZoneFarPlane(Read buf, GameVersion version) : base(Native.ZkZoneFarPlane_load(buf.Handle, version), true)
+		public ZoneFarPlane(Read buf, GameVersion version) : base(Native.ZkZoneFarPlane_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
 		}
 
-		public ZoneFarPlane(string path, GameVersion version) : base(Native.ZkZoneFarPlane_loadPath(path, version),
-			true)
+		public ZoneFarPlane(string path, GameVersion version) : base(Native.ZkZoneFarPlane_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");
 		}
 
-		internal ZoneFarPlane(UIntPtr handle, bool delete) : base(handle, delete)
+		internal ZoneFarPlane(UIntPtr handle) : base(handle)
 		{
 		}
 
@@ -47,7 +46,7 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		internal ZoneFarPlaneDefault(UIntPtr handle, bool delete) : base(handle, delete)
+		internal ZoneFarPlaneDefault(UIntPtr handle) : base(handle)
 		{
 		}
 	}

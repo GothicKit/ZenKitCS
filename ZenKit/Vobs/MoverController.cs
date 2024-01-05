@@ -12,20 +12,18 @@ namespace ZenKit.Vobs
 
 	public class MoverController : VirtualObject
 	{
-		public MoverController(Read buf, GameVersion version) : base(Native.ZkMoverController_load(buf.Handle, version),
-			true)
+		public MoverController(Read buf, GameVersion version) : base(Native.ZkMoverController_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mover controller vob");
 		}
 
 		public MoverController(string path, GameVersion version) : base(
-			Native.ZkMoverController_loadPath(path, version),
-			true)
+			Native.ZkMoverController_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mover controller vob");
 		}
 
-		internal MoverController(UIntPtr handle, bool delete) : base(handle, delete)
+		internal MoverController(UIntPtr handle) : base(handle)
 		{
 		}
 

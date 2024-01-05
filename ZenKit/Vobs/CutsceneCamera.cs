@@ -38,7 +38,7 @@ namespace ZenKit.Vobs
 
 	public class CameraTrajectoryFrame : VirtualObject
 	{
-		internal CameraTrajectoryFrame(UIntPtr handle, bool delete) : base(handle, delete)
+		internal CameraTrajectoryFrame(UIntPtr handle) : base(handle)
 		{
 		}
 
@@ -127,19 +127,17 @@ namespace ZenKit.Vobs
 
 	public class CutsceneCamera : VirtualObject
 	{
-		public CutsceneCamera(Read buf, GameVersion version) : base(Native.ZkCutsceneCamera_load(buf.Handle, version),
-			true)
+		public CutsceneCamera(Read buf, GameVersion version) : base(Native.ZkCutsceneCamera_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");
 		}
 
-		public CutsceneCamera(string path, GameVersion version) : base(Native.ZkCutsceneCamera_loadPath(path, version),
-			true)
+		public CutsceneCamera(string path, GameVersion version) : base(Native.ZkCutsceneCamera_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");
 		}
 
-		internal CutsceneCamera(UIntPtr handle, bool delete) : base(handle, delete)
+		internal CutsceneCamera(UIntPtr handle) : base(handle)
 		{
 		}
 
@@ -251,7 +249,8 @@ namespace ZenKit.Vobs
 
 		public CameraTrajectoryFrame GetFrame(int i)
 		{
-			return new CameraTrajectoryFrame(Native.ZkCutsceneCamera_getFrame(Handle, (ulong)i), false);
+			var handle = Native.ZkCutsceneCamera_getFrame(Handle, (ulong)i);
+			return new CameraTrajectoryFrame(Native.ZkObject_takeRef(handle));
 		}
 	}
 }

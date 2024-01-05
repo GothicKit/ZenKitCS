@@ -5,19 +5,18 @@ namespace ZenKit.Vobs
 	public class InteractiveObject : MovableObject
 	{
 		public InteractiveObject(Read buf, GameVersion version) : base(
-			Native.ZkInteractiveObject_load(buf.Handle, version),
-			true)
+			Native.ZkInteractiveObject_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load InteractiveObject vob");
 		}
 
 		public InteractiveObject(string path, GameVersion version) : base(
-			Native.ZkInteractiveObject_loadPath(path, version), true)
+			Native.ZkInteractiveObject_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load InteractiveObject vob");
 		}
 
-		internal InteractiveObject(UIntPtr handle, bool delete) : base(handle, delete)
+		internal InteractiveObject(UIntPtr handle) : base(handle)
 		{
 		}
 
@@ -68,28 +67,28 @@ namespace ZenKit.Vobs
 
 	public class Bed : InteractiveObject
 	{
-		internal Bed(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Bed(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
 	public class Ladder : InteractiveObject
 	{
-		internal Ladder(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Ladder(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
 	public class Switch : InteractiveObject
 	{
-		internal Switch(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Switch(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
 	public class Wheel : InteractiveObject
 	{
-		internal Wheel(UIntPtr handle, bool delete) : base(handle, delete)
+		internal Wheel(UIntPtr handle) : base(handle)
 		{
 		}
 	}

@@ -9,17 +9,17 @@ namespace ZenKit.Vobs
 	{
 		private static readonly Native.Callbacks.ZkStringEnumerator RemoveSlavesEnumerator = _enumerateSlavesHandler;
 
-		public CodeMaster(Read buf, GameVersion version) : base(Native.ZkCodeMaster_load(buf.Handle, version), true)
+		public CodeMaster(Read buf, GameVersion version) : base(Native.ZkCodeMaster_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load code master vob");
 		}
 
-		public CodeMaster(string path, GameVersion version) : base(Native.ZkCodeMaster_loadPath(path, version), true)
+		public CodeMaster(string path, GameVersion version) : base(Native.ZkCodeMaster_loadPath(path, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load code master vob");
 		}
 
-		internal CodeMaster(UIntPtr handle, bool delete) : base(handle, delete)
+		internal CodeMaster(UIntPtr handle) : base(handle)
 		{
 		}
 
