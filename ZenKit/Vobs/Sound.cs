@@ -17,6 +17,10 @@ namespace ZenKit.Vobs
 
 	public class Sound : VirtualObject
 	{
+		public Sound() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobSound))
+		{
+		}
+
 		public Sound(Read buf, GameVersion version) : base(Native.ZkSound_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Sound vob");
@@ -97,6 +101,18 @@ namespace ZenKit.Vobs
 			set => Native.ZkSound_setSoundName(Handle, value);
 		}
 
+		public bool IsRunning
+		{
+			get => Native.ZkSound_getIsRunning(Handle);
+			set => Native.ZkSound_setIsRunning(Handle, value);
+		}
+
+		public bool IsAllowedToRun
+		{
+			get => Native.ZkSound_getIsAllowedToRun(Handle);
+			set => Native.ZkSound_setIsAllowedToRun(Handle, value);
+		}
+
 		protected override void Delete()
 		{
 			Native.ZkSound_del(Handle);
@@ -105,6 +121,10 @@ namespace ZenKit.Vobs
 
 	public class SoundDaytime : Sound
 	{
+		public SoundDaytime() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobSoundDaytime))
+		{
+		}
+
 		public SoundDaytime(Read buf, GameVersion version) : base(Native.ZkSoundDaytime_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load SoundDaytime vob");

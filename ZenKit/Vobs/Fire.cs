@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class Fire : InteractiveObject
 	{
+		public Fire() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobFire))
+		{
+		}
+
 		public Fire(Read buf, GameVersion version) : base(Native.ZkFire_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Fire vob");

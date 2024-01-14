@@ -14,6 +14,10 @@ namespace ZenKit.Vobs
 
 	public class MovableObject : VirtualObject
 	{
+		public MovableObject() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMOB))
+		{
+		}
+
 		public MovableObject(Read buf, GameVersion version) : base(Native.ZkMovableObject_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load MovableObject vob");

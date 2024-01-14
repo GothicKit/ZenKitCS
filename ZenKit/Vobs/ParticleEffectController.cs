@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class ParticleEffectController : VirtualObject
 	{
+		public ParticleEffectController() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCPFXController))
+		{
+		}
+
 		public ParticleEffectController(Read buf, GameVersion version) : base(
 			Native.ZkParticleEffectController_load(buf.Handle, version))
 		{

@@ -9,6 +9,10 @@ namespace ZenKit.Vobs
 	{
 		private static readonly Native.Callbacks.ZkStringEnumerator RemoveSlavesEnumerator = _enumerateSlavesHandler;
 
+		public CodeMaster() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCCodeMaster))
+		{
+		}
+
 		public CodeMaster(Read buf, GameVersion version) : base(Native.ZkCodeMaster_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load code master vob");

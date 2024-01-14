@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class InteractiveObject : MovableObject
 	{
+		public InteractiveObject() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobInter))
+		{
+		}
+
 		public InteractiveObject(Read buf, GameVersion version) : base(
 			Native.ZkInteractiveObject_load(buf.Handle, version))
 		{
@@ -67,6 +71,10 @@ namespace ZenKit.Vobs
 
 	public class Bed : InteractiveObject
 	{
+		public Bed() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobBed))
+		{
+		}
+
 		internal Bed(UIntPtr handle) : base(handle)
 		{
 		}
@@ -74,6 +82,10 @@ namespace ZenKit.Vobs
 
 	public class Ladder : InteractiveObject
 	{
+		public Ladder() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobLadder))
+		{
+		}
+
 		internal Ladder(UIntPtr handle) : base(handle)
 		{
 		}
@@ -81,6 +93,10 @@ namespace ZenKit.Vobs
 
 	public class Switch : InteractiveObject
 	{
+		public Switch() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobSwitch))
+		{
+		}
+
 		internal Switch(UIntPtr handle) : base(handle)
 		{
 		}
@@ -88,6 +104,10 @@ namespace ZenKit.Vobs
 
 	public class Wheel : InteractiveObject
 	{
+		public Wheel() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobWheel))
+		{
+		}
+
 		internal Wheel(UIntPtr handle) : base(handle)
 		{
 		}

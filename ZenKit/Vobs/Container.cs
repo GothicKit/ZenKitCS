@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 namespace ZenKit.Vobs
 {
 	public class Container : InteractiveObject
 	{
+		public Container() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobContainer))
+		{
+		}
+
 		public Container(Read buf, GameVersion version) : base(Native.ZkContainer_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Container vob");
@@ -40,6 +45,34 @@ namespace ZenKit.Vobs
 		{
 			get => Native.ZkContainer_getContents(Handle).MarshalAsString() ?? string.Empty;
 			set => Native.ZkContainer_setContents(Handle, value);
+		}
+
+		public int ItemCount => (int)Native.ZkContainer_getItemCount(Handle);
+
+		public List<Item> Items
+		{
+			get
+			{
+				var items = new List<Item>();
+
+				for (var i = 0; i < ItemCount; ++i)
+				{
+					var val = Native.ZkContainer_getItem(Handle, (ulong)i);
+					items.Add(new Item(Native.ZkObject_takeRef(val)));
+				}
+
+				return items;
+			}
+		}
+
+		public void AddItem(Item item)
+		{
+			Native.ZkContainer_addItem(Handle, item.Handle);
+		}
+
+		public void RemoveItem(int i)
+		{
+			Native.ZkContainer_removeItem(Handle, (ulong)i);
 		}
 
 		protected override void Delete()

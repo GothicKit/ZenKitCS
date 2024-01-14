@@ -11,7 +11,7 @@ public class TestTrigger
 	{
 		var vob = new Trigger("./Samples/G2/VOb/zCTrigger.zen", GameVersion.Gothic2);
 		Assert.That(vob.Target, Is.EqualTo(""));
-		
+
 		Assert.That(vob.StartEnabled, Is.True);
 		Assert.That(vob.SendUntrigger, Is.False);
 		Assert.That(vob.ReactToOnTrigger, Is.False);
@@ -33,7 +33,7 @@ public class TestTrigger
 	{
 		var vob = new Trigger("./Samples/G2/VOb/zCTrigger.zen", GameVersion.Gothic2);
 		vob.Target = "";
-		
+
 		vob.StartEnabled = true;
 		vob.SendUntrigger = true;
 		vob.ReactToOnTrigger = false;
@@ -42,7 +42,7 @@ public class TestTrigger
 		vob.RespondToObject = false;
 		vob.RespondToPC = false;
 		vob.RespondToNPC = false;
-		
+
 		vob.VobTarget = "";
 		vob.MaxActivationCount = -1;
 		vob.RetriggerDelay = TimeSpan.FromSeconds(0.0f);

@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class TriggerScript : Trigger
 	{
+		public TriggerScript() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCTriggerScript))
+		{
+		}
+
 		public TriggerScript(Read buf, GameVersion version) : base(Native.ZkTriggerScript_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerScript vob");

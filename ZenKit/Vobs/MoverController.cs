@@ -12,6 +12,10 @@ namespace ZenKit.Vobs
 
 	public class MoverController : VirtualObject
 	{
+		public MoverController() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCMoverController))
+		{
+		}
+
 		public MoverController(Read buf, GameVersion version) : base(Native.ZkMoverController_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mover controller vob");

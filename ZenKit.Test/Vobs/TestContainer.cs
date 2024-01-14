@@ -13,6 +13,8 @@ public class TestContainer
 		Assert.That(vob.Key, Is.EqualTo(""));
 		Assert.That(vob.PickString, Is.EqualTo(""));
 		Assert.That(vob.Contents, Is.EqualTo("ItMi_Gold:35"));
+		Assert.That(vob.ItemCount, Is.EqualTo(0));
+		Assert.That(vob.Items, Has.Count.EqualTo(0));
 	}
 
 	[Test]

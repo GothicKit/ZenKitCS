@@ -5,6 +5,10 @@ namespace ZenKit.Vobs
 {
 	public class ZoneFog : VirtualObject
 	{
+		public ZoneFog() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCZoneZFog))
+		{
+		}
+
 		public ZoneFog(Read buf, GameVersion version) : base(Native.ZkZoneFog_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFog vob");
@@ -57,6 +61,10 @@ namespace ZenKit.Vobs
 
 	public class ZoneFogDefault : ZoneFog
 	{
+		public ZoneFogDefault() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCZoneZFogDefault))
+		{
+		}
+
 		public ZoneFogDefault(Read buf, GameVersion version) : base(buf, version)
 		{
 		}

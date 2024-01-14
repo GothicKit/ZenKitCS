@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace ZenKit.Vobs
 {
@@ -31,6 +32,10 @@ namespace ZenKit.Vobs
 
 	public class Mover : Trigger
 	{
+		public Mover() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCMover))
+		{
+		}
+
 		public Mover(Read buf, GameVersion version) : base(Native.ZkMover_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Mover vob");
@@ -98,6 +103,61 @@ namespace ZenKit.Vobs
 			get => Native.ZkMover_getSpeedType(Handle);
 			set => Native.ZkMover_setSpeedType(Handle, value);
 		}
+
+		public Vector3 ActKeyPosDelta
+		{
+			get => Native.ZkMover_getActKeyPosDelta(Handle);
+			set => Native.ZkMover_setActKeyPosDelta(Handle, value);
+		}
+
+		public float ActKeyframeF
+		{
+			get => Native.ZkMover_getActKeyframeF(Handle);
+			set => Native.ZkMover_setActKeyframeF(Handle, value);
+		}
+
+		public int ActKeyframe
+		{
+			get => Native.ZkMover_getActKeyframe(Handle);
+			set => Native.ZkMover_setActKeyframe(Handle, value);
+		}
+
+		public int NextKeyframe
+		{
+			get => Native.ZkMover_getNextKeyframe(Handle);
+			set => Native.ZkMover_setNextKeyframe(Handle, value);
+		}
+
+		public float MoveSpeedUnit
+		{
+			get => Native.ZkMover_getMoveSpeedUnit(Handle);
+			set => Native.ZkMover_setMoveSpeedUnit(Handle, value);
+		}
+
+		public float AdvanceDir
+		{
+			get => Native.ZkMover_getAdvanceDir(Handle);
+			set => Native.ZkMover_setAdvanceDir(Handle, value);
+		}
+
+		public int MoverState
+		{
+			get => (int)Native.ZkMover_getMoverState(Handle);
+			set => Native.ZkMover_setMoverState(Handle, (uint)value);
+		}
+
+		public int TriggerEventCount
+		{
+			get => Native.ZkMover_getTriggerEventCount(Handle);
+			set => Native.ZkMover_setTriggerEventCount(Handle, value);
+		}
+
+		public float StayOpenTimeDest
+		{
+			get => Native.ZkMover_getStayOpenTimeDest(Handle);
+			set => Native.ZkMover_setStayOpenTimeDest(Handle, value);
+		}
+
 
 		public int KeyframeCount => (int)Native.ZkMover_getKeyframeCount(Handle);
 

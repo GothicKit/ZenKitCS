@@ -38,6 +38,10 @@ namespace ZenKit.Vobs
 
 	public class CameraTrajectoryFrame : VirtualObject
 	{
+		public CameraTrajectoryFrame() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCCamTrj_KeyFrame))
+		{
+		}
+
 		internal CameraTrajectoryFrame(UIntPtr handle) : base(handle)
 		{
 		}
@@ -127,6 +131,10 @@ namespace ZenKit.Vobs
 
 	public class CutsceneCamera : VirtualObject
 	{
+		public CutsceneCamera() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCCSCamera))
+		{
+		}
+
 		public CutsceneCamera(Read buf, GameVersion version) : base(Native.ZkCutsceneCamera_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load camera vob");

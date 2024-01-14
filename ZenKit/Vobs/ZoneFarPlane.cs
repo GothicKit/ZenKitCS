@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class ZoneFarPlane : VirtualObject
 	{
+		public ZoneFarPlane() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCZoneVobFarPlane))
+		{
+		}
+
 		public ZoneFarPlane(Read buf, GameVersion version) : base(Native.ZkZoneFarPlane_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load ZoneFarPlane vob");

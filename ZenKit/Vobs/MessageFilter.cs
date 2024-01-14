@@ -14,6 +14,10 @@ namespace ZenKit.Vobs
 
 	public class MessageFilter : VirtualObject
 	{
+		public MessageFilter() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCMessageFilter))
+		{
+		}
+
 		public MessageFilter(Read buf, GameVersion version) : base(Native.ZkMessageFilter_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load message filter vob");

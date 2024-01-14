@@ -83,7 +83,7 @@ public class TestVirtualObject
 		Assert.That(vob.Rotation.M13, Is.EqualTo(0.390731275f));
 		Assert.That(vob.Rotation.M23, Is.EqualTo(0));
 		Assert.That(vob.Rotation.M33, Is.EqualTo(0.920505285f));
-		
+
 		Assert.That(vob.ShowVisual, Is.True);
 		Assert.That(vob.SpriteCameraFacingMode, Is.EqualTo(SpriteAlignment.None));
 		Assert.That(vob.CdStatic, Is.False);
@@ -100,6 +100,9 @@ public class TestVirtualObject
 		Assert.That(vob.Name, Is.EqualTo(""));
 		Assert.That(vob.Visual?.Name, Is.EqualTo("OW_MISC_WALL_TORCH_01.3DS"));
 		Assert.That(vob.Visual?.Type, Is.EqualTo(VisualType.MultiResolutionMesh));
+
+		Assert.That(vob.Ai, Is.Null);
+		Assert.That(vob.EventManager, Is.Null);
 	}
 
 	[Test]
@@ -130,9 +133,14 @@ public class TestVirtualObject
 		vob.PresetName = "";
 		vob.Name = "";
 
-		vob.ResetVisual<VisualDecal>();
-		vob.ResetVisual();
-		vob.AddChild<Light>();
+		vob.Visual = new VisualModel();
+		vob.Visual.Name = "Test";
+
+		vob.Ai = new AiHuman();
+		vob.EventManager = new EventManager();
+		vob.EventManager.Active = true;
+
+		vob.AddChild(new Light());
 		vob.RemoveChild(0);
 	}
 }

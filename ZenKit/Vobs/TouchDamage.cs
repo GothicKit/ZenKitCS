@@ -11,6 +11,10 @@ namespace ZenKit.Vobs
 
 	public class TouchDamage : VirtualObject
 	{
+		public TouchDamage() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCTouchDamage))
+		{
+		}
+
 		public TouchDamage(Read buf, GameVersion version) : base(Native.ZkTouchDamage_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load touch damage vob");

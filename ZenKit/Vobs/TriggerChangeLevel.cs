@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class TriggerChangeLevel : Trigger
 	{
+		public TriggerChangeLevel() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCTriggerChangeLevel))
+		{
+		}
+
 		public TriggerChangeLevel(Read buf, GameVersion version) : base(
 			Native.ZkTriggerChangeLevel_load(buf.Handle, version))
 		{

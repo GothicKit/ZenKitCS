@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class LensFlare : VirtualObject
 	{
+		public LensFlare() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobLensFlare))
+		{
+		}
+
 		public LensFlare(Read buf, GameVersion version) : base(Native.ZkLensFlare_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load lens flare vob");

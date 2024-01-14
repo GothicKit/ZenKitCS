@@ -182,6 +182,10 @@ namespace ZenKit.Vobs
 
 	public class Light : VirtualObject, ILightPreset
 	{
+		public Light() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobLight))
+		{
+		}
+
 		public Light(Read buf, GameVersion version) : base(Native.ZkLight_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load light vob");

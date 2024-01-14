@@ -119,7 +119,7 @@ namespace ZenKit.Vobs
 
 	public class Visual : IVisual
 	{
-		protected readonly UIntPtr Handle;
+		internal readonly UIntPtr Handle;
 
 		internal Visual(UIntPtr handle)
 		{
@@ -175,6 +175,10 @@ namespace ZenKit.Vobs
 
 	public class VisualMesh : Visual
 	{
+		public VisualMesh() : base(Native.ZkVisual_new(VisualType.Mesh))
+		{
+		}
+
 		internal VisualMesh(UIntPtr handle) : base(handle)
 		{
 		}
@@ -182,6 +186,10 @@ namespace ZenKit.Vobs
 
 	public class VisualMultiResolutionMesh : Visual
 	{
+		public VisualMultiResolutionMesh() : base(Native.ZkVisual_new(VisualType.MultiResolutionMesh))
+		{
+		}
+
 		internal VisualMultiResolutionMesh(UIntPtr handle) : base(handle)
 		{
 		}
@@ -189,6 +197,10 @@ namespace ZenKit.Vobs
 
 	public class VisualParticleEffect : Visual
 	{
+		public VisualParticleEffect() : base(Native.ZkVisual_new(VisualType.ParticleEffect))
+		{
+		}
+
 		internal VisualParticleEffect(UIntPtr handle) : base(handle)
 		{
 		}
@@ -196,6 +208,10 @@ namespace ZenKit.Vobs
 
 	public class VisualCamera : Visual
 	{
+		public VisualCamera() : base(Native.ZkVisual_new(VisualType.Camera))
+		{
+		}
+
 		internal VisualCamera(UIntPtr handle) : base(handle)
 		{
 		}
@@ -203,6 +219,10 @@ namespace ZenKit.Vobs
 
 	public class VisualModel : Visual
 	{
+		public VisualModel() : base(Native.ZkVisual_new(VisualType.Model))
+		{
+		}
+
 		internal VisualModel(UIntPtr handle) : base(handle)
 		{
 		}
@@ -210,6 +230,10 @@ namespace ZenKit.Vobs
 
 	public class VisualMorphMesh : Visual
 	{
+		public VisualMorphMesh() : base(Native.ZkVisual_new(VisualType.MorphMesh))
+		{
+		}
+
 		internal VisualMorphMesh(UIntPtr handle) : base(handle)
 		{
 		}
@@ -242,6 +266,10 @@ namespace ZenKit.Vobs
 
 	public class VisualDecal : Visual, IVisualDecal
 	{
+		public VisualDecal() : base(Native.ZkVisual_new(VisualType.Decal))
+		{
+		}
+
 		internal VisualDecal(UIntPtr handle) : base(handle)
 		{
 		}
@@ -337,18 +365,15 @@ namespace ZenKit.Vobs
 		public SpriteAlignment SpriteCameraFacingMode { get; set; }
 		public bool Static { get; set; }
 		public VirtualObjectType Type { get; }
-		public IVisual? Visual { get; }
+		public IVisual? Visual { get; set; }
 
 		public IVirtualObject GetChild(int i);
 
-		public T AddChild<T>() where T : IVirtualObject;
+		public void AddChild(IVirtualObject obj);
 
 		public void RemoveChild(int i);
 
 		public void RemoveChildren(Predicate<IVirtualObject> pred);
-
-		public void ResetVisual();
-		public T ResetVisual<T>() where T : IVisual;
 	}
 
 
@@ -393,9 +418,9 @@ namespace ZenKit.Vobs
 			return Children[i];
 		}
 
-		public T AddChild<T>() where T : IVirtualObject
+		public void AddChild(IVirtualObject obj)
 		{
-			throw new NotImplementedException();
+			Children.Add(obj);
 		}
 
 		public void RemoveChild(int i)
@@ -444,9 +469,219 @@ namespace ZenKit.Vobs
 		}
 	}
 
+	public enum AiType
+	{
+		Human = 0,
+		Move = 1,
+	}
+
+	public class Ai
+	{
+		internal readonly UIntPtr Handle;
+
+		internal Ai(UIntPtr handle)
+		{
+			Handle = handle;
+		}
+
+		~Ai()
+		{
+			Native.ZkAi_del(Handle);
+		}
+
+		public AiType Type => Native.ZkAi_getType(Handle);
+
+		internal static Ai? FromNative(UIntPtr handle)
+		{
+			if (handle == UIntPtr.Zero) return null;
+
+			return Native.ZkAi_getType(handle) switch
+			{
+				AiType.Human => new AiHuman(handle),
+				AiType.Move => new AiMove(handle),
+				_ => null
+			};
+		}
+	}
+
+	public class AiHuman : Ai
+	{
+		public AiHuman() : base(Native.ZkAi_new(AiType.Human))
+		{
+		}
+
+		internal AiHuman(UIntPtr handle) : base(handle)
+		{
+		}
+
+		public int WaterLevel
+		{
+			get => Native.ZkAiHuman_getWaterLevel(Handle);
+			set => Native.ZkAiHuman_setWaterLevel(Handle, value);
+		}
+
+		public float FloorY
+		{
+			get => Native.ZkAiHuman_getFloorY(Handle);
+			set => Native.ZkAiHuman_setFloorY(Handle, value);
+		}
+
+		public float WaterY
+		{
+			get => Native.ZkAiHuman_getWaterY(Handle);
+			set => Native.ZkAiHuman_setWaterY(Handle, value);
+		}
+
+		public float CeilY
+		{
+			get => Native.ZkAiHuman_getCeilY(Handle);
+			set => Native.ZkAiHuman_setCeilY(Handle, value);
+		}
+
+		public float FeetY
+		{
+			get => Native.ZkAiHuman_getFeetY(Handle);
+			set => Native.ZkAiHuman_setFeetY(Handle, value);
+		}
+
+		public float HeadY
+		{
+			get => Native.ZkAiHuman_getHeadY(Handle);
+			set => Native.ZkAiHuman_setHeadY(Handle, value);
+		}
+
+		public float FallDistY
+		{
+			get => Native.ZkAiHuman_getFallDistY(Handle);
+			set => Native.ZkAiHuman_setFallDistY(Handle, value);
+		}
+
+		public float FallStartY
+		{
+			get => Native.ZkAiHuman_getFallStartY(Handle);
+			set => Native.ZkAiHuman_setFallStartY(Handle, value);
+		}
+
+		public Npc? Npc
+		{
+			get
+			{
+				var val = Native.ZkAiHuman_getNpc(Handle);
+				if (val == UIntPtr.Zero) return null;
+				return new Npc(Native.ZkObject_takeRef(val));
+			}
+			set => Native.ZkAiHuman_setNpc(Handle, value?.Handle ?? UIntPtr.Zero);
+		}
+
+		public int WalkMode
+		{
+			get => Native.ZkAiHuman_getWalkMode(Handle);
+			set => Native.ZkAiHuman_setWalkMode(Handle, value);
+		}
+
+		public int WeaponMode
+		{
+			get => Native.ZkAiHuman_getWeaponMode(Handle);
+			set => Native.ZkAiHuman_setWeaponMode(Handle, value);
+		}
+
+		public int WModeAst
+		{
+			get => Native.ZkAiHuman_getWmodeAst(Handle);
+			set => Native.ZkAiHuman_setWmodeAst(Handle, value);
+		}
+
+		public int WModeSelect
+		{
+			get => Native.ZkAiHuman_getWmodeSelect(Handle);
+			set => Native.ZkAiHuman_setWmodeSelect(Handle, value);
+		}
+
+		public bool ChangeWeapon
+		{
+			get => Native.ZkAiHuman_getChangeWeapon(Handle);
+			set => Native.ZkAiHuman_setChangeWeapon(Handle, value);
+		}
+
+		public int ActionMode
+		{
+			get => Native.ZkAiHuman_getActionMode(Handle);
+			set => Native.ZkAiHuman_setActionMode(Handle, value);
+		}
+	}
+
+	public class AiMove : Ai
+	{
+		public AiMove() : base(Native.ZkAi_new(AiType.Move))
+		{
+		}
+
+		internal AiMove(UIntPtr handle) : base(handle)
+		{
+		}
+
+		public VirtualObject? Vob
+		{
+			get
+			{
+				var val = Native.ZkAiMove_getVob(Handle);
+				return VirtualObject.FromNative(Native.ZkObject_takeRef(val));
+			}
+			set => Native.ZkAiMove_setVob(Handle, value?.Handle ?? UIntPtr.Zero);
+		}
+
+		public Npc? Owner
+		{
+			get
+			{
+				var val = Native.ZkAiMove_getOwner(Handle);
+				return new Npc(Native.ZkObject_takeRef(val));
+			}
+			set => Native.ZkAiMove_setOwner(Handle, value?.Handle ?? UIntPtr.Zero);
+		}
+	}
+
+	public class EventManager
+	{
+		internal readonly UIntPtr Handle;
+
+		public EventManager()
+		{
+			Handle = Native.ZkEventManager_new();
+		}
+
+		internal EventManager(UIntPtr handle)
+		{
+			Handle = handle;
+		}
+
+		~EventManager()
+		{
+			Native.ZkEventManager_del(Handle);
+		}
+
+		public bool Cleared
+		{
+			get => Native.ZkEventManager_getCleared(Handle);
+			set => Native.ZkEventManager_setCleared(Handle, value);
+		}
+
+		public bool Active
+		{
+			get => Native.ZkEventManager_getActive(Handle);
+			set => Native.ZkEventManager_setActive(Handle, value);
+		}
+	}
+
 	public class VirtualObject : IVirtualObject
 	{
-		protected readonly UIntPtr Handle;
+		internal readonly UIntPtr Handle;
+
+		public VirtualObject()
+		{
+			Handle = Native.ZkVirtualObject_new(VirtualObjectType.zCVob);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load virtual object");
+		}
 
 		public VirtualObject(Read buf, GameVersion version)
 		{
@@ -463,6 +698,7 @@ namespace ZenKit.Vobs
 		internal VirtualObject(UIntPtr handle)
 		{
 			Handle = handle;
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load virtual object");
 		}
 
 		public VirtualObjectType Type => Native.ZkVirtualObject_getType(Handle);
@@ -583,7 +819,49 @@ namespace ZenKit.Vobs
 				var val = Native.ZkVirtualObject_getVisual(Handle);
 				return Vobs.Visual.FromNative(Native.ZkObject_takeRef(val));
 			}
+			set
+			{
+				if (value != null && value.IsCached())
+					throw new ArgumentException("Only non-cached visuals are allowed!");
+
+				var v = (Visual?)value;
+				Native.ZkVirtualObject_setVisual(Handle, v?.Handle ?? UIntPtr.Zero);
+			}
 		}
+
+		public byte SleepMode
+		{
+			get => Native.ZkVirtualObject_getSleepMode(Handle);
+			set => Native.ZkVirtualObject_setSleepMode(Handle, value);
+		}
+
+		public float NextOnTimer
+		{
+			get => Native.ZkVirtualObject_getNextOnTimer(Handle);
+			set => Native.ZkVirtualObject_setNextOnTimer(Handle, value);
+		}
+
+		public Ai? Ai
+		{
+			get
+			{
+				var val = Native.ZkVirtualObject_getAi(Handle);
+				return Vobs.Ai.FromNative(Native.ZkObject_takeRef(val));
+			}
+			set => Native.ZkVirtualObject_setAi(Handle, value?.Handle ?? UIntPtr.Zero);
+		}
+
+		public EventManager? EventManager
+		{
+			get
+			{
+				var val = Native.ZkVirtualObject_getEventManager(Handle);
+				if (val == UIntPtr.Zero) return null;
+				return new EventManager(Native.ZkObject_takeRef(val));
+			}
+			set => Native.ZkVirtualObject_setEventManager(Handle, value?.Handle ?? UIntPtr.Zero);
+		}
+
 
 		public int ChildCount => (int)Native.ZkVirtualObject_getChildCount(Handle);
 
@@ -614,53 +892,12 @@ namespace ZenKit.Vobs
 			return FromNative(Native.ZkObject_takeRef(handle));
 		}
 
-		public T AddChild<T>() where T : IVirtualObject
+		public void AddChild(IVirtualObject obj)
 		{
-			VirtualObjectType type;
-			if (typeof(T) == typeof(VirtualObject)) type = VirtualObjectType.zCVob;
-			else if (typeof(T) == typeof(Stair)) type = VirtualObjectType.zCVobStair;
-			else if (typeof(T) == typeof(Level)) type = VirtualObjectType.zCVobLevelCompo;
-			else if (typeof(T) == typeof(Spot)) type = VirtualObjectType.zCVobSpot;
-			else if (typeof(T) == typeof(StartPoint)) type = VirtualObjectType.zCVobStartpoint;
-			else if (typeof(T) == typeof(CutsceneCamera)) type = VirtualObjectType.zCCSCamera;
-			else if (typeof(T) == typeof(Light)) type = VirtualObjectType.zCVobLight;
-			else if (typeof(T) == typeof(Animate)) type = VirtualObjectType.zCVobAnimate;
-			else if (typeof(T) == typeof(CodeMaster)) type = VirtualObjectType.zCCodeMaster;
-			else if (typeof(T) == typeof(Earthquake)) type = VirtualObjectType.zCEarthquake;
-			else if (typeof(T) == typeof(Item)) type = VirtualObjectType.oCItem;
-			else if (typeof(T) == typeof(LensFlare)) type = VirtualObjectType.zCVobLensFlare;
-			else if (typeof(T) == typeof(MessageFilter)) type = VirtualObjectType.zCMessageFilter;
-			else if (typeof(T) == typeof(MoverController)) type = VirtualObjectType.zCMoverController;
-			else if (typeof(T) == typeof(ParticleEffectController)) type = VirtualObjectType.zCPFXController;
-			else if (typeof(T) == typeof(TouchDamage)) type = VirtualObjectType.oCTouchDamage;
-			else if (typeof(T) == typeof(Container)) type = VirtualObjectType.oCMobContainer;
-			else if (typeof(T) == typeof(Door)) type = VirtualObjectType.oCMobDoor;
-			else if (typeof(T) == typeof(Fire)) type = VirtualObjectType.oCMobFire;
-			else if (typeof(T) == typeof(InteractiveObject)) type = VirtualObjectType.oCMobInter;
-			else if (typeof(T) == typeof(Ladder)) type = VirtualObjectType.oCMobLadder;
-			else if (typeof(T) == typeof(Switch)) type = VirtualObjectType.oCMobSwitch;
-			else if (typeof(T) == typeof(Wheel)) type = VirtualObjectType.oCMobWheel;
-			else if (typeof(T) == typeof(Bed)) type = VirtualObjectType.oCMobBed;
-			else if (typeof(T) == typeof(MovableObject)) type = VirtualObjectType.oCMOB;
-			else if (typeof(T) == typeof(Sound)) type = VirtualObjectType.zCVobSound;
-			else if (typeof(T) == typeof(SoundDaytime)) type = VirtualObjectType.zCVobSoundDaytime;
-			else if (typeof(T) == typeof(Trigger)) type = VirtualObjectType.zCTrigger;
-			else if (typeof(T) == typeof(CutsceneTrigger)) type = VirtualObjectType.oCCSTrigger;
-			else if (typeof(T) == typeof(TriggerList)) type = VirtualObjectType.zCTriggerList;
-			else if (typeof(T) == typeof(TriggerScript)) type = VirtualObjectType.oCTriggerScript;
-			else if (typeof(T) == typeof(Mover)) type = VirtualObjectType.zCMover;
-			else if (typeof(T) == typeof(TriggerChangeLevel)) type = VirtualObjectType.oCTriggerChangeLevel;
-			else if (typeof(T) == typeof(TriggerWorldStart)) type = VirtualObjectType.zCTriggerWorldStart;
-			else if (typeof(T) == typeof(TriggerUntouch)) type = VirtualObjectType.zCTriggerUntouch;
-			else if (typeof(T) == typeof(ZoneMusic)) type = VirtualObjectType.oCZoneMusic;
-			else if (typeof(T) == typeof(ZoneMusicDefault)) type = VirtualObjectType.oCZoneMusicDefault;
-			else if (typeof(T) == typeof(ZoneFog)) type = VirtualObjectType.zCZoneZFog;
-			else if (typeof(T) == typeof(ZoneFogDefault)) type = VirtualObjectType.zCZoneZFogDefault;
-			else if (typeof(T) == typeof(ZoneFarPlane)) type = VirtualObjectType.zCZoneVobFarPlane;
-			else if (typeof(T) == typeof(ZoneFarPlaneDefault)) type = VirtualObjectType.zCZoneVobFarPlaneDefault;
-			else throw new NotSupportedException("Only VObjects are supported");
+			if (obj.IsCached()) throw new ArgumentException("Only non-cached objects are supported!");
 
-			return (T)(object)FromNative(Native.ZkVirtualObject_addChild(Handle, type));
+			var val = (VirtualObject)obj;
+			Native.ZkVirtualObject_addChild(Handle, val.Handle);
 		}
 
 		public void RemoveChild(int i)
@@ -673,26 +910,6 @@ namespace ZenKit.Vobs
 			Native.ZkVirtualObject_removeChildren(Handle, (_, vob) => pred(FromNative(vob)), UIntPtr.Zero);
 		}
 
-		public void ResetVisual()
-		{
-			Native.ZkVirtualObject_setVisual(Handle, VisualType.Unknown);
-		}
-
-		public T ResetVisual<T>() where T : IVisual
-		{
-			VisualType type;
-			if (typeof(T) == typeof(VisualCamera)) type = VisualType.Camera;
-			else if (typeof(T) == typeof(VisualDecal)) type = VisualType.Decal;
-			else if (typeof(T) == typeof(VisualDecal)) type = VisualType.Mesh;
-			else if (typeof(T) == typeof(VisualDecal)) type = VisualType.MorphMesh;
-			else if (typeof(T) == typeof(VisualDecal)) type = VisualType.Model;
-			else if (typeof(T) == typeof(VisualDecal)) type = VisualType.MultiResolutionMesh;
-			else if (typeof(T) == typeof(VisualDecal)) type = VisualType.ParticleEffect;
-			else throw new NotSupportedException("Only Visuals are supported");
-
-			return (T)(object)Vobs.Visual.FromNative(Native.ZkVirtualObject_setVisual(Handle, type))!;
-		}
-
 		protected virtual void Delete()
 		{
 			Native.ZkVirtualObject_del(Handle);
@@ -703,8 +920,9 @@ namespace ZenKit.Vobs
 			Delete();
 		}
 
-		public static VirtualObject FromNative(UIntPtr ptr)
+		public static VirtualObject? FromNative(UIntPtr ptr)
 		{
+			if (ptr == UIntPtr.Zero) return null;
 			return Native.ZkVirtualObject_getType(ptr) switch
 			{
 				VirtualObjectType.zCVobLevelCompo => new Level(ptr),

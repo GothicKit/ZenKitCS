@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class Animate : VirtualObject
 	{
+		public Animate() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobAnimate))
+		{
+		}
+
 		public Animate(Read buf, GameVersion version) : base(Native.ZkAnimate_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load animate vob");

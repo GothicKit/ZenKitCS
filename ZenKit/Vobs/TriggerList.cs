@@ -34,6 +34,10 @@ namespace ZenKit.Vobs
 
 	public class TriggerList : Trigger
 	{
+		public TriggerList() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCTriggerList))
+		{
+		}
+
 		public TriggerList(Read buf, GameVersion version) : base(Native.ZkTriggerList_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load TriggerList vob");
@@ -52,6 +56,18 @@ namespace ZenKit.Vobs
 		{
 			get => Native.ZkTriggerList_getMode(Handle);
 			set => Native.ZkTriggerList_setMode(Handle, value);
+		}
+
+		public byte ActTarget
+		{
+			get => Native.ZkTriggerList_getActTarget(Handle);
+			set => Native.ZkTriggerList_setActTarget(Handle, value);
+		}
+
+		public bool SendOnTrigger
+		{
+			get => Native.ZkTriggerList_getSendOnTrigger(Handle);
+			set => Native.ZkTriggerList_setSendOnTrigger(Handle, value);
 		}
 
 		public int TargetCount => (int)Native.ZkTriggerList_getTargetCount(Handle);

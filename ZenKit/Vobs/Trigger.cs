@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class Trigger : VirtualObject
 	{
+		public Trigger() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCTrigger))
+		{
+		}
+
 		public Trigger(Read buf, GameVersion version) : base(Native.ZkTrigger_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Trigger vob");
@@ -101,6 +105,35 @@ namespace ZenKit.Vobs
 			get => TimeSpan.FromSeconds(Native.ZkTrigger_getFireDelaySeconds(Handle));
 			set => Native.ZkTrigger_setFireDelaySeconds(Handle, (float)value.TotalSeconds);
 		}
+
+		public float NextTimeTriggerable
+		{
+			get => Native.ZkTrigger_getNextTimeTriggerable(Handle);
+			set => Native.ZkTrigger_setNextTimeTriggerable(Handle, value);
+		}
+
+		public VirtualObject? OtherVob
+		{
+			get
+			{
+				var val = Native.ZkTrigger_getOtherVob(Handle);
+				return VirtualObject.FromNative(Native.ZkObject_takeRef(val));
+			}
+			set => Native.ZkTrigger_setOtherVob(Handle, value?.Handle ?? UIntPtr.Zero);
+		}
+
+		public int CountCanBeActivated
+		{
+			get => Native.ZkTrigger_getCountCanBeActivated(Handle);
+			set => Native.ZkTrigger_setCountCanBeActivated(Handle, value);
+		}
+
+		public bool IsEnabled
+		{
+			get => Native.ZkTrigger_getIsEnabled(Handle);
+			set => Native.ZkTrigger_setIsEnabled(Handle, value);
+		}
+
 
 		protected override void Delete()
 		{

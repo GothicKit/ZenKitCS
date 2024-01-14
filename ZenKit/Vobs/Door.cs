@@ -4,6 +4,10 @@ namespace ZenKit.Vobs
 {
 	public class Door : InteractiveObject
 	{
+		public Door() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobDoor))
+		{
+		}
+
 		public Door(Read buf, GameVersion version) : base(Native.ZkDoor_load(buf.Handle, version))
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load Door vob");
@@ -17,7 +21,6 @@ namespace ZenKit.Vobs
 		internal Door(UIntPtr handle) : base(handle)
 		{
 		}
-
 
 		public bool IsLocked
 		{
