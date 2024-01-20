@@ -7147,6 +7147,212 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern IntPtr ZkSvmInstance_getOm(UIntPtr slf);
 
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkSaveGame_new(GameVersion version);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveGame_del(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkSaveGame_load(UIntPtr slf, string path);
+
+		[DllImport(DllName)]
+		public static extern bool ZkSaveGame_save(UIntPtr slf, string path, UIntPtr world, string worldName);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkSaveGame_loadCurrentWorld(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkSaveGame_loadWorld(UIntPtr slf, string name);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkSaveGame_getMetadata(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkSaveGame_getState(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkSaveGame_getThumbnail(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveGame_setThumbnail(UIntPtr slf, UIntPtr texture);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSaveMetadata_getTitle(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSaveMetadata_getWorld(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getTimeDay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getTimeHour(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getTimeMinute(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSaveMetadata_getSaveDate(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getVersionMajor(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getVersionMinor(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getPlayTimeSeconds(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getVersionPoint(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveMetadata_getVersionInt(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSaveMetadata_getVersionAppName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setTitle(UIntPtr slf, string title);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setWorld(UIntPtr slf, string world);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setTimeDay(UIntPtr slf, int timeDay);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setTimeHour(UIntPtr slf, int timeHour);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setTimeMinute(UIntPtr slf, int timeMinute);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setSaveDate(UIntPtr slf, string saveDate);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setVersionMajor(UIntPtr slf, int versionMajor);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setVersionMinor(UIntPtr slf, int versionMinor);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setPlayTimeSeconds(UIntPtr slf, int playTimeSeconds);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setVersionPoint(UIntPtr slf, int versionPoint);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setVersionInt(UIntPtr slf, int versionInt);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveMetadata_setVersionAppName(UIntPtr slf, string versionAppName);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveState_getDay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveState_getHour(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSaveState_getMinute(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setDay(UIntPtr slf, int day);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setHour(UIntPtr slf, int hour);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setMinute(UIntPtr slf, int minute);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkSaveState_getMissionCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_getMission(UIntPtr slf, ulong i, out IntPtr name, out int id, out bool av,
+			out int statusIndex);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setMission(UIntPtr slf, ulong i, string name, int id, bool av,
+			int statusIndex);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_addMission(UIntPtr slf, string name, int id, bool av, int statusIndex);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_removeMission(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_clearMissions(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkSaveState_getInfoStateCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_getInfoState(UIntPtr slf, ulong i, out IntPtr name, out bool told);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setInfoState(UIntPtr slf, ulong i, string name, bool told);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_addInfoState(UIntPtr slf, string name, bool told);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_removeInfoState(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_clearInfoStates(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkSaveState_getSymbolStateCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_getSymbolState(UIntPtr slf, ulong i, out IntPtr name, out IntPtr values,
+			out ulong valueCount);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setSymbolState(UIntPtr slf, ulong i, string name, int[] values,
+			ulong valueCount);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_addSymbolState(UIntPtr slf, string name, int[] values, ulong valueCount);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_removeSymbolState(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_clearSymbolStates(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkSaveState_getLogTopicCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_getLogTopic(UIntPtr slf, ulong i, out IntPtr description,
+			out SaveTopicSection section, out SaveTopicStatus status);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setLogTopic(UIntPtr slf, ulong i, string description,
+			SaveTopicSection section, SaveTopicStatus status);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_addLogTopic(UIntPtr slf, string description, SaveTopicSection section,
+			SaveTopicStatus status);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_removeLogTopic(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_clearLogTopics(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSaveState_getGuildAttitudes(UIntPtr slf, out ulong dimension);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_setGuildAttitudes(UIntPtr slf, byte[] attitudes, ulong dimension);
+
+
 		public class Callbacks
 		{
 			[UnmanagedFunctionPointer(CallingConvention.Cdecl)]

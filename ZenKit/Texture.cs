@@ -92,44 +92,44 @@ namespace ZenKit
 	public class Texture : ITexture
 	{
 		private readonly bool _delete = true;
-		private readonly UIntPtr _handle;
+		internal readonly UIntPtr Handle;
 
 		public Texture(string path)
 		{
-			_handle = Native.ZkTexture_loadPath(path);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
+			Handle = Native.ZkTexture_loadPath(path);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
 		}
 
 		public Texture(Read buf)
 		{
-			_handle = Native.ZkTexture_load(buf.Handle);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
+			Handle = Native.ZkTexture_load(buf.Handle);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
 		}
 
 		public Texture(Vfs vfs, string name)
 		{
-			_handle = Native.ZkTexture_loadVfs(vfs.Handle, name);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
+			Handle = Native.ZkTexture_loadVfs(vfs.Handle, name);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
 		}
 
 		internal Texture(UIntPtr handle)
 		{
-			_handle = handle;
+			Handle = handle;
 			_delete = false;
 		}
 
-		public TextureFormat Format => Native.ZkTexture_getFormat(_handle);
-		public int Width => (int)Native.ZkTexture_getWidth(_handle);
-		public int Height => (int)Native.ZkTexture_getHeight(_handle);
-		public int WidthRef => (int)Native.ZkTexture_getWidthRef(_handle);
-		public int HeightRef => (int)Native.ZkTexture_getHeightRef(_handle);
-		public int MipmapCount => (int)Native.ZkTexture_getMipmapCount(_handle);
+		public TextureFormat Format => Native.ZkTexture_getFormat(Handle);
+		public int Width => (int)Native.ZkTexture_getWidth(Handle);
+		public int Height => (int)Native.ZkTexture_getHeight(Handle);
+		public int WidthRef => (int)Native.ZkTexture_getWidthRef(Handle);
+		public int HeightRef => (int)Native.ZkTexture_getHeightRef(Handle);
+		public int MipmapCount => (int)Native.ZkTexture_getMipmapCount(Handle);
 
 		public Color AverageColor
 		{
 			get
 			{
-				var color = Native.ZkTexture_getAverageColor(_handle);
+				var color = Native.ZkTexture_getAverageColor(Handle);
 				return Color.FromArgb((int)((color >> 24) & 0xFF), (int)((color >> 16) & 0xFF),
 					(int)((color >> 8) & 0xFF),
 					(int)(color & 0xFF));
@@ -142,10 +142,10 @@ namespace ZenKit
 			{
 				if (Format != TextureFormat.P8) return null;
 
-				var palette = new Color[Native.ZkTexture_getPaletteSize(_handle)];
+				var palette = new Color[Native.ZkTexture_getPaletteSize(Handle)];
 
 				for (var i = 0; i < palette.Length; ++i)
-					palette[i] = Native.ZkTexture_getPaletteItem(_handle, (ulong)i).ToColor();
+					palette[i] = Native.ZkTexture_getPaletteItem(Handle, (ulong)i).ToColor();
 				return palette;
 			}
 		}
@@ -196,29 +196,29 @@ namespace ZenKit
 
 		public byte[] GetMipmapRaw(int level)
 		{
-			return Native.ZkTexture_getMipmapRaw(_handle, (ulong)level, out var size).MarshalAsArray<byte>(size);
+			return Native.ZkTexture_getMipmapRaw(Handle, (ulong)level, out var size).MarshalAsArray<byte>(size);
 		}
 
 		public byte[] GetMipmapRgba(int level)
 		{
 			var data = new byte[GetWidth(level) * GetHeight(level) * 4];
-			Native.ZkTexture_getMipmapRgba(_handle, (ulong)level, data, (ulong)data.Length);
+			Native.ZkTexture_getMipmapRgba(Handle, (ulong)level, data, (ulong)data.Length);
 			return data;
 		}
 
 		public int GetWidth(int level)
 		{
-			return (int)Native.ZkTexture_getWidthMipmap(_handle, (ulong)level);
+			return (int)Native.ZkTexture_getWidthMipmap(Handle, (ulong)level);
 		}
 
 		public int GetHeight(int level)
 		{
-			return (int)Native.ZkTexture_getHeightMipmap(_handle, (ulong)level);
+			return (int)Native.ZkTexture_getHeightMipmap(Handle, (ulong)level);
 		}
 
 		~Texture()
 		{
-			if (_delete) Native.ZkTexture_del(_handle);
+			if (_delete) Native.ZkTexture_del(Handle);
 		}
 	}
 }

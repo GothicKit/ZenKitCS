@@ -43,30 +43,35 @@ namespace ZenKit
 
 	public class World : IWorld
 	{
-		private readonly UIntPtr _handle;
+		internal readonly UIntPtr Handle;
 
 		public World(string path)
 		{
-			_handle = Native.ZkWorld_loadPath(path);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load world");
+			Handle = Native.ZkWorld_loadPath(path);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load world");
 		}
 
 		public World(Read buf)
 		{
-			_handle = Native.ZkWorld_load(buf.Handle);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load world");
+			Handle = Native.ZkWorld_load(buf.Handle);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load world");
 		}
 
 		public World(Vfs vfs, string name)
 		{
-			_handle = Native.ZkWorld_loadVfs(vfs.Handle, name);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load world");
+			Handle = Native.ZkWorld_loadVfs(vfs.Handle, name);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load world");
 		}
 
-		public IMesh Mesh => new Mesh(Native.ZkWorld_getMesh(_handle));
-		public IBspTree BspTree => new BspTree(Native.ZkWorld_getBspTree(_handle));
-		public IWayNet WayNet => new WayNet(Native.ZkWorld_getWayNet(_handle));
-		public int RootObjectCount => (int)Native.ZkWorld_getRootObjectCount(_handle);
+		internal World(UIntPtr handle)
+		{
+			Handle = handle;
+		}
+
+		public IMesh Mesh => new Mesh(Native.ZkWorld_getMesh(Handle));
+		public IBspTree BspTree => new BspTree(Native.ZkWorld_getBspTree(Handle));
+		public IWayNet WayNet => new WayNet(Native.ZkWorld_getWayNet(Handle));
+		public int RootObjectCount => (int)Native.ZkWorld_getRootObjectCount(Handle);
 
 		public List<IVirtualObject> RootObjects
 		{
@@ -97,13 +102,13 @@ namespace ZenKit
 
 		public IVirtualObject GetRootObject(int i)
 		{
-			var handle = Native.ZkWorld_getRootObject(_handle, (ulong)i);
+			var handle = Native.ZkWorld_getRootObject(Handle, (ulong)i);
 			return VirtualObject.FromNative(Native.ZkObject_takeRef(handle));
 		}
 
 		~World()
 		{
-			Native.ZkWorld_del(_handle);
+			Native.ZkWorld_del(Handle);
 		}
 	}
 }
