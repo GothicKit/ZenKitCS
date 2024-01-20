@@ -6,7 +6,7 @@
         <RootNamespace>ZenKit</RootNamespace>
         <PackRelease>true</PackRelease>
         <PackageId>ZenKit</PackageId>
-        <Version>0.1.11</Version>
+        <Version>0.1.12</Version>
         <Authors>Luis Michaelis</Authors>
         <Company>GothicKit</Company>
         <Copyright>© 2023. GothicKit Contributors</Copyright>
