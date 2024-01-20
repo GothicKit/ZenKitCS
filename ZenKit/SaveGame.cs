@@ -42,6 +42,7 @@ namespace ZenKit
 		public string Description;
 		public SaveTopicSection Section;
 		public SaveTopicStatus Status;
+		public List<string> Entries;
 	}
 
 
@@ -369,6 +370,14 @@ namespace ZenKit
 
 			Native.ZkSaveState_getLogTopic(_handle, (ulong)i, out var name, out topic.Section, out topic.Status);
 			topic.Description = name.MarshalAsString() ?? string.Empty;
+			topic.Entries = new List<string>();
+
+			var count = Native.ZkSaveState_getLogTopicEntryCount(_handle, (ulong)i);
+			for (var j = 0u; j < count; ++j) {
+				var s = Native.ZkSaveState_getLogTopicEntry(_handle, (ulong)i, j).MarshalAsString();
+				if (s == null) continue;
+				topic.Entries.Add(s);
+			}
 
 			return topic;
 		}
@@ -376,11 +385,15 @@ namespace ZenKit
 		public void SetLogTopic(int i, SaveLogTopic state)
 		{
 			Native.ZkSaveState_setLogTopic(_handle, (ulong)i, state.Description, state.Section, state.Status);
+			Native.ZkSaveState_clearLogTopicEntries(_handle, (ulong)i);
+			state.Entries.ForEach(v => Native.ZkSaveState_addLogTopicEntry(_handle, (ulong)i, v));
 		}
 
 		public void AddLogTopic(SaveLogTopic state)
 		{
 			Native.ZkSaveState_addLogTopic(_handle, state.Description, state.Section, state.Status);
+			Native.ZkSaveState_clearLogTopicEntries(_handle, (ulong)(LogTopicCount - 1));
+			state.Entries.ForEach(v => Native.ZkSaveState_addLogTopicEntry(_handle, (ulong)(LogTopicCount - 1), v));
 		}
 
 		public void RemoveLogTopic(int i)

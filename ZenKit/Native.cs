@@ -7352,6 +7352,17 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkSaveState_setGuildAttitudes(UIntPtr slf, byte[] attitudes, ulong dimension);
 
+		[DllImport(DllName)]
+		public static extern ulong ZkSaveState_getLogTopicEntryCount(UIntPtr slf, ulong iTopic);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkSaveState_getLogTopicEntry(UIntPtr slf, ulong iTopic, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_addLogTopicEntry(UIntPtr slf, ulong iTopic, string description);
+
+		[DllImport(DllName)]
+		public static extern void ZkSaveState_clearLogTopicEntries(UIntPtr slf, ulong iTopic);
 
 		public class Callbacks
 		{
