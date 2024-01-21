@@ -6,10 +6,10 @@
         <RootNamespace>ZenKit</RootNamespace>
         <PackRelease>true</PackRelease>
         <PackageId>ZenKit</PackageId>
-        <Version>0.1.12</Version>
+        <Version>0.1.13</Version>
         <Authors>Luis Michaelis</Authors>
         <Company>GothicKit</Company>
-        <Copyright>© 2023. GothicKit Contributors</Copyright>
+        <Copyright>© 2023-2024 GothicKit Contributors</Copyright>
         <PackageTags>gothic gothic2 file-formats file-format-library zengin wrapper library parser gothickit</PackageTags>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/GothicKit/ZenKitCS</PackageProjectUrl>
