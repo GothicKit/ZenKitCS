@@ -4,6 +4,26 @@ using System.Numerics;
 
 namespace ZenKit.Vobs
 {
+	public enum NpcNewsSpread
+	{
+		DontSpread = 0,
+		FriendlyTowardsVictim = 1,
+		FriendlyTowardsWitness = 2,
+		FriendlyTowardsOffender = 3,
+		SameGuildVictim = 4,
+	}
+
+	public enum NpcNewsId
+	{
+		Murder = 200,
+		Attack = 195,
+		Theft = 190,
+		Defeat = 185,
+		Nerve = 180,
+		Interfere = 175,
+		HasDefeated = 170,
+	}
+
 	public class Talent
 	{
 		internal readonly UIntPtr Handle;
@@ -78,6 +98,71 @@ namespace ZenKit.Vobs
 		{
 			get => Native.ZkNpcSlot_getInInventory(handle);
 			set => Native.ZkNpcSlot_setInInventory(handle, value);
+		}
+	}
+
+	public class News
+	{
+		private readonly UIntPtr handle;
+
+
+		internal News(UIntPtr handle)
+		{
+			this.handle = handle;
+		}
+
+		public bool Told
+		{
+			get => Native.ZkNpcNews_getTold(handle);
+			set => Native.ZkNpcNews_setTold(handle, value);
+		}
+
+		public float SpreadTime
+		{
+			get => Native.ZkNpcNews_getSpreadTime(handle);
+			set => Native.ZkNpcNews_setSpreadTime(handle, value);
+		}
+
+		public NpcNewsSpread SpreadType
+		{
+			get => Native.ZkNpcNews_getSpreadType(handle);
+			set => Native.ZkNpcNews_setSpreadType(handle, value);
+		}
+
+		public NpcNewsId NewsId
+		{
+			get => Native.ZkNpcNews_getNewsId(handle);
+			set => Native.ZkNpcNews_setNewsId(handle, value);
+		}
+
+		public bool Gossip
+		{
+			get => Native.ZkNpcNews_getGossip(handle);
+			set => Native.ZkNpcNews_setGossip(handle, value);
+		}
+
+		public bool GuildVictim
+		{
+			get => Native.ZkNpcNews_getGuildVictim(handle);
+			set => Native.ZkNpcNews_setGuildVictim(handle, value);
+		}
+
+		public string WitnessName
+		{
+			get => Native.ZkNpcNews_getWitnessName(handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkNpcNews_setWitnessName(handle, value);
+		}
+
+		public string OffenderName
+		{
+			get => Native.ZkNpcNews_getOffenderName(handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkNpcNews_setOffenderName(handle, value);
+		}
+
+		public string VictimName
+		{
+			get => Native.ZkNpcNews_getVictimName(handle).MarshalAsString() ?? string.Empty;
+			set => Native.ZkNpcNews_setVictimName(handle, value);
 		}
 	}
 
@@ -569,6 +654,43 @@ namespace ZenKit.Vobs
 		public Slot AddSlot()
 		{
 			return new Slot(Native.ZkNpc_addSlot(Handle));
+		}
+
+		public int NewsCount => (int)Native.ZkNpc_getNewsCount(Handle);
+
+		public List<News> News
+		{
+			get
+			{
+				var items = new List<News>();
+
+				for (var i = 0; i < ItemCount; ++i)
+				{
+					items.Add(GetNews(i));
+				}
+
+				return items;
+			}
+		}
+
+		public News GetNews(int i)
+		{
+			return new News(Native.ZkNpc_getNews(Handle, (ulong)i));
+		}
+
+		public void ClearNews()
+		{
+			Native.ZkNpc_clearNews(Handle);
+		}
+
+		public void RemoveNews(int i)
+		{
+			Native.ZkNpc_removeSlot(Handle, (ulong)i);
+		}
+
+		public News AddNews()
+		{
+			return new News(Native.ZkNpc_addNews(Handle));
 		}
 
 		public const int ProtectionCount = 8;

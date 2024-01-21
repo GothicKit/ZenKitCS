@@ -3534,6 +3534,21 @@ namespace ZenKit
 		public static extern UIntPtr ZkNpc_addSlot(UIntPtr slf);
 
 		[DllImport(DllName)]
+		public static extern ulong ZkNpc_getNewsCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkNpc_getNews(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpc_clearNews(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpc_removeNews(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkNpc_addNews(UIntPtr slf);
+
+		[DllImport(DllName)]
 		public static extern int ZkNpc_getProtection(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
@@ -3617,6 +3632,59 @@ namespace ZenKit
 		[DllImport(DllName)]
 		public static extern void ZkNpcSlot_setInInventory(UIntPtr slf, bool inInventory);
 
+		[DllImport(DllName)]
+		public static extern bool ZkNpcNews_getTold(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkNpcNews_getSpreadTime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern NpcNewsSpread ZkNpcNews_getSpreadType(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern NpcNewsId ZkNpcNews_getNewsId(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkNpcNews_getGossip(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkNpcNews_getGuildVictim(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkNpcNews_getWitnessName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkNpcNews_getOffenderName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern IntPtr ZkNpcNews_getVictimName(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setTold(UIntPtr slf, bool told);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setSpreadTime(UIntPtr slf, float spreadTime);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setSpreadType(UIntPtr slf, NpcNewsSpread spreadType);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setNewsId(UIntPtr slf, NpcNewsId newsId);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setGossip(UIntPtr slf, bool gossip);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setGuildVictim(UIntPtr slf, bool guildVictim);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setWitnessName(UIntPtr slf, string witnessName);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setOffenderName(UIntPtr slf, string offenderName);
+
+		[DllImport(DllName)]
+		public static extern void ZkNpcNews_setVictimName(UIntPtr slf, string victimName);
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkDaedalusScript_load(UIntPtr buf);
