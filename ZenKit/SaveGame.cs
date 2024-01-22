@@ -5,15 +5,16 @@ namespace ZenKit
 {
 	public enum SaveTopicSection
 	{
-		Quests = 0,
-		Infos = 1
+		Missions = 0,
+		Notes = 1
 	}
 
 	public enum SaveTopicStatus
 	{
-		Active = 1,
-		Completed = 2,
-		Failed = 3,
+		Free = 0,
+		Running = 1,
+		Success = 2,
+		Failure = 3,
 		Obsolete = 4
 	}
 
@@ -21,7 +22,7 @@ namespace ZenKit
 	{
 		public string Name;
 		public int Id;
-		public bool Av;
+		public bool Available;
 		public int StatusIndex;
 	}
 
@@ -275,7 +276,7 @@ namespace ZenKit
 		{
 			var mission = new SaveMission();
 
-			Native.ZkSaveState_getMission(_handle, (ulong)i, out var name, out mission.Id, out mission.Av,
+			Native.ZkSaveState_getMission(_handle, (ulong)i, out var name, out mission.Id, out mission.Available,
 				out mission.StatusIndex);
 			mission.Name = name.MarshalAsString() ?? string.Empty;
 
@@ -284,12 +285,12 @@ namespace ZenKit
 
 		public void SetMission(int i, SaveMission mission)
 		{
-			Native.ZkSaveState_setMission(_handle, (ulong)i, mission.Name, mission.Id, mission.Av, mission.StatusIndex);
+			Native.ZkSaveState_setMission(_handle, (ulong)i, mission.Name, mission.Id, mission.Available, mission.StatusIndex);
 		}
 
 		public void AddMission(SaveMission mission)
 		{
-			Native.ZkSaveState_addMission(_handle, mission.Name, mission.Id, mission.Av, mission.StatusIndex);
+			Native.ZkSaveState_addMission(_handle, mission.Name, mission.Id, mission.Available, mission.StatusIndex);
 		}
 
 		public void RemoveMission(int i)
