@@ -7,6 +7,7 @@ namespace ZenKit.Util
 		///     disassociated from the underlying native implementation.
 		/// </summary>
 		/// <returns>The underlying native object in a pure C# representation.</returns>
+		/// <exception cref="NativeAccessError">The native backend failed to return a valid value.</exception>
 		public T Cache();
 
 		/// <summary>

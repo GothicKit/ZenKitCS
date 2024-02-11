@@ -43,9 +43,12 @@ namespace ZenKit
 
 	internal static class Marshalling
 	{
-		public static string? MarshalAsString(this IntPtr ptr)
+		public static string MarshalAsString(this IntPtr ptr)
 		{
-			if (ptr == IntPtr.Zero) return null;
+			if (ptr == IntPtr.Zero)
+			{
+				throw new NativeAccessError("String conversion failed");
+			}
 
 			uint length = 0;
 			while (Marshal.ReadByte(ptr, (int)length) != 0) length += 1;
