@@ -449,16 +449,16 @@ namespace ZenKit
 			return Native.ZkSaveGame_save(_handle, path, world.Handle, worldName);
 		}
 
-		public World LoadWorld()
+		public World? LoadWorld()
 		{
 			var handle = Native.ZkSaveGame_loadCurrentWorld(_handle);
-			return new World(handle);
+			return handle == UIntPtr.Zero ? null : new World(handle);
 		}
 
-		public World LoadWorld(string name)
+		public World? LoadWorld(string name)
 		{
 			var handle = Native.ZkSaveGame_loadWorld(_handle, name);
-			return new World(handle);
+			return handle == UIntPtr.Zero ? null : new World(handle);
 		}
 	}
 }
