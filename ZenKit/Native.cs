@@ -685,6 +685,18 @@ namespace ZenKit
 		public static extern ulong ZkTexture_getMipmapRgba(UIntPtr slf, ulong level, byte[] buf, ulong size);
 
 		[DllImport(DllName)]
+		public static extern UIntPtr ZkTextureBuilder_new(ulong width, ulong height);
+
+		[DllImport(DllName)]
+		public static extern void ZkTextureBuilder_del(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkTextureBuilder_addMipmap(UIntPtr slf, byte[] buf, ulong size, TextureFormat fmt);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkTextureBuilder_build(UIntPtr slf, TextureFormat fmt);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkMorphMesh_load(UIntPtr buf);
 
 		[DllImport(DllName)]

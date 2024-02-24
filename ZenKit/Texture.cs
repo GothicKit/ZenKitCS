@@ -112,10 +112,10 @@ namespace ZenKit
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load texture");
 		}
 
-		internal Texture(UIntPtr handle)
+		internal Texture(UIntPtr handle, bool delete = false)
 		{
 			Handle = handle;
-			_delete = false;
+			_delete = delete;
 		}
 
 		public TextureFormat Format => Native.ZkTexture_getFormat(Handle);
@@ -219,6 +219,30 @@ namespace ZenKit
 		~Texture()
 		{
 			if (_delete) Native.ZkTexture_del(Handle);
+		}
+	}
+
+	public class TextureBuilder
+	{
+		private readonly UIntPtr _handle;
+		public TextureBuilder(int width, int height)
+		{
+			_handle = Native.ZkTextureBuilder_new((ulong)width, (ulong)height);
+		}
+
+		~TextureBuilder()
+		{
+			Native.ZkTextureBuilder_del(_handle);
+		}
+
+		public bool AddMipmap(byte[] image, TextureFormat fmt)
+		{
+			return Native.ZkTextureBuilder_addMipmap(_handle, image, (ulong)image.LongLength, fmt);
+		}
+
+		public Texture Build(TextureFormat fmt)
+		{
+			return new Texture(Native.ZkTextureBuilder_build(_handle, fmt), true);
 		}
 	}
 }
