@@ -1260,6 +1260,162 @@ namespace ZenKit
 		public static extern UIntPtr ZkWorld_getRootObject(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
+		public static extern void ZkWorld_addRootObject(UIntPtr slf, UIntPtr val);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_clearRootObjects(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkWorld_getNpcSpawnEnabled(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_setNpcSpawnEnabled(UIntPtr slf, bool val);
+
+		[DllImport(DllName)]
+		public static extern int ZkWorld_getNpcSpawnFlags(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_setNpcSpawnFlags(UIntPtr slf, int val);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkWorld_getNpcCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkWorld_getNpc(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_clearNpcs(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_removeNpc(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_addNpc(UIntPtr slf, UIntPtr npc);
+
+		[DllImport(DllName)]
+		public static extern ulong ZkWorld_getSpawnLocationCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern ZkSpawnLocation ZkWorld_getSpawnLocation(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_clearSpawnLocations(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_addSpawnLocation(UIntPtr slf, ZkSpawnLocation val);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_removeSpawnLoaction(UIntPtr slf, ulong i);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkWorld_getCutscenePlayer(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_setCutscenePlayer(UIntPtr slf, UIntPtr val);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkWorld_getSkyController(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkWorld_setSkyController(UIntPtr slf, UIntPtr val);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkCutscenePlayer_new();
+
+		[DllImport(DllName)]
+		public static extern void ZkCutscenePlayer_del(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkCutscenePlayer_getLastProcessDay(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkCutscenePlayer_getLastProcessHour(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkCutscenePlayer_getPlayListCount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutscenePlayer_setLastProcessDay(UIntPtr slf, int val);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutscenePlayer_setLastProcessHour(UIntPtr slf, int val);
+
+		[DllImport(DllName)]
+		public static extern void ZkCutscenePlayer_setPlayListCount(UIntPtr slf, int val);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkSkyController_new();
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_del(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getMasterTime(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getRainWeight(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getRainStart(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getRainStop(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getRainSctTimer(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getRainSndVol(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getDayCtr(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern float ZkSkyController_getFadeScale(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkSkyController_getRenderLightning(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern bool ZkSkyController_getIsRaining(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern int ZkSkyController_getRainCtr(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setMasterTime(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setRainWeight(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setRainStart(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setRainStop(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setRainSctTimer(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setRainSndVol(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setDayCtr(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setFadeScale(UIntPtr slf, float val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setRenderLightning(UIntPtr slf, bool val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setIsRaining(UIntPtr slf, bool val);
+
+		[DllImport(DllName)]
+		public static extern void ZkSkyController_setRainCtr(UIntPtr slf, int val);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkVirtualObject_new(VirtualObjectType type);
 
 		[DllImport(DllName)]
@@ -7653,6 +7809,14 @@ namespace ZenKit
 				public TellFn tell;
 				public EofFn eof;
 				public DelFn del;
+			}
+
+			[StructLayout(LayoutKind.Sequential)]
+			public struct ZkSpawnLocation
+			{
+				public UIntPtr Npc;
+				public Vector3 Position;
+				public float Timer;
 			}
 		}
 	}
