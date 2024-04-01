@@ -573,7 +573,7 @@ namespace ZenKit.Daedalus
 		public string YouStoleFromGur =>
 			Native.ZkSvmInstance_getYouStoleFromGur(Handle).MarshalAsString() ?? string.Empty;
 
-		public string StoleUromMage => Native.ZkSvmInstance_getStoleUromMage(Handle).MarshalAsString() ?? string.Empty;
+		public string StoleFromMage => Native.ZkSvmInstance_getStoleUromMage(Handle).MarshalAsString() ?? string.Empty;
 
 		public string YouKilledmyfriend =>
 			Native.ZkSvmInstance_getYouKilledmyfriend(Handle).MarshalAsString() ?? string.Empty;
