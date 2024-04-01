@@ -211,7 +211,7 @@ namespace ZenKit
 			else if (typeof(T) == typeof(FightAiInstance)) type = DaedalusInstanceType.FightAi;
 			else if (typeof(T) == typeof(SoundEffectInstance)) type = DaedalusInstanceType.SoundEffect;
 			else if (typeof(T) == typeof(SoundSystemInstance)) type = DaedalusInstanceType.SoundSystem;
-			else if (typeof(T) == typeof(InvalidOperationException)) type = DaedalusInstanceType.Svm;
+			else if (typeof(T) == typeof(SvmInstance)) type = DaedalusInstanceType.Svm;
 			else throw new NotSupportedException("Must be DaedalusInstance");
 
 			var ptr = DaedalusInstance.FromNative(Native.ZkDaedalusVm_initInstance(Handle, symbol.Handle, type)) ??
