@@ -1240,6 +1240,15 @@ namespace ZenKit
 
 		[DllImport(DllName)]
 		public static extern UIntPtr ZkWorld_loadVfs(UIntPtr vfs, string name);
+        
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkWorld_loadVersioned(UIntPtr buf, GameVersion version);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkWorld_loadPathVersioned(string path, GameVersion version);
+
+		[DllImport(DllName)]
+		public static extern UIntPtr ZkWorld_loadVfsVersioned(UIntPtr vfs, string name, GameVersion version);
 
 		[DllImport(DllName)]
 		public static extern void ZkWorld_del(UIntPtr slf);

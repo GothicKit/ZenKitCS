@@ -177,21 +177,21 @@ namespace ZenKit
 	{
 		internal readonly UIntPtr Handle;
 
-		public World(string path)
+		public World(string path, GameVersion? version = null)
 		{
-			Handle = Native.ZkWorld_loadPath(path);
+			Handle = version == null ? Native.ZkWorld_loadPath(path) : Native.ZkWorld_loadPathVersioned(path, version.Value);
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load world");
 		}
 
-		public World(Read buf)
+		public World(Read buf, GameVersion? version = null)
 		{
-			Handle = Native.ZkWorld_load(buf.Handle);
+			Handle = version == null ? Native.ZkWorld_load(buf.Handle) : Native.ZkWorld_loadVersioned(buf.Handle, version.Value);
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load world");
 		}
 
-		public World(Vfs vfs, string name)
+		public World(Vfs vfs, string name, GameVersion? version = null)
 		{
-			Handle = Native.ZkWorld_loadVfs(vfs.Handle, name);
+			Handle = version == null ? Native.ZkWorld_loadVfs(vfs.Handle, name) : Native.ZkWorld_loadVfsVersioned(vfs.Handle, name, version.Value);
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load world");
 		}
 

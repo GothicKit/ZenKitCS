@@ -22,6 +22,7 @@ public class TestWorld
 	[Category("Proprietary")]
 	public void TestLoad()
 	{
+		_ = new World("./Samples/world.proprietary.zen", GameVersion.Gothic1);
 		var wld = new World("./Samples/world.proprietary.zen");
 
 		var mesh = wld.Mesh;
