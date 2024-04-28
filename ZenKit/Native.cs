@@ -954,7 +954,7 @@ namespace ZenKit
 		public static extern float ZkAnimation_getBlendOut(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern int ZkAnimation_getFlags(UIntPtr slf);
+		public static extern AnimationFlags ZkAnimation_getFlags(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkAnimation_getModel(UIntPtr slf);
@@ -1119,7 +1119,7 @@ namespace ZenKit
 		public static extern float ZkAnimationCombine_getBlendOut(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern uint ZkAnimationCombine_getFlags(UIntPtr slf);
+		public static extern AnimationFlags ZkAnimationCombine_getFlags(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkAnimationCombine_getModel(UIntPtr slf);
@@ -1155,7 +1155,7 @@ namespace ZenKit
 		public static extern float ZkAnimationAlias_getBlendOut(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern uint ZkAnimationAlias_getFlags(UIntPtr slf);
+		public static extern AnimationFlags ZkAnimationAlias_getFlags(UIntPtr slf);
 
 		[DllImport(DllName)]
 		public static extern IntPtr ZkAnimationAlias_getAlias(UIntPtr slf);

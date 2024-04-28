@@ -28,7 +28,7 @@ public class TestModelScript
 		Assert.That(anims[0].Next, Is.EqualTo("aniNext1"));
 		Assert.That(anims[0].BlendIn, Is.EqualTo(4.2f));
 		Assert.That(anims[0].BlendOut, Is.EqualTo(0.5f));
-		Assert.That(anims[0].Flags, Is.EqualTo(AnimationFlag.Move | AnimationFlag.Idle));
+		Assert.That(anims[0].Flags, Is.EqualTo(AnimationFlags.Move | AnimationFlags.Idle));
 		Assert.That(anims[0].Model, Is.EqualTo("aniModel1"));
 		Assert.That(anims[0].Direction, Is.EqualTo(AnimationDirection.Forward));
 		Assert.That(anims[0].FirstFrame, Is.EqualTo(221));
@@ -56,7 +56,7 @@ public class TestModelScript
 		Assert.That(anims[1].Next, Is.EqualTo("aniNext2"));
 		Assert.That(anims[1].BlendIn, Is.EqualTo(9.0f));
 		Assert.That(anims[1].BlendOut, Is.EqualTo(0.0f));
-		Assert.That(anims[1].Flags, Is.EqualTo(AnimationFlag.Move));
+		Assert.That(anims[1].Flags, Is.EqualTo(AnimationFlags.Move));
 		Assert.That(anims[1].Model, Is.EqualTo("aniModel2"));
 		Assert.That(anims[1].Direction, Is.EqualTo(AnimationDirection.Backward));
 		Assert.That(anims[1].FirstFrame, Is.EqualTo(222));
@@ -158,7 +158,7 @@ public class TestModelScript
 		Assert.That(aliases[0].Next, Is.EqualTo("aliasNext1"));
 		Assert.That(aliases[0].BlendIn, Is.EqualTo(100.1f));
 		Assert.That(aliases[0].BlendOut, Is.EqualTo(200.2f));
-		Assert.That(aliases[0].Flags, Is.EqualTo(AnimationFlag.Rotate | AnimationFlag.Queue));
+		Assert.That(aliases[0].Flags, Is.EqualTo(AnimationFlags.Rotate | AnimationFlags.Queue));
 		Assert.That(aliases[0].Alias, Is.EqualTo("aliasAlias1"));
 		Assert.That(aliases[0].Direction, Is.EqualTo(AnimationDirection.Forward));
 		Assert.That(aliases[1].Name, Is.EqualTo("aliasName2"));
@@ -166,7 +166,7 @@ public class TestModelScript
 		Assert.That(aliases[1].Next, Is.EqualTo("aliasNext2"));
 		Assert.That(aliases[1].BlendIn, Is.EqualTo(101.1f));
 		Assert.That(aliases[1].BlendOut, Is.EqualTo(201.2f));
-		Assert.That(aliases[1].Flags, Is.EqualTo(AnimationFlag.Fly));
+		Assert.That(aliases[1].Flags, Is.EqualTo(AnimationFlags.Fly));
 		Assert.That(aliases[1].Alias, Is.EqualTo("aliasAlias2"));
 		Assert.That(aliases[1].Direction, Is.EqualTo(AnimationDirection.Backward));
 
@@ -177,7 +177,7 @@ public class TestModelScript
 		Assert.That(combines[0].Next, Is.EqualTo("combNext1"));
 		Assert.That(combines[0].BlendIn, Is.EqualTo(102.1f));
 		Assert.That(combines[0].BlendOut, Is.EqualTo(202.2f));
-		Assert.That(combines[0].Flags, Is.EqualTo(AnimationFlag.Move));
+		Assert.That(combines[0].Flags, Is.EqualTo(AnimationFlags.Move));
 		Assert.That(combines[0].Model, Is.EqualTo("combModel1"));
 		Assert.That(combines[0].LastFrame, Is.EqualTo(226));
 		Assert.That(combines[1].Name, Is.EqualTo("combName2"));
@@ -185,7 +185,7 @@ public class TestModelScript
 		Assert.That(combines[1].Next, Is.EqualTo("combNext2"));
 		Assert.That(combines[1].BlendIn, Is.EqualTo(103.1f));
 		Assert.That(combines[1].BlendOut, Is.EqualTo(203.2f));
-		Assert.That(combines[1].Flags, Is.EqualTo(AnimationFlag.Idle));
+		Assert.That(combines[1].Flags, Is.EqualTo(AnimationFlags.Idle));
 		Assert.That(combines[1].Model, Is.EqualTo("combModel2"));
 		Assert.That(combines[1].LastFrame, Is.EqualTo(227));
 

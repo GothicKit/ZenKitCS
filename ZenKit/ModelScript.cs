@@ -5,15 +5,16 @@ using ZenKit.Util;
 namespace ZenKit
 {
 	[Serializable]
-	public class AnimationFlag
+	[Flags]
+	public enum AnimationFlags
 	{
-		public static int None = 0;
-		public static int Move = 1;
-		public static int Rotate = 2;
-		public static int Queue = 4;
-		public static int Fly = 8;
-		public static int Idle = 16;
-		public static int InPlace = 32;
+		None = 0,
+		Move = 1,
+		Rotate = 2,
+		Queue = 4,
+		Fly = 8,
+		Idle = 16,
+		InPlace = 32,
 	}
 
 	[Serializable]
@@ -349,7 +350,7 @@ namespace ZenKit
 		string Next { get; }
 		float BlendIn { get; }
 		float BlendOut { get; }
-		int Flags { get; }
+		AnimationFlags Flags { get; }
 		string Model { get; }
 		AnimationDirection Direction { get; }
 		int FirstFrame { get; }
@@ -388,7 +389,7 @@ namespace ZenKit
 		public string Next { get; set; }
 		public float BlendIn { get; set; }
 		public float BlendOut { get; set; }
-		public int Flags { get; set; }
+		public AnimationFlags Flags { get; set; }
 		public string Model { get; set; }
 		public AnimationDirection Direction { get; set; }
 		public int FirstFrame { get; set; }
@@ -487,7 +488,7 @@ namespace ZenKit
 
 		public float BlendOut => Native.ZkAnimation_getBlendOut(_handle);
 
-		public int Flags => Native.ZkAnimation_getFlags(_handle);
+		public AnimationFlags Flags => Native.ZkAnimation_getFlags(_handle);
 
 		public string Model => Native.ZkAnimation_getModel(_handle).MarshalAsString() ??
 		                       throw new Exception("Failed to load animation model");
@@ -1121,7 +1122,7 @@ namespace ZenKit
 		string Next { get; }
 		float BlendIn { get; }
 		float BlendOut { get; }
-		int Flags { get; }
+		AnimationFlags Flags { get; }
 		string Alias { get; }
 		AnimationDirection Direction { get; }
 	}
@@ -1134,7 +1135,7 @@ namespace ZenKit
 		public string Next { get; set; }
 		public float BlendIn { get; set; }
 		public float BlendOut { get; set; }
-		public int Flags { get; set; }
+		public AnimationFlags Flags { get; set; }
 		public string Alias { get; set; }
 		public AnimationDirection Direction { get; set; }
 
@@ -1170,7 +1171,7 @@ namespace ZenKit
 
 		public float BlendOut => Native.ZkAnimationAlias_getBlendOut(_handle);
 
-		public int Flags => (int)Native.ZkAnimationAlias_getFlags(_handle);
+		public AnimationFlags Flags => Native.ZkAnimationAlias_getFlags(_handle);
 
 		public string Alias => Native.ZkAnimationAlias_getAlias(_handle).MarshalAsString() ??
 		                       throw new Exception("Failed to load animation alias alias");
@@ -1268,7 +1269,7 @@ namespace ZenKit
 		string Next { get; }
 		float BlendIn { get; }
 		float BlendOut { get; }
-		int Flags { get; }
+		AnimationFlags Flags { get; }
 		string Model { get; }
 		int LastFrame { get; }
 	}
@@ -1281,7 +1282,7 @@ namespace ZenKit
 		public string Next { get; set; }
 		public float BlendIn { get; set; }
 		public float BlendOut { get; set; }
-		public int Flags { get; set; }
+		public AnimationFlags Flags { get; set; }
 		public string Model { get; set; }
 		public int LastFrame { get; set; }
 
@@ -1318,7 +1319,7 @@ namespace ZenKit
 
 		public float BlendOut => Native.ZkAnimationCombine_getBlendOut(_handle);
 
-		public int Flags => (int)Native.ZkAnimationCombine_getFlags(_handle);
+		public AnimationFlags Flags => Native.ZkAnimationCombine_getFlags(_handle);
 
 		public string Model => Native.ZkAnimationCombine_getModel(_handle).MarshalAsString() ??
 		                       throw new Exception("Failed to load animation combine model");
