@@ -42,7 +42,7 @@ public class TestMorphMesh
 		Assert.That(ani.BlendOut, Is.EqualTo(-0.0100000007f));
 		Assert.That(ani.Duration.TotalSeconds, Is.EqualTo(0.4));
 		Assert.That(ani.Speed, Is.EqualTo(0.0250000004f));
-		Assert.That(ani.Flags, Is.EqualTo(0));
+		Assert.That(ani.Flags, Is.EqualTo(MorphAnimationFlags.None));
 		Assert.That(ani.FrameCount, Is.EqualTo(10));
 
 		var vertices = ani.Vertices;

@@ -5,6 +5,16 @@ using ZenKit.Util;
 
 namespace ZenKit
 {
+	[Flags]
+	public enum MorphAnimationFlags
+	{
+		None = 0,
+		Random = 1 << 0,
+		Loop = 1 << 1,
+		Shape = 1 << 2,
+		ShapeReference = 1 << 3,
+	}
+	
 	public interface IMorphAnimation : ICacheable<IMorphAnimation>
 	{
 		string Name { get; }
@@ -13,7 +23,7 @@ namespace ZenKit
 		float BlendOut { get; }
 		TimeSpan Duration { get; }
 		float Speed { get; }
-		byte Flags { get; }
+		MorphAnimationFlags Flags { get; }
 		int FrameCount { get; }
 		List<int> Vertices { get; }
 		public int SampleCount { get; }
@@ -31,7 +41,7 @@ namespace ZenKit
 		public float BlendOut { get; set; }
 		public TimeSpan Duration { get; set; }
 		public float Speed { get; set; }
-		public byte Flags { get; set; }
+		public MorphAnimationFlags Flags { get; set; }
 		public int FrameCount { get; set; }
 		public List<int> Vertices { get; set; }
 
@@ -72,7 +82,7 @@ namespace ZenKit
 		public float BlendOut => Native.ZkMorphAnimation_getBlendOut(_handle);
 		public TimeSpan Duration => TimeSpan.FromMilliseconds(Native.ZkMorphAnimation_getDuration(_handle));
 		public float Speed => Native.ZkMorphAnimation_getSpeed(_handle);
-		public byte Flags => Native.ZkMorphAnimation_getFlags(_handle);
+		public MorphAnimationFlags Flags => (MorphAnimationFlags) Native.ZkMorphAnimation_getFlags(_handle);
 		public int FrameCount => (int)Native.ZkMorphAnimation_getFrameCount(_handle);
 
 		public List<int> Vertices =>
