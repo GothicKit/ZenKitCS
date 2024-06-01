@@ -47,6 +47,7 @@ namespace ZenKit
 	[Serializable]
 	public struct CachedTexture : ITexture
 	{
+		internal UIntPtr Handle;
 		public TextureFormat Format { get; set; }
 		public int Width { get; set; }
 		public int Height { get; set; }
@@ -86,6 +87,20 @@ namespace ZenKit
 		public int GetHeight(int level)
 		{
 			return Height >> level;
+		}
+		
+		public override bool Equals(object other)
+		{
+			if (other == null || !(other is CachedTexture))
+			{
+				return false;
+			}
+			return ((CachedTexture)other).Handle == Handle;
+		}
+
+		public override int GetHashCode()
+		{
+			return (int)Handle;
 		}
 	}
 
@@ -185,7 +200,8 @@ namespace ZenKit
 				AverageColor = AverageColor,
 				Palette = Palette,
 				AllMipmapsRgba = AllMipmapsRgba,
-				AllMipmapsRaw = AllMipmapsRaw
+				AllMipmapsRaw = AllMipmapsRaw,
+				Handle = Handle
 			};
 		}
 
@@ -219,6 +235,20 @@ namespace ZenKit
 		~Texture()
 		{
 			if (_delete) Native.ZkTexture_del(Handle);
+		}
+
+		public override bool Equals(object other)
+		{
+			if (other == null || !(other is Texture))
+			{
+				return false;
+			}
+			return ((Texture)other).Handle == Handle;
+		}
+
+		public override int GetHashCode()
+		{
+			return (int)Handle;
 		}
 	}
 
