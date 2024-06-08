@@ -121,20 +121,22 @@ namespace ZenKit
 	public class Polygon : IPolygon
 	{
 		private readonly UIntPtr _handle;
+		private readonly Mesh _mesh;
 
-		public Polygon(UIntPtr handle)
+		internal Polygon(UIntPtr handle, Mesh mesh)
 		{
 			_handle = handle;
+			_mesh = mesh;
 		}
 
 		public int MaterialIndex => (int)Native.ZkPolygon_getMaterialIndex(_handle);
 		public int LightMapIndex => Native.ZkPolygon_getLightMapIndex(_handle);
 
 		public List<int> PositionIndices =>
-			Native.ZkPolygon_getPositionIndices(_handle, out var count).MarshalAsList<int>(count);
+			Native.ZkPolygon_getPositionIndices(_handle, _mesh.Handle, out var count).MarshalAsList<int>(count);
 
 		public List<int> FeatureIndices =>
-			Native.ZkPolygon_getFeatureIndices(_handle, out var count).MarshalAsList<int>(count);
+			Native.ZkPolygon_getFeatureIndices(_handle, _mesh.Handle, out var count).MarshalAsList<int>(count);
 
 		public bool IsPortal => Native.ZkPolygon_getIsPortal(_handle);
 		public bool IsOccluder => Native.ZkPolygon_getIsOccluder(_handle);
@@ -259,44 +261,44 @@ namespace ZenKit
 	public class Mesh : IMesh
 	{
 		private readonly bool _delete = true;
-		private readonly UIntPtr _handle;
+		internal readonly UIntPtr Handle;
 
 
 		public Mesh(string path)
 		{
-			_handle = Native.ZkMesh_loadPath(path);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load mesh");
+			Handle = Native.ZkMesh_loadPath(path);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mesh");
 		}
 
 		public Mesh(Read buf)
 		{
-			_handle = Native.ZkMesh_load(buf.Handle);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load mesh");
+			Handle = Native.ZkMesh_load(buf.Handle);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mesh");
 		}
 
 		public Mesh(Vfs vfs, string name)
 		{
-			_handle = Native.ZkMesh_loadVfs(vfs.Handle, name);
-			if (_handle == UIntPtr.Zero) throw new Exception("Failed to load mesh");
+			Handle = Native.ZkMesh_loadVfs(vfs.Handle, name);
+			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load mesh");
 		}
 
 		internal Mesh(UIntPtr handle)
 		{
-			_handle = handle;
+			Handle = handle;
 			_delete = false;
 		}
 
-		public DateTime? SourceDate => Native.ZkMesh_getSourceDate(_handle).AsDateTime();
+		public DateTime? SourceDate => Native.ZkMesh_getSourceDate(Handle).AsDateTime();
 
-		public string Name => Native.ZkMesh_getName(_handle).MarshalAsString() ??
+		public string Name => Native.ZkMesh_getName(Handle).MarshalAsString() ??
 		                      throw new Exception("Failed to load mesh name");
 
-		public AxisAlignedBoundingBox BoundingBox => Native.ZkMesh_getBoundingBox(_handle);
+		public AxisAlignedBoundingBox BoundingBox => Native.ZkMesh_getBoundingBox(Handle);
 
 		public IOrientedBoundingBox OrientedBoundingBox =>
-			new OrientedBoundingBox(Native.ZkMesh_getOrientedBoundingBox(_handle));
+			new OrientedBoundingBox(Native.ZkMesh_getOrientedBoundingBox(Handle));
 
-		public int MaterialCount => (int)Native.ZkMesh_getMaterialCount(_handle);
+		public int MaterialCount => (int)Native.ZkMesh_getMaterialCount(Handle);
 
 		public List<IMaterial> Materials
 		{
@@ -309,7 +311,7 @@ namespace ZenKit
 			}
 		}
 
-		public int PositionCount => (int)Native.ZkMesh_getPositionCount(_handle);
+		public int PositionCount => (int)Native.ZkMesh_getPositionCount(Handle);
 
 		public List<Vector3> Positions
 		{
@@ -322,7 +324,7 @@ namespace ZenKit
 			}
 		}
 
-		public int FeatureCount => (int)Native.ZkMesh_getVertexCount(_handle);
+		public int FeatureCount => (int)Native.ZkMesh_getVertexCount(Handle);
 
 		public List<Vertex> Features
 		{
@@ -335,7 +337,7 @@ namespace ZenKit
 			}
 		}
 
-		public int LightMapCount => (int)Native.ZkMesh_getLightMapCount(_handle);
+		public int LightMapCount => (int)Native.ZkMesh_getLightMapCount(Handle);
 
 		public List<ILightMap> LightMap
 		{
@@ -348,7 +350,7 @@ namespace ZenKit
 			}
 		}
 
-		public int PolygonCount => (int)Native.ZkMesh_getPolygonCount(_handle);
+		public int PolygonCount => (int)Native.ZkMesh_getPolygonCount(Handle);
 
 		public List<IPolygon> Polygons
 		{
@@ -384,32 +386,32 @@ namespace ZenKit
 
 		public IMaterial GetMaterial(int i)
 		{
-			return new Material(Native.ZkMesh_getMaterial(_handle, (ulong)i));
+			return new Material(Native.ZkMesh_getMaterial(Handle, (ulong)i));
 		}
 
 		public Vector3 GetPosition(int i)
 		{
-			return Native.ZkMesh_getPosition(_handle, (ulong)i);
+			return Native.ZkMesh_getPosition(Handle, (ulong)i);
 		}
 
 		public Vertex GetFeature(int i)
 		{
-			return Native.ZkMesh_getVertex(_handle, (ulong)i);
+			return Native.ZkMesh_getVertex(Handle, (ulong)i);
 		}
 
 		public ILightMap GetLightMap(int i)
 		{
-			return new LightMap(Native.ZkMesh_getLightMap(_handle, (ulong)i));
+			return new LightMap(Native.ZkMesh_getLightMap(Handle, (ulong)i));
 		}
 
 		public IPolygon GetPolygon(int i)
 		{
-			return new Polygon(Native.ZkMesh_getPolygon(_handle, (ulong)i));
+			return new Polygon(Native.ZkMesh_getPolygon(Handle, (ulong)i), this);
 		}
 
 		~Mesh()
 		{
-			if (_delete) Native.ZkMesh_del(_handle);
+			if (_delete) Native.ZkMesh_del(Handle);
 		}
 	}
 }
