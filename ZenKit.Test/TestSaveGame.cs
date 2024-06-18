@@ -68,4 +68,11 @@ public class TestSaveGame
 		// Try to parse the world data.
 		var wld = sav.LoadWorld();
 	}
+
+	[Test]
+	public void TestNonexistentWorld()
+	{
+		var sav = new SaveGame(GameVersion.Gothic1);
+		Assert.That(sav.LoadWorld("WORLD.ZEN"), Is.Null);
+	}
 }
