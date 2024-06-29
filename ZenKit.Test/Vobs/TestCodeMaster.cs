@@ -22,7 +22,7 @@ public class TestCodeMaster
 		Assert.That(vob.FailureTarget, Is.EqualTo(""));
 		Assert.That(vob.UntriggeredCancels, Is.False);
 		Assert.That(vob.Slaves, Is.EqualTo(Slaves));
-		Assert.That(vob.Visual, Is.Null);
+		Assert.That(vob.Visual?.Type, Is.EqualTo(VisualType.Unknown));
 	}
 
 	[Test]
