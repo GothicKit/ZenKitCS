@@ -29,6 +29,18 @@ namespace ZenKit.Vobs
 			set => Native.ZkItem_setInstance(Handle, value);
 		}
 
+		public int Amount
+		{
+			get => Native.ZkItem_getAmount(Handle);
+			set => Native.ZkItem_setAmount(Handle, value);
+		}
+
+		public int Flags
+		{
+			get => Native.ZkItem_getFlags(Handle);
+			set => Native.ZkItem_setFlags(Handle, value);
+		}
+
 		protected override void Delete()
 		{
 			Native.ZkItem_del(Handle);

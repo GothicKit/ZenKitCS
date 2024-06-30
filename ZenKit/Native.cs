@@ -2219,6 +2219,18 @@ namespace ZenKit
 		public static extern void ZkItem_setInstance(UIntPtr slf, string instance);
 
 		[DllImport(DllName)]
+		public static extern int ZkItem_getAmount(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItem_setAmount(UIntPtr slf, int amount);
+
+		[DllImport(DllName)]
+		public static extern int ZkItem_getFlags(UIntPtr slf);
+
+		[DllImport(DllName)]
+		public static extern void ZkItem_setFlags(UIntPtr slf, int flags);
+
+		[DllImport(DllName)]
 		public static extern UIntPtr ZkLensFlare_load(UIntPtr buf, GameVersion version);
 
 		[DllImport(DllName)]
