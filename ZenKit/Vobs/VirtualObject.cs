@@ -965,6 +965,7 @@ namespace ZenKit.Vobs
 				VirtualObjectType.zCZoneZFogDefault => new ZoneFogDefault(ptr),
 				VirtualObjectType.zCZoneVobFarPlane => new ZoneFarPlane(ptr),
 				VirtualObjectType.zCZoneVobFarPlaneDefault => new ZoneFarPlaneDefault(ptr),
+				VirtualObjectType.oCNpc => new Npc(ptr),
 				_ => new VirtualObject(ptr)
 			};
 		}
