@@ -5118,10 +5118,10 @@ namespace ZenKit
 		public static extern void ZkMenuInstance_setEventTimerMsec(UIntPtr slf, int eventTimerMsec);
 
 		[DllImport(DllName)]
-		public static extern int ZkMenuInstance_getFlags(UIntPtr slf);
+		public static extern MenuFlag ZkMenuInstance_getFlags(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkMenuInstance_setFlags(UIntPtr slf, int flags);
+		public static extern void ZkMenuInstance_setFlags(UIntPtr slf, MenuFlag flags);
 
 		[DllImport(DllName)]
 		public static extern int ZkMenuInstance_getDefaultOutgame(UIntPtr slf);
@@ -5215,10 +5215,10 @@ namespace ZenKit
 		public static extern void ZkMenuItemInstance_setSizeStartScale(UIntPtr slf, float sizeStartScale);
 
 		[DllImport(DllName)]
-		public static extern int ZkMenuItemInstance_getFlags(UIntPtr slf);
+		public static extern MenuItemFlag ZkMenuItemInstance_getFlags(UIntPtr slf);
 
 		[DllImport(DllName)]
-		public static extern void ZkMenuItemInstance_setFlags(UIntPtr slf, int flags);
+		public static extern void ZkMenuItemInstance_setFlags(UIntPtr slf, MenuItemFlag flags);
 
 		[DllImport(DllName)]
 		public static extern float ZkMenuItemInstance_getOpenDelayTime(UIntPtr slf);
@@ -5282,7 +5282,7 @@ namespace ZenKit
 		public static extern void ZkMenuItemInstance_setText(UIntPtr slf, ulong i, string text);
 
 		[DllImport(DllName)]
-		public static extern int ZkMenuItemInstance_getOnSelAction(UIntPtr slf, ulong i);
+		public static extern MenuItemSelectAction ZkMenuItemInstance_getOnSelAction(UIntPtr slf, ulong i);
 
 		[DllImport(DllName)]
 		public static extern void ZkMenuItemInstance_setOnSelAction(UIntPtr slf, ulong i, int onSelAction);
