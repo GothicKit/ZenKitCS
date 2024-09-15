@@ -661,6 +661,9 @@ namespace ZenKit
 				case DaedalusInstance v:
 					Native.ZkDaedalusVm_pushInstance(Handle, v.Handle);
 					break;
+				case null:
+					Native.ZkDaedalusVm_pushInstance(Handle, UIntPtr.Zero);
+					break;
 				default:
 					throw new InvalidOperationException("Unsupported type: " + value?.GetType());
 			}
@@ -674,7 +677,14 @@ namespace ZenKit
 				return (T)(object)Native.ZkDaedalusVm_popInt(Handle);
 			if (typeof(T) == typeof(float)) return (T)(object)Native.ZkDaedalusVm_popFloat(Handle);
 			if (typeof(T) == typeof(DaedalusInstance) || typeof(T).IsSubclassOf(typeof(DaedalusInstance)))
-				return (T)(object)DaedalusInstance.FromNative(Native.ZkDaedalusVm_popInstance(Handle));
+			{
+				var ptr = Native.ZkDaedalusVm_popInstance(Handle);
+				if (ptr == UIntPtr.Zero)
+				{
+					return (T)(object) null;
+				}
+				return (T)(object)DaedalusInstance.FromNative(ptr);
+			}
 			if (typeof(T) == typeof(void)) return (T)new object();
 
 			throw new InvalidOperationException("Unsupported type: " + typeof(T));
