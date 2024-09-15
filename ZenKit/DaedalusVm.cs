@@ -673,7 +673,7 @@ namespace ZenKit
 			if (typeof(T) == typeof(int) || typeof(T) == typeof(bool))
 				return (T)(object)Native.ZkDaedalusVm_popInt(Handle);
 			if (typeof(T) == typeof(float)) return (T)(object)Native.ZkDaedalusVm_popFloat(Handle);
-			if (typeof(T).IsSubclassOf(typeof(DaedalusInstance)))
+			if (typeof(T) == typeof(DaedalusInstance) || typeof(T).IsSubclassOf(typeof(DaedalusInstance)))
 				return (T)(object)DaedalusInstance.FromNative(Native.ZkDaedalusVm_popInstance(Handle));
 			if (typeof(T) == typeof(void)) return (T)new object();
 
