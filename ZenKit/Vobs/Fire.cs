@@ -2,7 +2,13 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class Fire : InteractiveObject
+	public interface IFire : IInteractiveObject
+	{
+		string Slot { get; set; }
+		string VobTree { get; set; }
+	}
+
+	public class Fire : InteractiveObject, IFire
 	{
 		public Fire() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobFire))
 		{

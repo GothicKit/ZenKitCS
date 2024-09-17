@@ -12,7 +12,22 @@ namespace ZenKit.Vobs
 		Glass = 5
 	}
 
-	public class MovableObject : VirtualObject
+	public interface IMovableObject : IVirtualObject
+	{
+		string FocusName { get; set; }
+		int Hp { get; set; }
+		int Damage { get; set; }
+		bool Movable { get; set; }
+		bool Takable { get; set; }
+		bool FocusOverride { get; set; }
+		SoundMaterialType Material { get; set; }
+		string VisualDestroyed { get; set; }
+		string Owner { get; set; }
+		string OwnerGuild { get; set; }
+		bool Destroyed { get; set; }
+	}
+
+	public class MovableObject : VirtualObject, IMovableObject
 	{
 		public MovableObject() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMOB))
 		{

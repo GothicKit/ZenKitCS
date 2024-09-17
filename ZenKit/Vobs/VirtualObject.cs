@@ -155,7 +155,7 @@ namespace ZenKit.Vobs
 			Native.ZkVisual_del(Handle);
 		}
 
-		public static Visual? FromNative(UIntPtr ptr)
+		public static IVisual? FromNative(UIntPtr ptr)
 		{
 			if (ptr == UIntPtr.Zero) return null;
 
@@ -173,7 +173,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualMesh : Visual
+	public interface IVisualMesh : IVisual
+	{
+	}
+
+	public class VisualMesh : Visual, IVisualMesh
 	{
 		public VisualMesh() : base(Native.ZkVisual_new(VisualType.Mesh))
 		{
@@ -184,7 +188,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualMultiResolutionMesh : Visual
+	public interface IVisualMultiResolutionMesh : IVisual
+	{
+	}
+
+	public class VisualMultiResolutionMesh : Visual, IVisualMultiResolutionMesh
 	{
 		public VisualMultiResolutionMesh() : base(Native.ZkVisual_new(VisualType.MultiResolutionMesh))
 		{
@@ -195,7 +203,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualParticleEffect : Visual
+	public interface IVisualParticleEffect : IVisual
+	{
+	}
+
+	public class VisualParticleEffect : Visual, IVisualParticleEffect
 	{
 		public VisualParticleEffect() : base(Native.ZkVisual_new(VisualType.ParticleEffect))
 		{
@@ -206,7 +218,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualCamera : Visual
+	public interface IVisualCamera : IVisual
+	{
+	}
+
+	public class VisualCamera : Visual, IVisualCamera
 	{
 		public VisualCamera() : base(Native.ZkVisual_new(VisualType.Camera))
 		{
@@ -217,7 +233,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualModel : Visual
+	public interface IVisualModel : IVisual
+	{
+	}
+
+	public class VisualModel : Visual, IVisualModel
 	{
 		public VisualModel() : base(Native.ZkVisual_new(VisualType.Model))
 		{
@@ -228,7 +248,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualMorphMesh : Visual
+	public interface IVisualMorphMesh : IVisual
+	{
+	}
+
+	public class VisualMorphMesh : Visual, IVisualMorphMesh
 	{
 		public VisualMorphMesh() : base(Native.ZkVisual_new(VisualType.MorphMesh))
 		{
@@ -971,28 +995,44 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Spot : VirtualObject
+	public interface ISpot : IVirtualObject
+	{
+	}
+
+	public class Spot : VirtualObject, ISpot
 	{
 		internal Spot(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
-	public class Stair : VirtualObject
+	public interface IStair : IVirtualObject
+	{
+	}
+
+	public class Stair : VirtualObject, IStair
 	{
 		internal Stair(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
-	public class StartPoint : VirtualObject
+	public interface IStartPoint : IVirtualObject
+	{
+	}
+
+	public class StartPoint : VirtualObject, IStartPoint
 	{
 		internal StartPoint(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
-	public class Level : VirtualObject
+	public interface ILevel : IVirtualObject
+	{
+	}
+
+	public class Level : VirtualObject, ILevel
 	{
 		internal Level(UIntPtr handle) : base(handle)
 		{

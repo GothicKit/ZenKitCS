@@ -36,7 +36,24 @@ namespace ZenKit.Vobs
 		Custom = 6
 	}
 
-	public class CameraTrajectoryFrame : VirtualObject
+	public interface ICameraTrajectoryFrame : IVirtualObject
+	{
+		float Time { get; set; }
+		float RollAngle { get; set; }
+		float FovScale { get; set; }
+		CameraMotion MotionType { get; set; }
+		CameraMotion MotionTypeFov { get; set; }
+		CameraMotion MotionTypeRoll { get; set; }
+		CameraMotion MotionTypeTimeScale { get; set; }
+		float Tension { get; set; }
+		float CamBias { get; set; }
+		float Continuity { get; set; }
+		float TimeScale { get; set; }
+		bool TimeFixed { get; set; }
+		Matrix4x4 OriginalPose { get; set; }
+	}
+
+	public class CameraTrajectoryFrame : VirtualObject, ICameraTrajectoryFrame
 	{
 		public CameraTrajectoryFrame() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCCamTrj_KeyFrame))
 		{
@@ -129,7 +146,30 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class CutsceneCamera : VirtualObject
+	public interface ICutsceneCamera : IVirtualObject
+	{
+		CameraTrajectory TrajectoryFOR { get; set; }
+		CameraTrajectory TargetTrajectoryFOR { get; set; }
+		CameraLoopType LoopMode { get; set; }
+		CameraLerpType LerpMode { get; set; }
+		bool IgnoreFORVobRotation { get; set; }
+		bool IgnoreFORVobRotationTarget { get; set; }
+		bool Adapt { get; set; }
+		bool EaseFirst { get; set; }
+		bool EaseLast { get; set; }
+		float TotalDuration { get; set; }
+		string AutoFocusVob { get; set; }
+		bool AutoPlayerMovable { get; set; }
+		bool AutoUntriggerLast { get; set; }
+		float AutoUntriggerLastDelay { get; set; }
+		int PositionCount { get; }
+		int TargetCount { get; }
+		int FrameCount { get; }
+		List<CameraTrajectoryFrame> Frames { get; }
+		CameraTrajectoryFrame GetFrame(int i);
+	}
+
+	public class CutsceneCamera : VirtualObject, ICutsceneCamera
 	{
 		public CutsceneCamera() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCCSCamera))
 		{

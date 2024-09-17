@@ -3,7 +3,14 @@ using System.Numerics;
 
 namespace ZenKit.Vobs
 {
-	public class Earthquake : VirtualObject
+	public interface IEarthquake : IVirtualObject
+	{
+		float Radius { get; set; }
+		TimeSpan Duration { get; set; }
+		Vector3 Amplitude { get; set; }
+	}
+
+	public class Earthquake : VirtualObject, IEarthquake
 	{
 		public Earthquake() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCEarthquake))
 		{

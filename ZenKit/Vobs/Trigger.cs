@@ -2,7 +2,29 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class Trigger : VirtualObject
+	public interface ITrigger : IVirtualObject
+	{
+		string Target { get; set; }
+		bool StartEnabled { get; set; }
+		bool SendUntrigger { get; set; }
+		bool ReactToOnTrigger { get; set; }
+		bool ReactToOnTouch { get; set; }
+		bool ReactToOnDamage { get; set; }
+		bool RespondToObject { get; set; }
+		bool RespondToPC { get; set; }
+		bool RespondToNPC { get; set; }
+		string VobTarget { get; set; }
+		int MaxActivationCount { get; set; }
+		TimeSpan RetriggerDelay { get; set; }
+		float DamageThreshold { get; set; }
+		TimeSpan FireDelay { get; set; }
+		float NextTimeTriggerable { get; set; }
+		VirtualObject? OtherVob { get; set; }
+		int CountCanBeActivated { get; set; }
+		bool IsEnabled { get; set; }
+	}
+
+	public class Trigger : VirtualObject, ITrigger
 	{
 		public Trigger() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCTrigger))
 		{
@@ -141,7 +163,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class CutsceneTrigger : Trigger
+	public interface ICutsceneTrigger : ITrigger
+	{
+	}
+
+	public class CutsceneTrigger : Trigger, ICutsceneTrigger
 	{
 		public CutsceneTrigger(Read buf, GameVersion version) : base(buf, version)
 		{

@@ -2,7 +2,14 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class Item : VirtualObject
+	public interface IItem : IVirtualObject
+	{
+		string Instance { get; set; }
+		int Amount { get; set; }
+		int Flags { get; set; }
+	}
+
+	public class Item : VirtualObject, IItem
 	{
 		public Item() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCItem))
 		{

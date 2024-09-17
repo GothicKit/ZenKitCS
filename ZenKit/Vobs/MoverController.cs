@@ -10,7 +10,14 @@ namespace ZenKit.Vobs
 		Previous = 3
 	}
 
-	public class MoverController : VirtualObject
+	public interface IMoverController : IVirtualObject
+	{
+		string Target { get; set; }
+		MoverMessageType Message { get; set; }
+		int Key { get; set; }
+	}
+
+	public class MoverController : VirtualObject, IMoverController
 	{
 		public MoverController() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCMoverController))
 		{

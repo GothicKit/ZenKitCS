@@ -30,7 +30,39 @@ namespace ZenKit.Vobs
 		SegmentSlowEnd = 6
 	}
 
-	public class Mover : Trigger
+	public interface IMover : ITrigger
+	{
+		MoverBehavior Behavior { get; set; }
+		float TouchBlockerDamage { get; set; }
+		TimeSpan StayOpenTime { get; set; }
+		bool IsLocked { get; set; }
+		bool AutoLink { get; set; }
+		bool AutoRotate { get; set; }
+		float Speed { get; set; }
+		MoverLerpType LerpType { get; set; }
+		MoverSpeedType SpeedType { get; set; }
+		Vector3 ActKeyPosDelta { get; set; }
+		float ActKeyframeF { get; set; }
+		int ActKeyframe { get; set; }
+		int NextKeyframe { get; set; }
+		float MoveSpeedUnit { get; set; }
+		float AdvanceDir { get; set; }
+		int MoverState { get; set; }
+		int TriggerEventCount { get; set; }
+		float StayOpenTimeDest { get; set; }
+		int KeyframeCount { get; }
+		List<AnimationSample> Keyframes { get; }
+		string SfxOpenStart { get; set; }
+		string SfxOpenEnd { get; set; }
+		string SfxTransitioning { get; set; }
+		string SfxCloseStart { get; set; }
+		string SfxCloseEnd { get; set; }
+		string SfxLock { get; set; }
+		string SfxUnlock { get; set; }
+		string SfxUseLocked { get; set; }
+	}
+
+	public class Mover : Trigger, IMover
 	{
 		public Mover() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCMover))
 		{

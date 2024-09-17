@@ -5,7 +5,22 @@ using ZenKit.Util;
 
 namespace ZenKit.Vobs
 {
-	public class CodeMaster : VirtualObject
+	public interface ICodeMaster : IVirtualObject
+	{
+		string Target { get; set; }
+		bool Ordered { get; set; }
+		bool FirstFalseIsFailure { get; set; }
+		string FailureTarget { get; set; }
+		bool UntriggeredCancels { get; set; }
+		int SlaveCount { get; }
+		List<string> Slaves { get; }
+		string GetSlave(int i);
+		void AddSlave(string slave);
+		void RemoveSlave(int i);
+		void RemoveSlaves(Predicate<string> pred);
+	}
+
+	public class CodeMaster : VirtualObject, ICodeMaster
 	{
 		private static readonly Native.Callbacks.ZkStringEnumerator RemoveSlavesEnumerator = _enumerateSlavesHandler;
 

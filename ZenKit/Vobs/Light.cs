@@ -180,7 +180,12 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Light : VirtualObject, ILightPreset
+	public interface ILight : ILightPreset, IVirtualObject
+	{
+		
+	}
+
+	public class Light : VirtualObject, ILight
 	{
 		public Light() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobLight))
 		{

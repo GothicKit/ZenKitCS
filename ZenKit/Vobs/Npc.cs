@@ -24,7 +24,14 @@ namespace ZenKit.Vobs
 		HasDefeated = 170,
 	}
 
-	public class Talent
+	public interface ITalent
+	{
+		int Type { get; set; }
+		int Value { get; set; }
+		int Skill { get; set; }
+	}
+
+	public class Talent : ITalent
 	{
 		internal readonly UIntPtr Handle;
 
@@ -62,7 +69,15 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Slot
+	public interface ISlot
+	{
+		bool Used { get; set; }
+		string Name { get; set; }
+		Item? Item { get; set; }
+		bool InInventory { get; set; }
+	}
+
+	public class Slot : ISlot
 	{
 		private readonly UIntPtr handle;
 
@@ -101,7 +116,20 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class News
+	public interface INews
+	{
+		bool Told { get; set; }
+		float SpreadTime { get; set; }
+		NpcNewsSpread SpreadType { get; set; }
+		NpcNewsId NewsId { get; set; }
+		bool Gossip { get; set; }
+		bool GuildVictim { get; set; }
+		string WitnessName { get; set; }
+		string OffenderName { get; set; }
+		string VictimName { get; set; }
+	}
+
+	public class News : INews
 	{
 		private readonly UIntPtr handle;
 
@@ -166,7 +194,108 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Npc : VirtualObject
+	public interface INpc : IVirtualObject
+	{
+		string NpcInstance { get; set; }
+		Vector3 ModelScale { get; set; }
+		float ModelFatness { get; set; }
+		int Flags { get; set; }
+		int Guild { get; set; }
+		int GuildTrue { get; set; }
+		int Level { get; set; }
+		int Xp { get; set; }
+		int XpNextLevel { get; set; }
+		int Lp { get; set; }
+		int FightTactic { get; set; }
+		int FightMode { get; set; }
+		bool Wounded { get; set; }
+		bool Mad { get; set; }
+		int MadTime { get; set; }
+		bool Player { get; set; }
+		string StartAiState { get; set; }
+		string ScriptWaypoint { get; set; }
+		int Attitude { get; set; }
+		int AttitudeTemp { get; set; }
+		int NameNr { get; set; }
+		bool MoveLock { get; set; }
+		bool CurrentStateValid { get; set; }
+		string CurrentStateName { get; set; }
+		int CurrentStateIndex { get; set; }
+		bool CurrentStateIsRoutine { get; set; }
+		bool NextStateValid { get; set; }
+		string NextStateName { get; set; }
+		int NextStateIndex { get; set; }
+		bool NextStateIsRoutine { get; set; }
+		int LastAiState { get; set; }
+		bool HasRoutine { get; set; }
+		bool RoutineChanged { get; set; }
+		bool RoutineOverlay { get; set; }
+		int RoutineOverlayCount { get; set; }
+		int WalkmodeRoutine { get; set; }
+		bool WeaponmodeRoutine { get; set; }
+		bool StartNewRoutine { get; set; }
+		int AiStateDriven { get; set; }
+		Vector3 AiStatePos { get; set; }
+		string CurrentRoutine { get; set; }
+		bool Respawn { get; set; }
+		int RespawnTime { get; set; }
+		int BsInterruptableOverride { get; set; }
+		int NpcType { get; set; }
+		int SpellMana { get; set; }
+		VirtualObject? CarryVob { get; set; }
+		VirtualObject? Enemy { get; set; }
+		int OverlayCount { get; }
+		List<string> Overlays { get; set; }
+		int TalentCount { get; }
+		List<Talent> Talents { get; set; }
+		int ItemCount { get; }
+		List<Item> Items { get; set; }
+		int SlotCount { get; }
+		List<Slot> Slots { get; }
+		int NewsCount { get; }
+		List<News> News { get; }
+		List<int> Protection { get; set; }
+		List<int> Attributes { get; set; }
+		List<int> HitChance { get; set; }
+		List<int> Missions { get; set; }
+		int[] AiVars { get; set; }
+		List<string> Packed { get; set; }
+		string GetOverlay(int i);
+		void ClearOverlays();
+		void RemoveOverlay(int i);
+		void SetOverlay(int i, string overlay);
+		void AddOverlay(string overlay);
+		Talent GetTalent(int i);
+		void ClearTalents();
+		void RemoveTalent(int i);
+		void SetTalent(int i, Talent talent);
+		void AddTalent(Talent talent);
+		Item GetItem(int i);
+		void ClearItems();
+		void RemoveItem(int i);
+		void SetItem(int i, Item item);
+		void AddItem(Item item);
+		Slot GetSlot(int i);
+		void ClearSlots();
+		void RemoveSlot(int i);
+		Slot AddSlot();
+		News GetNews(int i);
+		void ClearNews();
+		void RemoveNews(int i);
+		News AddNews();
+		int GetProtection(int i);
+		void SetProtection(int i, int v);
+		int GetAttribute(int i);
+		void SetAttribute(int i, int v);
+		int GetHitChance(int i);
+		void SetHitChance(int i, int v);
+		int GetMission(int i);
+		void SetMission(int i, int v);
+		string GetPacked(int i);
+		void SetPacked(int i, string v);
+	}
+
+	public class Npc : VirtualObject, INpc
 	{
 		public Npc() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCNpc))
 		{

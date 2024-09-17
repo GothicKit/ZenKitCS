@@ -2,7 +2,17 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class InteractiveObject : MovableObject
+	public interface IInteractiveObject : IMovableObject
+	{
+		int State { get; set; }
+		string Target { get; set; }
+		string Item { get; set; }
+		string ConditionFunction { get; set; }
+		string OnStateChangeFunction { get; set; }
+		bool Rewind { get; set; }
+	}
+
+	public class InteractiveObject : MovableObject, IInteractiveObject
 	{
 		public InteractiveObject() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobInter))
 		{
@@ -69,7 +79,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Bed : InteractiveObject
+	public interface IBed : IInteractiveObject
+	{
+	}
+
+	public class Bed : InteractiveObject, IBed
 	{
 		public Bed() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobBed))
 		{
@@ -80,7 +94,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Ladder : InteractiveObject
+	public interface ILadder : IInteractiveObject
+	{
+	}
+
+	public class Ladder : InteractiveObject, ILadder
 	{
 		public Ladder() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobLadder))
 		{
@@ -91,7 +109,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Switch : InteractiveObject
+	public interface ISwitch : IInteractiveObject
+	{
+	}
+
+	public class Switch : InteractiveObject, ISwitch
 	{
 		public Switch() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobSwitch))
 		{
@@ -102,7 +124,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Wheel : InteractiveObject
+	public interface IWheel : IInteractiveObject
+	{
+	}
+
+	public class Wheel : InteractiveObject, IWheel
 	{
 		public Wheel() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobWheel))
 		{

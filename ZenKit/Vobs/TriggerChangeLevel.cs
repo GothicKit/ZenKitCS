@@ -2,7 +2,13 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class TriggerChangeLevel : Trigger
+	public interface ITriggerChangeLevel : ITrigger
+	{
+		string LevelName { get; set; }
+		string StartVob { get; set; }
+	}
+
+	public class TriggerChangeLevel : Trigger, ITriggerChangeLevel
 	{
 		public TriggerChangeLevel() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCTriggerChangeLevel))
 		{
