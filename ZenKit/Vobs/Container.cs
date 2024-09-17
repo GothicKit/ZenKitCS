@@ -10,7 +10,7 @@ namespace ZenKit.Vobs
 		string PickString { get; set; }
 		string Contents { get; set; }
 		int ItemCount { get; }
-		List<Item> Items { get; }
+		List<IItem> Items { get; }
 		void AddItem(Item item);
 		void RemoveItem(int i);
 	}
@@ -61,11 +61,11 @@ namespace ZenKit.Vobs
 
 		public int ItemCount => (int)Native.ZkContainer_getItemCount(Handle);
 
-		public List<Item> Items
+		public List<IItem> Items
 		{
 			get
 			{
-				var items = new List<Item>();
+				var items = new List<IItem>();
 
 				for (var i = 0; i < ItemCount; ++i)
 				{

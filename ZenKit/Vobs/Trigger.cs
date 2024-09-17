@@ -19,7 +19,7 @@ namespace ZenKit.Vobs
 		float DamageThreshold { get; set; }
 		TimeSpan FireDelay { get; set; }
 		float NextTimeTriggerable { get; set; }
-		VirtualObject? OtherVob { get; set; }
+		IVirtualObject? OtherVob { get; set; }
 		int CountCanBeActivated { get; set; }
 		bool IsEnabled { get; set; }
 	}
@@ -134,14 +134,14 @@ namespace ZenKit.Vobs
 			set => Native.ZkTrigger_setNextTimeTriggerable(Handle, value);
 		}
 
-		public VirtualObject? OtherVob
+		public IVirtualObject? OtherVob
 		{
 			get
 			{
 				var val = Native.ZkTrigger_getOtherVob(Handle);
 				return VirtualObject.FromNative(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkTrigger_setOtherVob(Handle, value?.Handle ?? UIntPtr.Zero);
+			set => Native.ZkTrigger_setOtherVob(Handle, value == null ? UIntPtr.Zero : ((VirtualObject)value).Handle);
 		}
 
 		public int CountCanBeActivated

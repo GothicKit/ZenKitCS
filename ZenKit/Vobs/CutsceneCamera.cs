@@ -165,8 +165,8 @@ namespace ZenKit.Vobs
 		int PositionCount { get; }
 		int TargetCount { get; }
 		int FrameCount { get; }
-		List<CameraTrajectoryFrame> Frames { get; }
-		CameraTrajectoryFrame GetFrame(int i);
+		List<ICameraTrajectoryFrame> Frames { get; }
+		ICameraTrajectoryFrame GetFrame(int i);
 	}
 
 	public class CutsceneCamera : VirtualObject, ICutsceneCamera
@@ -279,11 +279,11 @@ namespace ZenKit.Vobs
 		public int TargetCount => Native.ZkCutsceneCamera_getTargetCount(Handle);
 		public int FrameCount => (int)Native.ZkCutsceneCamera_getFrameCount(Handle);
 
-		public List<CameraTrajectoryFrame> Frames
+		public List<ICameraTrajectoryFrame> Frames
 		{
 			get
 			{
-				var frames = new List<CameraTrajectoryFrame>();
+				var frames = new List<ICameraTrajectoryFrame>();
 				var count = FrameCount;
 				for (var i = 0; i < count; ++i) frames.Add(GetFrame(i));
 				return frames;
@@ -295,7 +295,7 @@ namespace ZenKit.Vobs
 			Native.ZkCutsceneCamera_del(Handle);
 		}
 
-		public CameraTrajectoryFrame GetFrame(int i)
+		public ICameraTrajectoryFrame GetFrame(int i)
 		{
 			var handle = Native.ZkCutsceneCamera_getFrame(Handle, (ulong)i);
 			return new CameraTrajectoryFrame(Native.ZkObject_takeRef(handle));
