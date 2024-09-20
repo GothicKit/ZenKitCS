@@ -2,7 +2,13 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class ZoneFarPlane : VirtualObject
+	public interface IZoneFarPlane : IVirtualObject
+	{
+		float VobFarPlaneZ { get; set; }
+		float InnerRangePercentage { get; set; }
+	}
+
+	public class ZoneFarPlane : VirtualObject, IZoneFarPlane
 	{
 		public ZoneFarPlane() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCZoneVobFarPlane))
 		{
@@ -40,7 +46,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class ZoneFarPlaneDefault : ZoneFarPlane
+	public interface IZoneFarPlaneDefault : IZoneFarPlane
+	{
+	}
+
+	public class ZoneFarPlaneDefault : ZoneFarPlane, IZoneFarPlaneDefault
 	{
 		public ZoneFarPlaneDefault(Read buf, GameVersion version) : base(buf, version)
 		{

@@ -12,7 +12,14 @@ namespace ZenKit.Vobs
 		Toggle = 5
 	}
 
-	public class MessageFilter : VirtualObject
+	public interface IMessageFilter : IVirtualObject
+	{
+		string Target { get; set; }
+		MessageFilterAction OnTrigger { get; set; }
+		MessageFilterAction OnUntrigger { get; set; }
+	}
+
+	public class MessageFilter : VirtualObject, IMessageFilter
 	{
 		public MessageFilter() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCMessageFilter))
 		{

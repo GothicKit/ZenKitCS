@@ -155,7 +155,7 @@ namespace ZenKit.Vobs
 			Native.ZkVisual_del(Handle);
 		}
 
-		public static Visual? FromNative(UIntPtr ptr)
+		public static IVisual? FromNative(UIntPtr ptr)
 		{
 			if (ptr == UIntPtr.Zero) return null;
 
@@ -173,7 +173,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualMesh : Visual
+	public interface IVisualMesh : IVisual
+	{
+	}
+
+	public class VisualMesh : Visual, IVisualMesh
 	{
 		public VisualMesh() : base(Native.ZkVisual_new(VisualType.Mesh))
 		{
@@ -184,7 +188,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualMultiResolutionMesh : Visual
+	public interface IVisualMultiResolutionMesh : IVisual
+	{
+	}
+
+	public class VisualMultiResolutionMesh : Visual, IVisualMultiResolutionMesh
 	{
 		public VisualMultiResolutionMesh() : base(Native.ZkVisual_new(VisualType.MultiResolutionMesh))
 		{
@@ -195,7 +203,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualParticleEffect : Visual
+	public interface IVisualParticleEffect : IVisual
+	{
+	}
+
+	public class VisualParticleEffect : Visual, IVisualParticleEffect
 	{
 		public VisualParticleEffect() : base(Native.ZkVisual_new(VisualType.ParticleEffect))
 		{
@@ -206,7 +218,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualCamera : Visual
+	public interface IVisualCamera : IVisual
+	{
+	}
+
+	public class VisualCamera : Visual, IVisualCamera
 	{
 		public VisualCamera() : base(Native.ZkVisual_new(VisualType.Camera))
 		{
@@ -217,7 +233,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualModel : Visual
+	public interface IVisualModel : IVisual
+	{
+	}
+
+	public class VisualModel : Visual, IVisualModel
 	{
 		public VisualModel() : base(Native.ZkVisual_new(VisualType.Model))
 		{
@@ -228,7 +248,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class VisualMorphMesh : Visual
+	public interface IVisualMorphMesh : IVisual
+	{
+	}
+
+	public class VisualMorphMesh : Visual, IVisualMorphMesh
 	{
 		public VisualMorphMesh() : base(Native.ZkVisual_new(VisualType.MorphMesh))
 		{
@@ -342,41 +366,6 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public interface IVirtualObject : ICacheable<IVirtualObject>
-	{
-		public bool Ambient { get; set; }
-		public float AnimationStrength { get; set; }
-		public AnimationType AnimationType { get; set; }
-		public int Bias { get; set; }
-		public AxisAlignedBoundingBox BoundingBox { get; set; }
-		public bool CdDynamic { get; set; }
-		public bool CdStatic { get; set; }
-		public List<IVirtualObject> Children { get; }
-		public int ChildCount { get; }
-		public ShadowType DynamicShadows { get; set; }
-		public float FarClipScale { get; set; }
-		public int Id { get; }
-		public string Name { get; set; }
-		public bool PhysicsEnabled { get; set; }
-		public Vector3 Position { get; set; }
-		public string PresetName { get; set; }
-		public Matrix3x3 Rotation { get; set; }
-		public bool ShowVisual { get; set; }
-		public SpriteAlignment SpriteCameraFacingMode { get; set; }
-		public bool Static { get; set; }
-		public VirtualObjectType Type { get; }
-		public IVisual? Visual { get; set; }
-
-		public IVirtualObject GetChild(int i);
-
-		public void AddChild(IVirtualObject obj);
-
-		public void RemoveChild(int i);
-
-		public void RemoveChildren(Predicate<IVirtualObject> pred);
-	}
-
-
 	[Serializable]
 	public class CachedVirtualObject : IVirtualObject
 	{
@@ -388,6 +377,7 @@ namespace ZenKit.Vobs
 		public bool CdDynamic { get; set; }
 		public bool CdStatic { get; set; }
 		public List<IVirtualObject> Children { get; set; }
+		public IEventManager? EventManager { get; set; }
 		public int ChildCount => Children.Count;
 		public ShadowType DynamicShadows { get; set; }
 		public float FarClipScale { get; set; }
@@ -402,6 +392,9 @@ namespace ZenKit.Vobs
 		public bool Static { get; set; }
 		public VirtualObjectType Type { get; set; }
 		public IVisual? Visual { get; set; }
+		public byte SleepMode { get; set; }
+		public float NextOnTimer { get; set; }
+		public IAi? Ai { get; set; }
 
 		public IVirtualObject Cache()
 		{
@@ -464,6 +457,9 @@ namespace ZenKit.Vobs
 			PresetName = orig.PresetName;
 			Name = orig.Name;
 			Visual = orig.Visual?.Cache();
+			SleepMode = orig.SleepMode;
+			NextOnTimer = orig.NextOnTimer;
+			Ai = orig.Ai;
 			Children = orig.Children.ConvertAll(child => child.Cache());
 			return this;
 		}
@@ -475,7 +471,12 @@ namespace ZenKit.Vobs
 		Move = 1,
 	}
 
-	public class Ai
+	public interface IAi
+	{
+		AiType Type { get; }
+	}
+
+	public class Ai : IAi
 	{
 		internal readonly UIntPtr Handle;
 
@@ -504,7 +505,26 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class AiHuman : Ai
+	public interface IAiHuman : IAi
+	{
+		int WaterLevel { get; set; }
+		float FloorY { get; set; }
+		float WaterY { get; set; }
+		float CeilY { get; set; }
+		float FeetY { get; set; }
+		float HeadY { get; set; }
+		float FallDistY { get; set; }
+		float FallStartY { get; set; }
+		INpc? Npc { get; set; }
+		int WalkMode { get; set; }
+		int WeaponMode { get; set; }
+		int WModeAst { get; set; }
+		int WModeSelect { get; set; }
+		bool ChangeWeapon { get; set; }
+		int ActionMode { get; set; }
+	}
+
+	public class AiHuman : Ai, IAiHuman
 	{
 		public AiHuman() : base(Native.ZkAi_new(AiType.Human))
 		{
@@ -562,7 +582,7 @@ namespace ZenKit.Vobs
 			set => Native.ZkAiHuman_setFallStartY(Handle, value);
 		}
 
-		public Npc? Npc
+		public INpc? Npc
 		{
 			get
 			{
@@ -570,7 +590,7 @@ namespace ZenKit.Vobs
 				if (val == UIntPtr.Zero) return null;
 				return new Npc(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkAiHuman_setNpc(Handle, value?.Handle ?? UIntPtr.Zero);
+			set => Native.ZkAiHuman_setNpc(Handle, value == null ? UIntPtr.Zero : ((Npc)value).Handle);
 		}
 
 		public int WalkMode
@@ -610,7 +630,13 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class AiMove : Ai
+	public interface IAiMove : IAi
+	{
+		IVirtualObject? Vob { get; set; }
+		INpc? Owner { get; set; }
+	}
+
+	public class AiMove : Ai, IAiMove
 	{
 		public AiMove() : base(Native.ZkAi_new(AiType.Move))
 		{
@@ -620,28 +646,34 @@ namespace ZenKit.Vobs
 		{
 		}
 
-		public VirtualObject? Vob
+		public IVirtualObject? Vob
 		{
 			get
 			{
 				var val = Native.ZkAiMove_getVob(Handle);
 				return VirtualObject.FromNative(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkAiMove_setVob(Handle, value?.Handle ?? UIntPtr.Zero);
+			set => Native.ZkAiMove_setVob(Handle, value == null ? UIntPtr.Zero : ((VirtualObject)value).Handle);
 		}
 
-		public Npc? Owner
+		public INpc? Owner
 		{
 			get
 			{
 				var val = Native.ZkAiMove_getOwner(Handle);
 				return new Npc(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkAiMove_setOwner(Handle, value?.Handle ?? UIntPtr.Zero);
+			set => Native.ZkAiMove_setOwner(Handle, value == null ? UIntPtr.Zero : ((Npc)value).Handle);
 		}
 	}
 
-	public class EventManager
+	public interface IEventManager
+	{
+		bool Cleared { get; set; }
+		bool Active { get; set; }
+	}
+
+	public class EventManager : IEventManager
 	{
 		internal readonly UIntPtr Handle;
 
@@ -671,6 +703,42 @@ namespace ZenKit.Vobs
 			get => Native.ZkEventManager_getActive(Handle);
 			set => Native.ZkEventManager_setActive(Handle, value);
 		}
+	}
+
+	public interface IVirtualObject
+	{
+		VirtualObjectType Type { get; }
+		int Id { get; }
+		AxisAlignedBoundingBox BoundingBox { get; set; }
+		Vector3 Position { get; set; }
+		Matrix3x3 Rotation { get; set; }
+		bool ShowVisual { get; set; }
+		SpriteAlignment SpriteCameraFacingMode { get; set; }
+		bool CdStatic { get; set; }
+		bool CdDynamic { get; set; }
+		bool Static { get; set; }
+		ShadowType DynamicShadows { get; set; }
+		bool PhysicsEnabled { get; set; }
+		AnimationType AnimationType { get; set; }
+		int Bias { get; set; }
+		bool Ambient { get; set; }
+		float AnimationStrength { get; set; }
+		float FarClipScale { get; set; }
+		string PresetName { get; set; }
+		string Name { get; set; }
+		IVisual? Visual { get; set; }
+		byte SleepMode { get; set; }
+		float NextOnTimer { get; set; }
+		IAi? Ai { get; set; }
+		IEventManager? EventManager { get; set; }
+		int ChildCount { get; }
+		List<IVirtualObject> Children { get; }
+		IVirtualObject Cache();
+		bool IsCached();
+		IVirtualObject GetChild(int i);
+		void AddChild(IVirtualObject obj);
+		void RemoveChild(int i);
+		void RemoveChildren(Predicate<IVirtualObject> pred);
 	}
 
 	public class VirtualObject : IVirtualObject
@@ -841,17 +909,17 @@ namespace ZenKit.Vobs
 			set => Native.ZkVirtualObject_setNextOnTimer(Handle, value);
 		}
 
-		public Ai? Ai
+		public IAi? Ai
 		{
 			get
 			{
 				var val = Native.ZkVirtualObject_getAi(Handle);
 				return Vobs.Ai.FromNative(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkVirtualObject_setAi(Handle, value?.Handle ?? UIntPtr.Zero);
+			set => Native.ZkVirtualObject_setAi(Handle, value == null ? UIntPtr.Zero : ((Ai)value).Handle);
 		}
 
-		public EventManager? EventManager
+		public IEventManager? EventManager
 		{
 			get
 			{
@@ -859,7 +927,7 @@ namespace ZenKit.Vobs
 				if (val == UIntPtr.Zero) return null;
 				return new EventManager(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkVirtualObject_setEventManager(Handle, value?.Handle ?? UIntPtr.Zero);
+			set => Native.ZkVirtualObject_setEventManager(Handle, value == null ? UIntPtr.Zero : ((EventManager)value).Handle);
 		}
 
 
@@ -971,28 +1039,44 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Spot : VirtualObject
+	public interface ISpot : IVirtualObject
+	{
+	}
+
+	public class Spot : VirtualObject, ISpot
 	{
 		internal Spot(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
-	public class Stair : VirtualObject
+	public interface IStair : IVirtualObject
+	{
+	}
+
+	public class Stair : VirtualObject, IStair
 	{
 		internal Stair(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
-	public class StartPoint : VirtualObject
+	public interface IStartPoint : IVirtualObject
+	{
+	}
+
+	public class StartPoint : VirtualObject, IStartPoint
 	{
 		internal StartPoint(UIntPtr handle) : base(handle)
 		{
 		}
 	}
 
-	public class Level : VirtualObject
+	public interface ILevel : IVirtualObject
+	{
+	}
+
+	public class Level : VirtualObject, ILevel
 	{
 		internal Level(UIntPtr handle) : base(handle)
 		{

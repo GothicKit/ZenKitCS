@@ -2,7 +2,12 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class TriggerScript : Trigger
+	public interface ITriggerScript : IVirtualObject
+	{
+		string Function { get; set; }
+	}
+
+	public class TriggerScript : Trigger, ITriggerScript
 	{
 		public TriggerScript() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCTriggerScript))
 		{

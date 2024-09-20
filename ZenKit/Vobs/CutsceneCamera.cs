@@ -36,7 +36,24 @@ namespace ZenKit.Vobs
 		Custom = 6
 	}
 
-	public class CameraTrajectoryFrame : VirtualObject
+	public interface ICameraTrajectoryFrame : IVirtualObject
+	{
+		float Time { get; set; }
+		float RollAngle { get; set; }
+		float FovScale { get; set; }
+		CameraMotion MotionType { get; set; }
+		CameraMotion MotionTypeFov { get; set; }
+		CameraMotion MotionTypeRoll { get; set; }
+		CameraMotion MotionTypeTimeScale { get; set; }
+		float Tension { get; set; }
+		float CamBias { get; set; }
+		float Continuity { get; set; }
+		float TimeScale { get; set; }
+		bool TimeFixed { get; set; }
+		Matrix4x4 OriginalPose { get; set; }
+	}
+
+	public class CameraTrajectoryFrame : VirtualObject, ICameraTrajectoryFrame
 	{
 		public CameraTrajectoryFrame() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCCamTrj_KeyFrame))
 		{
@@ -129,7 +146,30 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class CutsceneCamera : VirtualObject
+	public interface ICutsceneCamera : IVirtualObject
+	{
+		CameraTrajectory TrajectoryFOR { get; set; }
+		CameraTrajectory TargetTrajectoryFOR { get; set; }
+		CameraLoopType LoopMode { get; set; }
+		CameraLerpType LerpMode { get; set; }
+		bool IgnoreFORVobRotation { get; set; }
+		bool IgnoreFORVobRotationTarget { get; set; }
+		bool Adapt { get; set; }
+		bool EaseFirst { get; set; }
+		bool EaseLast { get; set; }
+		float TotalDuration { get; set; }
+		string AutoFocusVob { get; set; }
+		bool AutoPlayerMovable { get; set; }
+		bool AutoUntriggerLast { get; set; }
+		float AutoUntriggerLastDelay { get; set; }
+		int PositionCount { get; }
+		int TargetCount { get; }
+		int FrameCount { get; }
+		List<ICameraTrajectoryFrame> Frames { get; }
+		ICameraTrajectoryFrame GetFrame(int i);
+	}
+
+	public class CutsceneCamera : VirtualObject, ICutsceneCamera
 	{
 		public CutsceneCamera() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCCSCamera))
 		{
@@ -239,11 +279,11 @@ namespace ZenKit.Vobs
 		public int TargetCount => Native.ZkCutsceneCamera_getTargetCount(Handle);
 		public int FrameCount => (int)Native.ZkCutsceneCamera_getFrameCount(Handle);
 
-		public List<CameraTrajectoryFrame> Frames
+		public List<ICameraTrajectoryFrame> Frames
 		{
 			get
 			{
-				var frames = new List<CameraTrajectoryFrame>();
+				var frames = new List<ICameraTrajectoryFrame>();
 				var count = FrameCount;
 				for (var i = 0; i < count; ++i) frames.Add(GetFrame(i));
 				return frames;
@@ -255,7 +295,7 @@ namespace ZenKit.Vobs
 			Native.ZkCutsceneCamera_del(Handle);
 		}
 
-		public CameraTrajectoryFrame GetFrame(int i)
+		public ICameraTrajectoryFrame GetFrame(int i)
 		{
 			var handle = Native.ZkCutsceneCamera_getFrame(Handle, (ulong)i);
 			return new CameraTrajectoryFrame(Native.ZkObject_takeRef(handle));

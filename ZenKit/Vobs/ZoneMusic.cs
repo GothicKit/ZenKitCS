@@ -2,7 +2,20 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class ZoneMusic : VirtualObject
+	public interface IZoneMusic : IVirtualObject
+	{
+		bool IsEnabled { get; set; }
+		int Priority { get; set; }
+		bool IsEllipsoid { get; set; }
+		float Reverb { get; set; }
+		float Volume { get; set; }
+		bool IsLoop { get; set; }
+		bool LocalEnabled { get; set; }
+		bool DayEntranceDone { get; set; }
+		bool NightEntranceDone { get; set; }
+	}
+
+	public class ZoneMusic : VirtualObject, IZoneMusic
 	{
 		public ZoneMusic() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCZoneMusic))
 		{
@@ -82,7 +95,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class ZoneMusicDefault : ZoneMusic
+	public interface IZoneMusicDefault : IZoneMusic
+	{
+	}
+
+	public class ZoneMusicDefault : ZoneMusic, IZoneMusicDefault
 	{
 		public ZoneMusicDefault() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCZoneMusicDefault))
 		{

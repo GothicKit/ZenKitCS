@@ -2,7 +2,14 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class ParticleEffectController : VirtualObject
+	public interface IParticleEffectController : IVirtualObject
+	{
+		string EffectName { get; set; }
+		bool KillWhenDone { get; set; }
+		bool InitiallyRunning { get; set; }
+	}
+
+	public class ParticleEffectController : VirtualObject, IParticleEffectController
 	{
 		public ParticleEffectController() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCPFXController))
 		{

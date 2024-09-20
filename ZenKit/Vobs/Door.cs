@@ -2,7 +2,14 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class Door : InteractiveObject
+	public interface IDoor : IInteractiveObject
+	{
+		bool IsLocked { get; set; }
+		string Key { get; set; }
+		string PickString { get; set; }
+	}
+
+	public class Door : InteractiveObject, IDoor
 	{
 		public Door() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobDoor))
 		{

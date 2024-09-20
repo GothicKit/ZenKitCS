@@ -3,7 +3,19 @@ using System.Collections.Generic;
 
 namespace ZenKit.Vobs
 {
-	public class Container : InteractiveObject
+	public interface IContainer : IInteractiveObject
+	{
+		bool IsLocked { get; set; }
+		string Key { get; set; }
+		string PickString { get; set; }
+		string Contents { get; set; }
+		int ItemCount { get; }
+		List<IItem> Items { get; }
+		void AddItem(Item item);
+		void RemoveItem(int i);
+	}
+
+	public class Container : InteractiveObject, IContainer
 	{
 		public Container() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCMobContainer))
 		{
@@ -49,11 +61,11 @@ namespace ZenKit.Vobs
 
 		public int ItemCount => (int)Native.ZkContainer_getItemCount(Handle);
 
-		public List<Item> Items
+		public List<IItem> Items
 		{
 			get
 			{
-				var items = new List<Item>();
+				var items = new List<IItem>();
 
 				for (var i = 0; i < ItemCount; ++i)
 				{

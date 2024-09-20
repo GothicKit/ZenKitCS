@@ -2,7 +2,14 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class TriggerWorldStart : VirtualObject
+	public interface ITriggerWorldStart : IVirtualObject
+	{
+		string Target { get; set; }
+		bool FireOnce { get; set; }
+		bool HasFired { get; set; }
+	}
+
+	public class TriggerWorldStart : VirtualObject, ITriggerWorldStart
 	{
 		public TriggerWorldStart() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCTriggerWorldStart))
 		{

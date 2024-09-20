@@ -15,7 +15,24 @@ namespace ZenKit.Vobs
 		Ellipsoidal = 1
 	}
 
-	public class Sound : VirtualObject
+	public interface ISound : IVirtualObject
+	{
+		float Volume { get; set; }
+		SoundMode Mode { get; set; }
+		float RandomDelay { get; set; }
+		float RandomDelayVar { get; set; }
+		bool InitiallyPlaying { get; set; }
+		bool Ambient3d { get; set; }
+		bool Obstruction { get; set; }
+		float ConeAngle { get; set; }
+		SoundTriggerVolumeType VolumeType { get; set; }
+		float Radius { get; set; }
+		string SoundName { get; set; }
+		bool IsRunning { get; set; }
+		bool IsAllowedToRun { get; set; }
+	}
+
+	public class Sound : VirtualObject, ISound
 	{
 		public Sound() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobSound))
 		{
@@ -119,7 +136,14 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class SoundDaytime : Sound
+	public interface ISoundDaytime : ISound
+	{
+		float StartTime { get; set; }
+		float EndTime { get; set; }
+		string SoundNameDaytime { get; set; }
+	}
+
+	public class SoundDaytime : Sound, ISoundDaytime
 	{
 		public SoundDaytime() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobSoundDaytime))
 		{

@@ -2,7 +2,12 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class TriggerUntouch : VirtualObject
+	public interface ITriggerUntouch : IVirtualObject
+	{
+		string Target { get; set; }
+	}
+
+	public class TriggerUntouch : VirtualObject, ITriggerUntouch
 	{
 		public TriggerUntouch() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCTriggerUntouch))
 		{

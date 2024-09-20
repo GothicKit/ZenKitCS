@@ -9,7 +9,23 @@ namespace ZenKit.Vobs
 		Point = 2
 	}
 
-	public class TouchDamage : VirtualObject
+	public interface ITouchDamage : IVirtualObject
+	{
+		float Damage { get; set; }
+		bool IsBarrier { get; set; }
+		bool IsBlunt { get; set; }
+		bool IsEdge { get; set; }
+		bool IsFire { get; set; }
+		bool IsFly { get; set; }
+		bool IsMagic { get; set; }
+		bool IsPoint { get; set; }
+		bool IsFall { get; set; }
+		TimeSpan RepeatDelay { get; set; }
+		float VolumeScale { get; set; }
+		TouchCollisionType CollisionType { get; set; }
+	}
+
+	public class TouchDamage : VirtualObject, ITouchDamage
 	{
 		public TouchDamage() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCTouchDamage))
 		{

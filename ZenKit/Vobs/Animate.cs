@@ -2,7 +2,12 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class Animate : VirtualObject
+	public interface IAnimate : IVirtualObject
+	{
+		bool StartOn { get; set; }
+	}
+
+	public class Animate : VirtualObject, IAnimate
 	{
 		public Animate() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobAnimate))
 		{

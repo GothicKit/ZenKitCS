@@ -3,7 +3,16 @@ using System.Drawing;
 
 namespace ZenKit.Vobs
 {
-	public class ZoneFog : VirtualObject
+	public interface IZoneFog : IVirtualObject
+	{
+		float RangeCenter { get; set; }
+		float InnerRangePercentage { get; set; }
+		Color Color { get; set; }
+		bool FadeOutSky { get; set; }
+		bool OverrideColor { get; set; }
+	}
+
+	public class ZoneFog : VirtualObject, IZoneFog
 	{
 		public ZoneFog() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCZoneZFog))
 		{
@@ -59,7 +68,11 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class ZoneFogDefault : ZoneFog
+	public interface IZoneFogDefault : IZoneFog
+	{
+	}
+
+	public class ZoneFogDefault : ZoneFog, IZoneFogDefault
 	{
 		public ZoneFogDefault() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCZoneZFogDefault))
 		{

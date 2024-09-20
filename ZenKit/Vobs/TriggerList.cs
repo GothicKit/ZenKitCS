@@ -10,7 +10,13 @@ namespace ZenKit.Vobs
 		Random = 2
 	}
 
-	public class TriggerListTarget
+	public interface ITriggerListTarget
+	{
+		string Name { get; set; }
+		TimeSpan Delay { get; set; }
+	}
+
+	public class TriggerListTarget : ITriggerListTarget
 	{
 		private readonly UIntPtr _handle;
 
@@ -32,7 +38,20 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class TriggerList : Trigger
+	public interface ITriggerList : ITrigger
+	{
+		TriggerBatchMode Mode { get; set; }
+		byte ActTarget { get; set; }
+		bool SendOnTrigger { get; set; }
+		int TargetCount { get; }
+		List<ITriggerListTarget> Targets { get; }
+		ITriggerListTarget GetTarget(int i);
+		ITriggerListTarget AddTarget();
+		void RemoveTarget(int i);
+		void RemoveTargets(Predicate<ITriggerListTarget> pred);
+	}
+
+	public class TriggerList : Trigger, ITriggerList
 	{
 		public TriggerList() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCTriggerList))
 		{
@@ -72,23 +91,23 @@ namespace ZenKit.Vobs
 
 		public int TargetCount => (int)Native.ZkTriggerList_getTargetCount(Handle);
 
-		public List<TriggerListTarget> Targets
+		public List<ITriggerListTarget> Targets
 		{
 			get
 			{
-				var targets = new List<TriggerListTarget>();
+				var targets = new List<ITriggerListTarget>();
 				var count = TargetCount;
 				for (var i = 0; i < count; ++i) targets.Add(GetTarget(i));
 				return targets;
 			}
 		}
 
-		public TriggerListTarget GetTarget(int i)
+		public ITriggerListTarget GetTarget(int i)
 		{
 			return new TriggerListTarget(Native.ZkTriggerList_getTarget(Handle, (ulong)i));
 		}
 
-		public TriggerListTarget AddTarget()
+		public ITriggerListTarget AddTarget()
 		{
 			return new TriggerListTarget(Native.ZkTriggerList_addTarget(Handle));
 		}
@@ -98,7 +117,7 @@ namespace ZenKit.Vobs
 			Native.ZkTriggerList_removeTarget(Handle, (ulong)i);
 		}
 
-		public void RemoveTargets(Predicate<TriggerListTarget> pred)
+		public void RemoveTargets(Predicate<ITriggerListTarget> pred)
 		{
 			Native.ZkTriggerList_removeTargets(Handle, (_, ptr) => pred(new TriggerListTarget(ptr)), UIntPtr.Zero);
 		}

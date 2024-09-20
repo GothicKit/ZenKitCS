@@ -2,7 +2,12 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public class LensFlare : VirtualObject
+	public interface ILensFlare : IVirtualObject
+	{
+		string Effect { get; set; }
+	}
+
+	public class LensFlare : VirtualObject, ILensFlare
 	{
 		public LensFlare() : base(Native.ZkVirtualObject_new(VirtualObjectType.zCVobLensFlare))
 		{

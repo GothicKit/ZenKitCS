@@ -24,7 +24,14 @@ namespace ZenKit.Vobs
 		HasDefeated = 170,
 	}
 
-	public class Talent
+	public interface ITalent
+	{
+		int Type { get; set; }
+		int Value { get; set; }
+		int Skill { get; set; }
+	}
+
+	public class Talent : ITalent
 	{
 		internal readonly UIntPtr Handle;
 
@@ -62,7 +69,15 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Slot
+	public interface ISlot
+	{
+		bool Used { get; set; }
+		string Name { get; set; }
+		IItem? Item { get; set; }
+		bool InInventory { get; set; }
+	}
+
+	public class Slot : ISlot
 	{
 		private readonly UIntPtr handle;
 
@@ -84,14 +99,14 @@ namespace ZenKit.Vobs
 			set => Native.ZkNpcSlot_setName(handle, value);
 		}
 
-		public Item? Item
+		public IItem? Item
 		{
 			get
 			{
 				var val = Native.ZkNpcSlot_getItem(handle);
 				return val == UIntPtr.Zero ? null : new Item(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkNpcSlot_setItem(handle, value?.Handle ?? UIntPtr.Zero);
+			set => Native.ZkNpcSlot_setItem(handle, value == null ? UIntPtr.Zero : ((Item)value).Handle);
 		}
 
 		public bool InInventory
@@ -101,7 +116,20 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class News
+	public interface INews
+	{
+		bool Told { get; set; }
+		float SpreadTime { get; set; }
+		NpcNewsSpread SpreadType { get; set; }
+		NpcNewsId NewsId { get; set; }
+		bool Gossip { get; set; }
+		bool GuildVictim { get; set; }
+		string WitnessName { get; set; }
+		string OffenderName { get; set; }
+		string VictimName { get; set; }
+	}
+
+	public class News : INews
 	{
 		private readonly UIntPtr handle;
 
@@ -166,7 +194,108 @@ namespace ZenKit.Vobs
 		}
 	}
 
-	public class Npc : VirtualObject
+	public interface INpc : IVirtualObject
+	{
+		string NpcInstance { get; set; }
+		Vector3 ModelScale { get; set; }
+		float ModelFatness { get; set; }
+		int Flags { get; set; }
+		int Guild { get; set; }
+		int GuildTrue { get; set; }
+		int Level { get; set; }
+		int Xp { get; set; }
+		int XpNextLevel { get; set; }
+		int Lp { get; set; }
+		int FightTactic { get; set; }
+		int FightMode { get; set; }
+		bool Wounded { get; set; }
+		bool Mad { get; set; }
+		int MadTime { get; set; }
+		bool Player { get; set; }
+		string StartAiState { get; set; }
+		string ScriptWaypoint { get; set; }
+		int Attitude { get; set; }
+		int AttitudeTemp { get; set; }
+		int NameNr { get; set; }
+		bool MoveLock { get; set; }
+		bool CurrentStateValid { get; set; }
+		string CurrentStateName { get; set; }
+		int CurrentStateIndex { get; set; }
+		bool CurrentStateIsRoutine { get; set; }
+		bool NextStateValid { get; set; }
+		string NextStateName { get; set; }
+		int NextStateIndex { get; set; }
+		bool NextStateIsRoutine { get; set; }
+		int LastAiState { get; set; }
+		bool HasRoutine { get; set; }
+		bool RoutineChanged { get; set; }
+		bool RoutineOverlay { get; set; }
+		int RoutineOverlayCount { get; set; }
+		int WalkmodeRoutine { get; set; }
+		bool WeaponmodeRoutine { get; set; }
+		bool StartNewRoutine { get; set; }
+		int AiStateDriven { get; set; }
+		Vector3 AiStatePos { get; set; }
+		string CurrentRoutine { get; set; }
+		bool Respawn { get; set; }
+		int RespawnTime { get; set; }
+		int BsInterruptableOverride { get; set; }
+		int NpcType { get; set; }
+		int SpellMana { get; set; }
+		IVirtualObject? CarryVob { get; set; }
+		IVirtualObject? Enemy { get; set; }
+		int OverlayCount { get; }
+		List<string> Overlays { get; set; }
+		int TalentCount { get; }
+		List<ITalent> Talents { get; set; }
+		int ItemCount { get; }
+		List<IItem> Items { get; set; }
+		int SlotCount { get; }
+		List<ISlot> Slots { get; }
+		int NewsCount { get; }
+		List<INews> News { get; }
+		List<int> Protection { get; set; }
+		List<int> Attributes { get; set; }
+		List<int> HitChance { get; set; }
+		List<int> Missions { get; set; }
+		int[] AiVars { get; set; }
+		List<string> Packed { get; set; }
+		string GetOverlay(int i);
+		void ClearOverlays();
+		void RemoveOverlay(int i);
+		void SetOverlay(int i, string overlay);
+		void AddOverlay(string overlay);
+		ITalent GetTalent(int i);
+		void ClearTalents();
+		void RemoveTalent(int i);
+		void SetTalent(int i, ITalent talent);
+		void AddTalent(ITalent talent);
+		IItem GetItem(int i);
+		void ClearItems();
+		void RemoveItem(int i);
+		void SetItem(int i, IItem item);
+		void AddItem(IItem item);
+		ISlot GetSlot(int i);
+		void ClearSlots();
+		void RemoveSlot(int i);
+		ISlot AddSlot();
+		INews GetNews(int i);
+		void ClearNews();
+		void RemoveNews(int i);
+		INews AddNews();
+		int GetProtection(int i);
+		void SetProtection(int i, int v);
+		int GetAttribute(int i);
+		void SetAttribute(int i, int v);
+		int GetHitChance(int i);
+		void SetHitChance(int i, int v);
+		int GetMission(int i);
+		void SetMission(int i, int v);
+		string GetPacked(int i);
+		void SetPacked(int i, string v);
+	}
+
+	public class Npc : VirtualObject, INpc
 	{
 		public Npc() : base(Native.ZkVirtualObject_new(VirtualObjectType.oCNpc))
 		{
@@ -452,24 +581,24 @@ namespace ZenKit.Vobs
 			set => Native.ZkNpc_setSpellMana(Handle, value);
 		}
 
-		public VirtualObject? CarryVob
+		public IVirtualObject? CarryVob
 		{
 			get
 			{
 				var val = Native.ZkNpc_getCarryVob(Handle);
 				return VirtualObject.FromNative(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkNpc_setCarryVob(Handle, value?.Handle ?? System.UIntPtr.Zero);
+			set => Native.ZkNpc_setCarryVob(Handle, value == null ? UIntPtr.Zero : ((VirtualObject)value).Handle);
 		}
 
-		public VirtualObject? Enemy
+		public IVirtualObject? Enemy
 		{
 			get
 			{
 				var val = Native.ZkNpc_getEnemy(Handle);
 				return VirtualObject.FromNative(Native.ZkObject_takeRef(val));
 			}
-			set => Native.ZkNpc_setEnemy(Handle, value?.Handle ?? System.UIntPtr.Zero);
+			set => Native.ZkNpc_setEnemy(Handle, value == null ? UIntPtr.Zero : ((VirtualObject)value).Handle);
 		}
 
 
@@ -524,11 +653,11 @@ namespace ZenKit.Vobs
 
 		public int TalentCount => (int)Native.ZkNpc_getTalentCount(Handle);
 
-		public List<Talent> Talents
+		public List<ITalent> Talents
 		{
 			get
 			{
-				var talents = new List<Talent>();
+				var talents = new List<ITalent>();
 
 				for (var i = 0; i < TalentCount; ++i)
 				{
@@ -546,7 +675,7 @@ namespace ZenKit.Vobs
 		}
 
 
-		public Talent GetTalent(int i)
+		public ITalent GetTalent(int i)
 		{
 			return new Talent(Native.ZkObject_takeRef(Native.ZkNpc_getTalent(Handle, (ulong)i)));
 		}
@@ -561,23 +690,23 @@ namespace ZenKit.Vobs
 			Native.ZkNpc_removeTalent(Handle, (ulong)i);
 		}
 
-		public void SetTalent(int i, Talent talent)
+		public void SetTalent(int i, ITalent talent)
 		{
-			Native.ZkNpc_setTalent(Handle, (ulong)i, talent.Handle);
+			Native.ZkNpc_setTalent(Handle, (ulong)i, ((Talent)talent).Handle);
 		}
 
-		public void AddTalent(Talent talent)
+		public void AddTalent(ITalent talent)
 		{
-			Native.ZkNpc_addTalent(Handle, talent.Handle);
+			Native.ZkNpc_addTalent(Handle, ((Talent)talent).Handle);
 		}
 
 		public int ItemCount => (int)Native.ZkNpc_getItemCount(Handle);
 
-		public List<Item> Items
+		public List<IItem> Items
 		{
 			get
 			{
-				var items = new List<Item>();
+				var items = new List<IItem>();
 
 				for (var i = 0; i < ItemCount; ++i)
 				{
@@ -594,7 +723,7 @@ namespace ZenKit.Vobs
 		}
 
 
-		public Item GetItem(int i)
+		public IItem GetItem(int i)
 		{
 			return new Item(Native.ZkObject_takeRef(Native.ZkNpc_getItem(Handle, (ulong)i)));
 		}
@@ -609,23 +738,23 @@ namespace ZenKit.Vobs
 			Native.ZkNpc_removeItem(Handle, (ulong)i);
 		}
 
-		public void SetItem(int i, Item item)
+		public void SetItem(int i, IItem item)
 		{
-			Native.ZkNpc_setItem(Handle, (ulong)i, item.Handle);
+			Native.ZkNpc_setItem(Handle, (ulong)i, ((Item)item).Handle);
 		}
 
-		public void AddItem(Item item)
+		public void AddItem(IItem item)
 		{
-			Native.ZkNpc_addItem(Handle, item.Handle);
+			Native.ZkNpc_addItem(Handle, ((Item)item).Handle);
 		}
 
 		public int SlotCount => (int)Native.ZkNpc_getSlotCount(Handle);
 
-		public List<Slot> Slots
+		public List<ISlot> Slots
 		{
 			get
 			{
-				var items = new List<Slot>();
+				var items = new List<ISlot>();
 
 				for (var i = 0; i < ItemCount; ++i)
 				{
@@ -636,7 +765,7 @@ namespace ZenKit.Vobs
 			}
 		}
 
-		public Slot GetSlot(int i)
+		public ISlot GetSlot(int i)
 		{
 			return new Slot(Native.ZkNpc_getSlot(Handle, (ulong)i));
 		}
@@ -651,18 +780,18 @@ namespace ZenKit.Vobs
 			Native.ZkNpc_removeSlot(Handle, (ulong)i);
 		}
 
-		public Slot AddSlot()
+		public ISlot AddSlot()
 		{
 			return new Slot(Native.ZkNpc_addSlot(Handle));
 		}
 
 		public int NewsCount => (int)Native.ZkNpc_getNewsCount(Handle);
 
-		public List<News> News
+		public List<INews> News
 		{
 			get
 			{
-				var items = new List<News>();
+				var items = new List<INews>();
 
 				for (var i = 0; i < ItemCount; ++i)
 				{
@@ -673,7 +802,7 @@ namespace ZenKit.Vobs
 			}
 		}
 
-		public News GetNews(int i)
+		public INews GetNews(int i)
 		{
 			return new News(Native.ZkNpc_getNews(Handle, (ulong)i));
 		}
@@ -688,7 +817,7 @@ namespace ZenKit.Vobs
 			Native.ZkNpc_removeSlot(Handle, (ulong)i);
 		}
 
-		public News AddNews()
+		public INews AddNews()
 		{
 			return new News(Native.ZkNpc_addNews(Handle));
 		}
