@@ -69,7 +69,6 @@ namespace ZenKit
             return -1;
         }
 
-        // https://www.codeproject.com/articles/138614/advanced-topics-in-pinvoke-[MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string-marshaling
         public IntPtr MarshalManagedToNative(object ManagedObj)
         {
             if (ManagedObj == null)
@@ -79,7 +78,7 @@ namespace ZenKit
 
             if (!(ManagedObj is string))
             {
-                throw new MarshalDirectiveException("GothicStringMarshaller can only be used on a [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string.");
+                throw new MarshalDirectiveException("GothicStringMarshaller can only be used on a string.");
             }
 
             // not null terminated
