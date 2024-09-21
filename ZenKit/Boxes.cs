@@ -6,11 +6,28 @@ using ZenKit.Util;
 
 namespace ZenKit
 {
+	/// <summary>
+	///   Represents an <see href="https://en.wikipedia.org/wiki/Minimum_bounding_box#Axis-aligned_minimum_bounding_box">axis-aligned bounding box</see>.
+	/// </summary>
 	[Serializable]
 	[StructLayout(LayoutKind.Sequential)]
 	public struct AxisAlignedBoundingBox
 	{
+		/// <summary>
+		/// Constructs a new axis-aligned bounding box from a given minimum and maximum coordinate.
+		/// </summary>
+		/// <param name="min">The coordinate of the minimum corner of the bounding box.</param>
+		/// <param name="max">The coordinate of the maximum corner of the bounding box.</param>
+		public AxisAlignedBoundingBox(Vector3 min, Vector3 max)
+		{
+			Min = min;
+			Max = max;
+		}
+
+		/// <summary>The coordinate of the minimum corner of the bounding box.</summary>
 		public Vector3 Min;
+		
+		/// <summary>The coordinate of the maximum corner of the bounding box.</summary>
 		public Vector3 Max;
 	}
 
