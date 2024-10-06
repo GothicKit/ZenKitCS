@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using ZenKit.Daedalus;
 
 namespace ZenKit
@@ -41,6 +42,21 @@ namespace ZenKit
 
 		public DaedalusInstanceType Type => Native.ZkDaedalusInstance_getType(Handle);
 		public int Index => (int)Native.ZkDaedalusInstance_getIndex(Handle);
+
+		public object? UserData
+		{
+			get
+			{
+				var userPtr = Native.ZkDaedalusInstance_getUserPointer(Handle);
+				return userPtr == IntPtr.Zero ? null : GCHandle.FromIntPtr(userPtr).Target;
+			}
+			set
+			{
+				// TODO: This leaks a handle.
+				var handle = GCHandle.Alloc(value, GCHandleType.Weak);
+				Native.ZkDaedalusInstance_setUserPointer(Handle, GCHandle.ToIntPtr(handle));
+			}
+		}
 
 		public static DaedalusInstance? FromNative(UIntPtr handle)
 		{

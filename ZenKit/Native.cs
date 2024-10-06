@@ -4027,6 +4027,12 @@ namespace ZenKit
 
         [DllImport(DllName)]
         public static extern uint ZkDaedalusInstance_getIndex(UIntPtr ptr);
+        
+        [DllImport(DllName)]
+        public static extern IntPtr ZkDaedalusInstance_getUserPointer(UIntPtr slf);
+        
+        [DllImport(DllName)]
+        public static extern void ZkDaedalusInstance_setUserPointer(UIntPtr slf, IntPtr ptr);
 
         [DllImport(DllName)]
         public static extern UIntPtr ZkDaedalusVm_load(UIntPtr buf);
