@@ -4020,6 +4020,9 @@ namespace ZenKit
         public static extern uint ZkDaedalusSymbol_getIndex(UIntPtr slf);
 
         [DllImport(DllName)]
+        public static extern void ZkDaedalusInstance_release(UIntPtr slf);
+        
+        [DllImport(DllName)]
         public static extern DaedalusDataType ZkDaedalusSymbol_getReturnType(UIntPtr slf);
 
         [DllImport(DllName)]

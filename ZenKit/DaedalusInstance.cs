@@ -38,6 +38,11 @@ namespace ZenKit
 			Handle = handle;
 		}
 
+		~DaedalusInstance()
+		{
+			Native.ZkDaedalusInstance_release(Handle);
+		}
+
 		internal UIntPtr Handle { get; }
 
 		public DaedalusInstanceType Type => Native.ZkDaedalusInstance_getType(Handle);
