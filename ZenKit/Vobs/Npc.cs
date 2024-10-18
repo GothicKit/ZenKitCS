@@ -890,7 +890,7 @@ namespace ZenKit.Vobs
 			Native.ZkNpc_setAttribute(Handle, (ulong)i, v);
 		}
 
-		public const int HitChanceCount = 8;
+		public const int HitChanceCount = 4;
 
 		public List<int> HitChance
 		{
@@ -924,7 +924,7 @@ namespace ZenKit.Vobs
 			Native.ZkNpc_setHitChance(Handle, (ulong)i, v);
 		}
 
-		public const int MissionCount = 8;
+		public const int MissionCount = 5;
 
 		public List<int> Missions
 		{
@@ -964,7 +964,7 @@ namespace ZenKit.Vobs
 			set => Native.ZkNpc_setAiVars(Handle, value, (ulong)value.Length);
 		}
 
-		public const int PackedCount = 8;
+		public const int PackedCount = 9;
 
 		public List<string> Packed
 		{
