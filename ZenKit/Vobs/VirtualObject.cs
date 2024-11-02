@@ -671,6 +671,7 @@ namespace ZenKit.Vobs
 	{
 		bool Cleared { get; set; }
 		bool Active { get; set; }
+		CutsceneContext? Cutscene { get; set; }
 	}
 
 	public class EventManager : IEventManager
@@ -702,6 +703,16 @@ namespace ZenKit.Vobs
 		{
 			get => Native.ZkEventManager_getActive(Handle);
 			set => Native.ZkEventManager_setActive(Handle, value);
+		}
+
+		public CutsceneContext? Cutscene
+		{
+			get
+			{
+				var handle = Native.ZkEventManager_getCutscene(Handle);
+				return handle == UIntPtr.Zero ? null : new CutsceneContext(handle);
+			}
+			set => Native.ZkEventManager_setCutscene(Handle, value?.Handle ?? UIntPtr.Zero);
 		}
 	}
 

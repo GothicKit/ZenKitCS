@@ -39,10 +39,23 @@ namespace ZenKit
 			set => Native.ZkCutscenePlayer_setLastProcessHour(Handle, value);
 		}
 
-		public int PlayListCount
+		public int PlayListCount => Native.ZkCutscenePlayer_getPlayListCount(Handle);
+
+		public List<CutsceneContext> PlayLists
 		{
-			get => Native.ZkCutscenePlayer_getPlayListCount(Handle);
-			set => Native.ZkCutscenePlayer_setPlayListCount(Handle, value);
+			get
+			{
+				var list = new List<CutsceneContext>();
+				var count = PlayListCount;
+				for (var i = 0; i < count; i++) list.Add(GetPlayList(i) ?? throw new NativeAccessError());
+				return list;
+			} 
+		}
+
+		public CutsceneContext? GetPlayList(int index)
+		{
+			var handle = Native.ZkCutscenePlayer_getPlayListItem(Handle, (uint)index);
+			return handle == UIntPtr.Zero ? null : new CutsceneContext(handle);
 		}
 
 		~CutscenePlayer()

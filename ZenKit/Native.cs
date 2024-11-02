@@ -305,6 +305,12 @@ namespace ZenKit
         public static extern UIntPtr ZkCutsceneBlock_getMessage(UIntPtr slf);
 
         [DllImport(DllName)]
+        public static extern void ZkCutsceneBlock_setMessage(UIntPtr slf, UIntPtr msg);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneBlock_release(UIntPtr slf);
+        
+        [DllImport(DllName)]
         public static extern uint ZkCutsceneMessage_getType(UIntPtr slf);
 
         [DllImport(DllName)]
@@ -312,6 +318,174 @@ namespace ZenKit
 
         [DllImport(DllName)]
         public static extern IntPtr ZkCutsceneMessage_getName(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneMessage_getIsHighPriority(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneMessage_getIsUsed(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneMessage_getIsDeleted(UIntPtr slf);
+
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneMessage_setType(UIntPtr slf, uint value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneMessage_setText(UIntPtr slf,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneMessage_setName(UIntPtr slf,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneMessage_setIsHighPriority(UIntPtr slf, bool value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneMessage_setIsUsed(UIntPtr slf, bool value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneMessage_setIsDeleted(UIntPtr slf, bool value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneMessage_release(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkCutsceneProps_new();
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_release(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern IntPtr ZkCutsceneProps_getName(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneProps_getIsGlobal(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneProps_getIsLoop(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneProps_getHasToBeTriggered(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern float ZkCutsceneProps_getDistance(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern float ZkCutsceneProps_getRange(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern int ZkCutsceneProps_getLockedBlockCount(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern uint ZkCutsceneProps_getRunBehaviour(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern int ZkCutsceneProps_getRunBehaviourValue(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern IntPtr ZkCutsceneProps_getStageName(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern IntPtr ZkCutsceneProps_getScriptFunctionOnStop(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setName(UIntPtr slf,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setIsGlobal(UIntPtr slf, bool value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setIsLoop(UIntPtr slf, bool value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setHasToBeTriggered(UIntPtr slf, bool value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setDistance(UIntPtr slf, float value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setRange(UIntPtr slf, float value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setLockedBlockCount(UIntPtr slf, int value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setRunBehaviour(UIntPtr slf, uint value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setRunBehaviourValue(UIntPtr slf, int value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setStageName(UIntPtr slf,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneProps_setScriptFunctionOnStop(UIntPtr slf,
+            [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string value);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkCutsceneContext_new();
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_release(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkCutsceneContext_getProps(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern int ZkCutsceneContext_getRoleCount(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern int ZkCutsceneContext_getRoleVobCount(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkCutsceneContext_getNpc(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkCutsceneContext_getMainRole(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneContext_getIsCutscene(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern int ZkCutsceneContext_getReference(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern int ZkCutsceneContext_getActualBlock(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern bool ZkCutsceneContext_getWasTriggered(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setProps(UIntPtr slf, UIntPtr value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setRoleCount(UIntPtr slf, int value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setRoleVobCount(UIntPtr slf, int value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setNpc(UIntPtr slf, UIntPtr value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setMainRole(UIntPtr slf, UIntPtr value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setIsCutscene(UIntPtr slf, bool value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setReference(UIntPtr slf, int value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setActualBlock(UIntPtr slf, int value);
+
+        [DllImport(DllName)]
+        public static extern void ZkCutsceneContext_setWasTriggered(UIntPtr slf, bool value);
 
         [DllImport(DllName)]
         public static extern UIntPtr ZkFont_load(UIntPtr buf);
@@ -1400,13 +1574,13 @@ namespace ZenKit
         public static extern int ZkCutscenePlayer_getPlayListCount(UIntPtr slf);
 
         [DllImport(DllName)]
+        public static extern UIntPtr ZkCutscenePlayer_getPlayListItem(UIntPtr slf, uint item);
+
+        [DllImport(DllName)]
         public static extern void ZkCutscenePlayer_setLastProcessDay(UIntPtr slf, int val);
 
         [DllImport(DllName)]
         public static extern void ZkCutscenePlayer_setLastProcessHour(UIntPtr slf, int val);
-
-        [DllImport(DllName)]
-        public static extern void ZkCutscenePlayer_setPlayListCount(UIntPtr slf, int val);
 
         [DllImport(DllName)]
         public static extern UIntPtr ZkSkyController_new();
@@ -1838,6 +2012,12 @@ namespace ZenKit
 
         [DllImport(DllName)]
         public static extern void ZkEventManager_setActive(UIntPtr slf, bool active);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkEventManager_getCutscene(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern void ZkEventManager_setCutscene(UIntPtr slf, UIntPtr cutscene);
 
         [DllImport(DllName)]
         public static extern UIntPtr ZkCutsceneCamera_load(UIntPtr buf, GameVersion version);
