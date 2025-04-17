@@ -641,6 +641,297 @@ namespace ZenKit
 				cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9);
 			});
 		}
+		
+		public void OverrideFunction<TR>(string name, ExternalFunc<TR> cb)
+		{
+			OverrideFunctionUnsafe(name, vm => vm.Push(cb()));
+		}
+
+		public void OverrideFunction<TR, TP0>(string name, ExternalFunc<TR, TP0> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1>(string name, ExternalFunc<TR, TP0, TP1> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2>(string name, ExternalFunc<TR, TP0, TP1, TP2> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2, TP3>(string name, ExternalFunc<TR, TP0, TP1, TP2, TP3> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2, TP3, TP4>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2, TP3, TP4, TP5>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6, p7));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8));
+			});
+		}
+
+		public void OverrideFunction<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9>(string name,
+			ExternalFunc<TR, TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p9 = vm.Pop<TP9>();
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				vm.Push(cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9));
+			});
+		}
+
+		public void OverrideFunction(string name, ExternalFuncV cb)
+		{
+			OverrideFunctionUnsafe(name, _ => cb());
+		}
+
+		public void OverrideFunction<TP0>(string name, ExternalFuncV<TP0> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p0 = vm.Pop<TP0>();
+				cb(p0);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1>(string name, ExternalFuncV<TP0, TP1> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2>(string name, ExternalFuncV<TP0, TP1, TP2> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2, TP3>(string name, ExternalFuncV<TP0, TP1, TP2, TP3> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2, p3);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2, TP3, TP4>(string name, ExternalFuncV<TP0, TP1, TP2, TP3, TP4> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2, p3, p4);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2, TP3, TP4, TP5>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2, TP3, TP4, TP5, TP6>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6, p7);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6, p7, p8);
+			});
+		}
+
+		public void OverrideFunction<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9>(string name,
+			ExternalFuncV<TP0, TP1, TP2, TP3, TP4, TP5, TP6, TP7, TP8, TP9> cb)
+		{
+			OverrideFunctionUnsafe(name, vm =>
+			{
+				var p9 = vm.Pop<TP9>();
+				var p8 = vm.Pop<TP8>();
+				var p7 = vm.Pop<TP7>();
+				var p6 = vm.Pop<TP6>();
+				var p5 = vm.Pop<TP5>();
+				var p4 = vm.Pop<TP4>();
+				var p3 = vm.Pop<TP3>();
+				var p2 = vm.Pop<TP2>();
+				var p1 = vm.Pop<TP1>();
+				var p0 = vm.Pop<TP0>();
+				cb(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+			});
+		}
 
 		private void Push<T>(T value)
 		{
@@ -702,6 +993,17 @@ namespace ZenKit
 			var gcHandle = GCHandle.Alloc(cb);
 			_externalCallbacks.Add(gcHandle);
 			Native.ZkDaedalusVm_registerExternal(Handle, sym.Handle, _nativeExternalCallback,
+				GCHandle.ToIntPtr(gcHandle));
+		}
+		
+		private void OverrideFunctionUnsafe(string name, ExternalFunc cb)
+		{
+			var sym = GetSymbolByName(name);
+			if (sym == null) throw new Exception("Symbol not found");
+			
+			var gcHandle = GCHandle.Alloc(cb);
+			_externalCallbacks.Add(gcHandle);
+			Native.ZkDaedalusVm_overrideFunction(Handle, name, _nativeExternalCallback,
 				GCHandle.ToIntPtr(gcHandle));
 		}
 

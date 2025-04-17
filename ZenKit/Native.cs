@@ -4300,6 +4300,11 @@ namespace ZenKit
         public static extern void ZkDaedalusVm_registerExternal(UIntPtr slf, UIntPtr sym,
             ZkDaedalusVmExternalCallback cb,
             IntPtr ctx);
+        
+        [DllImport(DllName)]
+        public static extern void ZkDaedalusVm_overrideFunction(UIntPtr slf, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string sym,
+            ZkDaedalusVmExternalCallback cb,
+            IntPtr ctx);
 
         [DllImport(DllName)]
         public static extern void ZkDaedalusVm_registerExternalDefault(UIntPtr slf,
