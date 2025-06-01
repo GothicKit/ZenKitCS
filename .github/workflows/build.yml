@@ -29,7 +29,7 @@ jobs:
       - name: 'Build'
         run: 'dotnet build ZenKit -c Release -o __build && dotnet pack -c Release -o ./__publish/ -v detailed ZenKit'
       - name: 'Publish'
-        uses: 'actions/upload-artifact@v3'
+        uses: 'actions/upload-artifact@v4'
         with:
           name: 'NuGet Package'
           path: '__publish'
