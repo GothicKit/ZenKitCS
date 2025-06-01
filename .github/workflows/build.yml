@@ -36,7 +36,7 @@ jobs:
       - name: 'Copy Artifacts'
         run: 'mkdir Artifacts && mv ZenKit/runtimes Artifacts/ && cp __build/ZenKit.dll Artifacts/ && echo "Copy the native library for your OS from the `runtime` folder into the same folder `ZenKit.dll` is in." > Artifacts/README.md'
       - name: 'Publish'
-        uses: 'actions/upload-artifact@v3'
+        uses: 'actions/upload-artifact@v4'
         with:
           name: 'Managed DLL'
           path: 'Artifacts'
