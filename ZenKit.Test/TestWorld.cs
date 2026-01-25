@@ -292,17 +292,17 @@ public class TestWorld
 		var edge100 = edges[100];
 		var edge500 = edges[500];
 
-		Assert.That(edge0.A, Is.EqualTo(20));
-		Assert.That(edge0.B, Is.EqualTo(21));
+		Assert.That(edge0.A.Name, Is.EqualTo(points[20].Name));
+		Assert.That(edge0.B.Name, Is.EqualTo(points[21].Name));
 
 		// edge 6 is a reference
-		Assert.That(edge5.A, Is.EqualTo(28));
-		Assert.That(edge5.B, Is.EqualTo(30));
+		Assert.That(edge5.A.Name, Is.EqualTo(points[28].Name));
+		Assert.That(edge5.B.Name, Is.EqualTo(points[30].Name));
 
-		Assert.That(edge100.A, Is.EqualTo(123));
-		Assert.That(edge100.B, Is.EqualTo(126));
+		Assert.That(edge100.A.Name, Is.EqualTo(points[123].Name));
+		Assert.That(edge100.B.Name, Is.EqualTo(points[126].Name));
 
-		Assert.That(edge500.A, Is.EqualTo(521));
-		Assert.That(edge500.B, Is.EqualTo(515));
+		Assert.That(edge500.A.Name, Is.EqualTo(points[521].Name));
+		Assert.That(edge500.B.Name, Is.EqualTo(points[515].Name));
 	}
 }

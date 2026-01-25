@@ -1436,7 +1436,10 @@ namespace ZenKit
         public static extern IntPtr ZkBspSector_getPortalPolygonIndices(UIntPtr slf, out ulong count);
 
         [DllImport(DllName)]
-        public static extern IntPtr ZkWayNet_getEdges(UIntPtr slf, out ulong count);
+        public static extern ulong ZkWayNet_getEdgeCount(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkWayNet_getEdge(UIntPtr slf, ulong i);
 
         [DllImport(DllName)]
         public static extern ulong ZkWayNet_getPointCount(UIntPtr slf);
@@ -1461,6 +1464,12 @@ namespace ZenKit
 
         [DllImport(DllName)]
         public static extern bool ZkWayPoint_getFreePoint(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkWayEdge_getStartPoint(UIntPtr slf);
+
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkWayEdge_getEndPoint(UIntPtr slf);
 
         [DllImport(DllName)]
         public static extern UIntPtr ZkWorld_load(UIntPtr buf);

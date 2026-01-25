@@ -6,12 +6,6 @@ using ZenKit.Util;
 
 namespace ZenKit
 {
-	[Serializable]
-	[StructLayout(LayoutKind.Sequential, Size = 8)]
-	public struct WayEdge
-	{
-		public int A, B;
-	}
 
 	public interface IWayPoint : ICacheable<IWayPoint>
 	{
@@ -81,9 +75,60 @@ namespace ZenKit
 		}
 	}
 
+	public interface IWayEdge : ICacheable<IWayEdge>
+	{
+		public IWayPoint A { get; }
+		public IWayPoint B { get; }
+	}
+
+	[Serializable]
+	public struct CachedWayEdge : IWayEdge
+	{
+		public IWayPoint A { get; set; }
+		public IWayPoint B { get; set; }
+
+		public IWayEdge Cache()
+		{
+			return this;
+		}
+
+		public bool IsCached()
+		{
+			return true;
+		}
+	}
+
+	public class WayEdge : IWayEdge
+	{
+		private readonly UIntPtr _handle;
+
+		internal WayEdge(UIntPtr handle)
+		{
+			_handle = handle;
+		}
+
+		public IWayPoint A => new WayPoint(Native.ZkWayEdge_getStartPoint(_handle));
+		public IWayPoint B => new WayPoint(Native.ZkWayEdge_getEndPoint(_handle));
+
+		public IWayEdge Cache()
+		{
+			return new CachedWayEdge
+			{
+				A = A.Cache(),
+				B = B.Cache(),
+			};
+		}
+
+		public bool IsCached()
+		{
+			return false;
+		}
+	}
+
+
 	public interface IWayNet : ICacheable<IWayNet>
 	{
-		public List<WayEdge> Edges { get; }
+		public List<IWayEdge> Edges { get; }
 		public List<IWayPoint> Points { get; }
 		public int PointCount { get; }
 		public IWayPoint GetPoint(int i);
@@ -92,7 +137,7 @@ namespace ZenKit
 	[Serializable]
 	public class CachedWayNet : IWayNet
 	{
-		public List<WayEdge> Edges { get; set; }
+		public List<IWayEdge> Edges { get; set; }
 		public List<IWayPoint> Points { get; set; }
 		public int PointCount => Points.Count;
 
@@ -121,8 +166,19 @@ namespace ZenKit
 			_handle = handle;
 		}
 
-		public List<WayEdge> Edges => Native.ZkWayNet_getEdges(_handle, out var count).MarshalAsList<WayEdge>(count);
 		public int PointCount => (int)Native.ZkWayNet_getPointCount(_handle);
+		public int EdgeCount => (int)Native.ZkWayNet_getEdgeCount(_handle);
+
+		public List<IWayEdge> Edges
+		{
+			get
+			{
+				var edges = new List<IWayEdge>();
+				var count = EdgeCount;
+				for (var i = 0; i < count; ++i) edges.Add(GetEdge(i));
+				return edges;
+			}
+		}
 
 		public List<IWayPoint> Points
 		{
@@ -140,7 +196,7 @@ namespace ZenKit
 			return new CachedWayNet
 			{
 				Points = Points.ConvertAll(point => point.Cache()),
-				Edges = Edges
+				Edges = Edges.ConvertAll(edge => edge.Cache()),
 			};
 		}
 
@@ -152,6 +208,11 @@ namespace ZenKit
 		public IWayPoint GetPoint(int i)
 		{
 			return new WayPoint(Native.ZkWayNet_getPoint(_handle, (ulong)i));
+		}
+
+		public IWayEdge GetEdge(int i)
+		{
+			return new WayEdge(Native.ZkWayNet_getEdge(_handle, (ulong)i));
 		}
 	}
 }
