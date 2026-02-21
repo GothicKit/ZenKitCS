@@ -2,7 +2,7 @@ using System;
 
 namespace ZenKit.Vobs
 {
-	public interface ITriggerScript : IVirtualObject
+	public interface ITriggerScript : ITrigger
 	{
 		string Function { get; set; }
 	}
