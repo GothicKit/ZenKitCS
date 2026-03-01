@@ -4189,7 +4189,19 @@ namespace ZenKit
 
         [DllImport(DllName)]
         public static extern bool ZkDaedalusSymbol_getHasReturn(UIntPtr slf);
+        
+        [DllImport(DllName)]
+        public static extern void ZkDaedalusSymbol_setAccessTrapEnabled(UIntPtr slf, bool enable);
+        
+        [DllImport(DllName)]
+        public static extern bool  ZkDaedalusSymbol_getAccessTrapEnabled(UIntPtr slf);
 
+        [DllImport(DllName)]
+        public static extern void ZkDaedalusSymbol_setLocalVariablesEnabled(UIntPtr slf, bool enable);
+        
+        [DllImport(DllName)]
+        public static extern bool  ZkDaedalusSymbol_getLocalVariablesEnabled(UIntPtr slf);
+        
         [DllImport(DllName)]
         public static extern IntPtr ZkDaedalusSymbol_getName(UIntPtr slf);
 
@@ -4227,13 +4239,13 @@ namespace ZenKit
         public static extern void ZkDaedalusInstance_setUserPointer(UIntPtr slf, IntPtr ptr);
 
         [DllImport(DllName)]
-        public static extern UIntPtr ZkDaedalusVm_load(UIntPtr buf);
+        public static extern UIntPtr ZkDaedalusVm_load(UIntPtr buf, byte flags);
 
         [DllImport(DllName)]
-        public static extern UIntPtr ZkDaedalusVm_loadPath([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string path);
+        public static extern UIntPtr ZkDaedalusVm_loadPath([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string path, byte flags);
 
         [DllImport(DllName)]
-        public static extern UIntPtr ZkDaedalusVm_loadVfs(UIntPtr vfs, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string name);
+        public static extern UIntPtr ZkDaedalusVm_loadVfs(UIntPtr vfs, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string name, byte flags);
 
         [DllImport(DllName)]
         public static extern void ZkDaedalusVm_del(UIntPtr slf);
@@ -4318,6 +4330,10 @@ namespace ZenKit
         [DllImport(DllName)]
         public static extern void ZkDaedalusVm_registerExternalDefault(UIntPtr slf,
             ZkDaedalusVmExternalDefaultCallback cb,
+            IntPtr ctx);
+
+        [DllImport(DllName)]
+        public static extern void ZkDaedalusVm_setAccessTrapCallback(UIntPtr slf, ZkDaedalusVmTrapCallback cb,
             IntPtr ctx);
 
         [DllImport(DllName)]
@@ -7899,6 +7915,9 @@ namespace ZenKit
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
             public delegate void ZkDaedalusVmExternalDefaultCallback(IntPtr ctx, UIntPtr vm, UIntPtr sym);
+            
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+            public delegate void ZkDaedalusVmTrapCallback(IntPtr ctx, UIntPtr sym);
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
             public delegate void ZkLogger(IntPtr ctx, LogLevel lvl, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string name, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string message);

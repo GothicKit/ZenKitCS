@@ -6,8 +6,17 @@ using ZenKit.Util;
 
 namespace ZenKit
 {
+	public static class DaedalusExecutionFlags
+	{
+		public const byte Default = 0;
+		public const byte AllowNullInstanceAccess = 1 << 1;
+		public const byte IgnoreConstSpecifier = 1 << 2;
+	}
+	
 	public class DaedalusVm : DaedalusScript
 	{
+		public delegate void AccessTrapCallback(DaedalusSymbol sym);
+			
 		public delegate void ExternalDefaultFunction(DaedalusVm vm, DaedalusSymbol sym);
 
 		public delegate TR ExternalFunc<out TR>();
@@ -73,18 +82,21 @@ namespace ZenKit
 
 		private readonly Native.Callbacks.ZkDaedalusVmExternalDefaultCallback _nativeExternalCallbackDefault =
 			_nativeExternalCallbackDefaultHandle;
+		
+		private readonly Native.Callbacks.ZkDaedalusVmTrapCallback _nativeTrapCallback =
+			_nativeTrapCallbackHandler;
 
-		public DaedalusVm(string path) : base(Native.ZkDaedalusVm_loadPath(path), true)
+		public DaedalusVm(string path, byte flags = DaedalusExecutionFlags.Default) : base(Native.ZkDaedalusVm_loadPath(path, flags), true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
 		}
 
-		public DaedalusVm(Read r) : base(Native.ZkDaedalusVm_load(r.Handle), true)
+		public DaedalusVm(Read r, byte flags = DaedalusExecutionFlags.Default) : base(Native.ZkDaedalusVm_load(r.Handle, flags), true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
 		}
 
-		public DaedalusVm(Vfs vfs, string name) : base(Native.ZkDaedalusVm_loadVfs(vfs.Handle, name), true)
+		public DaedalusVm(Vfs vfs, string name, byte flags = DaedalusExecutionFlags.Default) : base(Native.ZkDaedalusVm_loadVfs(vfs.Handle, name, flags), true)
 		{
 			if (Handle == UIntPtr.Zero) throw new Exception("Failed to load DaedalusVm");
 		}
@@ -349,6 +361,13 @@ namespace ZenKit
 			_externalCallbacks.Add(gcHandle);
 			Native.ZkDaedalusVm_registerExternalDefault(Handle, _nativeExternalCallbackDefault,
 				GCHandle.ToIntPtr(gcHandle));
+		}
+		
+		public void SetAccessTrapCallback(AccessTrapCallback cb)
+		{
+			var gcHandle = GCHandle.Alloc(cb);
+			_externalCallbacks.Add(gcHandle);
+			Native.ZkDaedalusVm_setAccessTrapCallback(Handle, _nativeTrapCallback, GCHandle.ToIntPtr(gcHandle));
 		}
 
 		public void RegisterExternal<TR>(string name, ExternalFunc<TR> cb)
@@ -1021,6 +1040,14 @@ namespace ZenKit
 			var gcHandle = GCHandle.FromIntPtr(ctx);
 			var cb = (ExternalDefaultFunction)gcHandle.Target;
 			cb(new DaedalusVm(vm), new DaedalusSymbol(sym));
+		}
+
+		[MonoPInvokeCallback]
+		private static void _nativeTrapCallbackHandler(IntPtr ctx, UIntPtr sym)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var cb = (AccessTrapCallback)gcHandle.Target;
+			cb(new DaedalusSymbol(sym));
 		}
 
 		private delegate void ExternalFunc(DaedalusVm vm);

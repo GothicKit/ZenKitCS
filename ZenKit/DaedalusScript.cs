@@ -96,6 +96,19 @@ namespace ZenKit
 		public bool IsMerged => Native.ZkDaedalusSymbol_getIsMerged(Handle);
 		public bool IsGenerated => Native.ZkDaedalusSymbol_getIsGenerated(Handle);
 		public bool HasReturn => Native.ZkDaedalusSymbol_getHasReturn(Handle);
+
+		public bool UseAccessTrap
+		{
+			get => Native.ZkDaedalusSymbol_getAccessTrapEnabled(Handle);
+			set => Native.ZkDaedalusSymbol_setAccessTrapEnabled(Handle, value);
+		}
+		
+		public bool UseLocalVariables
+		{
+			get => Native.ZkDaedalusSymbol_getLocalVariablesEnabled(Handle);
+			set => Native.ZkDaedalusSymbol_setLocalVariablesEnabled(Handle, value);
+		}
+		
 		public string Name => Native.ZkDaedalusSymbol_getName(Handle).MarshalAsString() ?? string.Empty;
 		public int Address => Native.ZkDaedalusSymbol_getAddress(Handle);
 		public int Parent => Native.ZkDaedalusSymbol_getParent(Handle);
