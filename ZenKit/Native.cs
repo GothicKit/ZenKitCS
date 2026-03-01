@@ -48,11 +48,11 @@ namespace ZenKit
 
     internal class GothicStringMarshaller : ICustomMarshaler
     {
-        private static GothicStringMarshaller _instance = new GothicStringMarshaller();
+        public static readonly GothicStringMarshaller Instance = new GothicStringMarshaller();
 
         public static ICustomMarshaler GetInstance(string cookie)
         {
-            return _instance;
+            return Instance;
         }
 
         public void CleanUpManagedData(object ManagedObj)
@@ -4224,6 +4224,16 @@ namespace ZenKit
         public static extern void ZkDaedalusInstance_release(UIntPtr slf);
         
         [DllImport(DllName)]
+        public static extern UIntPtr ZkDaedalusInstance_newTransient(IntPtr ctx, 
+                ZkDaedalusTransientInstanceIntGetter getInt,
+                ZkDaedalusTransientInstanceIntSetter setInt,
+                ZkDaedalusTransientInstanceFloatGetter getFloat,
+                ZkDaedalusTransientInstanceFloatSetter setFloat,
+                ZkDaedalusTransientInstanceStringGetter getString,
+                ZkDaedalusTransientInstanceStringSetter setString
+            );
+        
+        [DllImport(DllName)]
         public static extern DaedalusDataType ZkDaedalusSymbol_getReturnType(UIntPtr slf);
 
         [DllImport(DllName)]
@@ -7933,6 +7943,24 @@ namespace ZenKit
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
             public delegate bool ZkVirtualObjectEnumerator(UIntPtr ctx, UIntPtr vob);
+
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+            public delegate int ZkDaedalusTransientInstanceIntGetter(IntPtr ctx, UIntPtr sym, ushort idx);
+
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+            public delegate void ZkDaedalusTransientInstanceIntSetter(IntPtr ctx, UIntPtr sym, ushort idx, int val);
+                
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+            public delegate float ZkDaedalusTransientInstanceFloatGetter(IntPtr ctx, UIntPtr sym, ushort idx);
+                
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+            public delegate void ZkDaedalusTransientInstanceFloatSetter(IntPtr ctx, UIntPtr sym, ushort idx, float val);
+                
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+            public delegate IntPtr ZkDaedalusTransientInstanceStringGetter(IntPtr ctx, UIntPtr sym, ushort idx);
+                
+            [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+            public delegate void ZkDaedalusTransientInstanceStringSetter(IntPtr ctx, UIntPtr sym, ushort idx, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string val);
         }
 
         public class Structs

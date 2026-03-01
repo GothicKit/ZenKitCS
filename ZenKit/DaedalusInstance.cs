@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using ZenKit.Daedalus;
+using ZenKit.Util;
 
 namespace ZenKit
 {
@@ -92,6 +94,122 @@ namespace ZenKit
 				DaedalusInstanceType.Svm => new SvmInstance(handle),
 				_ => new DaedalusInstance(handle)
 			};
+		}
+
+		public static DaedalusInstance CreateTransient(IDaedalusTransientInstance impl)
+		{
+			return new DaedalusInstance(IDaedalusTransientInstance.Create(impl));
+		}
+	}
+
+	public interface IDaedalusTransientInstance
+	{
+		private static readonly List<GCHandle> KeepaliveList = new List<GCHandle>();
+		private static readonly Native.Callbacks.ZkDaedalusTransientInstanceIntGetter NativeIntGetterCallback =
+			_nativeIntGetterCallbackHandler;
+		
+		private static readonly Native.Callbacks.ZkDaedalusTransientInstanceIntSetter NativeIntSetterCallback =
+			_nativeIntSetterCallbackHandler;
+		
+		private static readonly Native.Callbacks.ZkDaedalusTransientInstanceFloatGetter NativeFloatGetterCallback =
+			_nativeFloatGetterCallbackHandler;
+		
+		private static readonly Native.Callbacks.ZkDaedalusTransientInstanceFloatSetter NativeFloatSetterCallback =
+			_nativeFloatSetterCallbackHandler;
+		
+		private static readonly Native.Callbacks.ZkDaedalusTransientInstanceStringGetter NativeStringGetterCallback =
+			_nativeStringGetterCallbackHandler;
+		
+		private static readonly Native.Callbacks.ZkDaedalusTransientInstanceStringSetter NativeStringSetterCallback =
+			_nativeStringSetterCallbackHandler;
+
+		internal static UIntPtr Create(IDaedalusTransientInstance impl)
+		{
+			
+			var ptr = GCHandle.Alloc(impl);
+			KeepaliveList.Add(ptr);
+			return Native.ZkDaedalusInstance_newTransient(
+				GCHandle.ToIntPtr(ptr),
+				NativeIntGetterCallback,
+				NativeIntSetterCallback,
+				NativeFloatGetterCallback,
+				NativeFloatSetterCallback,
+				NativeStringGetterCallback,
+				NativeStringSetterCallback
+			);
+		}
+		
+		public static void ReleaseAll()
+		{
+			KeepaliveList.ForEach(handle => handle.Free());
+			KeepaliveList.Clear();
+		}
+
+		public void SetInt(DaedalusSymbol sym, ushort idx, int val);
+		public void SetFloat(DaedalusSymbol sym, ushort idx, float val);
+		public void SetString(DaedalusSymbol sym, ushort idx, string val);
+
+		public int GetInt(DaedalusSymbol sym, ushort idx);
+		public float GetFloat(DaedalusSymbol sym, ushort idx);
+		public string GetString(DaedalusSymbol sym, ushort idx);
+		
+		[MonoPInvokeCallback]
+		private static int _nativeIntGetterCallbackHandler(IntPtr ctx, UIntPtr sym, ushort idx)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var impl = (IDaedalusTransientInstance)gcHandle.Target;
+			return impl.GetInt(new DaedalusSymbol(sym), idx);
+		}
+		
+		[MonoPInvokeCallback]
+		private static void _nativeIntSetterCallbackHandler(IntPtr ctx, UIntPtr sym, ushort idx, int val)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var impl = (IDaedalusTransientInstance)gcHandle.Target;
+			impl.SetInt(new DaedalusSymbol(sym), idx, val);
+		}
+		
+		[MonoPInvokeCallback]
+		private static float _nativeFloatGetterCallbackHandler(IntPtr ctx, UIntPtr sym, ushort idx)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var impl = (IDaedalusTransientInstance)gcHandle.Target;
+			return impl.GetFloat(new DaedalusSymbol(sym), idx);
+		}
+		
+		[MonoPInvokeCallback]
+		private static void _nativeFloatSetterCallbackHandler(IntPtr ctx, UIntPtr sym, ushort idx, float val)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var impl = (IDaedalusTransientInstance)gcHandle.Target;
+			impl.SetFloat(new DaedalusSymbol(sym), idx, val);
+		}
+		
+		private static IntPtr _stringCache = IntPtr.Zero;
+		
+		[MonoPInvokeCallback]
+		private static IntPtr _nativeStringGetterCallbackHandler(IntPtr ctx, UIntPtr sym, ushort idx)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var impl = (IDaedalusTransientInstance)gcHandle.Target;
+
+			// Need to avoid memory leaks
+			if (_stringCache != IntPtr.Zero)
+			{
+				Marshal.FreeHGlobal(_stringCache);
+				_stringCache = IntPtr.Zero;
+			}
+			
+			_stringCache = GothicStringMarshaller.Instance.MarshalManagedToNative(impl.GetString(new DaedalusSymbol(sym), idx));
+			return _stringCache;
+		}
+		
+		[MonoPInvokeCallback]
+		private static void _nativeStringSetterCallbackHandler(IntPtr ctx, UIntPtr sym, ushort idx, string val)
+		{
+			var gcHandle = GCHandle.FromIntPtr(ctx);
+			var impl = (IDaedalusTransientInstance)gcHandle.Target;
+			impl.SetString(new DaedalusSymbol(sym), idx, val);
 		}
 	}
 }
