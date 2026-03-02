@@ -7,7 +7,7 @@ jobs:
       fail-fast: false
       matrix:
         system:
-          - 'windows-2019'
+          - 'windows-latest'
           - 'ubuntu-latest'
     runs-on: '${{matrix.system}}'
     steps:
