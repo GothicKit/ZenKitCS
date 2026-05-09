@@ -4283,6 +4283,12 @@ namespace ZenKit
 
         [DllImport(DllName)]
         public static extern UIntPtr ZkDaedalusVm_popInstance(UIntPtr slf);
+        
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkDaedalusVm_popReference(UIntPtr slf, out byte idx, out UIntPtr ctx);
+        
+        [DllImport(DllName)]
+        public static extern bool ZkDaedalusVm_isTopOfStackReference(UIntPtr slf);
 
         [DllImport(DllName)]
         public static extern UIntPtr ZkDaedalusVm_getGlobalSelf(UIntPtr slf);

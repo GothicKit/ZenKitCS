@@ -104,6 +104,8 @@ namespace ZenKit
 		private DaedalusVm(UIntPtr handle) : base(handle, false)
 		{
 		}
+		
+		public bool IsTopOfStackReference => Native.ZkDaedalusVm_isTopOfStackReference(Handle);
 
 		public DaedalusInstance? GlobalSelf
 		{
@@ -998,6 +1000,14 @@ namespace ZenKit
 			if (typeof(T) == typeof(void)) return (T)new object();
 
 			throw new InvalidOperationException("Unsupported type: " + typeof(T));
+		}
+
+		public DaedalusSymbol PopReference(out int index, out DaedalusInstance? context)
+		{
+			var ptr = Native.ZkDaedalusVm_popReference(Handle, out var idx, out var ctx);
+			index = idx;
+			context = DaedalusInstance.FromNative(ctx);
+			return new DaedalusSymbol(ptr);
 		}
 
 		private void RegisterExternalUnsafe(string name, ExternalFunc cb)
