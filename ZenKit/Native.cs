@@ -4191,6 +4191,12 @@ namespace ZenKit
         public static extern bool ZkDaedalusSymbol_getHasReturn(UIntPtr slf);
         
         [DllImport(DllName)]
+        public static extern uint ZkDaedalusSymbol_getClassSize(UIntPtr slf);
+        
+        [DllImport(DllName)]
+        public static extern uint ZkDaedalusSymbol_getOffsetAsMember(UIntPtr slf);
+        
+        [DllImport(DllName)]
         public static extern void ZkDaedalusSymbol_setAccessTrapEnabled(UIntPtr slf, bool enable);
         
         [DllImport(DllName)]

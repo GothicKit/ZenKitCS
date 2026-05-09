@@ -96,6 +96,9 @@ namespace ZenKit
 		public bool IsMerged => Native.ZkDaedalusSymbol_getIsMerged(Handle);
 		public bool IsGenerated => Native.ZkDaedalusSymbol_getIsGenerated(Handle);
 		public bool HasReturn => Native.ZkDaedalusSymbol_getHasReturn(Handle);
+		public uint ClassSize => Native.ZkDaedalusSymbol_getClassSize(Handle);
+		public uint OffsetAsMember => Native.ZkDaedalusSymbol_getOffsetAsMember(Handle);
+		
 
 		public bool UseAccessTrap
 		{
