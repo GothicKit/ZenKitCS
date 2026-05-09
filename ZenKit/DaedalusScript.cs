@@ -137,6 +137,16 @@ namespace ZenKit
 			return Native.ZkDaedalusSymbol_getInt(Handle, index, context?.Handle ?? UIntPtr.Zero);
 		}
 
+		public DaedalusInstance? GetInstance()
+		{
+			return DaedalusInstance.FromNative(Native.ZkDaedalusSymbol_getInstance(Handle));
+		}
+
+		public void SetInstance(DaedalusInstance? instance)
+		{
+			Native.ZkDaedalusSymbol_setInstance(Handle, instance?.Handle ?? UIntPtr.Zero);
+		}
+
 		public void SetString(string value, ushort index, DaedalusInstance? context = null)
 		{
 			Native.ZkDaedalusSymbol_setString(Handle, value, index, context?.Handle ?? UIntPtr.Zero);

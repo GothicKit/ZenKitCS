@@ -4165,12 +4165,18 @@ namespace ZenKit
 
         [DllImport(DllName)]
         public static extern void ZkDaedalusSymbol_setString(UIntPtr slf, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(GothicStringMarshaller))] string value, ushort index, UIntPtr context);
+        
+        [DllImport(DllName)]
+        public static extern UIntPtr ZkDaedalusSymbol_getInstance(UIntPtr slf);
 
         [DllImport(DllName)]
         public static extern void ZkDaedalusSymbol_setFloat(UIntPtr slf, float value, ushort index, UIntPtr context);
 
         [DllImport(DllName)]
         public static extern void ZkDaedalusSymbol_setInt(UIntPtr slf, int value, ushort index, UIntPtr context);
+        
+        [DllImport(DllName)]
+        public static extern void ZkDaedalusSymbol_setInstance(UIntPtr slf, UIntPtr value);
 
         [DllImport(DllName)]
         public static extern bool ZkDaedalusSymbol_getIsConst(UIntPtr slf);
