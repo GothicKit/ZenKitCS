@@ -4291,6 +4291,12 @@ namespace ZenKit
         public static extern bool ZkDaedalusVm_isTopOfStackReference(UIntPtr slf);
 
         [DllImport(DllName)]
+        public static extern uint ZkDaedalusVm_getProgramCounter(UIntPtr slf);
+        
+        [DllImport(DllName)]
+        public static extern void ZkDaedalusVm_jumpUnsafe(UIntPtr slf, uint pc);
+
+        [DllImport(DllName)]
         public static extern UIntPtr ZkDaedalusVm_getGlobalSelf(UIntPtr slf);
 
         [DllImport(DllName)]

@@ -106,6 +106,7 @@ namespace ZenKit
 		}
 		
 		public bool IsTopOfStackReference => Native.ZkDaedalusVm_isTopOfStackReference(Handle);
+		public uint ProgramCounter => Native.ZkDaedalusVm_getProgramCounter(Handle);
 
 		public DaedalusInstance? GlobalSelf
 		{
@@ -146,6 +147,11 @@ namespace ZenKit
 		public void PrintStackTrace()
 		{
 			Native.ZkDaedalusVm_printStackTrace(Handle);
+		}
+
+		public void JumpUnsafe(uint pc)
+		{
+			Native.ZkDaedalusVm_jumpUnsafe(Handle, pc);
 		}
 
 		public T AllocInstance<T>(string symbolName)
